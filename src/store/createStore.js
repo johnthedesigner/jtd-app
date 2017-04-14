@@ -6,7 +6,6 @@ import Reducers from './combineReducers'
 import initialState from './initialState'
 
 export default () => {
-
   let composeEnhancers = compose
 
   const store = createStore(

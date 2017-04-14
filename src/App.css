@@ -22,3 +22,18 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.artboard__wrapper {
+  margin: 2rem auto;
+}
+.artboard__frame {
+  position: relative;
+  border: #444444 solid 1px;
+  min-width: 200px;
+  min-height: 200px;
+}
+.layer__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
