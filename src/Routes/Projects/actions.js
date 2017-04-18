@@ -1,46 +1,19 @@
-import { consoleGroup } from './utils'
 import {
-  FETCHING_FILE,
+  SELECT_ARTBOARD,
+  SELECT_LAYER,
 } from './constants'
 
-export function fetchingFile() {
+export function selectArtboard(artboardId) {
   return {
-    type: FETCHING_FILE
+    type: SELECT_ARTBOARD,
+    artboardId
   }
 }
 
-export function fetchAndParseFile(unparsedData, headerRow) {
-  return dispatch => {
-    dispatch(fetchingFile())
-    let json = CSV.parse(unparsedData, {
-      header: headerRow,
-      dynamicTyping: true
-    })
-    if (json.errors.length > 0) dispatch(fileParseError(json.errors))
-    let dataset = buildDataset(json.data)
-    dispatch(storeFileData(dataset))
-  }
-}
-
-export function updateSelectionIndices(selectedIndexes, selectedRows) {
+export function selectLayer(artboardId, layerId) {
   return {
-    type: UPDATE_SELECTION_INDICES,
-    selectedIndexes,
-    selectedRows
-  }
-}
-
-export function updateSort(sortColumn, sortDirection) {
-  return {
-    type: UPDATE_SORT,
-    sortColumn,
-    sortDirection
-  }
-}
-
-export function updateFilters(filters) {
-  return {
-    type: UPDATE_FILTER,
-    filters
+    type: SELECT_LAYER,
+    artboardId,
+    layerId
   }
 }

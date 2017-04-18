@@ -1,0 +1,38 @@
+// Editor Layout
+.editor-view__tab-bar {
+  background: #222222;
+  height: 2rem;
+}
+.editor-view__body {
+  display: flex;
+  flex-direction: row;
+}
+.editor-view__main-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.editor-view__sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  min-width: 200px;
+  background: #111111;
+}
+
+// Workspace
+.artboard__wrapper {
+  margin: 2rem auto;
+}
+.artboard__frame {
+  position: relative;
+  min-width: 200px;
+  min-height: 200px;
+  background: white;
+  border: #444444 solid 1px;
+}
+.layer__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

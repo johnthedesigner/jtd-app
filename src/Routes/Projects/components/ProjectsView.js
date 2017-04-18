@@ -6,8 +6,6 @@ import ProjectListItem from './ProjectListItem'
 class ProjectsView extends React.Component {
   render() {
 
-    console.log(this.props.match.path)
-
     const { Projects } = this.props
 
     return (

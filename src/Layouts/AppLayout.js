@@ -5,7 +5,6 @@ import HomeView from '../Routes/Home/components/HomeView'
 import ProjectsListContainer from '../Routes/Projects/containers/ProjectsListContainer'
 import EditorContainer from '../Routes/Projects/containers/EditorContainer'
 
-import Header from '../components/Header'
 import '../App.css'
 
 class AppLayout extends React.Component {
@@ -13,7 +12,6 @@ class AppLayout extends React.Component {
 
     return (
       <div className='app-layout--container'>
-        <Header />
         <div className='app-layout__body'>
           <Route exact path='/' component={HomeView}/>
           <Route exact path='/projects' component={ProjectsListContainer}/>

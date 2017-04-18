@@ -24,7 +24,20 @@ class Layer extends React.Component {
       }
     }
 
-    const { layer } = this.props
+    const {
+      artboardId,
+      layer,
+      selections,
+      selectLayer
+    } = this.props
+
+    const isLayerSelected = () => {
+      if (layer.id === selections.layerId && artboardId === selections.artboardId) {
+        return ' is-selected'
+      } else {
+        return ' not-selected'
+      }
+    }
 
     const wrapperStyles = {
       marginLeft: layer.dimensions.x + 'px',
@@ -34,7 +47,13 @@ class Layer extends React.Component {
     }
 
     return (
-      <div className="layer__wrapper" style={wrapperStyles}>
+      <div
+        className={'layer__wrapper' + isLayerSelected()}
+        onClick={(e) => {
+          e.stopPropagation()
+          selectLayer(artboardId, layer.id)
+        }}
+        style={wrapperStyles}>
         {layerType(layer)}
       </div>
     )

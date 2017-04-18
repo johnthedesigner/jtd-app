@@ -4,7 +4,7 @@ import _ from 'lodash'
 import ProjectsView from '../components/ProjectsView'
 
 const mapStateToProps = (state) => ({
-  Projects: _.map(state.Projects,(p) => { return p })
+  Projects: _.map(state.Projects.items,(p) => { return p })
 })
 
 const ProjectsListContainer = connect(

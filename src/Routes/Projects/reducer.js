@@ -1,15 +1,30 @@
 import { consoleGroup } from '../../utils'
 import {
-  FETCHING_FILE,
+  SELECT_ARTBOARD,
+  SELECT_LAYER,
 } from './constants'
 
 // Files Reducer
 export default function Projects(state = {}, action) {
   switch (action.type) {
-    case FETCHING_FILE:
-      consoleGroup('FETCHING_FILE',[action])
+    case SELECT_ARTBOARD:
+      consoleGroup('SELECT_ARTBOARD',[action])
+      let newState = Object.assign({},state,{
+        selections: Object.assign({},state.selections,{
+          artboardId: action.artboardId,
+          layerId: null
+        })
+      })
+      console.log(newState)
+      return newState
+
+    case SELECT_LAYER:
+      consoleGroup('SELECT_LAYER',[action])
       return Object.assign({},state,{
-        isLoading: true
+        selections: Object.assign({},state.selections,{
+          artboardId: action.artboardId,
+          layerId: action.layerId
+        })
       })
 
     default:

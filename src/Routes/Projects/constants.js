@@ -1,1 +1,2 @@
-export const FETCHING_FILE = 'FETCHING_FILE'
+export const SELECT_ARTBOARD = 'SELECT_ARTBOARD'
+export const SELECT_LAYER = 'SELECT_LAYER'

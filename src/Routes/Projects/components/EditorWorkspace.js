@@ -7,12 +7,22 @@ import Artboard from './Artboard'
 class EditorWorkspace extends React.Component {
   render() {
 
-    const { artboards } = this.props
+    const {
+      artboards,
+      selections,
+      selectArtboard,
+      selectLayer
+    } = this.props
 
     return (
       <div className="editor-workspace__artboard-List">
         {_.map(artboards,(artboard,index) => { return (
-          <Artboard key={index} {...artboard}/>
+          <Artboard
+            key={index}
+            {...artboard}
+            selections={selections}
+            selectArtboard={selectArtboard}
+            selectLayer={selectLayer}/>
         )})}
       </div>
     )
@@ -20,7 +30,7 @@ class EditorWorkspace extends React.Component {
 }
 
 EditorWorkspace.propTypes = {
-  artboards : PropTypes.object.isRequired
+  artboards : PropTypes.array.isRequired
 }
 
 export default EditorWorkspace

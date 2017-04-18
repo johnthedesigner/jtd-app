@@ -8,7 +8,8 @@ class TextLayer extends React.Component {
 
     const shapeStyles = {
       width: layer.dimensions.width * layer.dimensions.scaleX + 'px',
-      height: layer.dimensions.height * layer.dimensions.scaleY + 'px'
+      height: layer.dimensions.height * layer.dimensions.scaleY + 'px',
+      color: layer.color
     }
 
     return (

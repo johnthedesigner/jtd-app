@@ -1,0 +1,53 @@
+.artboard__wrapper {
+  margin: 2rem auto;
+}
+.artboard__frame {
+  position: relative;
+  border: #444444 solid 1px;
+  min-width: 200px;
+  min-height: 200px;
+
+  &.is-selected {
+    border-color: black;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
+      box-shadow: 0 0 10px 3px blue;
+      pointer-events: none;
+    }
+  }
+}
+.layer__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &:hover:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border: cyan solid 1px;
+    pointer-events: none;
+  }
+  &.is-selected:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border: #00F solid 1px;
+    pointer-events: none;
+  }
+}
