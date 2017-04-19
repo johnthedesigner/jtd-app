@@ -1,8 +1,10 @@
 import { connect } from 'react-redux'
 
 import {
+  highlightLayer,
   selectArtboard,
   selectLayer,
+  toggleArtboardItem,
 } from '../actions'
 
 import EditorView from '../components/EditorView'
@@ -10,11 +12,17 @@ import '../styles/editor.css'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    selectArtboard: (projectId, artboardId) => {
-      dispatch(selectArtboard(projectId, artboardId))
+    selectArtboard: (artboardId) => {
+      dispatch(selectArtboard(artboardId))
     },
-    selectLayer: (projectId, artboardId, layerId) => {
-      dispatch(selectLayer(projectId, artboardId, layerId))
+    selectLayer: (artboardId, layerId) => {
+      dispatch(selectLayer(artboardId, layerId))
+    },
+    highlightLayer: (artboardId, layerId) => {
+      dispatch(highlightLayer(artboardId, layerId))
+    },
+    toggleArtboardItem: (projectId, artboardId) => {
+      dispatch(toggleArtboardItem(projectId, artboardId))
     }
   }
 }

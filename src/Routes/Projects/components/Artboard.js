@@ -8,21 +8,32 @@ class Artboard extends React.Component {
   render() {
 
     const {
+      artboardColor,
       id,
       title,
       height,
       width,
       layers,
       selections,
+      highlights,
       selectArtboard,
-      selectLayer
+      selectLayer,
+      highlightLayer
     } = this.props
 
-    const isArtboardSelected = () => {
+    const toggleSelected = () => {
       if (id === selections.artboardId) {
         return ' is-selected'
       } else {
         return ' not-selected'
+      }
+    }
+
+    const toggleHighlighted = () => {
+      if (id === highlights.artboardId) {
+        return ' is-highlighted'
+      } else {
+        return ' not-highlighted'
       }
     }
 
@@ -37,19 +48,33 @@ class Artboard extends React.Component {
 
     return (
       <div className='artboard__wrapper' style={wrapperStyles}>
-        <div className='artboard__header' onClick={selectArtboard}>{title}</div>
         <div
-          className={'artboard__frame' + isArtboardSelected()}
+          className='artboard__header'
+          onClick={(e) => {
+            e.stopPropagation()
+            selectArtboard(id)
+          }}>
+            {title}
+          </div>
+        <div
+          className={'artboard__frame' + toggleSelected() + toggleHighlighted()}
           style={frameStyles}
-          onClick={() => selectArtboard(id)}>
+          onClick={(e) => {
+            e.stopPropagation()
+            selectArtboard(id)
+          }}>
           {_.map(layers,(layer,index) => { return (
             <Layer
+              artboardColor={artboardColor}
               artboardId={id}
               key={index}
               layer={layer}
               selections={selections}
-              selectLayer={selectLayer}/>
+              highlights={highlights}
+              selectLayer={selectLayer}
+              highlightLayer={highlightLayer}/>
           )})}
+          <div className='artboard__selection-indicator'></div>
         </div>
       </div>
     )
@@ -60,7 +85,9 @@ Artboard.propTypes = {
   title: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  layers : PropTypes.array.isRequired
+  layers : PropTypes.array.isRequired,
+  selections: PropTypes.object.isRequired,
+  highlights: PropTypes.object.isRequired
 }
 
 export default Artboard

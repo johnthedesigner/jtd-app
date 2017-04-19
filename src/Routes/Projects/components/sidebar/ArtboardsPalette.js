@@ -2,10 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+import { artboardColors } from '../artboardColors'
+import ArtboardListItem from './ArtboardListItem'
+
 class ArtboardsPalette extends React.Component {
   render() {
 
-    const { artboards } = this.props
+    const {
+      match,
+      artboards,
+      selections,
+      selectArtboard,
+      selectLayer,
+      highlightLayer,
+      toggleArtboardItem,
+    } = this.props
 
     return (
       <div className="artboards-palette__wrapper">
@@ -16,7 +27,16 @@ class ArtboardsPalette extends React.Component {
 
         <div className="artboards-palette__artboards-list">
           {_.map(artboards,(artboard,index) => { return (
-            <p key={index}>{artboard.title}</p>
+            <ArtboardListItem
+              artboardColor={artboardColors[index]}
+              match={match}
+              key={index}
+              {...artboard}
+              selections={selections}
+              selectArtboard={selectArtboard}
+              selectLayer={selectLayer}
+              highlightLayer={highlightLayer}
+              toggleArtboardItem={toggleArtboardItem}/>
           )})}
         </div>
       </div>

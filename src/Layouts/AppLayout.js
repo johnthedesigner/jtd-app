@@ -15,7 +15,7 @@ class AppLayout extends React.Component {
         <div className='app-layout__body'>
           <Route exact path='/' component={HomeView}/>
           <Route exact path='/projects' component={ProjectsListContainer}/>
-          <Route exact path='/projects/:id' component={EditorContainer}/>
+          <Route exact path='/projects/:projectId' component={EditorContainer}/>
         </div>
       </div>
     )

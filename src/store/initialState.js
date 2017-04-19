@@ -179,8 +179,11 @@ const initialState = {
       }
     ],
     selections: {
-      projectId: 'project_one',
       artboardId: 0,
+      layerId: null
+    },
+    highlights: {
+      artboardId: null,
       layerId: null
     }
   }

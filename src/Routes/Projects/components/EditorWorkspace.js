@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+import { artboardColors } from './artboardColors'
 import Artboard from './Artboard'
 
 class EditorWorkspace extends React.Component {
@@ -10,19 +11,24 @@ class EditorWorkspace extends React.Component {
     const {
       artboards,
       selections,
+      highlights,
       selectArtboard,
-      selectLayer
+      selectLayer,
+      highlightLayer
     } = this.props
 
     return (
       <div className="editor-workspace__artboard-List">
         {_.map(artboards,(artboard,index) => { return (
           <Artboard
+            artboardColor={artboardColors[index]}
             key={index}
             {...artboard}
             selections={selections}
+            highlights={highlights}
             selectArtboard={selectArtboard}
-            selectLayer={selectLayer}/>
+            selectLayer={selectLayer}
+            highlightLayer={highlightLayer}/>
         )})}
       </div>
     )

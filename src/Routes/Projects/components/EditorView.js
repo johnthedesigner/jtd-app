@@ -16,9 +16,11 @@ class EditorView extends React.Component {
       Projects,
       match,
       selectArtboard,
-      selectLayer
+      selectLayer,
+      highlightLayer,
+      toggleArtboardItem,
     } = this.props
-    const project = _.keyBy(Projects.items,'id')[match.params.id]
+    const project = _.keyBy(Projects.items,'id')[match.params.projectId]
 
     return (
       <div className='editor-view__wrapper'>
@@ -29,21 +31,29 @@ class EditorView extends React.Component {
 
         <div className='editor-view__body'>
 
-          <div className='editor-view__main-area'>
+          <div className='editor-view__main-area' onClick={() => {
+            selectArtboard(null, null)
+          }}>
             <EditorActionBar/>
             <EditorWorkspace
               selections={Projects.selections}
+              highlights={Projects.highlights}
               artboards={project.artboards}
               selectArtboard={selectArtboard}
-              selectLayer={selectLayer}/>
+              selectLayer={selectLayer}
+              highlightLayer={highlightLayer}/>
           </div>
 
           <div className='editor-view__sidebar'>
             <ArtboardsPalette
+              match={match}
               selections={Projects.selections}
+              highlights={Projects.highlights}
               artboards={project.artboards}
               selectArtboard={selectArtboard}
-              selectLayer={selectLayer}/>
+              selectLayer={selectLayer}
+              highlightLayer={highlightLayer}
+              toggleArtboardItem={toggleArtboardItem}/>
           </div>
         </div>
       </div>
