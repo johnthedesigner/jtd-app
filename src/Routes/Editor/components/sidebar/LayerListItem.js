@@ -6,23 +6,18 @@ class Layer extends React.Component {
 
     const {
       artboardId,
+      highlightLayer,
       layer,
-      selections,
       selectLayer,
-      highlightLayer
     } = this.props
 
-    const isLayerSelected = () => {
-      if (layer.id === selections.layerId && artboardId === selections.artboardId) {
-        return ' is-selected'
-      } else {
-        return ' not-selected'
-      }
+    const toggleSelected = () => {
+      return (layer.isSelected) ? ' is-selected' : ''
     }
 
     return (
       <div
-        className={'layer-list-item__wrapper' + isLayerSelected()}
+        className={'layer-list-item__wrapper' + toggleSelected()}
         onClick={(e) => {
           e.stopPropagation() // Prevent click from bubbling up to artboard
           selectLayer(artboardId, layer.id)

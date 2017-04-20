@@ -8,7 +8,7 @@ class ProjectListItem extends React.Component {
 
     return (
       <div className='projects-list__project'>
-        <h3><Link to={'/projects/'+project.id}>{project.title}</Link></h3>
+        <h3><Link to={'/editor/'+project.id}>{project.title}</Link></h3>
         <hr/>
       </div>
     )

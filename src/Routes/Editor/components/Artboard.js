@@ -9,32 +9,20 @@ class Artboard extends React.Component {
 
     const {
       artboardColor,
-      id,
-      title,
       height,
-      width,
+      highlightLayer,
+      id,
+      isSelected,
       layers,
-      selections,
-      highlights,
+      layerSelected,
       selectArtboard,
       selectLayer,
-      highlightLayer
+      title,
+      width,
     } = this.props
 
     const toggleSelected = () => {
-      if (id === selections.artboardId) {
-        return ' is-selected'
-      } else {
-        return ' not-selected'
-      }
-    }
-
-    const toggleHighlighted = () => {
-      if (id === highlights.artboardId) {
-        return ' is-highlighted'
-      } else {
-        return ' not-highlighted'
-      }
+      return (isSelected || layerSelected) ? ' is-selected' : ''
     }
 
     const wrapperStyles = {
@@ -57,7 +45,7 @@ class Artboard extends React.Component {
             {title}
           </div>
         <div
-          className={'artboard__frame' + toggleSelected() + toggleHighlighted()}
+          className={'artboard__frame' + toggleSelected()}
           style={frameStyles}
           onClick={(e) => {
             e.stopPropagation()
@@ -69,8 +57,6 @@ class Artboard extends React.Component {
               artboardId={id}
               key={index}
               layer={layer}
-              selections={selections}
-              highlights={highlights}
               selectLayer={selectLayer}
               highlightLayer={highlightLayer}/>
           )})}
@@ -82,12 +68,12 @@ class Artboard extends React.Component {
 }
 
 Artboard.propTypes = {
+  artboardColor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  layers : PropTypes.array.isRequired,
-  selections: PropTypes.object.isRequired,
-  highlights: PropTypes.object.isRequired
+  layers: PropTypes.array.isRequired,
+  selectArtboard: PropTypes.func.isRequired,
 }
 
 export default Artboard

@@ -13,22 +13,25 @@ class ArtboardListItem extends React.Component {
       highlightLayer,
       id,
       isCollapsed,
+      isSelected,
       layers,
+      layerSelected,
       match,
-      title,
       selectArtboard,
-      selections,
       selectLayer,
+      title,
       toggleArtboardItem,
     } = this.props
 
-    const isArtboardSelected = () => {
-      if (id === selections.artboardId && selections.layerId === null) {
-        return ' is-selected'
-      } else {
-        return ' not-selected'
-      }
+    const toggleSelected = () => {
+      return (isSelected) ? ' is-selected' : ''
     }
+
+    const toggleLayerSelected = () => {
+      return (layerSelected) ? ' layer-selected' : ''
+    }
+
+    const listItemClassNames = toggleSelected() + toggleLayerSelected()
 
     const artboardGroupStyles = {
       borderColor: artboardColor
@@ -37,10 +40,10 @@ class ArtboardListItem extends React.Component {
     return (
       <div
         style={artboardGroupStyles}
-        className={'artboard-list-item__group-wrapper' + isArtboardSelected()}>
+        className={'artboard-list-item__group-wrapper' + listItemClassNames}>
         <div className='artboard-list-item__item-wrapper'>
           <ActionIcon
-            iconType={isCollapsed ? 'angle-right' : 'angle-down'}
+            iconType={isCollapsed ? 'caret-right' : 'caret-down'}
             onClick={() => {
               toggleArtboardItem(match.params.projectId, id)
             }}/>
@@ -49,6 +52,7 @@ class ArtboardListItem extends React.Component {
             onClick={() => selectArtboard(id)}>
             {title}
           </div>
+          <ActionIcon iconType='dot-circle-o' className="artboard-list-item__layer-selected-indicator"/>
         </div>
         <div
           className='artboard-list-item__frame'
@@ -60,7 +64,6 @@ class ArtboardListItem extends React.Component {
                 artboardId={id}
                 key={index}
                 layer={layer}
-                selections={selections}
                 selectLayer={selectLayer}
                 highlightLayer={highlightLayer}/>
             )})}

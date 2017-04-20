@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import Projects from '../Routes/Projects/reducer'
+import Editor from '../Routes/Editor/reducer'
 
 const Reducers = combineReducers({
-  Projects,
+  Editor,
 })
 
 export default Reducers

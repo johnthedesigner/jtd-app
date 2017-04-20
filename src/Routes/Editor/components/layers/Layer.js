@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Color from 'color'
 
-
+import { layerTypes } from '../../../../store/entities/Layers'
+import ResizeHandles from './ResizeHandles'
 import ImageLayer from './ImageLayer'
 import RectangleLayer from './RectangleLayer'
 import TextLayer from './TextLayer'
@@ -12,13 +13,13 @@ class Layer extends React.Component {
 
     const layerType = (layer) => {
       switch (layer.type) {
-        case 'image':
+        case layerTypes.IMG:
           return ( <ImageLayer layer={layer}/> )
 
-        case 'rectangle':
+        case layerTypes.RECT:
           return ( <RectangleLayer layer={layer}/> )
 
-        case 'text':
+        case layerTypes.TEXT:
           return ( <TextLayer layer={layer}/> )
 
         default:
@@ -30,26 +31,16 @@ class Layer extends React.Component {
       artboardColor,
       artboardId,
       layer,
-      selections,
-      highlights,
       highlightLayer,
-      selectLayer
+      selectLayer,
     } = this.props
 
     const toggleSelected = () => {
-      if (layer.id === selections.layerId && artboardId === selections.artboardId) {
-        return ' is-selected'
-      } else {
-        return ' not-selected'
-      }
+      return (layer.isSelected) ? ' is-selected' : ''
     }
 
     const toggleHighlighted = () => {
-      if (layer.id === highlights.layerId && artboardId === highlights.artboardId) {
-        return ' is-highlighted'
-      } else {
-        return ' not-highighted'
-      }
+      return (layer.isHighlighted) ? ' is-highlighted' : ''
     }
 
     const wrapperStyles = {
@@ -81,6 +72,7 @@ class Layer extends React.Component {
         {layerType(layer)}
         <div className='layer__highlight-indicator' style={highlightStyles}></div>
         <div className='layer__selection-indicator'></div>
+        <ResizeHandles layerId={layer.id} artboardId={artboardId}/>
       </div>
     )
   }
@@ -89,8 +81,6 @@ class Layer extends React.Component {
 Layer.propTypes = {
   artboardId: PropTypes.number.isRequired,
   layer: PropTypes.object.isRequired,
-  selections: PropTypes.object.isRequired,
-  highlights: PropTypes.object.isRequired
 }
 
 export default Layer

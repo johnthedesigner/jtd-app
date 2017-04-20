@@ -14,7 +14,7 @@ class ProjectsView extends React.Component {
         <hr/>
         {Projects.map((project,index) => {
             return(
-              <ProjectListItem key={project.slug} project={project}/>
+              <ProjectListItem key={project.id} project={project}/>
             )
           }
         )}
