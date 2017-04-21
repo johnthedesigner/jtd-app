@@ -2,6 +2,7 @@
   "name": "jtd-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://johnthedesigner.github.io/jtd-app",
   "dependencies": {
     "color": "^1.0.3",
     "lodash": "^4.17.4",
