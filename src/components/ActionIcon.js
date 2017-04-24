@@ -8,8 +8,9 @@ class ActionIcon extends React.Component {
 
     return (
       <i
-        className={'fa fa-' + iconType + ' ' + className}
+        className={'material-icons ' + className}
         onClick={this.props.onClick}>
+        {iconType}
       </i>
     )
   }

@@ -186,3 +186,7 @@
     padding: 0 .5em;
   }
 }
+
+.material-icons {
+  font-size: 1em; // TODO: find out why the library defaults to 24px
+}

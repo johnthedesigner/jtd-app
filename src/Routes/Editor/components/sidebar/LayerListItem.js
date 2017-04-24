@@ -40,12 +40,14 @@ class Layer extends React.Component {
           highlightLayer(null, null)
         }}>
         <div className='layer-list-item__layer-type'>
-          <i className='fa fa-photo'></i>
+          <ActionIcon
+            iconType='image'
+            className='layer-list-item__layer-type-icon'/>
         </div>
         <div className='layer-list-item__label'>{layer.title}</div>
         <div className='layer-list-item__visibility-toggle'>
           <ActionIcon
-            iconType='eye-slash'
+            iconType={layer.hide ? 'visibility_off' : 'visibility_on'}
             className='layer-list-item__show-hide'
             onClick={(e) => {
               showHideLayer(layer.id)

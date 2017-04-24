@@ -44,7 +44,7 @@ class ArtboardListItem extends React.Component {
         className={'artboard-list-item__group-wrapper' + listItemClassNames}>
         <div className='artboard-list-item__item-wrapper'>
           <ActionIcon
-            iconType={isCollapsed ? 'caret-right' : 'caret-down'}
+            iconType={isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
             onClick={() => {
               toggleArtboardItem(match.params.projectId, id)
             }}/>
