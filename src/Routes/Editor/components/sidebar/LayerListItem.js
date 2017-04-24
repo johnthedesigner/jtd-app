@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import ActionIcon from '../../../../components/ActionIcon'
+
 class Layer extends React.Component {
   render() {
 
@@ -9,15 +11,24 @@ class Layer extends React.Component {
       highlightLayer,
       layer,
       selectLayer,
+      showHideLayer,
     } = this.props
 
     const toggleSelected = () => {
       return (layer.isSelected) ? ' is-selected' : ''
     }
 
+    const toggleHidden = () => {
+      return (layer.hide) ? ' is-hidden' : ''
+    }
+
     return (
       <div
-        className={'layer-list-item__wrapper' + toggleSelected()}
+        className={
+          'layer-list-item__wrapper'
+          + toggleSelected()
+          + toggleHidden()
+        }
         onClick={(e) => {
           e.stopPropagation() // Prevent click from bubbling up to artboard
           selectLayer(artboardId, layer.id)
@@ -33,7 +44,13 @@ class Layer extends React.Component {
         </div>
         <div className='layer-list-item__label'>{layer.title}</div>
         <div className='layer-list-item__visibility-toggle'>
-          <i className='fa fa-eye'></i>
+          <ActionIcon
+            iconType='eye-slash'
+            className='layer-list-item__show-hide'
+            onClick={(e) => {
+              showHideLayer(layer.id)
+              e.stopPropagation()
+            }}/>
         </div>
       </div>
     )

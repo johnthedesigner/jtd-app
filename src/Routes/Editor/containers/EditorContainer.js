@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch) => {
     highlightLayer: (artboardId, layerId) => {
       dispatch(highlightLayer(artboardId, layerId))
     },
-    showHideLayer: (projectId, artboardId, layerId) => {
-      dispatch(showHideLayer(projectId, artboardId, layerId))
+    showHideLayer: (layerId) => {
+      dispatch(showHideLayer(layerId))
     },
     toggleArtboardItem: (projectId, artboardId) => {
       dispatch(toggleArtboardItem(projectId, artboardId))

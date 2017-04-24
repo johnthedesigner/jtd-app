@@ -14,6 +14,7 @@ class ArtboardsPalette extends React.Component {
       selections,
       selectArtboard,
       selectLayer,
+      showHideLayer,
       highlightLayer,
       toggleArtboardItem,
     } = this.props
@@ -35,6 +36,7 @@ class ArtboardsPalette extends React.Component {
               selections={selections}
               selectArtboard={selectArtboard}
               selectLayer={selectLayer}
+              showHideLayer={showHideLayer}
               highlightLayer={highlightLayer}
               toggleArtboardItem={toggleArtboardItem}/>
           )})}

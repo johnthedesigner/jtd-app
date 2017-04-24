@@ -48,10 +48,9 @@ export function selectLayer(artboardId, layerId) {
   }
 }
 
-export function showHideLayer(projectId, artboardId, layerId) {
+export function showHideLayer(layerId) {
   return {
     type: SHOW_HIDE_LAYER,
-    artboardId,
     layerId
   }
 }

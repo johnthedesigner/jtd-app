@@ -32,3 +32,16 @@
   position: absolute;
   top: 0;
   left: 0; }
+
+.layer__wrapper.is-hidden {
+  display: none; }
+
+.layer-list-item__wrapper .layer-list-item__show-hide {
+  opacity: 0;
+  transition: opacity .2s linear; }
+
+.layer-list-item__wrapper.is-hidden .layer-list-item__show-hide {
+  opacity: .75; }
+
+.layer-list-item__wrapper:hover .layer-list-item__show-hide {
+  opacity: 1; }

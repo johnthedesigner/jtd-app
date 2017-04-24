@@ -27,6 +27,7 @@ class EditorView extends React.Component {
       selectedLayer,
       selections,
       selectLayer,
+      showHideLayer,
       toggleArtboardItem,
     } = this.props
 
@@ -86,6 +87,7 @@ class EditorView extends React.Component {
               artboards={mappedProject.artboards}
               selectArtboard={selectArtboard}
               selectLayer={selectLayer}
+              showHideLayer={showHideLayer}
               highlightLayer={highlightLayer}
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette

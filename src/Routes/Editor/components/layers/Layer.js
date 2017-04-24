@@ -57,9 +57,18 @@ class Layer extends React.Component {
       return (layer.isHighlighted) ? ' is-highlighted' : ''
     }
 
+    const toggleHidden = () => {
+      return (layer.hide) ? ' is-hidden' : ''
+    }
+
     return (
       <div
-        className={'layer__wrapper' + toggleSelected() + toggleHighlighted()}
+        className={
+          'layer__wrapper'
+          + toggleSelected()
+          + toggleHighlighted()
+          + toggleHidden()
+        }
         onClick={(e) => {
           e.stopPropagation() // Prevent click from bubbling up to artboard
           selectLayer(artboardId, layer.id)

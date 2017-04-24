@@ -19,6 +19,7 @@ class ArtboardListItem extends React.Component {
       match,
       selectArtboard,
       selectLayer,
+      showHideLayer,
       title,
       toggleArtboardItem,
     } = this.props
@@ -65,6 +66,7 @@ class ArtboardListItem extends React.Component {
                 key={index}
                 layer={layer}
                 selectLayer={selectLayer}
+                showHideLayer={showHideLayer}
                 highlightLayer={highlightLayer}/>
             )})}
         </div>
