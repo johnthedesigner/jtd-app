@@ -1,57 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import idx from 'idx'
+
+import TextInput from './inputs/TextInput'
 
 class FillAdjustment extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props.fill
+  render() {
+    let adjustmentGroup = 'fill'
+
+    const { adjustments, layerId, adjustLayer } = this.props
+
+    const setLayerAdjustment = (propertyName, value) => {
+      adjustLayer(layerId, adjustmentGroup, propertyName, value)
     }
 
-    this.handleChange = this.handleChange.bind(this)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...nextProps.fill
-    })
-  }
-
-  handleChange(event) {
-    let newValue = {}
-    newValue[event.target.name] = event.target.value
-    this.setState(newValue)
-    event.preventDefault()
-  }
-
-  render() {
-    const { adjustLayer, layerId } = this.props
-    const textField = (label, key) => { return (
-      <div>
-        <label htmlFor={'dimensions-adjustment__' + key}>{label}</label>
-        <input
-          ref={(e) => { this[key + 'Input'] = e; }}
-          type='text'
-          id={'dimensions-adjustment__' + key}
-          name={key}
-          value={this.state[key]}
-          onChange={this.handleChange}
-          onBlur={() => {
-            adjustLayer(layerId, 'fill', this.state)
-          }}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              adjustLayer(layerId, 'fill', this.state)
-              this[key + 'Input'].blur()
-            }
-          }}
-          onFocus={() => this[key + 'Input'].select()}/>
-      </div>
-    )}
+    let backgroundColor = idx(adjustments, _ => _.fill.backgroundColor)
 
     return (
       <div>
-        {textField('Color','color')}
+        <TextInput
+          key={layerId + adjustmentGroup + 'backgroundColor'}
+          handleChange={this.handleChange}
+          propertyName={'backgroundColor'}
+          label='Fill Color'
+          setLayerAdjustment={setLayerAdjustment}
+          value={backgroundColor}/>
       </div>
     )
   }

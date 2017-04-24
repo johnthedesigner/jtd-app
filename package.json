@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "color": "^1.0.3",
+    "idx": "^1.5.0",
     "lodash": "^4.17.4",
     "npm-run-all": "^4.0.2",
     "prop-types": "^15.5.8",

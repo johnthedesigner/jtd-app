@@ -9,6 +9,7 @@ import ArtboardsPalette from './sidebar/ArtboardsPalette'
 import DimensionsAdjustment from './sidebar/adjustments/DimensionsAdjustment'
 import EditorActionBar from './EditorActionBar'
 import EditorWorkspace from './EditorWorkspace'
+import FillAdjustment from './sidebar/adjustments/FillAdjustment'
 
 import './styles/editor.css'
 
@@ -94,6 +95,10 @@ class EditorView extends React.Component {
               selectedLayer={selectedLayer}
               adjustLayer={adjustLayer}>
                 <DimensionsAdjustment
+                  adjustments={selectedLayer.adjustments}
+                  layerId={selectedLayer.id}
+                  adjustLayer={adjustLayer}/>
+                <FillAdjustment
                   adjustments={selectedLayer.adjustments}
                   layerId={selectedLayer.id}
                   adjustLayer={adjustLayer}/>

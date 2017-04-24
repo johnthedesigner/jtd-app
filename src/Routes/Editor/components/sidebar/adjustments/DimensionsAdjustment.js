@@ -4,27 +4,6 @@ import PropTypes from 'prop-types'
 import TextInput from './inputs/TextInput'
 
 class DimensionsAdjustment extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props.adjustments
-    }
-    this.handleChange = this.handleChange.bind(this)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...nextProps.adjustments
-    })
-  }
-
-  handleChange(event) {
-    let newValue = {}
-    newValue[event.target.name] = event.target.value
-    this.setState(newValue)
-    event.preventDefault()
-  }
-
   render() {
     let adjustmentGroup = 'dimensions'
 

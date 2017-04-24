@@ -18,7 +18,7 @@ class TextInput extends React.Component {
 
   handleChange(event) {
     this.setState({
-      value: event.target.value - 0
+      value: event.target.value
     })
     event.preventDefault()
   }
@@ -45,7 +45,6 @@ class TextInput extends React.Component {
           }}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              setLayerAdjustment(propertyName, this.state.value)
               this[propertyName + 'Input'].blur()
             }
           }}
