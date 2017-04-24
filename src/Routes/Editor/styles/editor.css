@@ -6,7 +6,8 @@
     position: relative;
     border: #444444 solid 1px;
     min-width: 200px;
-    min-height: 200px; }
+    min-height: 200px;
+    overflow: hidden; }
     .artboard__wrapper .artboard__frame .artboard__selection-indicator {
       display: block;
       position: absolute;

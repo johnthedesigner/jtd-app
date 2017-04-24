@@ -1,5 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import {persistStore, autoRehydrate} from 'redux-persist'
+// import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk'
 
 import Reducers from './combineReducers'
@@ -13,10 +13,10 @@ export default () => {
     initialState,
     composeEnhancers(
       applyMiddleware(thunk),
-      autoRehydrate()
+      // autoRehydrate() // TODO: Need to suppress for now
     )
   )
-  persistStore(store)
+  // persistStore(store) // TODO: Need to suppress for now
 
   return store
 }

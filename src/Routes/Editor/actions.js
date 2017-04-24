@@ -1,10 +1,20 @@
 import {
+  ADJUST_LAYER,
   ARTBOARD_LAYER_SELECTION,
   HIGHLIGHT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
-  UPDATE_DIMENSIONS,
 } from './constants'
+
+export function adjustLayer(layerId, adjustmentGroup, propertyName, value) {
+  return {
+    type: ADJUST_LAYER,
+    layerId,
+    adjustmentGroup,
+    propertyName,
+    value
+  }
+}
 
 export function deselectLayersArtboards() {
   return {
@@ -51,13 +61,5 @@ export function toggleArtboardItem(projectId, artboardId) {
     type: TOGGLE_ARTBOARD_ITEM,
     projectId,
     artboardId
-  }
-}
-
-export function updateDimensions(layerId, dimensions) {
-  return {
-    type: UPDATE_DIMENSIONS,
-    layerId,
-    dimensions
   }
 }

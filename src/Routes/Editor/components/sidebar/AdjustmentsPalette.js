@@ -1,23 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import DimensionsAdjustment from './adjustments/DimensionsAdjustment'
-
 class AdjustmentsPalette extends React.Component {
   render() {
-
-    const {
-      selectedLayer,
-      updateDimensions,
-    } = this.props
-
-    const showAdjustmentFields = (layer) => {
-      if (layer !== undefined) {
-        if (layer.dimensions !== null || true) {
-          return ( <DimensionsAdjustment layer={selectedLayer} updateDimensions={updateDimensions}/> )
-        }
-      }
-    }
 
     return (
       <div className="adjustments-palette__wrapper">
@@ -27,7 +12,7 @@ class AdjustmentsPalette extends React.Component {
         </div>
 
         <div className="adjustments-palette__adjustments-list">
-          {showAdjustmentFields(selectedLayer)}
+          {this.props.children}
         </div>
       </div>
     )

@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { artboardColors } from './artboardColors'
 import AdjustmentsPalette from './sidebar/AdjustmentsPalette'
 import ArtboardsPalette from './sidebar/ArtboardsPalette'
+import DimensionsAdjustment from './sidebar/adjustments/DimensionsAdjustment'
 import EditorActionBar from './EditorActionBar'
 import EditorWorkspace from './EditorWorkspace'
 
@@ -15,6 +16,7 @@ class EditorView extends React.Component {
   render() {
 
     const {
+      adjustLayer,
       Artboards,
       highlightLayer,
       highlights,
@@ -26,7 +28,6 @@ class EditorView extends React.Component {
       selections,
       selectLayer,
       toggleArtboardItem,
-      updateDimensions,
     } = this.props
 
     const { projectId } = match.params
@@ -89,7 +90,12 @@ class EditorView extends React.Component {
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette
               selectedLayer={selectedLayer}
-              updateDimensions={updateDimensions}/>
+              adjustLayer={adjustLayer}>
+                <DimensionsAdjustment
+                  adjustments={selectedLayer.adjustments}
+                  layerId={selectedLayer.id}
+                  adjustLayer={adjustLayer}/>
+            </AdjustmentsPalette>
           </div>
         </div>
       </div>

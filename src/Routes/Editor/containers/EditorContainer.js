@@ -6,11 +6,19 @@ import {
   selectLayer,
   showHideLayer,
   toggleArtboardItem,
-  updateDimensions,
+  adjustLayer,
 } from '../actions'
 
 import EditorView from '../components/EditorView'
 import '../styles/editor.css'
+
+const getSelectedLayer = (Editor) => {
+  if (Editor.selections.layerId !== null) {
+    return Editor.Layers[Editor.selections.layerId]
+  } else {
+    return {}
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -29,8 +37,8 @@ const mapDispatchToProps = (dispatch) => {
     toggleArtboardItem: (projectId, artboardId) => {
       dispatch(toggleArtboardItem(projectId, artboardId))
     },
-    updateDimensions: (layerId, dimensions) => {
-      dispatch(updateDimensions(layerId, dimensions))
+    adjustLayer: (layerId, adjustmentGroup, key, value) => {
+      dispatch(adjustLayer(layerId, adjustmentGroup, key, value))
     }
   }
 }
@@ -40,7 +48,7 @@ const mapStateToProps = (state) => ({
   highlights: state.Editor.highlights,
   Layers: state.Editor.Layers,
   Projects: state.Editor.Projects,
-  selectedLayer: state.Editor.Layers[state.Editor.selections.layerId],
+  selectedLayer: getSelectedLayer(state.Editor),
   selections: state.Editor.selections,
 })
 

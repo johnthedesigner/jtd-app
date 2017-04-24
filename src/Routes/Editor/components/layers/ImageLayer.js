@@ -6,16 +6,18 @@ class ImageLayer extends React.Component {
 
     const { layer } = this.props
 
+    const { dimensions, image } = layer.adjustments
+
     const shapeStyles = {
-      width: layer.dimensions.width * layer.dimensions.scaleX + 'px',
-      height: layer.dimensions.height * layer.dimensions.scaleY + 'px'
+      width: dimensions.width * dimensions.scaleX + 'px',
+      height: dimensions.height * dimensions.scaleY + 'px'
     }
 
     return (
       <img
         className="layer__shape"
         style={shapeStyles}
-        src={layer.src}
+        src={image.src}
         alt={layer.title}/>
     )
   }

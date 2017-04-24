@@ -6,10 +6,12 @@ class RectangleLayer extends React.Component {
 
     const { layer } = this.props
 
+    const { dimensions, fill } = layer.adjustments
+
     const shapeStyles = {
-      width: layer.dimensions.width * layer.dimensions.scaleX + 'px',
-      height: layer.dimensions.height * layer.dimensions.scaleY + 'px',
-      backgroundColor: layer.backgroundColor
+      width: dimensions.width * dimensions.scaleX + 'px',
+      height: dimensions.height * dimensions.scaleY + 'px',
+      backgroundColor: fill.backgroundColor
     }
 
     return (

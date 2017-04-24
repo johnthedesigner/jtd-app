@@ -13,13 +13,13 @@ class Layer extends React.Component {
 
     const layerType = (layer) => {
       switch (layer.type) {
-        case layerTypes.IMG:
+        case layerTypes.image:
           return ( <ImageLayer layer={layer}/> )
 
-        case layerTypes.RECT:
+        case layerTypes.rectangle:
           return ( <RectangleLayer layer={layer}/> )
 
-        case layerTypes.TEXT:
+        case layerTypes.text:
           return ( <TextLayer layer={layer}/> )
 
         default:
@@ -35,24 +35,26 @@ class Layer extends React.Component {
       selectLayer,
     } = this.props
 
+    const { dimensions } = layer.adjustments
+
+    const wrapperStyles = {
+      marginLeft: dimensions.x + 'px',
+      marginTop: dimensions.y + 'px',
+      width: dimensions.width * dimensions.scaleX + 'px',
+      height: dimensions.height * dimensions.scaleY + 'px'
+    }
+
+    const highlightStyles = {
+      borderColor: artboardColor,
+      boxShadow: '0 0 0 4px ' + Color(artboardColor).fade(0.7)
+    }
+
     const toggleSelected = () => {
       return (layer.isSelected) ? ' is-selected' : ''
     }
 
     const toggleHighlighted = () => {
       return (layer.isHighlighted) ? ' is-highlighted' : ''
-    }
-
-    const wrapperStyles = {
-      marginLeft: layer.dimensions.x + 'px',
-      marginTop: layer.dimensions.y + 'px',
-      width: layer.dimensions.width * layer.dimensions.scaleX + 'px',
-      height: layer.dimensions.height * layer.dimensions.scaleY + 'px'
-    }
-
-    const highlightStyles = {
-      borderColor: artboardColor,
-      boxShadow: '0 0 0 4px ' + Color(artboardColor).fade(0.7)
     }
 
     return (
