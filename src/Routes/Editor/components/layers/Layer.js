@@ -41,7 +41,8 @@ class Layer extends React.Component {
       marginLeft: dimensions.x + 'px',
       marginTop: dimensions.y + 'px',
       width: dimensions.width * dimensions.scaleX + 'px',
-      height: dimensions.height * dimensions.scaleY + 'px'
+      height: dimensions.height * dimensions.scaleY + 'px',
+      transform: 'rotate(' + dimensions.rotation + 'deg)'
     }
 
     const highlightStyles = {

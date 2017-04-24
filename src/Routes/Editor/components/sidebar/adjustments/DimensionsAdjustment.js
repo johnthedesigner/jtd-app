@@ -45,6 +45,13 @@ class DimensionsAdjustment extends React.Component {
           label='Height'
           setLayerAdjustment={setLayerAdjustment}
           value={dimensions.height}/>
+        <TextInput
+          key={layerId + adjustmentGroup + 'rotation'}
+          handleChange={this.handleChange}
+          propertyName={'rotation'}
+          label='Rotation'
+          setLayerAdjustment={setLayerAdjustment}
+          value={dimensions.rotation}/>
       </div>
     )
   }
