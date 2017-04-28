@@ -1,10 +1,14 @@
+import idx from 'idx'
 import _ from 'lodash'
 
 import { consoleGroup } from '../../utils'
 import {
   ADJUST_LAYER,
-  ARTBOARD_LAYER_SELECTION,
+  DESELECT_LAYERS_ARTBOARD,
   HIGHLIGHT_LAYER,
+  SELECT_ARTBOARD,
+  SELECT_GROUP,
+  SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
 } from './constants'
@@ -23,21 +27,60 @@ export default function Projects(state = {}, a) {
         }
       })
 
-    case ARTBOARD_LAYER_SELECTION:
-      consoleGroup('ARTBOARD_LAYER_SELECTION',[a])
+    case DESELECT_LAYERS_ARTBOARD:
+      consoleGroup('DESELECT_LAYERS_ARTBOARD',[a])
       return Object.assign({},state,{
-        selections: Object.assign({},state.selections,{
-          artboardId: a.artboardId,
-          layerId: a.layerId
-        })
+        selections: {
+          ...state.selections,
+          artboardId: null,
+          groupId: null,
+          layers: []
+        }
       })
 
     case HIGHLIGHT_LAYER:
       consoleGroup('HIGHLIGHT_LAYER',[a])
       return Object.assign({},state,{
         highlights: Object.assign({},state.highlights,{
+          ...state.selections,
           artboardId: a.artboardId,
           layerId: a.layerId
+        })
+      })
+
+    case SELECT_ARTBOARD:
+      consoleGroup('SELECT_ARTBOARD',[a])
+      return Object.assign({},state,{
+        selections: Object.assign({},state.selections,{
+          ...state.selections,
+          artboardId: a.artboardId,
+          groupId: null,
+          layers: []
+        })
+      })
+
+    case SELECT_GROUP:
+      consoleGroup('SELECT_GROUP',[a])
+      return Object.assign({},state,{
+        selections: Object.assign({},state.selections,{
+          ...state.selections,
+          groupId: a.groupId
+        })
+      })
+
+    case SELECT_LAYER:
+      consoleGroup('SELECT_LAYER',[a])
+      const selectedGroupLayers = idx(state, _ =>
+        _.Layers[state.selections.groupId].layers)
+      const fromSameGroup = _.includes(selectedGroupLayers,a.layerId)
+      const groupId = ((fromSameGroup) ? state.selections.groupId : null)
+      const { layers } = state.selections
+      return Object.assign({},state,{
+        selections: Object.assign({},state.selections,{
+          ...state.selections,
+          artboardId: null,
+          groupId,
+          layers: ((a.shiftKey) ? _.xor(layers,[a.layerId]) : [a.layerId])
         })
       })
 

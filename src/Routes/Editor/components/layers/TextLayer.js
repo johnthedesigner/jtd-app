@@ -4,20 +4,19 @@ import PropTypes from 'prop-types'
 class TextLayer extends React.Component {
   render() {
 
-    const { layer } = this.props
+    const { layer, layerStyles } = this.props
 
-    const { dimensions, type } = layer.adjustments
+    const { type } = layer.adjustments
 
-    const shapeStyles = {
-      width: dimensions.width * dimensions.scaleX + 'px',
-      height: dimensions.height * dimensions.scaleY + 'px',
+    const textStyles = {
+      ...layerStyles,
       color: type.color
     }
 
     return (
-      <span className="layer__shape" style={shapeStyles}>
+      <div className="layer__shape" style={textStyles}>
         {layer.text}
-      </span>
+      </div>
     )
   }
 }

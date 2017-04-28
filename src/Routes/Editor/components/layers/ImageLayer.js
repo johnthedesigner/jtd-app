@@ -4,19 +4,14 @@ import PropTypes from 'prop-types'
 class ImageLayer extends React.Component {
   render() {
 
-    const { layer } = this.props
+    const { layer, layerStyles } = this.props
 
-    const { dimensions, image } = layer.adjustments
-
-    const shapeStyles = {
-      width: dimensions.width * dimensions.scaleX + 'px',
-      height: dimensions.height * dimensions.scaleY + 'px'
-    }
+    const { image } = layer.adjustments
 
     return (
       <img
-        className="layer__shape"
-        style={shapeStyles}
+        className='layer__shape'
+        style={layerStyles}
         src={image.src}
         alt={layer.title}/>
     )

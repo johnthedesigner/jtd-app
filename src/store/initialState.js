@@ -1,19 +1,20 @@
 import _ from 'lodash'
 
-import { Projects } from './entities/Projects'
 import { Artboards } from './entities/Artboards'
 import { Layers } from './entities/Layers'
+import { Projects } from './entities/Projects'
 
 const initialState = {
   Editor: {
-    Projects: _.keyBy(Projects, 'id'),
     Artboards: _.keyBy(Artboards, 'id'),
     Layers: _.keyBy(Layers, 'id'),
+    Projects: _.keyBy(Projects, 'id'),
     openProjects: [0], // TODO: Opening projects
     selections: {
       projectId: null,
       artboardId: null,
-      layerId: null
+      groupId: null,
+      layers: []
     },
     highlights: {
       artboardId: null,

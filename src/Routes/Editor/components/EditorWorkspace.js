@@ -9,9 +9,11 @@ class EditorWorkspace extends React.Component {
 
     const {
       artboards,
+      highlightLayer,
       selectArtboard,
+      selectGroup,
       selectLayer,
-      highlightLayer
+      shiftSelectLayer,
     } = this.props
 
     return (
@@ -21,7 +23,9 @@ class EditorWorkspace extends React.Component {
             {...artboard}
             key={index}
             selectArtboard={selectArtboard}
+            selectGroup={selectGroup}
             selectLayer={selectLayer}
+            shiftSelectLayer={shiftSelectLayer}
             highlightLayer={highlightLayer}/>
         )})}
       </div>

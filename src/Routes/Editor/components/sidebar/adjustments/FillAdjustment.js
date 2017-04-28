@@ -18,6 +18,10 @@ class FillAdjustment extends React.Component {
 
     return (
       <div>
+        <div className="adjustment-group__header">
+          <hr/>
+          Fill
+        </div>
         <TextInput
           key={layerId + adjustmentGroup + 'backgroundColor'}
           handleChange={this.handleChange}

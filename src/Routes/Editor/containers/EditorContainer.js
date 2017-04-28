@@ -1,44 +1,45 @@
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import {
+  adjustLayer,
+  deselectLayersArtboard,
   highlightLayer,
   selectArtboard,
+  selectGroup,
   selectLayer,
   showHideLayer,
   toggleArtboardItem,
-  adjustLayer,
 } from '../actions'
 
 import EditorView from '../components/EditorView'
 import '../styles/editor.css'
 
-const getSelectedLayer = (Editor) => {
-  if (Editor.selections.layerId !== null) {
-    return Editor.Layers[Editor.selections.layerId]
-  } else {
-    return {}
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
+    adjustLayer: (layerId, adjustmentGroup, key, value) => {
+      dispatch(adjustLayer(layerId, adjustmentGroup, key, value))
+    },
+    deselectLayersArtboard: () => {
+      dispatch(deselectLayersArtboard())
+    },
+    highlightLayer: (layerId) => {
+      dispatch(highlightLayer(layerId))
+    },
     selectArtboard: (artboardId) => {
       dispatch(selectArtboard(artboardId))
     },
-    selectLayer: (artboardId, layerId) => {
-      dispatch(selectLayer(artboardId, layerId))
+    selectGroup: (groupId) => {
+      dispatch(selectGroup(groupId))
     },
-    highlightLayer: (artboardId, layerId) => {
-      dispatch(highlightLayer(artboardId, layerId))
+    selectLayer: (layerId, shiftKey) => {
+      dispatch(selectLayer(layerId, shiftKey))
     },
     showHideLayer: (layerId) => {
       dispatch(showHideLayer(layerId))
     },
-    toggleArtboardItem: (projectId, artboardId) => {
-      dispatch(toggleArtboardItem(projectId, artboardId))
-    },
-    adjustLayer: (layerId, adjustmentGroup, key, value) => {
-      dispatch(adjustLayer(layerId, adjustmentGroup, key, value))
+    toggleArtboardItem: (artboardId) => {
+      dispatch(toggleArtboardItem(artboardId))
     }
   }
 }
@@ -48,7 +49,6 @@ const mapStateToProps = (state) => ({
   highlights: state.Editor.highlights,
   Layers: state.Editor.Layers,
   Projects: state.Editor.Projects,
-  selectedLayer: getSelectedLayer(state.Editor),
   selections: state.Editor.selections,
 })
 

@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-
+import idx from 'idx'
 import Layer from './layers/Layer'
+
+import SelectionControl from './layers/SelectionControl'
 
 class Artboard extends React.Component {
   render() {
@@ -16,7 +18,10 @@ class Artboard extends React.Component {
       layers,
       layerSelected,
       selectArtboard,
+      selectGroup,
+      selection,
       selectLayer,
+      shiftSelectLayer,
       title,
       width,
     } = this.props
@@ -32,6 +37,17 @@ class Artboard extends React.Component {
     const frameStyles = {
       width: width,
       height: height
+    }
+
+    const selectionControlStyles = {
+      marginLeft: idx(selection, _ => _.dimensions.x) + 'px',
+      marginTop: idx(selection, _ => _.dimensions.y) + 'px',
+      width: idx(selection, _ => _.dimensions.width)
+        * idx(selection, _ => _.dimensions.scaleX) + 'px',
+      height: idx(selection, _ => _.dimensions.height)
+        * idx(selection, _ => _.dimensions.scaleY) + 'px',
+      transform: 'rotate(' + idx(selection, _ => _.dimensions.rotation)
+        + 'deg)'
     }
 
     return (
@@ -54,12 +70,17 @@ class Artboard extends React.Component {
           {_.map(layers,(layer,index) => { return (
             <Layer
               artboardColor={artboardColor}
-              artboardId={id}
               key={index}
               layer={layer}
+              selectGroup={selectGroup}
               selectLayer={selectLayer}
+              shiftSelectLayer={shiftSelectLayer}
               highlightLayer={highlightLayer}/>
           )})}
+          <SelectionControl
+            artboardId={id}
+            isActive={selection.isActive}
+            selectionControlStyles={selectionControlStyles}/>
           <div className='artboard__selection-indicator'></div>
         </div>
       </div>

@@ -17,6 +17,10 @@ class DimensionsAdjustment extends React.Component {
     if (adjustments !== undefined) dimensions = adjustments.dimensions
     return (
       <div>
+        <div className="adjustment-group__header">
+          <hr/>
+          Transform
+        </div>
         <TextInput
           key={layerId + adjustmentGroup + 'x'}
           handleChange={this.handleChange}

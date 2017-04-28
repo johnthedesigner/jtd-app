@@ -6,10 +6,10 @@ import _ from 'lodash'
 import { artboardColors } from './artboardColors'
 import AdjustmentsPalette from './sidebar/AdjustmentsPalette'
 import ArtboardsPalette from './sidebar/ArtboardsPalette'
-import DimensionsAdjustment from './sidebar/adjustments/DimensionsAdjustment'
+// import DimensionsAdjustment from './sidebar/adjustments/DimensionsAdjustment'
 import EditorActionBar from './EditorActionBar'
 import EditorWorkspace from './EditorWorkspace'
-import FillAdjustment from './sidebar/adjustments/FillAdjustment'
+// import FillAdjustment from './sidebar/adjustments/FillAdjustment'
 
 import './styles/editor.css'
 
@@ -19,6 +19,7 @@ class EditorView extends React.Component {
     const {
       adjustLayer,
       Artboards,
+      deselectLayersArtboard,
       highlightLayer,
       highlights,
       Layers,
@@ -27,36 +28,95 @@ class EditorView extends React.Component {
       selectArtboard,
       selectedLayer,
       selections,
+      selectGroup,
       selectLayer,
+      shiftSelectLayer,
       showHideLayer,
       toggleArtboardItem,
     } = this.props
-
     const { projectId } = match.params
+
+    // Calculate group dimensions or return layer dimensions
+    const getDimensions = (layers, adjustments) => {
+      if (adjustments) {
+        return adjustments.dimensions
+
+      } else if (layers) {
+        let x = _.first(_.orderBy(_.map(layers, (layer) => {
+          return layer.adjustments.dimensions.x
+        })))
+
+        let y = _.first(_.orderBy(_.map(layers, (layer) => {
+          return layer.adjustments.dimensions.y
+        })))
+
+        let width = _.last(_.orderBy(_.map(layers, (layer) => {
+          return (layer.adjustments.dimensions.x
+            - x + layer.adjustments.dimensions.width)
+        })))
+
+        let height = _.last(_.orderBy(_.map(layers, (layer) => {
+          return (layer.adjustments.dimensions.y
+            - y + layer.adjustments.dimensions.height)
+        })))
+
+        return {
+          x,
+          y,
+          width,
+          height,
+          scaleX: 1,
+          scaleY: 1
+        }
+      }
+    }
+
+    // Recursive layer mapping for groups
+    const mapLayers = (layers) => {
+      return _.map(layers, (layerId) => {
+        let subLayers = mapLayers(Layers[layerId].layers)
+        return {
+          ...Layers[layerId],
+          isSelected: _.includes(selections.layers, layerId),
+          isHighlighted: (highlights.layerId === layerId),
+          groupIsSelected: (selections.groupId === layerId),
+          layers: subLayers,
+          adjustments: {
+            ...Layers[layerId].adjustments,
+            dimensions: getDimensions(subLayers, Layers[layerId].adjustments)
+          }
+        }
+      })
+    }
+
+    // Map project to populate artboards and artboards palette
     const mappedProject = {
-        ...Projects[projectId],
-        artboards: _.map(Projects[projectId].artboards, (artboard, index) => {
+      ...Projects[projectId],
+      artboards: _.map(Projects[projectId].artboards, (artboard, index) => {
+
+        const artboardLayers = mapLayers(Artboards[artboard].layers)
+        let selectedLayers = []
+        const getSelectedLayers = (layerTree) => {
+          _.forEach(layerTree, (layer) => {
+            if (layer.isSelected) {
+              selectedLayers.push(layer)
+            }
+            if (layer.layers.length > 0) getSelectedLayers(layer.layers)
+          })
+          return selectedLayers
+        }
+
         const mappedArtboard = {
           ...Artboards[artboard],
-          isSelected: (
-            artboard === selections.artboardId && selections.layerId === null
-          ),
-          layerSelected: (
-            artboard === selections.artboardId && selections.layerId != null
-          ),
+          isSelected: (artboard === selections.artboardId),
+          layerSelected: (_.intersection(selections.layers, artboard.layers)
+            .length > 0),
           artboardColor: artboardColors[index],
-          layers: _.map(Artboards[artboard].layers, (layer) => {
-            const mappedLayer = {
-              ...Layers[layer],
-              isSelected: (
-                layer === selections.layerId
-              ),
-              isHighlighted: (
-                layer === highlights.layerId
-              )
-            }
-            return mappedLayer
-          })
+          layers: artboardLayers,
+          selection: {
+            isActive: (getSelectedLayers(artboardLayers).length > 0),
+            dimensions: getDimensions(getSelectedLayers(artboardLayers))
+          }
         }
         return mappedArtboard
       })
@@ -72,13 +132,15 @@ class EditorView extends React.Component {
         <div className='editor-view__body'>
 
           <div className='editor-view__main-area' onClick={() => {
-            selectArtboard(null, null)
+            deselectLayersArtboard()
           }}>
             <EditorActionBar/>
             <EditorWorkspace
               artboards={mappedProject.artboards}
               selectArtboard={selectArtboard}
+              selectGroup={selectGroup}
               selectLayer={selectLayer}
+              shiftSelectLayer={shiftSelectLayer}
               highlightLayer={highlightLayer}/>
           </div>
 
@@ -88,20 +150,13 @@ class EditorView extends React.Component {
               artboards={mappedProject.artboards}
               selectArtboard={selectArtboard}
               selectLayer={selectLayer}
+              shiftSelectLayer={shiftSelectLayer}
               showHideLayer={showHideLayer}
               highlightLayer={highlightLayer}
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette
-              selectedLayer={selectedLayer}
+              selectedLayers={selectedLayer}
               adjustLayer={adjustLayer}>
-                <DimensionsAdjustment
-                  adjustments={selectedLayer.adjustments}
-                  layerId={selectedLayer.id}
-                  adjustLayer={adjustLayer}/>
-                <FillAdjustment
-                  adjustments={selectedLayer.adjustments}
-                  layerId={selectedLayer.id}
-                  adjustLayer={adjustLayer}/>
             </AdjustmentsPalette>
           </div>
         </div>

@@ -4,18 +4,17 @@ import PropTypes from 'prop-types'
 class RectangleLayer extends React.Component {
   render() {
 
-    const { layer } = this.props
+    const { layer, layerStyles } = this.props
 
-    const { dimensions, fill } = layer.adjustments
+    const { fill } = layer.adjustments
 
-    const shapeStyles = {
-      width: dimensions.width * dimensions.scaleX + 'px',
-      height: dimensions.height * dimensions.scaleY + 'px',
+    const rectangleStyles = {
+      ...layerStyles,
       backgroundColor: fill.backgroundColor
     }
 
     return (
-      <div className="layer__shape" style={shapeStyles}></div>
+      <div className='layer__shape' style={rectangleStyles}></div>
     )
   }
 }

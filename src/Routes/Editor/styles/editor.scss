@@ -9,7 +9,6 @@
     border: #444444 solid 1px;
     min-width: 200px;
     min-height: 200px;
-    overflow: hidden;
 
     .artboard__selection-indicator {
       display: block;
@@ -23,7 +22,7 @@
       opacity: 0;
       transition: opacity linear .1s;
     }
-    &.is-selected .artboard__selection-indicator {
+    &.is-selected > .artboard__selection-indicator {
       opacity: 1;
     }
   }
@@ -42,6 +41,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  pointer-events: none;
+
+  & > * {
+    pointer-events: initial;
+  }
 
   .layer__highlight-indicator,// TODO: This should probably be a mixin
   .layer__selection-indicator {
@@ -61,75 +65,81 @@
   .layer__selection-indicator {
     border: #444444 solid 1px;
   }
-  &.is-highlighted .layer__highlight-indicator,
-  &.is-selected .layer__selection-indicator{
+  &.is-highlighted > .layer__highlight-indicator,
+  &.is-selected > .layer__selection-indicator{
     opacity: 1;
   }
-  .resize-handles__wrapper {
-    display: block;
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    bottom: -1px;
-    left: -1px;
-    opacity: 0;
-    transition: opacity linear .1s;
+}
 
-    .resize-handles__top-left {
-      @extend .resize-handle;
-      top: -.25rem;
-      left: -.25rem;
-      cursor: nwse-resize;
-    }
-    .resize-handles__top-center {
-      @extend .resize-handle;
-      top: -.25rem;
-      left: 50%;
-      margin-left: -.25rem;
-      cursor: ns-resize;
-    }
-    .resize-handles__top-right {
-      @extend .resize-handle;
-      top: -.25rem;
-      right: -.25rem;
-      cursor: nesw-resize;
-    }
-    .resize-handles__right-middle {
-      @extend .resize-handle;
-      top: 50%;
-      margin-top: -.25rem;
-      right: -.25rem;
-      cursor: ew-resize;
-    }
-    .resize-handles__bottom-right {
-      @extend .resize-handle;
-      bottom: -.25rem;
-      right: -.25rem;
-      cursor: nwse-resize;
-    }
-    .resize-handles__bottom-center {
-      @extend .resize-handle;
-      bottom: -.25rem;
-      left: 50%;
-      margin-left: -.25rem;
-      cursor: ns-resize;
-    }
-    .resize-handles__bottom-left {
-      @extend .resize-handle;
-      bottom: -.25rem;
-      left: -.25rem;
-      cursor: nesw-resize;
-    }
-    .resize-handles__left-middle {
-      @extend .resize-handle;
-      top: 50%;
-      margin-top: -.25rem;
-      left: -.25rem;
-      cursor: ew-resize;
+.selection-control__wrapper {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: #666 solid 1px;
+  opacity: 0;
+  transition: opacity linear .1s;
+  pointer-events: none;
+
+  &.is-active {
+    opacity: 1;
+
+    & > * {
+      pointer-events: initial;
     }
   }
-  &.is-selected .resize-handles__wrapper {
-    opacity: 1;
+
+  .resize-handles__top-left {
+    @extend .resize-handle;
+    top: -.25rem;
+    left: -.25rem;
+    cursor: nwse-resize;
+  }
+  .resize-handles__top-center {
+    @extend .resize-handle;
+    top: -.25rem;
+    left: 50%;
+    margin-left: -.25rem;
+    cursor: ns-resize;
+  }
+  .resize-handles__top-right {
+    @extend .resize-handle;
+    top: -.25rem;
+    right: -.25rem;
+    cursor: nesw-resize;
+  }
+  .resize-handles__right-middle {
+    @extend .resize-handle;
+    top: 50%;
+    margin-top: -.25rem;
+    right: -.25rem;
+    cursor: ew-resize;
+  }
+  .resize-handles__bottom-right {
+    @extend .resize-handle;
+    bottom: -.25rem;
+    right: -.25rem;
+    cursor: nwse-resize;
+  }
+  .resize-handles__bottom-center {
+    @extend .resize-handle;
+    bottom: -.25rem;
+    left: 50%;
+    margin-left: -.25rem;
+    cursor: ns-resize;
+  }
+  .resize-handles__bottom-left {
+    @extend .resize-handle;
+    bottom: -.25rem;
+    left: -.25rem;
+    cursor: nesw-resize;
+  }
+  .resize-handles__left-middle {
+    @extend .resize-handle;
+    top: 50%;
+    margin-top: -.25rem;
+    left: -.25rem;
+    cursor: ew-resize;
   }
 }
 

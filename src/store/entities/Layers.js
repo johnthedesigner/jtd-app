@@ -1,5 +1,6 @@
 export const layerTypes = {
   image: 'image',
+  group: 'group',
   rectangle: 'rectangle',
   text: 'text'
 }
@@ -62,5 +63,10 @@ export const Layers = [
         rotation: 0
       }
     }
+  },
+  {
+    id: 3,
+    type: layerTypes.group,
+    layers: [1,2]
   }
 ]

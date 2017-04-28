@@ -36,6 +36,7 @@ class TextInput extends React.Component {
         <input
           ref={(e) => { this[propertyName + 'Input'] = e }}
           type='text'
+          disabled={value === undefined }
           id={'dimensions-adjustment__' + propertyName}
           name={propertyName}
           defaultValue={value}
