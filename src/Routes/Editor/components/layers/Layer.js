@@ -106,7 +106,7 @@ class Layer extends React.Component {
           }
         }}
         onMouseLeave={() => {
-          highlightLayer(null, null)
+          highlightLayer(null)
         }}>
         {layerType(layer, layerStyles)}
         <div className='layer__highlight-indicator' style={highlightStyles}></div>

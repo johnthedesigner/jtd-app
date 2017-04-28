@@ -34,8 +34,9 @@
   position: absolute;
   top: 0;
   left: 0; }
-  .layer__wrapper.is-hidden {
-    display: none; }
+
+.layer__wrapper.is-hidden {
+  display: none; }
 
 .group__selection {
   position: absolute;
@@ -51,3 +52,6 @@
 
 .layer-list-item__wrapper:hover .layer-list-item__show-hide {
   opacity: 1; }
+
+.sublayer-group__wrapper {
+  padding-left: 1rem; }

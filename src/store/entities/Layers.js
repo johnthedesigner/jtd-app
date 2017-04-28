@@ -67,6 +67,7 @@ export const Layers = [
   {
     id: 3,
     type: layerTypes.group,
+    title: 'Layer Group',
     layers: [1,2]
   }
 ]
