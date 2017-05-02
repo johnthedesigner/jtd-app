@@ -116,7 +116,6 @@ class Layer extends React.Component {
 }
 
 Layer.propTypes = {
-  artboardId: PropTypes.number.isRequired,
   layer: PropTypes.object.isRequired,
 }
 

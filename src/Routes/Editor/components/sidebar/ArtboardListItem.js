@@ -53,7 +53,9 @@ class ArtboardListItem extends React.Component {
             onClick={() => selectArtboard(id)}>
             {title}
           </div>
-          <ActionIcon iconType='dot-circle-o' className="artboard-list-item__layer-selected-indicator"/>
+          <ActionIcon
+            iconType='radio_button_check'
+            className="artboard-list-item__layer-selected-indicator"/>
         </div>
         <div
           className='artboard-list-item__frame'

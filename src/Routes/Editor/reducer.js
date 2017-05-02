@@ -1,7 +1,7 @@
 import idx from 'idx'
 import _ from 'lodash'
 
-import { consoleGroup } from '../../utils'
+import { consoleGroup } from '../../utils/utils'
 import {
   ADJUST_LAYER,
   DESELECT_LAYERS_ARTBOARD,

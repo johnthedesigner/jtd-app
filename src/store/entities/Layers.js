@@ -28,7 +28,7 @@ export const Layers = [
   {
     id: 1,
     type: layerTypes.image,
-    title: 'box 2',
+    title: 'image 1',
     adjustments: {
       image: {
         src: 'http://www.placehold.it/400x400/'
@@ -47,7 +47,7 @@ export const Layers = [
   {
     id: 2,
     type: layerTypes.text,
-    title: 'box 3',
+    title: 'text 1',
     text: 'Lorem ipsum dolor sit amet',
     adjustments: {
       type: {
@@ -68,6 +68,50 @@ export const Layers = [
     id: 3,
     type: layerTypes.group,
     title: 'Layer Group',
-    layers: [1,2]
-  }
+    layers: [1,2,4]
+  },
+  {
+    id: 4,
+    type: layerTypes.group,
+    title: 'Layer Group',
+    layers: [5,6]
+  },
+  {
+    id: 5,
+    type: layerTypes.rectangle,
+    title: 'box 2',
+    adjustments: {
+      fill: {
+        backgroundColor: 'rgba(255,0,255,.5)'
+      },
+      dimensions: {
+        x: 300,
+        y: 250,
+        width: 100,
+        height: 100,
+        scaleX: 1,
+        scaleY: 1,
+        rotation: 0
+      }
+    },
+  },
+  {
+    id: 6,
+    type: layerTypes.image,
+    title: 'image 2',
+    adjustments: {
+      image: {
+        src: 'http://www.placehold.it/400x400/'
+      },
+      dimensions: {
+        x: 50,
+        y: 50,
+        width: 100,
+        height: 100,
+        scaleX: 1,
+        scaleY: 1,
+        rotation: 0
+      }
+    }
+  },
 ]

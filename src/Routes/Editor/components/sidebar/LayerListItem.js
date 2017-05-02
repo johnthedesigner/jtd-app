@@ -38,6 +38,12 @@ class LayerListItem extends React.Component {
       }
     }
 
+    const listIconTypes = {
+      image: 'image',
+      text: 'text_format',
+      rectangle: 'crop_landscape'
+    }
+
     return (
       <div>
         <div
@@ -56,11 +62,9 @@ class LayerListItem extends React.Component {
           onMouseLeave={() => {
             highlightLayer(null)
           }}>
-          <div className='layer-list-item__layer-type'>
-            <ActionIcon
-              iconType='image'
-              className='layer-list-item__layer-type-icon'/>
-          </div>
+          <ActionIcon
+            iconType={listIconTypes[layer.type]}
+            className='layer-list-item__layer-type-icon'/>
           <div className='layer-list-item__label'>{layer.title}</div>
           <div className='layer-list-item__visibility-toggle'>
             <ActionIcon
@@ -79,7 +83,7 @@ class LayerListItem extends React.Component {
 }
 
 LayerListItem.propTypes = {
-  layers: PropTypes.object.isRequired
+  layer: PropTypes.object.isRequired
 }
 
 export default LayerListItem

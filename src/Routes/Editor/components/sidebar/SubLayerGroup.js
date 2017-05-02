@@ -34,7 +34,7 @@ class SubLayerGroup extends React.Component {
 }
 
 SubLayerGroup.propTypes = {
-  layer : PropTypes.object.isRequired
+  layers: PropTypes.array.isRequired
 }
 
 export default SubLayerGroup
