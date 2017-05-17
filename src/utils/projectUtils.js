@@ -1,5 +1,6 @@
 import _ from 'lodash'
 
+import { mergeAdjustments } from './mergeAdjustments'
 const artboardColors = [
   '#F77B71',
   '#95CA4E',
@@ -11,7 +12,13 @@ const artboardColors = [
 ]
 
 // Map project to populate artboards and artboards palette
-export const mapProject = ( Project, Artboards, Layers, selections, highlights ) => {
+export const mapProject = (
+  Project,
+  Artboards,
+  Layers,
+  selections,
+  highlights
+) => {
 
   // Calculate group dimensions or return layer dimensions
   let getDimensions = (layers, adjustments) => {
@@ -60,7 +67,9 @@ export const mapProject = ( Project, Artboards, Layers, selections, highlights )
         layers: subLayers,
         adjustments: {
           ...Layers[layerId].adjustments,
-          dimensions: getDimensions(subLayers, Layers[layerId].adjustments)
+          dimensions: (Layers[layerId].type === 'group') ?
+            getDimensions(subLayers)
+            : Layers[layerId].adjustments.dimensions
         }
       }
     })
@@ -91,6 +100,11 @@ export const mapProject = ( Project, Artboards, Layers, selections, highlights )
         layers: artboardLayers,
         selection: {
           isActive: (getSelectedLayers(artboardLayers).length > 0),
+          adjustments: {
+            ...mergeAdjustments(_.map(selections.layers, (layerId) => {
+              return Layers[layerId].adjustments
+            }))
+          },
           dimensions: getDimensions(getSelectedLayers(artboardLayers))
         }
       }

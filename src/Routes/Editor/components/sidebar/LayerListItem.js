@@ -40,6 +40,7 @@ class LayerListItem extends React.Component {
 
     const listIconTypes = {
       image: 'image',
+      group: 'fullscreen',
       text: 'text_format',
       rectangle: 'crop_landscape'
     }

@@ -34,9 +34,8 @@
   position: absolute;
   top: 0;
   left: 0; }
-
-.layer__wrapper.is-hidden {
-  display: none; }
+  .layer__wrapper.is-hidden {
+    display: none; }
 
 .group__selection {
   position: absolute;

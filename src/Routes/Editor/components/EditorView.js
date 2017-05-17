@@ -57,22 +57,23 @@ class EditorView extends React.Component {
             <EditorActionBar/>
             <EditorWorkspace
               artboards={mappedProject.artboards}
+              highlightLayer={highlightLayer}
               selectArtboard={selectArtboard}
+              selections={mappedProject.selections}
               selectGroup={selectGroup}
               selectLayer={selectLayer}
-              shiftSelectLayer={shiftSelectLayer}
-              highlightLayer={highlightLayer}/>
+              shiftSelectLayer={shiftSelectLayer}/>
           </div>
 
           <div className='editor-view__sidebar'>
             <ArtboardsPalette
-              match={match}
               artboards={mappedProject.artboards}
+              highlightLayer={highlightLayer}
+              match={match}
               selectArtboard={selectArtboard}
               selectLayer={selectLayer}
               shiftSelectLayer={shiftSelectLayer}
               showHideLayer={showHideLayer}
-              highlightLayer={highlightLayer}
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette
               selectedLayers={selectedLayer}
