@@ -8,7 +8,7 @@ import ArtboardsPalette from './sidebar/ArtboardsPalette'
 // import DimensionsAdjustment from './sidebar/adjustments/DimensionsAdjustment'
 import EditorActionBar from './EditorActionBar'
 import EditorWorkspace from './EditorWorkspace'
-// import FillAdjustment from './sidebar/adjustments/FillAdjustment'
+import idx from 'idx'
 
 import './styles/editor.css'
 
@@ -25,7 +25,6 @@ class EditorView extends React.Component {
       match,
       Projects,
       selectArtboard,
-      selectedLayer,
       selectGroup,
       selections,
       selectLayer,
@@ -41,6 +40,8 @@ class EditorView extends React.Component {
       selections,
       highlights
     );
+
+    const adjustments = idx(mappedProject, _ => _.adjustments)
 
     return (
       <div className='editor-view__wrapper'>
@@ -76,7 +77,7 @@ class EditorView extends React.Component {
               showHideLayer={showHideLayer}
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette
-              selectedLayers={selectedLayer}
+              adjustments={adjustments}
               adjustLayer={adjustLayer}>
             </AdjustmentsPalette>
           </div>

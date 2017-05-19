@@ -4,15 +4,22 @@ import PropTypes from 'prop-types'
 class TextInput extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      value: props.value
-    }
+    this.state = { value: '' }
+    this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+  }
+
+  componentWillMount() {
+    this.setState({
+      value: this.props.valueFromProps
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      value: nextProps.value
+      value: nextProps.valueFromProps
     })
   }
 
@@ -20,36 +27,39 @@ class TextInput extends React.Component {
     this.setState({
       value: event.target.value
     })
-    event.preventDefault()
+  }
+
+  handleFocus(event) {
+    event.target.select()
+  }
+
+  handleBlur(event) {
+    this.props.setLayerAdjustment(this.props.propertyName, this.state.value)
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      event.target.blur()
+    }
   }
 
   render() {
     const {
       propertyName,
       label,
-      setLayerAdjustment,
-      value
     } = this.props
+
     return (
       <div>
         <label htmlFor={'dimensions-adjustment__' + propertyName}>{label}</label>
         <input
-          ref={(e) => { this[propertyName + 'Input'] = e }}
           type='text'
-          disabled={value === undefined }
-          id={'dimensions-adjustment__' + propertyName}
-          name={propertyName}
-          defaultValue={value}
+          value={this.state.value}
+          placeholder={'-'}
           onChange={this.handleChange}
-          onBlur={() => {
-            setLayerAdjustment(propertyName, this.state.value)
-          }}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              this[propertyName + 'Input'].blur()
-            }
-          }}
-          onFocus={() => this[propertyName + 'Input'].select()}/>
+          onBlur={this.handleBlur}
+          onKeyPress={this.handleKeyPress}
+          onFocus={this.handleFocus}/>
       </div>
     )
   }

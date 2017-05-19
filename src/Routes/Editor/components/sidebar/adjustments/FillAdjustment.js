@@ -14,23 +14,27 @@ class FillAdjustment extends React.Component {
       adjustLayer(layerId, adjustmentGroup, propertyName, value)
     }
 
-    let backgroundColor = idx(adjustments, _ => _.fill.backgroundColor)
+    let backgroundColor = idx(adjustments, _ => _.backgroundColor)
+    if (!backgroundColor) backgroundColor = ''
 
-    return (
-      <div>
-        <div className="adjustment-group__header">
-          <hr/>
-          Fill
+    if (adjustments) {
+      return(
+        <div>
+          <div className="adjustment-group__header">
+            <hr/>
+            Fill
+          </div>
+          <TextInput
+            key={layerId + adjustmentGroup + 'backgroundColor'}
+            propertyName={'backgroundColor'}
+            label='Fill Color'
+            setLayerAdjustment={setLayerAdjustment}
+            valueFromProps={backgroundColor}/>
         </div>
-        <TextInput
-          key={layerId + adjustmentGroup + 'backgroundColor'}
-          handleChange={this.handleChange}
-          propertyName={'backgroundColor'}
-          label='Fill Color'
-          setLayerAdjustment={setLayerAdjustment}
-          value={backgroundColor}/>
-      </div>
-    )
+      )
+    } else {
+      return null
+    }
   }
 }
 

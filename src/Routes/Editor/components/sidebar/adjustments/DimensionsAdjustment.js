@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import idx from 'idx'
 
 import TextInput from './inputs/TextInput'
 
@@ -10,54 +11,57 @@ class DimensionsAdjustment extends React.Component {
     const { adjustments, layerId, adjustLayer } = this.props
 
     const setLayerAdjustment = (propertyName, value) => {
-      adjustLayer(layerId, 'dimensions', propertyName, value)
+      adjustLayer(layerId, adjustmentGroup, propertyName, value)
     }
 
-    let dimensions = {}
-    if (adjustments !== undefined) dimensions = adjustments.dimensions
-    return (
-      <div>
-        <div className="adjustment-group__header">
-          <hr/>
-          Transform
+    let x = idx(adjustments, _ => _.x)
+    if (!x) x = ''
+
+    let y = idx(adjustments, _ => _.y)
+    if (!y) y = ''
+
+    let width = idx(adjustments, _ => _.width)
+    if (!width) width = ''
+
+    let height = idx(adjustments, _ => _.height)
+    if (!height) height = ''
+
+    if (adjustments) {
+      return(
+        <div>
+          <div className="adjustment-group__header">
+            <hr/>
+            Dimensions
+          </div>
+          <TextInput
+            key={layerId + adjustmentGroup + 'x'}
+            propertyName={'x'}
+            label='x'
+            setLayerAdjustment={setLayerAdjustment}
+            valueFromProps={x}/>
+          <TextInput
+            key={layerId + adjustmentGroup + 'y'}
+            propertyName={'y'}
+            label='y'
+            setLayerAdjustment={setLayerAdjustment}
+            valueFromProps={y}/>
+          <TextInput
+            key={layerId + adjustmentGroup + 'width'}
+            propertyName={'width'}
+            label='Width'
+            setLayerAdjustment={setLayerAdjustment}
+            valueFromProps={width}/>
+          <TextInput
+            key={layerId + adjustmentGroup + 'height'}
+            propertyName={'height'}
+            label='Height'
+            setLayerAdjustment={setLayerAdjustment}
+            valueFromProps={height}/>
         </div>
-        <TextInput
-          key={layerId + adjustmentGroup + 'x'}
-          handleChange={this.handleChange}
-          propertyName={'x'}
-          label='x'
-          setLayerAdjustment={setLayerAdjustment}
-          value={dimensions.x}/>
-        <TextInput
-          key={layerId + adjustmentGroup + 'y'}
-          handleChange={this.handleChange}
-          propertyName={'y'}
-          label='y'
-          setLayerAdjustment={setLayerAdjustment}
-          value={dimensions.y}/>
-        <TextInput
-          key={layerId + adjustmentGroup + 'width'}
-          handleChange={this.handleChange}
-          propertyName={'width'}
-          label='Width'
-          setLayerAdjustment={setLayerAdjustment}
-          value={dimensions.width}/>
-        <TextInput
-          key={layerId + adjustmentGroup + 'height'}
-          handleChange={this.handleChange}
-          propertyName={'height'}
-          label='Height'
-          setLayerAdjustment={setLayerAdjustment}
-          value={dimensions.height}/>
-        <TextInput
-          key={layerId + adjustmentGroup + 'rotation'}
-          handleChange={this.handleChange}
-          propertyName={'rotation'}
-          label='Rotation'
-          setLayerAdjustment={setLayerAdjustment}
-          value={dimensions.rotation}/>
-      </div>
-    )
+      )
+    } else {
+      return null
+    }
   }
 }
 

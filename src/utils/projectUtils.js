@@ -77,6 +77,11 @@ export const mapProject = (
 
   return {
     ...Project,
+    adjustments: {
+      ...mergeAdjustments(_.map(selections.layers, (layerId) => {
+        return Layers[layerId].adjustments
+      }))
+    },
     artboards: _.map(Project.artboards, (artboard, index) => {
 
       const artboardLayers = mapLayers(Artboards[artboard].layers)

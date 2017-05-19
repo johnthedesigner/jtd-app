@@ -1,8 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import idx from 'idx'
+
+import FillAdjustment from './adjustments/FillAdjustment'
+import DimensionsAdjustment from './adjustments/DimensionsAdjustment'
 
 class AdjustmentsPalette extends React.Component {
   render() {
+    const {
+      adjustLayer,
+      adjustments,
+      layerId,
+    } = this.props
 
     return (
       <div className="adjustments-palette__wrapper">
@@ -12,7 +21,14 @@ class AdjustmentsPalette extends React.Component {
         </div>
 
         <div className="adjustments-palette__adjustments-list">
-          {this.props.children}
+          <DimensionsAdjustment
+            adjustLayer={adjustLayer}
+            adjustments={idx(adjustments, _ => _.dimensions)}
+            layerId={layerId}/>
+          <FillAdjustment
+            adjustLayer={adjustLayer}
+            adjustments={idx(adjustments, _ => _.fill)}
+            layerId={layerId}/>
         </div>
       </div>
     )
@@ -20,7 +36,7 @@ class AdjustmentsPalette extends React.Component {
 }
 
 AdjustmentsPalette.propTypes = {
-  selectedLayer : PropTypes.object
+  adjustments : PropTypes.object
 }
 
 export default AdjustmentsPalette
