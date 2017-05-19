@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { mapProject } from '../../../utils/projectUtils'
 import AdjustmentsPalette from './sidebar/AdjustmentsPalette'
 import ArtboardsPalette from './sidebar/ArtboardsPalette'
-// import DimensionsAdjustment from './sidebar/adjustments/DimensionsAdjustment'
 import EditorActionBar from './EditorActionBar'
 import EditorWorkspace from './EditorWorkspace'
 import idx from 'idx'
@@ -16,7 +15,7 @@ class EditorView extends React.Component {
   render() {
 
     const {
-      adjustLayer,
+      adjustLayers,
       Artboards,
       deselectLayersArtboard,
       highlightLayer,
@@ -78,7 +77,8 @@ class EditorView extends React.Component {
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette
               adjustments={adjustments}
-              adjustLayer={adjustLayer}>
+              adjustLayers={adjustLayers}
+              layerIds={selections.layers}>
             </AdjustmentsPalette>
           </div>
         </div>

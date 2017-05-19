@@ -1,5 +1,5 @@
 import {
-  ADJUST_LAYER,
+  ADJUST_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   HIGHLIGHT_LAYER,
   SELECT_ARTBOARD,
@@ -9,10 +9,10 @@ import {
   TOGGLE_ARTBOARD_ITEM,
 } from './constants'
 
-export function adjustLayer(layerId, adjustmentGroup, propertyName, value) {
+export function adjustLayers(layerIds, adjustmentGroup, propertyName, value) {
   return {
-    type: ADJUST_LAYER,
-    layerId,
+    type: ADJUST_LAYERS,
+    layerIds,
     adjustmentGroup,
     propertyName,
     value

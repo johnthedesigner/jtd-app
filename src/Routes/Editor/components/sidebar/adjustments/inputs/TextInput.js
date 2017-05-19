@@ -47,13 +47,14 @@ class TextInput extends React.Component {
     const {
       propertyName,
       label,
+      type,
     } = this.props
 
     return (
       <div>
         <label htmlFor={'dimensions-adjustment__' + propertyName}>{label}</label>
         <input
-          type='text'
+          type={type}
           value={this.state.value}
           placeholder={'-'}
           onChange={this.handleChange}

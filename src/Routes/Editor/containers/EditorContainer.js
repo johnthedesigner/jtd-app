@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 import {
-  adjustLayer,
+  adjustLayers,
   deselectLayersArtboard,
   highlightLayer,
   selectArtboard,
@@ -17,8 +17,8 @@ import '../styles/editor.css'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    adjustLayer: (layerId, adjustmentGroup, key, value) => {
-      dispatch(adjustLayer(layerId, adjustmentGroup, key, value))
+    adjustLayers: (layerIds, adjustmentGroup, key, value) => {
+      dispatch(adjustLayers(layerIds, adjustmentGroup, key, value))
     },
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard())

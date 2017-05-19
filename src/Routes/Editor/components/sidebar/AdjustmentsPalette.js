@@ -8,9 +8,9 @@ import DimensionsAdjustment from './adjustments/DimensionsAdjustment'
 class AdjustmentsPalette extends React.Component {
   render() {
     const {
-      adjustLayer,
+      adjustLayers,
       adjustments,
-      layerId,
+      layerIds,
     } = this.props
 
     return (
@@ -22,13 +22,13 @@ class AdjustmentsPalette extends React.Component {
 
         <div className="adjustments-palette__adjustments-list">
           <DimensionsAdjustment
-            adjustLayer={adjustLayer}
+            adjustLayers={adjustLayers}
             adjustments={idx(adjustments, _ => _.dimensions)}
-            layerId={layerId}/>
+            layerIds={layerIds}/>
           <FillAdjustment
-            adjustLayer={adjustLayer}
+            adjustLayers={adjustLayers}
             adjustments={idx(adjustments, _ => _.fill)}
-            layerId={layerId}/>
+            layerIds={layerIds}/>
         </div>
       </div>
     )

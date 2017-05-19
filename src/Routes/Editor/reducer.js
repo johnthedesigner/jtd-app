@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 import { consoleGroup } from '../../utils/utils'
 import {
-  ADJUST_LAYER,
+  ADJUST_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   HIGHLIGHT_LAYER,
   SELECT_ARTBOARD,
@@ -16,16 +16,16 @@ import {
 // Files Reducer
 export default function Projects(state = {}, a) {
   switch (a.type) {
-    case ADJUST_LAYER:
-      consoleGroup('ADJUST_LAYER',[a])
-      let updatedLayer = state.Layers[a.layerId]
-        .adjustments[a.adjustmentGroup][a.propertyName] = a.value
-      return Object.assign({},state,{
-        Layers: {
-          ...state.Layers,
-          updatedLayer
-        }
+    case ADJUST_LAYERS:
+      consoleGroup('ADJUST_LAYERS',[a])
+
+      let updatedLayers = Object.assign({},state.Layers)
+      _.each(a.layerIds, (layerId) => {
+        updatedLayers[layerId]
+          .adjustments[a.adjustmentGroup][a.propertyName] = a.value
       })
+
+      return Object.assign({},state,{ Layers: updatedLayers })
 
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup('DESELECT_LAYERS_ARTBOARD',[a])

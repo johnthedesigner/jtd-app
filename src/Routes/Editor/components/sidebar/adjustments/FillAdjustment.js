@@ -29,6 +29,7 @@ class FillAdjustment extends React.Component {
             propertyName={'backgroundColor'}
             label='Fill Color'
             setLayerAdjustment={setLayerAdjustment}
+            type='text'
             valueFromProps={backgroundColor}/>
         </div>
       )

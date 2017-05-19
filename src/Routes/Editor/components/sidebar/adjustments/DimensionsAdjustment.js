@@ -8,10 +8,10 @@ class DimensionsAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'dimensions'
 
-    const { adjustments, layerId, adjustLayer } = this.props
+    const { adjustments, layerIds, adjustLayers } = this.props
 
     const setLayerAdjustment = (propertyName, value) => {
-      adjustLayer(layerId, adjustmentGroup, propertyName, value)
+      adjustLayers(layerIds, adjustmentGroup, propertyName, (value - 0))
     }
 
     let x = idx(adjustments, _ => _.x)
@@ -34,28 +34,32 @@ class DimensionsAdjustment extends React.Component {
             Dimensions
           </div>
           <TextInput
-            key={layerId + adjustmentGroup + 'x'}
+            key={adjustmentGroup + 'x'}
             propertyName={'x'}
             label='x'
             setLayerAdjustment={setLayerAdjustment}
+            type='number'
             valueFromProps={x}/>
           <TextInput
-            key={layerId + adjustmentGroup + 'y'}
+            key={adjustmentGroup + 'y'}
             propertyName={'y'}
             label='y'
             setLayerAdjustment={setLayerAdjustment}
+            type='number'
             valueFromProps={y}/>
           <TextInput
-            key={layerId + adjustmentGroup + 'width'}
+            key={adjustmentGroup + 'width'}
             propertyName={'width'}
             label='Width'
             setLayerAdjustment={setLayerAdjustment}
+            type='number'
             valueFromProps={width}/>
           <TextInput
-            key={layerId + adjustmentGroup + 'height'}
+            key={adjustmentGroup + 'height'}
             propertyName={'height'}
             label='Height'
             setLayerAdjustment={setLayerAdjustment}
+            type='number'
             valueFromProps={height}/>
         </div>
       )

@@ -91,7 +91,9 @@ export const mapProject = (
           if (layer.isSelected) {
             selectedLayers.push(layer)
           }
-          if (layer.layers.length > 0) getSelectedLayers(layer.layers)
+          if (layer.layers.length > 0) {
+            getSelectedLayers(layer.layers)
+          }
         })
         return selectedLayers
       }
@@ -114,7 +116,8 @@ export const mapProject = (
         }
       }
       return mappedArtboard
-    })
+    }),
+    selections
   }
 }
 
