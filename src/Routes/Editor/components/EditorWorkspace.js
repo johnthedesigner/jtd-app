@@ -9,10 +9,12 @@ class EditorWorkspace extends React.Component {
 
     const {
       artboards,
+      bumpLayers,
       highlightLayer,
       selectArtboard,
       selectGroup,
       selectLayer,
+      selections,
       shiftSelectLayer,
     } = this.props
 
@@ -22,9 +24,11 @@ class EditorWorkspace extends React.Component {
           <Artboard
             {...artboard}
             key={index}
+            bumpLayers={bumpLayers}
             selectArtboard={selectArtboard}
             selectGroup={selectGroup}
             selectLayer={selectLayer}
+            selections={selections}
             shiftSelectLayer={shiftSelectLayer}
             highlightLayer={highlightLayer}/>
         )})}

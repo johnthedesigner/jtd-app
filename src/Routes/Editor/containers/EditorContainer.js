@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 import {
   adjustLayers,
+  bumpLayers,
   deselectLayersArtboard,
   highlightLayer,
   selectArtboard,
@@ -19,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     adjustLayers: (layerIds, adjustmentGroup, key, value) => {
       dispatch(adjustLayers(layerIds, adjustmentGroup, key, value))
+    },
+    bumpLayers: (layerIds, axis, sign, shiftKey) => {
+      dispatch(bumpLayers(layerIds, axis, sign, shiftKey))
     },
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard())

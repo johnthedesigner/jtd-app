@@ -13,10 +13,10 @@ import './styles/editor.css'
 
 class EditorView extends React.Component {
   render() {
-
     const {
       adjustLayers,
       Artboards,
+      bumpLayers,
       deselectLayersArtboard,
       highlightLayer,
       highlights,
@@ -57,6 +57,7 @@ class EditorView extends React.Component {
             <EditorActionBar/>
             <EditorWorkspace
               artboards={mappedProject.artboards}
+              bumpLayers={bumpLayers}
               highlightLayer={highlightLayer}
               selectArtboard={selectArtboard}
               selections={mappedProject.selections}

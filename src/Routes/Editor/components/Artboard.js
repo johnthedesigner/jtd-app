@@ -11,6 +11,7 @@ class Artboard extends React.Component {
 
     const {
       artboardColor,
+      bumpLayers,
       height,
       highlightLayer,
       id,
@@ -20,11 +21,14 @@ class Artboard extends React.Component {
       selectArtboard,
       selectGroup,
       selection,
+      selections,
       selectLayer,
       shiftSelectLayer,
       title,
       width,
     } = this.props
+
+    console.log(selections)
 
     const toggleSelected = () => {
       return (isSelected || layerSelected) ? ' is-selected' : ''
@@ -70,8 +74,10 @@ class Artboard extends React.Component {
           {_.map(layers,(layer,index) => { return (
             <Layer
               artboardColor={artboardColor}
+              bumpLayers={bumpLayers}
               key={index}
               layer={layer}
+              selectedLayers={selections.layers}
               selectGroup={selectGroup}
               selectLayer={selectLayer}
               shiftSelectLayer={shiftSelectLayer}

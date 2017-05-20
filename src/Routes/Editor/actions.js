@@ -1,5 +1,6 @@
 import {
   ADJUST_LAYERS,
+  BUMP_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   HIGHLIGHT_LAYER,
   SELECT_ARTBOARD,
@@ -16,6 +17,16 @@ export function adjustLayers(layerIds, adjustmentGroup, propertyName, value) {
     adjustmentGroup,
     propertyName,
     value
+  }
+}
+
+export function bumpLayers(layerIds, axis, sign, shiftKey) {
+  return {
+    type: BUMP_LAYERS,
+    layerIds,
+    axis,
+    sign,
+    shiftKey
   }
 }
 

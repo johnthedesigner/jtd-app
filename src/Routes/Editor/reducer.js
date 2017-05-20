@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { consoleGroup } from '../../utils/utils'
 import {
   ADJUST_LAYERS,
+  BUMP_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   HIGHLIGHT_LAYER,
   SELECT_ARTBOARD,
@@ -19,13 +20,24 @@ export default function Projects(state = {}, a) {
     case ADJUST_LAYERS:
       consoleGroup('ADJUST_LAYERS',[a])
 
-      let updatedLayers = Object.assign({},state.Layers)
+      let adjustedLayers = Object.assign({},state.Layers)
       _.each(a.layerIds, (layerId) => {
-        updatedLayers[layerId]
+        adjustedLayers[layerId]
           .adjustments[a.adjustmentGroup][a.propertyName] = a.value
       })
 
-      return Object.assign({},state,{ Layers: updatedLayers })
+      return Object.assign({},state,{ Layers: adjustedLayers })
+
+    case BUMP_LAYERS:
+      consoleGroup('BUMP_LAYERS',[a])
+      const { layerIds, axis, sign, shiftKey } = a
+      var distance = (shiftKey) ? 10 : 1
+      let bumpedLayers = Object.assign({},state.Layers)
+      _.each(layerIds, (layerId) => {
+        bumpedLayers[layerId]
+          .adjustments['dimensions'][axis] += (distance * sign)
+      })
+      return Object.assign({},state,{ Layers: bumpedLayers })
 
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup('DESELECT_LAYERS_ARTBOARD',[a])
