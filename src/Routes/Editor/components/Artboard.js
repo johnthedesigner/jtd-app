@@ -28,8 +28,6 @@ class Artboard extends React.Component {
       width,
     } = this.props
 
-    console.log(selections)
-
     const toggleSelected = () => {
       return (isSelected || layerSelected) ? ' is-selected' : ''
     }

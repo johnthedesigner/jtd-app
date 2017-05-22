@@ -56,7 +56,8 @@ class Layer extends React.Component {
             group={layer}
             bumpLayers={this.props.bumpLayers}
             {...this.props}
-            layerScaleStyles={layerScaleStyles}/> )
+            layerScaleStyles={layerScaleStyles}
+            selectedLayers={this.props.selectedLayers}/> )
 
         case layerTypes.rectangle:
           return ( <RectangleLayer
@@ -151,13 +152,16 @@ class Layer extends React.Component {
         onMouseLeave={() => {
           highlightLayer(null)
         }}>
-        <button
+        <div
           className={'layer__shape layer__shape--' + layer.type}
-          onFocus={this.handleFocus}
-          onKeyDown={this.handleKeyDown}
           style={layerShapeStyles}>
           {layerType(layer, layerScaleStyles)}
-        </button>
+          <button
+            onFocus={this.handleFocus}
+            onKeyDown={this.handleKeyDown}
+            style={layerScaleStyles}>
+          </button>
+        </div>
         <div className='layer__highlight-indicator' style={highlightStyles}></div>
       </div>
     )

@@ -12,6 +12,7 @@ class GroupLayer extends React.Component {
       artboardId,
       bumpLayers,
       highlightLayer,
+      selectedLayers,
       selectGroup,
       selectLayer,
       group,
@@ -31,6 +32,7 @@ class GroupLayer extends React.Component {
             parentSelected={group.isSelected}
             key={index}
             layer={layer}
+            selectedLayers={selectedLayers}
             selectGroup={selectGroup}
             selectLayer={selectLayer}
             highlightLayer={highlightLayer}/>

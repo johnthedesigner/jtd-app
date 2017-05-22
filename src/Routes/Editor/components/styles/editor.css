@@ -74,6 +74,10 @@ html {
   background: none;
   border: none; }
 
+.layer__shape > button {
+  background: none;
+  border: none; }
+
 .layer__shape > * {
   position: absolute;
   top: 0;

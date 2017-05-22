@@ -90,6 +90,11 @@ html {
   background: none;
   border: none;
 
+  & > button {
+    background: none;
+    border: none;
+  }
+
   & > * {
     position: absolute;
     top: 0;
