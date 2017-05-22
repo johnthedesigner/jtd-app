@@ -4,6 +4,7 @@ import idx from 'idx'
 
 import FillAdjustment from './adjustments/FillAdjustment'
 import DimensionsAdjustment from './adjustments/DimensionsAdjustment'
+import TypeAdjustment from './adjustments/TypeAdjustment'
 
 class AdjustmentsPalette extends React.Component {
   render() {
@@ -28,6 +29,10 @@ class AdjustmentsPalette extends React.Component {
           <FillAdjustment
             adjustLayers={adjustLayers}
             adjustments={idx(adjustments, _ => _.fill)}
+            layerIds={layerIds}/>
+          <TypeAdjustment
+            adjustLayers={adjustLayers}
+            adjustments={idx(adjustments, _ => _.type)}
             layerIds={layerIds}/>
         </div>
       </div>

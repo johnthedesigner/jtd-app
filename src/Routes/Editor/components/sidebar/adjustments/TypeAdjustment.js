@@ -4,9 +4,9 @@ import idx from 'idx'
 
 import TextInput from './inputs/TextInput'
 
-class FillAdjustment extends React.Component {
+class TypeAdjustment extends React.Component {
   render() {
-    let adjustmentGroup = 'fill'
+    let adjustmentGroup = 'type'
 
     const { adjustments, layerIds, adjustLayers } = this.props
 
@@ -14,23 +14,23 @@ class FillAdjustment extends React.Component {
       adjustLayers(layerIds, adjustmentGroup, propertyName, value)
     }
 
-    let backgroundColor = idx(adjustments, _ => _.backgroundColor)
-    if (!backgroundColor) backgroundColor = ''
+    let color = idx(adjustments, _ => _.color)
+    if (!color) color = ''
 
     if (adjustments) {
       return(
         <div>
           <div className="adjustment-group__header">
             <hr/>
-            Fill
+            Type Styles
           </div>
           <TextInput
-            key={adjustmentGroup + 'backgroundColor'}
-            propertyName={'backgroundColor'}
-            label='Fill Color'
+            key={adjustmentGroup + 'color'}
+            propertyName={'color'}
+            label='Text Color'
             setLayerAdjustment={setLayerAdjustment}
             type='text'
-            valueFromProps={backgroundColor}/>
+            valueFromProps={color}/>
         </div>
       )
     } else {
@@ -39,8 +39,8 @@ class FillAdjustment extends React.Component {
   }
 }
 
-FillAdjustment.propTypes = {
+TypeAdjustment.propTypes = {
   layer : PropTypes.object
 }
 
-export default FillAdjustment
+export default TypeAdjustment
