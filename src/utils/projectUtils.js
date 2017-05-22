@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 import { mergeAdjustments } from './mergeAdjustments'
+
 const artboardColors = [
   '#F77B71',
   '#95CA4E',
@@ -121,3 +122,16 @@ export const mapProject = (
   }
 }
 
+export const getNestedLayers = (layers, layerId, ) => {
+  var nestedLayerIds = []
+  const recurseThroughLayers = (id) => {
+    nestedLayerIds.push(id)
+    if (layers[id].type === 'group') {
+      _.each(layers[id].layers, nestedLayer => {
+        recurseThroughLayers(nestedLayer)
+      })
+    }
+  }
+  recurseThroughLayers(layerId)
+  return nestedLayerIds
+}

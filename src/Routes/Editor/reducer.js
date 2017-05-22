@@ -2,6 +2,7 @@ import idx from 'idx'
 import _ from 'lodash'
 
 import { consoleGroup } from '../../utils/utils'
+import { getNestedLayers } from '../../utils/projectUtils'
 import {
   ADJUST_LAYERS,
   BUMP_LAYERS,
@@ -34,7 +35,7 @@ export default function Projects(state = {}, a) {
       var distance = (shiftKey) ? 10 : 1
       let bumpedLayers = Object.assign({},state.Layers)
       _.each(layerIds, (layerId) => {
-        bumpedLayers[layerId]
+        if (bumpedLayers[layerId].adjustments) bumpedLayers[layerId]
           .adjustments['dimensions'][axis] += (distance * sign)
       })
       return Object.assign({},state,{ Layers: bumpedLayers })
@@ -82,6 +83,7 @@ export default function Projects(state = {}, a) {
 
     case SELECT_LAYER:
       consoleGroup('SELECT_LAYER',[a])
+      const nestedLayers = getNestedLayers(state.Layers, a.layerId)
       const selectedGroupLayers = idx(state, _ =>
         _.Layers[state.selections.groupId].layers)
       const fromSameGroup = _.includes(selectedGroupLayers,a.layerId)
@@ -92,7 +94,7 @@ export default function Projects(state = {}, a) {
           ...state.selections,
           artboardId: null,
           groupId,
-          layers: ((a.shiftKey) ? _.xor(layers,[a.layerId]) : [a.layerId])
+          layers: ((a.shiftKey) ? _.xor(layers,nestedLayers) : nestedLayers)
         })
       })
 

@@ -54,6 +54,7 @@ class Layer extends React.Component {
         case layerTypes.group:
           return ( <GroupLayer
             group={layer}
+            bumpLayers={this.props.bumpLayers}
             {...this.props}
             layerScaleStyles={layerScaleStyles}/> )
 
@@ -151,7 +152,7 @@ class Layer extends React.Component {
           highlightLayer(null)
         }}>
         <button
-          className='layer__shape'
+          className={'layer__shape layer__shape--' + layer.type}
           onFocus={this.handleFocus}
           onKeyDown={this.handleKeyDown}
           style={layerShapeStyles}>

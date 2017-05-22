@@ -10,6 +10,7 @@ class GroupLayer extends React.Component {
     const {
       artboardColor,
       artboardId,
+      bumpLayers,
       highlightLayer,
       selectGroup,
       selectLayer,
@@ -24,6 +25,7 @@ class GroupLayer extends React.Component {
           <Layer
             artboardColor={artboardColor}
             artboardId={artboardId}
+            bumpLayers={bumpLayers}
             parentId={group.id}
             parentGroupIsSelected={group.groupIsSelected}
             parentSelected={group.isSelected}
