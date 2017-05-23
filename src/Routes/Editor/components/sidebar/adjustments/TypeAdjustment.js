@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import idx from 'idx'
 
-import TextInput from './inputs/TextInput'
+import ColorInput from './inputs/ColorInput'
 
 class TypeAdjustment extends React.Component {
   render() {
@@ -24,12 +24,11 @@ class TypeAdjustment extends React.Component {
             <hr/>
             Type Styles
           </div>
-          <TextInput
+          <ColorInput
             key={adjustmentGroup + 'color'}
             propertyName={'color'}
             label='Text Color'
             setLayerAdjustment={setLayerAdjustment}
-            type='text'
             valueFromProps={color}/>
         </div>
       )
