@@ -13,7 +13,6 @@ const initialState = {
     selections: {
       projectId: null,
       artboardId: null,
-      groupId: null,
       layers: []
     },
     highlights: {

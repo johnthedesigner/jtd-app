@@ -7,7 +7,6 @@ import _ from 'lodash'
 
 import { layerTypes } from '../../../../store/entities/Layers'
 import ImageLayer from './ImageLayer'
-import GroupLayer from './GroupLayer'
 import RectangleLayer from './RectangleLayer'
 import TextLayer from './TextLayer'
 
@@ -107,14 +106,6 @@ class Layer extends React.Component {
             layer={layer}
             layerScaleStyles={layerScaleStyles}/> )
 
-        case layerTypes.group:
-          return ( <GroupLayer
-            group={layer}
-            bumpLayers={this.props.bumpLayers}
-            {...this.props}
-            layerScaleStyles={layerScaleStyles}
-            selectedLayers={this.props.selectedLayers}/> )
-
         case layerTypes.rectangle:
           return ( <RectangleLayer
             layer={layer}
@@ -132,12 +123,8 @@ class Layer extends React.Component {
 
     const {
       artboardColor,
-      parentId,
-      parentSelected,
-      parentGroupIsSelected,
       layer,
       highlightLayer,
-      selectGroup,
       selectLayer,
     } = this.props
 
@@ -184,26 +171,15 @@ class Layer extends React.Component {
         }
         onClick={(e) => {
           e.stopPropagation()
-          if (parentGroupIsSelected) {
-            selectLayer(layer.id, e.shiftKey)
-          } else if ((!layer.isSelected && !parentSelected) || e.shiftKey) {
-            selectLayer(((parentId) ? parentId : layer.id), e.shiftKey)
-          }
+          selectLayer(layer.id, e.shiftKey)
         }}
         onDoubleClick={(e) => {
           e.stopPropagation()
-          if (parentId) {
-            highlightLayer(layer.id)
-            selectLayer(layer.id)
-            selectGroup(parentId)
-          }
+          highlightLayer(layer.id)
+          selectLayer(layer.id)
         }}
         onMouseEnter={() => {
-          if (parentGroupIsSelected) {
-            highlightLayer(layer.id)
-          } else {
-            highlightLayer(((parentId) ? parentId : layer.id))
-          }
+          highlightLayer(layer.id)
         }}
         onMouseLeave={() => {
           highlightLayer(null)

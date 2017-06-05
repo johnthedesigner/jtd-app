@@ -6,7 +6,6 @@ import {
   HIGHLIGHT_LAYER,
   RESIZE_LAYERS,
   SELECT_ARTBOARD,
-  SELECT_GROUP,
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
@@ -67,13 +66,6 @@ export function selectArtboard(artboardId) {
   return {
     type: SELECT_ARTBOARD,
     artboardId
-  }
-}
-
-export function selectGroup(groupId) {
-  return {
-    type: SELECT_GROUP,
-    groupId
   }
 }
 

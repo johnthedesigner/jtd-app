@@ -26,10 +26,8 @@ class EditorView extends React.Component {
       Projects,
       resizeLayers,
       selectArtboard,
-      selectGroup,
       selections,
       selectLayer,
-      shiftSelectLayer,
       showHideLayer,
       toggleArtboardItem,
     } = this.props
@@ -65,9 +63,7 @@ class EditorView extends React.Component {
               resizeLayers={resizeLayers}
               selectArtboard={selectArtboard}
               selections={mappedProject.selections}
-              selectGroup={selectGroup}
-              selectLayer={selectLayer}
-              shiftSelectLayer={shiftSelectLayer}/>
+              selectLayer={selectLayer}/>
           </div>
 
           <div className='editor-view__sidebar'>
@@ -77,7 +73,6 @@ class EditorView extends React.Component {
               match={match}
               selectArtboard={selectArtboard}
               selectLayer={selectLayer}
-              shiftSelectLayer={shiftSelectLayer}
               showHideLayer={showHideLayer}
               toggleArtboardItem={toggleArtboardItem}/>
             <AdjustmentsPalette

@@ -9,7 +9,6 @@ import {
   highlightLayer,
   resizeLayers,
   selectArtboard,
-  selectGroup,
   selectLayer,
   showHideLayer,
   toggleArtboardItem,
@@ -40,9 +39,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectArtboard: (artboardId) => {
       dispatch(selectArtboard(artboardId))
-    },
-    selectGroup: (groupId) => {
-      dispatch(selectGroup(groupId))
     },
     selectLayer: (layerId, shiftKey) => {
       dispatch(selectLayer(layerId, shiftKey))

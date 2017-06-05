@@ -1,7 +1,6 @@
 export const layerTypes = {
   draggable: 'draggable',
   image: 'image',
-  group: 'group',
   rectangle: 'rectangle',
   text: 'text',
 }
@@ -64,18 +63,6 @@ export const Layers = [
         rotation: 0
       }
     }
-  },
-  {
-    id: 3,
-    type: layerTypes.group,
-    title: 'Layer Group',
-    layers: [1,2,4]
-  },
-  {
-    id: 4,
-    type: layerTypes.group,
-    title: 'Layer Group',
-    layers: [5,6]
   },
   {
     id: 5,

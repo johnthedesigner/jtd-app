@@ -1,8 +1,6 @@
-import idx from 'idx'
 import _ from 'lodash'
 
 import { consoleGroup } from '../../utils/utils'
-import { getNestedLayers } from '../../utils/projectUtils'
 import {
   ADJUST_LAYERS,
   BUMP_LAYERS,
@@ -103,18 +101,12 @@ export default function Projects(state = {}, a) {
 
     case SELECT_LAYER:
       consoleGroup('SELECT_LAYER',[a])
-      const nestedLayers = getNestedLayers(state.Layers, a.layerId)
-      const selectedGroupLayers = idx(state, _ =>
-        _.Layers[state.selections.groupId].layers)
-      const fromSameGroup = _.includes(selectedGroupLayers,a.layerId)
-      const groupId = ((fromSameGroup) ? state.selections.groupId : null)
       const { layers } = state.selections
       return Object.assign({},state,{
         selections: Object.assign({},state.selections,{
           ...state.selections,
           artboardId: null,
-          groupId,
-          layers: ((a.shiftKey) ? _.xor(layers,nestedLayers) : nestedLayers)
+          layers: ((a.shiftKey) ? _.xor(layers,a.layerId) : a.layerId)
         })
       })
 

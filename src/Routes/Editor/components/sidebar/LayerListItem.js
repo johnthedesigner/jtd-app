@@ -2,14 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import ActionIcon from '../../../../components/ActionIcon'
-import SubLayerGroup from './SubLayerGroup'
 
 class LayerListItem extends React.Component {
   render() {
 
     const {
-      artboardColor,
-      artboardId,
       highlightLayer,
       layer,
       selectLayer,
@@ -24,23 +21,8 @@ class LayerListItem extends React.Component {
       return (layer.hide) ? ' is-hidden' : ''
     }
 
-    const showSubLayerGroup = (layers) => {
-      if (layers) {
-        return (
-          <SubLayerGroup
-            artboardColor={artboardColor}
-            artboardId={artboardId}
-            layers={layers}
-            selectLayer={selectLayer}
-            showHideLayer={showHideLayer}
-            highlightLayer={highlightLayer}/>
-        )
-      }
-    }
-
     const listIconTypes = {
       image: 'image',
-      group: 'fullscreen',
       text: 'text_format',
       rectangle: 'crop_landscape'
     }
@@ -77,7 +59,6 @@ class LayerListItem extends React.Component {
               }}/>
           </div>
         </div>
-        {showSubLayerGroup(layer.layers)}
       </div>
     )
   }

@@ -15,10 +15,8 @@ class EditorWorkspace extends React.Component {
       highlightLayer,
       resizeLayers,
       selectArtboard,
-      selectGroup,
       selectLayer,
       selections,
-      shiftSelectLayer,
     } = this.props
 
     return (
@@ -28,7 +26,6 @@ class EditorWorkspace extends React.Component {
             {...artboard}
             key={index}
             selectArtboard={selectArtboard}
-            selectGroup={selectGroup}
             selections={selections}
             highlightLayer={highlightLayer}>
             {_.map(artboard.layers,(layer,index) => { return (
@@ -40,9 +37,7 @@ class EditorWorkspace extends React.Component {
                 layer={layer}
                 resizeLayers={resizeLayers}
                 selectedLayers={selections.layers}
-                selectGroup={selectGroup}
                 selectLayer={selectLayer}
-                shiftSelectLayer={shiftSelectLayer}
                 highlightLayer={highlightLayer}/>
             )})}
           </Artboard>

@@ -64,7 +64,6 @@ export const mapProject = (
         ...Layers[layerId],
         isSelected: _.includes(selections.layers, layerId),
         isHighlighted: (highlights.layerId === layerId),
-        groupIsSelected: (selections.groupId === layerId),
         layers: subLayers,
         adjustments: {
           ...Layers[layerId].adjustments,
@@ -120,18 +119,4 @@ export const mapProject = (
     }),
     selections
   }
-}
-
-export const getNestedLayers = (layers, layerId, ) => {
-  var nestedLayerIds = []
-  const recurseThroughLayers = (id) => {
-    nestedLayerIds.push(id)
-    if (layers[id].type === 'group') {
-      _.each(layers[id].layers, nestedLayer => {
-        recurseThroughLayers(nestedLayer)
-      })
-    }
-  }
-  recurseThroughLayers(layerId)
-  return nestedLayerIds
 }

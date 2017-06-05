@@ -63,8 +63,6 @@ class ArtboardListItem extends React.Component {
           {isCollapsed ? '' : // TODO: expand and collapse transitions
             _.map(layers,(layer,index) => { return (
               <LayerListItem
-                artboardColor={artboardColor}
-                artboardId={id}
                 key={index}
                 layer={layer}
                 selectLayer={selectLayer}
