@@ -18,11 +18,13 @@ class EditorView extends React.Component {
       Artboards,
       bumpLayers,
       deselectLayersArtboard,
+      dragLayers,
       highlightLayer,
       highlights,
       Layers,
       match,
       Projects,
+      resizeLayers,
       selectArtboard,
       selectGroup,
       selections,
@@ -58,7 +60,9 @@ class EditorView extends React.Component {
             <EditorWorkspace
               artboards={mappedProject.artboards}
               bumpLayers={bumpLayers}
+              dragLayers={dragLayers}
               highlightLayer={highlightLayer}
+              resizeLayers={resizeLayers}
               selectArtboard={selectArtboard}
               selections={mappedProject.selections}
               selectGroup={selectGroup}

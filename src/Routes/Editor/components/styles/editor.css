@@ -47,9 +47,8 @@ html {
   position: absolute;
   top: 0;
   left: 0; }
-
-.layer__wrapper.is-hidden {
-  display: none; }
+  .layer__wrapper.is-hidden {
+    display: none; }
 
 .group__selection {
   position: absolute;
@@ -73,15 +72,13 @@ html {
   outline: none;
   background: none;
   border: none; }
-
-.layer__shape > button {
-  background: none;
-  border: none;
-  outline: none; }
-
-.layer__shape > * {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0; }
+  .layer__shape > button {
+    background: none;
+    border: none;
+    outline: none; }
+  .layer__shape > * {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }

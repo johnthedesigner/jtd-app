@@ -1,8 +1,9 @@
 export const layerTypes = {
+  draggable: 'draggable',
   image: 'image',
   group: 'group',
   rectangle: 'rectangle',
-  text: 'text'
+  text: 'text',
 }
 
 export const Layers = [
@@ -114,4 +115,23 @@ export const Layers = [
       }
     }
   },
+  {
+    id: 7,
+    type: layerTypes.dragRectangle,
+    title: 'draggable',
+    adjustments: {
+      fill: {
+        backgroundColor: 'rgba(255,0,255,.5)'
+      },
+      dimensions: {
+        x: 300,
+        y: 250,
+        width: 100,
+        height: 100,
+        scaleX: 1,
+        scaleY: 1,
+        rotation: 0
+      }
+    }
+  }
 ]

@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import idx from 'idx'
-import Layer from './layers/Layer'
 
 import SelectionControl from './layers/SelectionControl'
 
@@ -10,20 +9,12 @@ class Artboard extends React.Component {
   render() {
 
     const {
-      artboardColor,
-      bumpLayers,
       height,
-      highlightLayer,
       id,
       isSelected,
-      layers,
       layerSelected,
       selectArtboard,
-      selectGroup,
       selection,
-      selections,
-      selectLayer,
-      shiftSelectLayer,
       title,
       width,
     } = this.props
@@ -69,18 +60,7 @@ class Artboard extends React.Component {
             e.stopPropagation()
             selectArtboard(id)
           }}>
-          {_.map(layers,(layer,index) => { return (
-            <Layer
-              artboardColor={artboardColor}
-              bumpLayers={bumpLayers}
-              key={index}
-              layer={layer}
-              selectedLayers={selections.layers}
-              selectGroup={selectGroup}
-              selectLayer={selectLayer}
-              shiftSelectLayer={shiftSelectLayer}
-              highlightLayer={highlightLayer}/>
-          )})}
+          {this.props.children}
           <SelectionControl
             artboardId={id}
             isActive={selection.isActive}

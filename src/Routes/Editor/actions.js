@@ -2,7 +2,9 @@ import {
   ADJUST_LAYERS,
   BUMP_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
+  DRAG_LAYERS,
   HIGHLIGHT_LAYER,
+  RESIZE_LAYERS,
   SELECT_ARTBOARD,
   SELECT_GROUP,
   SELECT_LAYER,
@@ -40,6 +42,24 @@ export function highlightLayer(layerId) {
   return {
     type: HIGHLIGHT_LAYER,
     layerId
+  }
+}
+
+export function dragLayers(layerIds, x, y) {
+  return {
+    type: DRAG_LAYERS,
+    layerIds,
+    x,
+    y
+  }
+}
+
+export function resizeLayers(layerIds, delta, direction) {
+  return {
+    type: RESIZE_LAYERS,
+    layerIds,
+    delta,
+    direction
   }
 }
 

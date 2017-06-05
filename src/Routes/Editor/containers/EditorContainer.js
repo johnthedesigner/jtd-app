@@ -5,7 +5,9 @@ import {
   adjustLayers,
   bumpLayers,
   deselectLayersArtboard,
+  dragLayers,
   highlightLayer,
+  resizeLayers,
   selectArtboard,
   selectGroup,
   selectLayer,
@@ -27,8 +29,14 @@ const mapDispatchToProps = (dispatch) => {
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard())
     },
+    dragLayers: (layerIds, x, y) => {
+      dispatch(dragLayers(layerIds, x, y))
+    },
     highlightLayer: (layerId) => {
       dispatch(highlightLayer(layerId))
+    },
+    resizeLayers: (layerIds, delta, direction) => {
+      dispatch(resizeLayers(layerIds, delta, direction))
     },
     selectArtboard: (artboardId) => {
       dispatch(selectArtboard(artboardId))

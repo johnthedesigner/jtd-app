@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import Artboard from './Artboard'
+import Layer from './layers/Layer'
 
 class EditorWorkspace extends React.Component {
   render() {
@@ -10,7 +11,9 @@ class EditorWorkspace extends React.Component {
     const {
       artboards,
       bumpLayers,
+      dragLayers,
       highlightLayer,
+      resizeLayers,
       selectArtboard,
       selectGroup,
       selectLayer,
@@ -24,13 +27,25 @@ class EditorWorkspace extends React.Component {
           <Artboard
             {...artboard}
             key={index}
-            bumpLayers={bumpLayers}
             selectArtboard={selectArtboard}
             selectGroup={selectGroup}
-            selectLayer={selectLayer}
             selections={selections}
-            shiftSelectLayer={shiftSelectLayer}
-            highlightLayer={highlightLayer}/>
+            highlightLayer={highlightLayer}>
+            {_.map(artboard.layers,(layer,index) => { return (
+              <Layer
+                artboardColor={artboard.artboardColor}
+                bumpLayers={bumpLayers}
+                dragLayers={dragLayers}
+                key={index}
+                layer={layer}
+                resizeLayers={resizeLayers}
+                selectedLayers={selections.layers}
+                selectGroup={selectGroup}
+                selectLayer={selectLayer}
+                shiftSelectLayer={shiftSelectLayer}
+                highlightLayer={highlightLayer}/>
+            )})}
+          </Artboard>
         )})}
       </div>
     )

@@ -10,5 +10,11 @@ export const Projects = [
     filename: 'project-zero.jtd',
     title: 'No Groups',
     artboards: [1]
+  },
+  {
+    id: 2,
+    filename: 'draggable-layers.jtd',
+    title: 'Draggable Layers',
+    artboards: [2]
   }
 ]

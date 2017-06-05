@@ -41,7 +41,7 @@ class TextInput extends React.Component {
     if (event.key === 'Enter') {
       event.target.blur()
     } else if (this.props.type === 'number') {
-      console.log(event.key)
+      // console.log(event.key)
     }
   }
 

@@ -7,7 +7,9 @@ import {
   ADJUST_LAYERS,
   BUMP_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
+  DRAG_LAYERS,
   HIGHLIGHT_LAYER,
+  RESIZE_LAYERS,
   SELECT_ARTBOARD,
   SELECT_GROUP,
   SELECT_LAYER,
@@ -51,6 +53,15 @@ export default function Projects(state = {}, a) {
         }
       })
 
+    case DRAG_LAYERS:
+      consoleGroup('DRAG_LAYERS',[a])
+      let draggedLayers = Object.assign({},state.Layers)
+      _.each(a.layerIds, (layerId) => {
+        draggedLayers[layerId].adjustments.dimensions.x = a.x
+        draggedLayers[layerId].adjustments.dimensions.y = a.y
+      })
+      return Object.assign({},state,{ Layers: draggedLayers })
+
     case HIGHLIGHT_LAYER:
       consoleGroup('HIGHLIGHT_LAYER',[a])
       return Object.assign({},state,{
@@ -60,6 +71,15 @@ export default function Projects(state = {}, a) {
           layerId: a.layerId
         })
       })
+
+    case RESIZE_LAYERS:
+      consoleGroup('RESIZE_LAYERS',[a])
+      let resizedLayers = Object.assign({},state.Layers)
+      _.each(a.layerIds, (layerId) => {
+        resizedLayers[layerId].adjustments.dimensions.width += a.delta.width
+        resizedLayers[layerId].adjustments.dimensions.height += a.delta.height
+      })
+      return Object.assign({},state,{ Layers: resizedLayers })
 
     case SELECT_ARTBOARD:
       consoleGroup('SELECT_ARTBOARD',[a])
