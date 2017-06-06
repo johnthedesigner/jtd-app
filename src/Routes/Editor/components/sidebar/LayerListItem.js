@@ -5,7 +5,6 @@ import ActionIcon from '../../../../components/ActionIcon'
 
 class LayerListItem extends React.Component {
   render() {
-
     const {
       highlightLayer,
       layer,

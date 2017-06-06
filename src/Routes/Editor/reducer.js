@@ -1,15 +1,18 @@
 import _ from 'lodash'
+import uuid from 'uuid'
 
 import { consoleGroup } from '../../utils/utils'
+import { newLayers } from '../../store/newLayers'
 import {
+  ADD_LAYER,
   ADJUST_LAYERS,
   BUMP_LAYERS,
+  DELETE_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
   HIGHLIGHT_LAYER,
   RESIZE_LAYERS,
   SELECT_ARTBOARD,
-  SELECT_GROUP,
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
@@ -18,15 +21,37 @@ import {
 // Files Reducer
 export default function Projects(state = {}, a) {
   switch (a.type) {
+    case ADD_LAYER:
+      consoleGroup('ADD_LAYER',[a])
+      let newLayer = newLayers[a.layerType]()
+      newLayer.id = uuid.v1()
+      let newLayerObj = _.keyBy([newLayer], 'id')
+      let newLayerArtboard = state.selections.artboardId ?
+        state.selections.artboardId : state.Projects[a.projectId].artboards[0]
+      return Object.assign({},state,{
+        Layers: {...state.Layers, ...newLayerObj},
+        Artboards: _.keyBy([
+          ...state.Artboards,
+          Object.assign({},state.Artboards,{
+            ...state.Artboards[newLayerArtboard],
+            layers: [
+              ...state.Artboards[newLayerArtboard].layers,
+              newLayer.id
+            ]
+          })
+        ], 'id'),
+        selections: Object.assign({},state.selections,{
+          layers: [newLayer.id]
+        })
+      })
+
     case ADJUST_LAYERS:
       consoleGroup('ADJUST_LAYERS',[a])
-
       let adjustedLayers = Object.assign({},state.Layers)
       _.each(a.layerIds, (layerId) => {
         adjustedLayers[layerId]
           .adjustments[a.adjustmentGroup][a.propertyName] = a.value
       })
-
       return Object.assign({},state,{ Layers: adjustedLayers })
 
     case BUMP_LAYERS:
@@ -39,6 +64,18 @@ export default function Projects(state = {}, a) {
           .adjustments['dimensions'][axis] += (distance * sign)
       })
       return Object.assign({},state,{ Layers: bumpedLayers })
+
+    case DELETE_LAYERS:
+      consoleGroup('DELETE_LAYERS',[a])
+      let culledLayers = _.omitBy(state.Layers, layer => {
+        return _.includes(a.layerIds, layer.id)
+      })
+      return Object.assign({},state,{
+        Layers: culledLayers,
+        selections: Object.assign({},state.selections,{
+          layers: []
+        })
+      })
 
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup('DESELECT_LAYERS_ARTBOARD',[a])
@@ -90,15 +127,6 @@ export default function Projects(state = {}, a) {
         })
       })
 
-    case SELECT_GROUP:
-      consoleGroup('SELECT_GROUP',[a])
-      return Object.assign({},state,{
-        selections: Object.assign({},state.selections,{
-          ...state.selections,
-          groupId: a.groupId
-        })
-      })
-
     case SELECT_LAYER:
       consoleGroup('SELECT_LAYER',[a])
       const { layers } = state.selections
@@ -106,7 +134,7 @@ export default function Projects(state = {}, a) {
         selections: Object.assign({},state.selections,{
           ...state.selections,
           artboardId: null,
-          layers: ((a.shiftKey) ? _.xor(layers,a.layerId) : a.layerId)
+          layers: ((a.shiftKey) ? _.xor(layers,[a.layerId]) : [a.layerId])
         })
       })
 

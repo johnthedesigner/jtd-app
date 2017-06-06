@@ -1,6 +1,8 @@
 import {
+  ADD_LAYER,
   ADJUST_LAYERS,
   BUMP_LAYERS,
+  DELETE_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
   HIGHLIGHT_LAYER,
@@ -10,6 +12,14 @@ import {
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
 } from './constants'
+
+export function addLayer(layerType, projectId) {
+  return {
+    type: ADD_LAYER,
+    layerType,
+    projectId
+  }
+}
 
 export function adjustLayers(layerIds, adjustmentGroup, propertyName, value) {
   return {
@@ -28,6 +38,13 @@ export function bumpLayers(layerIds, axis, sign, shiftKey) {
     axis,
     sign,
     shiftKey
+  }
+}
+
+export function deleteLayers(layerIds) {
+  return {
+    type: DELETE_LAYERS,
+    layerIds
   }
 }
 

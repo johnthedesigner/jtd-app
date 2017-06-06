@@ -47,6 +47,18 @@ class Layer extends React.Component {
     this.draggable.updateSize(nextProps.layer.adjustments.dimensions)
   }
 
+  componentDidMount() {
+    if (this.props.layer.isSelected) {
+      this[`layer_${this.props.layer.id}`].focus()
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.layer.isSelected) {
+      this[`layer_${this.props.layer.id}`].focus()
+    }
+  }
+
   handleKeyDown(e) {
     const sign = {
       ArrowUp: -1,
@@ -55,15 +67,25 @@ class Layer extends React.Component {
       ArrowRight: 1
     }
     const { selectedLayers } = this.props
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      this.props.bumpLayers(selectedLayers,'y',sign[e.key],e.shiftKey)
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      this.props.bumpLayers(selectedLayers,'x',sign[e.key],e.shiftKey)
+    switch (e.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+        this.props.bumpLayers(selectedLayers,'y',sign[e.key],e.shiftKey)
+        break
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        this.props.bumpLayers(selectedLayers,'x',sign[e.key],e.shiftKey)
+        break
+      case 'Backspace':
+        this.props.deleteLayers(selectedLayers)
+        break
+      default:
+        // console.log(e.key)
     }
   }
 
   handleFocus(e) {
-    // e.target.click()
+    // console.log(e.target.ref)
   }
 
   handleDrag(e, data) {
@@ -207,6 +229,7 @@ class Layer extends React.Component {
           <div className={'layer__shape layer__shape--' + layer.type}>
             {layerType(layer, layerScaleStyles)}
             <button
+              ref={c => {this[`layer_${layer.id}`] = c}}
               onFocus={this.handleFocus}
               onKeyDown={this.handleKeyDown}
               style={layerScaleStyles}>

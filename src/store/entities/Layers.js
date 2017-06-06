@@ -101,24 +101,5 @@ export const Layers = [
         rotation: 0
       }
     }
-  },
-  {
-    id: 7,
-    type: layerTypes.dragRectangle,
-    title: 'draggable',
-    adjustments: {
-      fill: {
-        backgroundColor: 'rgba(255,0,255,.5)'
-      },
-      dimensions: {
-        x: 300,
-        y: 250,
-        width: 100,
-        height: 100,
-        scaleX: 1,
-        scaleY: 1,
-        rotation: 0
-      }
-    }
   }
 ]

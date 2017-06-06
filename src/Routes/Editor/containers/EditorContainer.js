@@ -2,8 +2,10 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 import {
+  addLayer,
   adjustLayers,
   bumpLayers,
+  deleteLayers,
   deselectLayersArtboard,
   dragLayers,
   highlightLayer,
@@ -19,11 +21,17 @@ import '../styles/editor.css'
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addLayer: (layerType, projectId, artboardId, layerId) => {
+      dispatch(addLayer(layerType, projectId, artboardId, layerId))
+    },
     adjustLayers: (layerIds, adjustmentGroup, key, value) => {
       dispatch(adjustLayers(layerIds, adjustmentGroup, key, value))
     },
     bumpLayers: (layerIds, axis, sign, shiftKey) => {
       dispatch(bumpLayers(layerIds, axis, sign, shiftKey))
+    },
+    deleteLayers: (layerIds) => {
+      dispatch(deleteLayers(layerIds))
     },
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard())

@@ -94,6 +94,10 @@ html {
     background: none;
     border: none;
     outline: none;
+
+    &:focus {
+      background: #F00;
+    }
   }
 
   & > * {

@@ -1,22 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import idx from 'idx'
+import _ from 'lodash'
 
 import { mapProject } from '../../../utils/projectUtils'
 import AdjustmentsPalette from './sidebar/AdjustmentsPalette'
+import Artboard from './Artboard'
 import ArtboardsPalette from './sidebar/ArtboardsPalette'
 import EditorActionBar from './EditorActionBar'
-import EditorWorkspace from './EditorWorkspace'
-import idx from 'idx'
+import Layer from './layers/Layer'
 
 import './styles/editor.css'
 
 class EditorView extends React.Component {
   render() {
     const {
+      addLayer,
       adjustLayers,
       Artboards,
       bumpLayers,
+      deleteLayers,
       deselectLayersArtboard,
       dragLayers,
       highlightLayer,
@@ -54,16 +58,31 @@ class EditorView extends React.Component {
           <div className='editor-view__main-area' onClick={() => {
             deselectLayersArtboard()
           }}>
-            <EditorActionBar/>
-            <EditorWorkspace
-              artboards={mappedProject.artboards}
-              bumpLayers={bumpLayers}
-              dragLayers={dragLayers}
-              highlightLayer={highlightLayer}
-              resizeLayers={resizeLayers}
-              selectArtboard={selectArtboard}
-              selections={mappedProject.selections}
-              selectLayer={selectLayer}/>
+            <EditorActionBar
+              addLayer={addLayer}
+              projectId={match.params.projectId}/>
+            {_.map(mappedProject.artboards,(artboard,index) => { return (
+              <Artboard
+                {...artboard}
+                key={index}
+                selectArtboard={selectArtboard}
+                selections={mappedProject.selections}
+                highlightLayer={highlightLayer}>
+                {_.map(artboard.layers,(layer,index) => { return (
+                  <Layer
+                    artboardColor={artboard.artboardColor}
+                    bumpLayers={bumpLayers}
+                    deleteLayers={deleteLayers}
+                    dragLayers={dragLayers}
+                    key={index}
+                    layer={layer}
+                    resizeLayers={resizeLayers}
+                    selectedLayers={mappedProject.selections.layers}
+                    selectLayer={selectLayer}
+                    highlightLayer={highlightLayer}/>
+                )})}
+              </Artboard>
+            )})}
           </div>
 
           <div className='editor-view__sidebar'>
