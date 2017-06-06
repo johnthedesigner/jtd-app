@@ -12,10 +12,17 @@ class EditorActionBar extends React.Component {
     e.stopPropagation()
   }
 
+  addText = (e) => {
+    e.target.blur()
+    this.props.addLayer('text', this.props.projectId)
+    e.stopPropagation()
+  }
+
   render() {
     return (
       <div className="editor-action-bar__wrapper">
         <button onClick={this.addRectangle}>Add Rectangle</button>
+        <button onClick={this.addText}>Add Text</button>
       </div>
     )
   }

@@ -80,7 +80,7 @@ html {
   outline: none; }
 
 .layer__shape > button:focus {
-  background: #F00; }
+  border: #F00 solid 2px; }
 
 .layer__shape > * {
   position: absolute;
