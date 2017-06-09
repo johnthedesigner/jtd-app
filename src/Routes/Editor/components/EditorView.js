@@ -70,6 +70,7 @@ class EditorView extends React.Component {
                 highlightLayer={highlightLayer}>
                 {_.map(artboard.layers,(layer,index) => { return (
                   <Layer
+                    adjustLayers={adjustLayers}
                     artboardColor={artboard.artboardColor}
                     bumpLayers={bumpLayers}
                     deleteLayers={deleteLayers}

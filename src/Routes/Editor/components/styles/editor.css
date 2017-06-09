@@ -88,3 +88,6 @@ html {
   right: 0;
   bottom: 0;
   left: 0; }
+
+.DraftEditor-editorContainer {
+  background: white; }

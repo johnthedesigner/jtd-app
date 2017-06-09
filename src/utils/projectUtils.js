@@ -21,6 +21,13 @@ export const mapProject = (
   highlights
 ) => {
 
+  // Merge adjustments for selected layers
+  const mergedAdjustments = mergeAdjustments(
+    _.map(selections.layers, (layerId) => {
+      return Layers[layerId].adjustments
+    })
+  )
+
   // Calculate group dimensions or return layer dimensions
   let getDimensions = (layers, adjustments) => {
     if (adjustments) {
@@ -56,7 +63,7 @@ export const mapProject = (
     }
   }
 
-  // Recursive layer mapping for groups
+  // Layer Mapping
   let mapLayers = (layers) => {
     return _.map(layers, (layerId) => {
       if (Layers[layerId]) return {
@@ -71,49 +78,44 @@ export const mapProject = (
     })
   }
 
+  // Artboard mapping
+  let mappedArtboards = _.map(Project.artboards, (artboard, index) => {
+    let artboardLayers = Artboards[artboard].layers
+    let validLayerIds = _.map(Layers,(layer)=> {return layer.id})
+    let culledArtboardLayers = _.intersection(artboardLayers, validLayerIds)
+    const mappedArtboardLayers = mapLayers(culledArtboardLayers)
+    const getSelectedLayers = (layers) => {
+      let selectedLayers = []
+      _.forEach(layers, (layer) => {
+        if (Layers[layer.id]) {
+          if (layer.isSelected) {
+            selectedLayers.push(layer)
+          }
+        }
+      })
+      return selectedLayers
+    }
+    let selectedLayers = getSelectedLayers(mappedArtboardLayers)
+    const mappedArtboard = {
+      ...Artboards[artboard],
+      isSelected: (artboard === selections.artboardId),
+      layerSelected: (_.intersection(selections.layers, artboard.layers)
+        .length > 0),
+      artboardColor: artboardColors[index],
+      layers: mappedArtboardLayers,
+      selection: {
+        isActive: (selectedLayers.length > 0),
+        adjustments: mergedAdjustments,
+        dimensions: getDimensions(selectedLayers)
+      }
+    }
+    return mappedArtboard
+  })
+
   return {
     ...Project,
-    adjustments: {
-      ...mergeAdjustments(_.map(selections.layers, (layerId) => {
-        if (Layers[layerId]) return Layers[layerId].adjustments
-      }))
-    },
-    artboards: _.map(Project.artboards, (artboard, index) => {
-      let artboardLayers = Artboards[artboard].layers
-      let validLayerIds = _.map(Layers,(layer)=> {return layer.id})
-      let culledArtboardLayers = _.intersection(artboardLayers, validLayerIds)
-      const mappedArtboardLayers = mapLayers(culledArtboardLayers)
-      let selectedLayers = []
-      const getSelectedLayers = (layers) => {
-        _.forEach(layers, (layer) => {
-          if (Layers[layer.id]) {
-            if (layer.isSelected) {
-              selectedLayers.push(layer)
-            }
-          }
-        })
-        return selectedLayers
-      }
-
-      const mappedArtboard = {
-        ...Artboards[artboard],
-        isSelected: (artboard === selections.artboardId),
-        layerSelected: (_.intersection(selections.layers, artboard.layers)
-          .length > 0),
-        artboardColor: artboardColors[index],
-        layers: mappedArtboardLayers,
-        selection: {
-          isActive: (getSelectedLayers(mappedArtboardLayers).length > 0),
-          adjustments: {
-            ...mergeAdjustments(_.map(selections.layers, (layerId) => {
-              return Layers[layerId].adjustments
-            }))
-          },
-          dimensions: getDimensions(getSelectedLayers(mappedArtboardLayers))
-        }
-      }
-      return mappedArtboard
-    }),
+    adjustments: mergedAdjustments,
+    artboards: mappedArtboards,
     selections
   }
 }

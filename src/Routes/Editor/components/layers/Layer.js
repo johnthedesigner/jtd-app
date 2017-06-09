@@ -24,6 +24,7 @@ class Layer extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleResize = this.handleResize.bind(this)
     this.handleResizeStop = this.handleResizeStop.bind(this)
+    this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
   }
 
   componentWillMount() {
@@ -45,18 +46,6 @@ class Layer extends React.Component {
     })
     this.draggable.updatePosition(nextProps.layer.adjustments.dimensions)
     this.draggable.updateSize(nextProps.layer.adjustments.dimensions)
-  }
-
-  componentDidMount() {
-    if (this.props.layer.isSelected) {
-      this[`layer_${this.props.layer.id}`].focus()
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.layer.isSelected) {
-      this[`layer_${this.props.layer.id}`].focus()
-    }
   }
 
   handleKeyDown(e) {
@@ -120,6 +109,10 @@ class Layer extends React.Component {
     )
   }
 
+  setLayerAdjustment(value) {
+    this.props.adjustLayers([this.props.layer.id], 'type', 'text', value)
+  }
+
   render() {
     const layerType = (layer, layerScaleStyles) => {
       switch (layer.type) {
@@ -135,6 +128,7 @@ class Layer extends React.Component {
 
         case layerTypes.text:
           return ( <TextLayer
+            setLayerAdjustment={this.setLayerAdjustment}
             layer={layer}
             layerScaleStyles={layerScaleStyles}/> )
 
@@ -207,7 +201,7 @@ class Layer extends React.Component {
           highlightLayer(null)
         }}>
         <Draggable
-          ref={c => { this.draggable = c; }}
+          ref={c => { this.draggable = c }}
           default={{
             x: this.state.x,
             y: this.state.y,
