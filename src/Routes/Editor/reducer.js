@@ -56,19 +56,18 @@ export default function Projects(state = {}, a) {
 
     case BUMP_LAYERS:
       consoleGroup('BUMP_LAYERS',[a])
-      const { layerIds, axis, sign, shiftKey } = a
-      var distance = (shiftKey) ? 10 : 1
+      const { axis, distance } = a
       let bumpedLayers = Object.assign({},state.Layers)
-      _.each(layerIds, (layerId) => {
+      _.each(state.selections.layers, (layerId) => {
         if (bumpedLayers[layerId].adjustments) bumpedLayers[layerId]
-          .adjustments['dimensions'][axis] += (distance * sign)
+          .adjustments['dimensions'][axis] += (distance)
       })
       return Object.assign({},state,{ Layers: bumpedLayers })
 
     case DELETE_LAYERS:
       consoleGroup('DELETE_LAYERS',[a])
       let culledLayers = _.omitBy(state.Layers, layer => {
-        return _.includes(a.layerIds, layer.id)
+        return _.includes(state.selections.layers, layer.id)
       })
       return Object.assign({},state,{
         Layers: culledLayers,

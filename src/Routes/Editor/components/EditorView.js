@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import idx from 'idx'
 import _ from 'lodash'
+import {mouseTrap} from 'react-mousetrap'
 
 import { mapProject } from '../../../utils/projectUtils'
 import AdjustmentsPalette from './sidebar/AdjustmentsPalette'
@@ -14,6 +15,37 @@ import Layer from './layers/Layer'
 import './styles/editor.css'
 
 class EditorView extends React.Component {
+  componentWillMount() {
+    const {
+      bindShortcut,
+      bumpLayers,
+      deleteLayers
+    } = this.props
+    // Set up key commands
+    bindShortcut('shift+up', () => {bumpLayers('y',-10)})
+    bindShortcut('shift+down', () => {bumpLayers('y',10)})
+    bindShortcut('shift+left', () => {bumpLayers('x',-10)})
+    bindShortcut('shift+right', () => {bumpLayers('x',10)})
+    bindShortcut('up', () => {bumpLayers('y',-1)})
+    bindShortcut('down', () => {bumpLayers('y',1)})
+    bindShortcut('left', () => {bumpLayers('x',-1)})
+    bindShortcut('right', () => {bumpLayers('x',1)})
+    bindShortcut('backspace', () => {deleteLayers()})
+  }
+
+  componentWillUnmount() {
+    // Unbind shortcuts when unmounting
+    this.props.unbindShortcut('shift+up')
+    this.props.unbindShortcut('shift+down')
+    this.props.unbindShortcut('shift+left')
+    this.props.unbindShortcut('shift+right')
+    this.props.unbindShortcut('up')
+    this.props.unbindShortcut('down')
+    this.props.unbindShortcut('left')
+    this.props.unbindShortcut('right')
+    this.props.unbindShortcut('backspace')
+  }
+
   render() {
     const {
       addLayer,
@@ -116,4 +148,5 @@ EditorView.propTypes = {
   selections: PropTypes.object.isRequired,
 }
 
-export default EditorView
+// Wrap EditorView in mouseTrap to track key events
+export default mouseTrap(EditorView)

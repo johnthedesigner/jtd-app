@@ -20,11 +20,12 @@ class Layer extends React.Component {
       height: '',
     }
     this.handleDrag = this.handleDrag.bind(this)
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleResize = this.handleResize.bind(this)
     this.handleResizeStop = this.handleResizeStop.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
+    this.toggleHidden = this.toggleHidden.bind(this)
+    this.toggleHighlighted = this.toggleHighlighted.bind(this)
+    this.toggleSelected = this.toggleSelected.bind(this)
   }
 
   componentWillMount() {
@@ -46,35 +47,6 @@ class Layer extends React.Component {
     })
     this.draggable.updatePosition(nextProps.layer.adjustments.dimensions)
     this.draggable.updateSize(nextProps.layer.adjustments.dimensions)
-  }
-
-  handleKeyDown(e) {
-    const sign = {
-      ArrowUp: -1,
-      ArrowDown: 1,
-      ArrowLeft: -1,
-      ArrowRight: 1
-    }
-    const { selectedLayers } = this.props
-    switch (e.key) {
-      case 'ArrowUp':
-      case 'ArrowDown':
-        this.props.bumpLayers(selectedLayers,'y',sign[e.key],e.shiftKey)
-        break
-      case 'ArrowLeft':
-      case 'ArrowRight':
-        this.props.bumpLayers(selectedLayers,'x',sign[e.key],e.shiftKey)
-        break
-      case 'Backspace':
-        this.props.deleteLayers(selectedLayers)
-        break
-      default:
-        // console.log(e.key)
-    }
-  }
-
-  handleFocus(e) {
-    // console.log(e.target.ref)
   }
 
   handleDrag(e, data) {
@@ -111,6 +83,18 @@ class Layer extends React.Component {
 
   setLayerAdjustment(value) {
     this.props.adjustLayers([this.props.layer.id], 'type', 'text', value)
+  }
+
+  toggleHidden() {
+    return (this.props.layer.hide) ? ' is-hidden' : ''
+  }
+
+  toggleHighlighted() {
+    return (this.props.layer.isHighlighted) ? ' is-highlighted' : ''
+  }
+
+  toggleSelected() {
+    return (this.props.layer.isSelected) ? ' is-selected' : ''
   }
 
   render() {
@@ -165,25 +149,13 @@ class Layer extends React.Component {
       boxShadow: '0 0 0 4px ' + Color(artboardColor).fade(0.7)
     }
 
-    const toggleSelected = () => {
-      return (layer.isSelected) ? ' is-selected' : ''
-    }
-
-    const toggleHighlighted = () => {
-      return (layer.isHighlighted) ? ' is-highlighted' : ''
-    }
-
-    const toggleHidden = () => {
-      return (layer.hide) ? ' is-hidden' : ''
-    }
-
     return (
       <div
         className={
           'layer__wrapper'
-          + toggleSelected()
-          + toggleHighlighted()
-          + toggleHidden()
+          + this.toggleSelected()
+          + this.toggleHighlighted()
+          + this.toggleHidden()
         }
         onClick={(e) => {
           e.stopPropagation()
@@ -222,12 +194,6 @@ class Layer extends React.Component {
           }}>
           <div className={'layer__shape layer__shape--' + layer.type}>
             {layerType(layer, layerScaleStyles)}
-            <button
-              ref={c => {this[`layer_${layer.id}`] = c}}
-              onFocus={this.handleFocus}
-              onKeyDown={this.handleKeyDown}
-              style={layerScaleStyles}>
-            </button>
           </div>
           <div className='layer__highlight-indicator' style={highlightStyles}></div>
         </Draggable>

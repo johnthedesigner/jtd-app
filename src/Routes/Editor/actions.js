@@ -31,20 +31,17 @@ export function adjustLayers(layerIds, adjustmentGroup, propertyName, value) {
   }
 }
 
-export function bumpLayers(layerIds, axis, sign, shiftKey) {
+export function bumpLayers(axis, distance) {
   return {
     type: BUMP_LAYERS,
-    layerIds,
     axis,
-    sign,
-    shiftKey
+    distance,
   }
 }
 
-export function deleteLayers(layerIds) {
+export function deleteLayers() {
   return {
-    type: DELETE_LAYERS,
-    layerIds
+    type: DELETE_LAYERS
   }
 }
 
