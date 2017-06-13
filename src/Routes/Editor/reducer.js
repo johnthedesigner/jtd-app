@@ -103,7 +103,7 @@ export default function Projects(state = {}, a) {
       let draggedLayers = _.cloneDeep(state.Layers)
       let affectedLayers = _.clone([
         ...state.selections.layers,
-        ...a.layerId
+        a.layerId
       ])
       let xOffset = a.x - state.Layers[a.layerId].adjustments.dimensions.x
       let yOffset = a.y - state.Layers[a.layerId].adjustments.dimensions.y
@@ -127,7 +127,7 @@ export default function Projects(state = {}, a) {
       consoleGroup('PASTE_LAYERS',[a])
       let pastedLayers = _.map(state.pasteBuffer, layer => {
         let pastedLayer = _.cloneDeep(layer)
-        pastedLayer.id = uuid.v1()
+        pastedLayer.id = uuid.v4()
         return pastedLayer
       })
       pastedLayers = _.keyBy(pastedLayers, 'id')
