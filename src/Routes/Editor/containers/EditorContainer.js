@@ -5,10 +5,12 @@ import {
   addLayer,
   adjustLayers,
   bumpLayers,
+  copyLayers,
   deleteLayers,
   deselectLayersArtboard,
   dragLayers,
   highlightLayer,
+  pasteLayers,
   resizeLayers,
   selectArtboard,
   selectLayer,
@@ -30,17 +32,23 @@ const mapDispatchToProps = (dispatch) => {
     bumpLayers: (layerIds, axis, sign, shiftKey) => {
       dispatch(bumpLayers(layerIds, axis, sign, shiftKey))
     },
+    copyLayers: () => {
+      dispatch(copyLayers())
+    },
     deleteLayers: (layerIds) => {
       dispatch(deleteLayers(layerIds))
     },
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard())
     },
-    dragLayers: (layerIds, x, y) => {
-      dispatch(dragLayers(layerIds, x, y))
+    dragLayers: (layerId, x, y) => {
+      dispatch(dragLayers(layerId, x, y))
     },
     highlightLayer: (layerId) => {
       dispatch(highlightLayer(layerId))
+    },
+    pasteLayers: () => {
+      dispatch(pasteLayers())
     },
     resizeLayers: (layerIds, delta, direction) => {
       dispatch(resizeLayers(layerIds, delta, direction))

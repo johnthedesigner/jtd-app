@@ -19,7 +19,9 @@ class Layer extends React.Component {
       width: '',
       height: '',
     }
+    this.handleClick = this.handleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
+    this.handleDragStart = this.handleDragStart.bind(this)
     this.handleResize = this.handleResize.bind(this)
     this.handleResizeStop = this.handleResizeStop.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
@@ -49,8 +51,22 @@ class Layer extends React.Component {
     this.draggable.updateSize(nextProps.layer.adjustments.dimensions)
   }
 
+  handleClick(e) {
+    e.stopPropagation()
+    this.props.selectLayer(this.props.layer.id, e.shiftKey)
+  }
+
+  handleDragStart(e) {
+    this.props.selectLayer(this.props.layer.id, e.shiftKey)
+  }
+
   handleDrag(e, data) {
-    this.props.dragLayers([this.props.layer.id], data.x, data.y)
+    this.setState({
+      x: data.x,
+      y: data.y,
+    })
+    this.props.dragLayers(this.props.layer.id, data.x, data.y)
+    this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
   handleResize(e, direction, ref, delta) {
@@ -125,7 +141,6 @@ class Layer extends React.Component {
       artboardColor,
       layer,
       highlightLayer,
-      selectLayer,
     } = this.props
 
     const layerScaleStyles = {
@@ -157,15 +172,7 @@ class Layer extends React.Component {
           + this.toggleHighlighted()
           + this.toggleHidden()
         }
-        onClick={(e) => {
-          e.stopPropagation()
-          selectLayer(layer.id, e.shiftKey)
-        }}
-        onDoubleClick={(e) => {
-          e.stopPropagation()
-          highlightLayer(layer.id)
-          selectLayer(layer.id)
-        }}
+        onClick={this.handleClick}
         onMouseEnter={() => {
           highlightLayer(layer.id)
         }}
@@ -181,11 +188,10 @@ class Layer extends React.Component {
             height: this.state.height
           }}
           resizeGrid={[10, 10]}
-          x={this.state.x}
-          y={this.state.y}
           width={this.state.width}
           height={this.state.height}
           onDrag={this.handleDrag}
+          onDragStart={this.handleDragStart}
           onDragStop={this.handleDrag}
           onResize={this.handleResize}
           onResizeStop={this.handleResizeStop}

@@ -19,7 +19,9 @@ class EditorView extends React.Component {
     const {
       bindShortcut,
       bumpLayers,
-      deleteLayers
+      copyLayers,
+      deleteLayers,
+      pasteLayers,
     } = this.props
     // Set up key commands
     bindShortcut('shift+up', () => {bumpLayers('y',-10)})
@@ -31,6 +33,8 @@ class EditorView extends React.Component {
     bindShortcut('left', () => {bumpLayers('x',-1)})
     bindShortcut('right', () => {bumpLayers('x',1)})
     bindShortcut('backspace', () => {deleteLayers()})
+    bindShortcut(['command+c','control+c'], () => {copyLayers()})
+    bindShortcut(['command+v','control+v'], () => {pasteLayers()})
   }
 
   componentWillUnmount() {

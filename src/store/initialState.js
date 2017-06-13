@@ -18,7 +18,8 @@ const initialState = {
     highlights: {
       artboardId: null,
       layerId: null
-    }
+    },
+    pasteBuffer: null
   }
 }
 

@@ -2,10 +2,12 @@ import {
   ADD_LAYER,
   ADJUST_LAYERS,
   BUMP_LAYERS,
+  COPY_LAYERS,
   DELETE_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
   HIGHLIGHT_LAYER,
+  PASTE_LAYERS,
   RESIZE_LAYERS,
   SELECT_ARTBOARD,
   SELECT_LAYER,
@@ -39,6 +41,12 @@ export function bumpLayers(axis, distance) {
   }
 }
 
+export function copyLayers() {
+  return {
+    type: COPY_LAYERS
+  }
+}
+
 export function deleteLayers() {
   return {
     type: DELETE_LAYERS
@@ -51,6 +59,15 @@ export function deselectLayersArtboard() {
   }
 }
 
+export function dragLayers(layerId, x, y) {
+  return {
+    type: DRAG_LAYERS,
+    layerId,
+    x,
+    y
+  }
+}
+
 export function highlightLayer(layerId) {
   return {
     type: HIGHLIGHT_LAYER,
@@ -58,12 +75,9 @@ export function highlightLayer(layerId) {
   }
 }
 
-export function dragLayers(layerIds, x, y) {
+export function pasteLayers() {
   return {
-    type: DRAG_LAYERS,
-    layerIds,
-    x,
-    y
+    type: PASTE_LAYERS
   }
 }
 

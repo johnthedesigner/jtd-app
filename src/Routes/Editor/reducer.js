@@ -7,10 +7,12 @@ import {
   ADD_LAYER,
   ADJUST_LAYERS,
   BUMP_LAYERS,
+  COPY_LAYERS,
   DELETE_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
   HIGHLIGHT_LAYER,
+  PASTE_LAYERS,
   RESIZE_LAYERS,
   SELECT_ARTBOARD,
   SELECT_LAYER,
@@ -64,6 +66,15 @@ export default function Projects(state = {}, a) {
       })
       return Object.assign({},state,{ Layers: bumpedLayers })
 
+    case COPY_LAYERS:
+      consoleGroup('COPY_LAYERS',[a])
+      let copiedLayers = _.map(state.selections.layers, layerId => {
+        return Object.assign({},state.Layers[layerId])
+      })
+      return Object.assign({},state,{
+        pasteBuffer: _.cloneDeep(copiedLayers)
+      })
+
     case DELETE_LAYERS:
       consoleGroup('DELETE_LAYERS',[a])
       let culledLayers = _.omitBy(state.Layers, layer => {
@@ -89,10 +100,16 @@ export default function Projects(state = {}, a) {
 
     case DRAG_LAYERS:
       consoleGroup('DRAG_LAYERS',[a])
-      let draggedLayers = Object.assign({},state.Layers)
-      _.each(a.layerIds, (layerId) => {
-        draggedLayers[layerId].adjustments.dimensions.x = a.x
-        draggedLayers[layerId].adjustments.dimensions.y = a.y
+      let draggedLayers = _.cloneDeep(state.Layers)
+      let affectedLayers = _.clone([
+        ...state.selections.layers,
+        ...a.layerId
+      ])
+      let xOffset = a.x - state.Layers[a.layerId].adjustments.dimensions.x
+      let yOffset = a.y - state.Layers[a.layerId].adjustments.dimensions.y
+      _.each(affectedLayers, (layerId) => {
+        draggedLayers[layerId].adjustments.dimensions.x += xOffset
+        draggedLayers[layerId].adjustments.dimensions.y += yOffset
       })
       return Object.assign({},state,{ Layers: draggedLayers })
 
@@ -103,6 +120,35 @@ export default function Projects(state = {}, a) {
           ...state.selections,
           artboardId: a.artboardId,
           layerId: a.layerId
+        })
+      })
+
+    case PASTE_LAYERS:
+      consoleGroup('PASTE_LAYERS',[a])
+      let pastedLayers = _.map(state.pasteBuffer, layer => {
+        let pastedLayer = _.cloneDeep(layer)
+        pastedLayer.id = uuid.v1()
+        return pastedLayer
+      })
+      pastedLayers = _.keyBy(pastedLayers, 'id')
+      let targetArtboard = Object.assign({},
+        state.Artboards[state.selections.artboardId])
+      targetArtboard.layers = [
+        ...targetArtboard.layers,
+        ..._.keys(pastedLayers)
+      ]
+      let updatedArtboards = _.keyBy([
+        ...state.Artboards,
+        targetArtboard
+      ],'id')
+      return Object.assign({},state,{
+        Layers: {
+          ...state.Layers,
+          ...pastedLayers
+        },
+        Artboards: updatedArtboards,
+        selections: Object.assign({},state.selections,{
+          layers: _.keys(pastedLayers)
         })
       })
 
@@ -121,7 +167,6 @@ export default function Projects(state = {}, a) {
         selections: Object.assign({},state.selections,{
           ...state.selections,
           artboardId: a.artboardId,
-          groupId: null,
           layers: []
         })
       })
@@ -129,13 +174,20 @@ export default function Projects(state = {}, a) {
     case SELECT_LAYER:
       consoleGroup('SELECT_LAYER',[a])
       const { layers } = state.selections
-      return Object.assign({},state,{
-        selections: Object.assign({},state.selections,{
-          ...state.selections,
-          artboardId: null,
-          layers: ((a.shiftKey) ? _.xor(layers,[a.layerId]) : [a.layerId])
+      if (_.includes(layers,a.layerId) && !a.shiftKey) {
+        return state
+      } else {
+        let parentArtboard = _.find(state.Artboards, artboard => {
+          return _.includes(artboard.layers,a.layerId)
         })
-      })
+        return Object.assign({},state,{
+          selections: Object.assign({},state.selections,{
+            ...state.selections,
+            artboardId: parentArtboard.id,
+            layers: ((a.shiftKey) ? _.xor(layers,[a.layerId]) : [a.layerId])
+          })
+        })
+      }
 
     case SHOW_HIDE_LAYER:
       consoleGroup('SHOW_HIDE_LAYER',[a])

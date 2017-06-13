@@ -89,16 +89,8 @@ html {
   outline: none;
   background: none;
   border: none;
-
-  & > button {
-    background: none;
-    border: none;
-    outline: none;
-
-    &:focus {
-      border: #F00 solid 2px;
-    }
-  }
+  pointer-events: none;
+  user-select: none;
 
   & > * {
     position: absolute;
