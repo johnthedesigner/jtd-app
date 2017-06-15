@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import createStore from './store/createStore'
 import App from './App'
 import './index.css'
+
+injectTapEventPlugin()
 
 // Instatiate Store
 const initialState = window.___INITIAL_STATE__

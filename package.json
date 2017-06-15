@@ -1,5 +1,6 @@
 {
   "name": "jtd-app",
+  "homepage": "https://jtd.co",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,6 +18,7 @@
     "react-rnd": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-persist": "^4.6.0",
     "redux-thunk": "^2.2.0",
@@ -35,7 +37,6 @@
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "npm build && surge -p build --domain jtd.surge.sh"
+    "deploy": "gh-pages -d build"
   }
 }
