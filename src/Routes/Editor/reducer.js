@@ -101,10 +101,7 @@ export default function Projects(state = {}, a) {
     case DRAG_LAYERS:
       consoleGroup('DRAG_LAYERS',[a])
       let draggedLayers = _.cloneDeep(state.Layers)
-      let affectedLayers = _.clone([
-        ...state.selections.layers,
-        a.layerId
-      ])
+      let affectedLayers = _.clone(state.selections.layers)
       let xOffset = a.x - state.Layers[a.layerId].adjustments.dimensions.x
       let yOffset = a.y - state.Layers[a.layerId].adjustments.dimensions.y
       _.each(affectedLayers, (layerId) => {
@@ -154,8 +151,8 @@ export default function Projects(state = {}, a) {
 
     case RESIZE_LAYERS:
       consoleGroup('RESIZE_LAYERS',[a])
-      let resizedLayers = Object.assign({},state.Layers)
-      _.each(a.layerIds, (layerId) => {
+      let resizedLayers = _.cloneDeep(state.Layers)
+      _.each(state.selections.layers, (layerId) => {
         resizedLayers[layerId].adjustments.dimensions.width += a.delta.width
         resizedLayers[layerId].adjustments.dimensions.height += a.delta.height
       })

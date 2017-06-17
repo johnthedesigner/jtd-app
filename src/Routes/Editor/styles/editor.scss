@@ -158,8 +158,10 @@
   transition: background linear .1s;
 
   &.is-selected {
-    background: #50E3C2;
-    color: #222;
+    .artboard-list-item__item-wrapper {
+      background: #50E3C2;
+      color: #222;
+    }
   }
 
   .artboard-list-item__layer-selected-indicator {
@@ -191,6 +193,7 @@
   font-weight: 100;
   line-height: 1.75;
   border-radius: 3px 0 0 3px;
+  user-select: none;
 
   &.is-selected {
     background: #50E3C2;
@@ -199,6 +202,9 @@
   .layer-list-item__label {
     flex-grow: 1;
     padding: 0 .5em;
+  }
+  .layer-list-item__visibility-toggle {
+    width: 20px;
   }
   .layer-list-item__layer-type-icon {
     font-size: 1rem; // TODO: find out why the library defaults to 24px

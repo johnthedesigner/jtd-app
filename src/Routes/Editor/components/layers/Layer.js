@@ -22,7 +22,9 @@ class Layer extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
+    this.handleDragStop = this.handleDragStop.bind(this)
     this.handleResize = this.handleResize.bind(this)
+    this.handleResizeStart = this.handleResizeStart.bind(this)
     this.handleResizeStop = this.handleResizeStop.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
     this.toggleHidden = this.toggleHidden.bind(this)
@@ -60,16 +62,20 @@ class Layer extends React.Component {
     this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
-  handleDrag(e, data) {
-    this.setState({
-      x: data.x,
-      y: data.y,
-    })
-    this.props.dragLayers(this.props.layer.id, data.x, data.y)
+  handleDragStop(e) {
     this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
+  handleDrag(e, data) {
+    // this.setState({
+    //   x: data.x,
+    //   y: data.y,
+    // })
+    this.props.dragLayers(this.props.layer.id, data.x, data.y)
+  }
+
   handleResize(e, direction, ref, delta) {
+    this.props.selectLayer(this.props.layer.id, e.shiftKey)
     let xOffset = ( _.startsWith(direction, 'top'))
       ? delta.height * -1 : delta.height
     let yOffset = ( _.startsWith(direction, 'left'))
@@ -80,6 +86,15 @@ class Layer extends React.Component {
       width: this.props.layer.adjustments.dimensions.width + delta.width,
       height: this.props.layer.adjustments.dimensions.height + delta.height,
     })
+    // this.props.resizeLayers(
+    //   [this.props.layer.id],
+    //   _.trim(ref.style.width, 'px'),
+    //   _.trim(ref.style.height, 'px')
+    // )
+  }
+
+  handleResizeStart(e) {
+    this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
   handleResizeStop(e, direction, ref, delta) {
@@ -95,6 +110,7 @@ class Layer extends React.Component {
       (x + xOffset),
       (y + yOffset)
     )
+    this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
   setLayerAdjustment(value) {
@@ -187,14 +203,16 @@ class Layer extends React.Component {
             width: this.state.width,
             height: this.state.height
           }}
-          resizeGrid={[10, 10]}
+          dragGrid={[10,10]}
           width={this.state.width}
           height={this.state.height}
           onDrag={this.handleDrag}
           onDragStart={this.handleDragStart}
-          onDragStop={this.handleDrag}
+          onDragStop={this.handleDragStop}
           onResize={this.handleResize}
+          onResizeStart={this.handleResizeStart}
           onResizeStop={this.handleResizeStop}
+          resizeGrid={[10,10]}
           style={{
             transform: 'none'
           }}>
