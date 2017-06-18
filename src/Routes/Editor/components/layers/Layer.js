@@ -58,6 +58,10 @@ class Layer extends React.Component {
     this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
+  handleDrag(e, data) {
+    this.props.dragLayers(this.props.layer.id, data.x, data.y)
+  }
+
   handleDragStart(e) {
     this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
@@ -66,16 +70,8 @@ class Layer extends React.Component {
     this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
-  handleDrag(e, data) {
-    // this.setState({
-    //   x: data.x,
-    //   y: data.y,
-    // })
-    this.props.dragLayers(this.props.layer.id, data.x, data.y)
-  }
-
   handleResize(e, direction, ref, delta) {
-    this.props.selectLayer(this.props.layer.id, e.shiftKey)
+    // this.props.selectLayer(this.props.layer.id, e.shiftKey)
     let xOffset = ( _.startsWith(direction, 'top'))
       ? delta.height * -1 : delta.height
     let yOffset = ( _.startsWith(direction, 'left'))
@@ -86,11 +82,6 @@ class Layer extends React.Component {
       width: this.props.layer.adjustments.dimensions.width + delta.width,
       height: this.props.layer.adjustments.dimensions.height + delta.height,
     })
-    // this.props.resizeLayers(
-    //   [this.props.layer.id],
-    //   _.trim(ref.style.width, 'px'),
-    //   _.trim(ref.style.height, 'px')
-    // )
   }
 
   handleResizeStart(e) {
@@ -180,6 +171,17 @@ class Layer extends React.Component {
       boxShadow: '0 0 0 4px ' + Color(artboardColor).fade(0.7)
     }
 
+    const enableResize = {
+      bottom: layer.isSelected,
+      bottomLeft: layer.isSelected,
+      bottomRight: layer.isSelected,
+      left: layer.isSelected,
+      right: layer.isSelected,
+      top: layer.isSelected,
+      topLeft: layer.isSelected,
+      topRight: layer.isSelected
+    }
+
     return (
       <div
         className={
@@ -204,6 +206,7 @@ class Layer extends React.Component {
             height: this.state.height
           }}
           dragGrid={[10,10]}
+          enableResizing={enableResize}
           width={this.state.width}
           height={this.state.height}
           onDrag={this.handleDrag}

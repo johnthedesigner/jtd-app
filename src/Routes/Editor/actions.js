@@ -9,6 +9,7 @@ import {
   HIGHLIGHT_LAYER,
   PASTE_LAYERS,
   RESIZE_LAYERS,
+  ROTATE_LAYERS,
   SELECT_ARTBOARD,
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
@@ -87,6 +88,13 @@ export function resizeLayers(layerIds, delta, direction) {
     layerIds,
     delta,
     direction
+  }
+}
+
+export function rotateLayers(degrees) {
+  return {
+    type: ROTATE_LAYERS,
+    degrees
   }
 }
 
