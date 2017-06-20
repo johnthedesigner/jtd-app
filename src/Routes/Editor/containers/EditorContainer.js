@@ -16,6 +16,7 @@ import {
   selectLayer,
   showHideLayer,
   toggleArtboardItem,
+  updateText,
 } from '../actions'
 
 import EditorView from '../components/EditorView'
@@ -50,8 +51,8 @@ const mapDispatchToProps = (dispatch) => {
     pasteLayers: () => {
       dispatch(pasteLayers())
     },
-    resizeLayers: (layerIds, delta, direction) => {
-      dispatch(resizeLayers(layerIds, delta, direction))
+    resizeLayers: (layerIds, delta, xOffset, yOffset) => {
+      dispatch(resizeLayers(layerIds, delta, xOffset, yOffset))
     },
     selectArtboard: (artboardId) => {
       dispatch(selectArtboard(artboardId))
@@ -64,6 +65,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     toggleArtboardItem: (artboardId) => {
       dispatch(toggleArtboardItem(artboardId))
+    },
+    updateText: (layerId, text) => {
+      dispatch(updateText(layerId, text))
     }
   }
 }

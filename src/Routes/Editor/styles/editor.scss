@@ -35,16 +35,23 @@
   border: #888888 solid 1px;
   position: absolute;
   border-radius: 50%;
+  pointer-events: none;
 }
 
-.layer__wrapper, .group__wrapper{
+.layer__wrapper, .group__wrapper {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
+  user-select: none;
 
-  .layer__shape--group {
-    pointer-events: none;
+  .layer__shape {
+    position: relative;
+
+    & .layer__shape--text {
+      position: relative;
+      z-index: 1000;
+    }
   }
   & > *:not(.layer__wrapper, .layer__shape--group, .layer__highlight-indicator) {
     pointer-events: initial;
@@ -69,8 +76,8 @@
   .layer__selection-indicator {
     border: #444444 solid 1px;
   }
-  &.is-highlighted > .layer__highlight-indicator,
-  &.is-selected > .layer__selection-indicator{
+  &.is-highlighted .layer__highlight-indicator,
+  &.is-selected .layer__selection-indicator{
     opacity: 1;
   }
 }
@@ -81,10 +88,22 @@
   top: 0;
   left: 0;
   box-sizing: border-box;
-  border: #666 solid 1px;
   opacity: 0;
   transition: opacity linear .1s;
   pointer-events: none;
+
+  .selection-control__resizeable-area {
+    pointer-events: none!important;
+
+    & > div {
+      border: rgba(0,0,0,.4) solid 1px;
+      box-sizing: border-box;
+
+      * {
+        pointer-events: auto;
+      }
+    }
+  }
 
   &.is-active {
     opacity: 1;
@@ -98,60 +117,52 @@
     @extend .resize-handle;
     top: -.25rem;
     left: -.25rem;
-    cursor: nwse-resize;
   }
   .resize-handles__top-center {
     @extend .resize-handle;
     top: -.25rem;
     left: 50%;
     margin-left: -.25rem;
-    cursor: ns-resize;
   }
   .resize-handles__top-right {
     @extend .resize-handle;
     top: -.25rem;
     right: -.25rem;
-    cursor: nesw-resize;
   }
   .resize-handles__right-middle {
     @extend .resize-handle;
     top: 50%;
     margin-top: -.25rem;
     right: -.25rem;
-    cursor: ew-resize;
   }
   .resize-handles__bottom-right {
     @extend .resize-handle;
     bottom: -.25rem;
     right: -.25rem;
-    cursor: nwse-resize;
   }
   .resize-handles__bottom-center {
     @extend .resize-handle;
     bottom: -.25rem;
     left: 50%;
     margin-left: -.25rem;
-    cursor: ns-resize;
   }
   .resize-handles__bottom-left {
     @extend .resize-handle;
     bottom: -.25rem;
     left: -.25rem;
-    cursor: nesw-resize;
   }
   .resize-handles__left-middle {
     @extend .resize-handle;
     top: 50%;
     margin-top: -.25rem;
     left: -.25rem;
-    cursor: ew-resize;
   }
 }
 
 .artboard-list-item__group-wrapper {
   padding: .25rem 0;
   cursor: default;
-  border-width: 0 0 0 4px;
+  border-width: 0 0 0 1px;
   border-style: solid;
   font-size: 1rem;
   line-height: 1.5;

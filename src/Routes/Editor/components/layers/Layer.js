@@ -18,14 +18,11 @@ class Layer extends React.Component {
       y: '',
       width: '',
       height: '',
+      editingLayer: false,
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleDoubleClick = this.handleDoubleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
-    this.handleDragStop = this.handleDragStop.bind(this)
-    this.handleResize = this.handleResize.bind(this)
-    this.handleResizeStart = this.handleResizeStart.bind(this)
-    this.handleResizeStop = this.handleResizeStop.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
     this.toggleHidden = this.toggleHidden.bind(this)
     this.toggleHighlighted = this.toggleHighlighted.bind(this)
@@ -53,54 +50,19 @@ class Layer extends React.Component {
     this.draggable.updateSize(nextProps.layer.adjustments.dimensions)
   }
 
-  handleClick(e) {
+  handleDoubleClick(e) {
+    console.log('double click')
     e.stopPropagation()
-    this.props.selectLayer(this.props.layer.id, e.shiftKey)
+    this.setState({
+      editingLayer: true,
+    })
   }
 
   handleDrag(e, data) {
     this.props.dragLayers(this.props.layer.id, data.x, data.y)
   }
 
-  handleDragStart(e) {
-    this.props.selectLayer(this.props.layer.id, e.shiftKey)
-  }
-
-  handleDragStop(e) {
-    this.props.selectLayer(this.props.layer.id, e.shiftKey)
-  }
-
-  handleResize(e, direction, ref, delta) {
-    // this.props.selectLayer(this.props.layer.id, e.shiftKey)
-    let xOffset = ( _.startsWith(direction, 'top'))
-      ? delta.height * -1 : delta.height
-    let yOffset = ( _.startsWith(direction, 'left'))
-      ? delta.width * -1 : delta.width
-    this.setState({
-      x: this.state.x + xOffset,
-      y: this.state.y + yOffset,
-      width: this.props.layer.adjustments.dimensions.width + delta.width,
-      height: this.props.layer.adjustments.dimensions.height + delta.height,
-    })
-  }
-
-  handleResizeStart(e) {
-    this.props.selectLayer(this.props.layer.id, e.shiftKey)
-  }
-
-  handleResizeStop(e, direction, ref, delta) {
-    let lowerDirection = _.toLower(direction)
-    let yOffset = ( _.includes(lowerDirection, 'top'))
-      ? delta.height * -1 : 0
-    let xOffset = ( _.includes(lowerDirection, 'left'))
-      ? delta.width * -1 : 0
-    let { x, y } = this.props.layer.adjustments.dimensions
-    this.props.resizeLayers([this.props.layer.id], delta)
-    this.props.dragLayers(
-      [this.props.layer.id],
-      (x + xOffset),
-      (y + yOffset)
-    )
+  handleDragStart(e, data) {
     this.props.selectLayer(this.props.layer.id, e.shiftKey)
   }
 
@@ -135,9 +97,11 @@ class Layer extends React.Component {
 
         case layerTypes.text:
           return ( <TextLayer
+            editingLayer={this.state.editingLayer}
             setLayerAdjustment={this.setLayerAdjustment}
             layer={layer}
-            layerScaleStyles={layerScaleStyles}/> )
+            layerScaleStyles={layerScaleStyles}
+            updateText={this.props.updateText}/> )
 
         default:
           console.log('Unrecognized layer type')
@@ -155,31 +119,24 @@ class Layer extends React.Component {
         * idx(layer, _ => _.adjustments.dimensions.scaleX) + 'px',
       height: this.state.height
         * idx(layer, _ => _.adjustments.dimensions.scaleY) + 'px',
+      userSelect: 'none',
     }
 
-    const layerShapeStyles = {
-      ...layerScaleStyles,
-      marginLeft: idx(layer, _ => _.adjustments.dimensions.x) + 'px',
-      marginTop: idx(layer, _ => _.adjustments.dimensions.y) + 'px',
-      transform: 'rotate(' + idx(layer, _ => _.adjustments.dimensions.rotation)
-        + 'deg)',
-      userSelect: 'none'
-    }
     const highlightStyles = {
-      ...layerShapeStyles,
+      ...layerScaleStyles,
       borderColor: artboardColor,
       boxShadow: '0 0 0 4px ' + Color(artboardColor).fade(0.7)
     }
 
     const enableResize = {
-      bottom: layer.isSelected,
-      bottomLeft: layer.isSelected,
-      bottomRight: layer.isSelected,
-      left: layer.isSelected,
-      right: layer.isSelected,
-      top: layer.isSelected,
-      topLeft: layer.isSelected,
-      topRight: layer.isSelected
+      bottom: false,
+      bottomLeft: false,
+      bottomRight: false,
+      left: false,
+      right: false,
+      top: false,
+      topLeft: false,
+      topRight: false,
     }
 
     return (
@@ -190,7 +147,7 @@ class Layer extends React.Component {
           + this.toggleHighlighted()
           + this.toggleHidden()
         }
-        onClick={this.handleClick}
+        onDoubleClick={this.handleDoubleClick}
         onMouseEnter={() => {
           highlightLayer(layer.id)
         }}
@@ -198,7 +155,7 @@ class Layer extends React.Component {
           highlightLayer(null)
         }}>
         <Draggable
-          ref={c => { this.draggable = c }}
+          className='layer__draggable-area'
           default={{
             x: this.state.x,
             y: this.state.y,
@@ -207,18 +164,15 @@ class Layer extends React.Component {
           }}
           dragGrid={[10,10]}
           enableResizing={enableResize}
-          width={this.state.width}
           height={this.state.height}
           onDrag={this.handleDrag}
           onDragStart={this.handleDragStart}
-          onDragStop={this.handleDragStop}
-          onResize={this.handleResize}
-          onResizeStart={this.handleResizeStart}
-          onResizeStop={this.handleResizeStop}
+          ref={c => { this.draggable = c }}
           resizeGrid={[10,10]}
           style={{
             transform: 'none'
-          }}>
+          }}
+          width={this.state.width}>
           <div className={'layer__shape layer__shape--' + layer.type}>
             {layerType(layer, layerScaleStyles)}
           </div>

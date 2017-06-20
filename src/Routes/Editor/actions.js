@@ -14,6 +14,7 @@ import {
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
+  UPDATE_TEXT,
 } from './constants'
 
 export function addLayer(layerType, projectId) {
@@ -82,12 +83,13 @@ export function pasteLayers() {
   }
 }
 
-export function resizeLayers(layerIds, delta, direction) {
+export function resizeLayers(layerIds, delta, xOffset, yOffset) {
   return {
     type: RESIZE_LAYERS,
     layerIds,
     delta,
-    direction
+    xOffset,
+    yOffset
   }
 }
 
@@ -124,5 +126,13 @@ export function toggleArtboardItem(artboardId) {
   return {
     type: TOGGLE_ARTBOARD_ITEM,
     artboardId
+  }
+}
+
+export function updateText(layerId, text) {
+  return {
+    type: UPDATE_TEXT,
+    layerId,
+    text
   }
 }

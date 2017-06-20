@@ -11,6 +11,7 @@ const initialState = {
     Projects: _.keyBy(Projects, 'id'),
     openProjects: [0], // TODO: Opening projects
     selections: {
+      dimensions: {},
       projectId: null,
       artboardId: null,
       layers: []

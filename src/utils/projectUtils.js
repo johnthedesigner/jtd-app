@@ -12,6 +12,37 @@ const artboardColors = [
   '#50E3C2'
 ]
 
+export const getDimensions = (layers) => {
+  let x = _.first(_.orderBy(_.map(layers, (layer) => {
+    return layer.adjustments.dimensions.x
+  })))
+
+  let y = _.first(_.orderBy(_.map(layers, (layer) => {
+    return layer.adjustments.dimensions.y
+  })))
+
+  let width = _.last(_.orderBy(_.map(layers, (layer) => {
+    return (layer.adjustments.dimensions.x
+      - x + layer.adjustments.dimensions.width)
+  })))
+
+  let height = _.last(_.orderBy(_.map(layers, (layer) => {
+    return (layer.adjustments.dimensions.y
+      - y + layer.adjustments.dimensions.height)
+  })))
+
+  let dimensions = {
+    x,
+    y,
+    width,
+    height,
+    scaleX: 1,
+    scaleY: 1
+  }
+
+  return dimensions
+}
+
 // Map project to populate artboards and artboards palette
 export const mapProject = (
   Project,
@@ -21,47 +52,19 @@ export const mapProject = (
   highlights
 ) => {
 
-  // Merge adjustments for selected layers
+  // Merge all adjustments for selected layers
   const mergedAdjustments = mergeAdjustments(
     _.map(selections.layers, (layerId) => {
       return Layers[layerId].adjustments
     })
   )
-
-  // Calculate group dimensions or return layer dimensions
-  let getDimensions = (layers, adjustments) => {
-    if (adjustments) {
-      return adjustments.dimensions
-
-    } else if (layers) {
-      let x = _.first(_.orderBy(_.map(layers, (layer) => {
-        return layer.adjustments.dimensions.x
-      })))
-
-      let y = _.first(_.orderBy(_.map(layers, (layer) => {
-        return layer.adjustments.dimensions.y
-      })))
-
-      let width = _.last(_.orderBy(_.map(layers, (layer) => {
-        return (layer.adjustments.dimensions.x
-          - x + layer.adjustments.dimensions.width)
-      })))
-
-      let height = _.last(_.orderBy(_.map(layers, (layer) => {
-        return (layer.adjustments.dimensions.y
-          - y + layer.adjustments.dimensions.height)
-      })))
-
-      return {
-        x,
-        y,
-        width,
-        height,
-        scaleX: 1,
-        scaleY: 1
-      }
+  // For dimensions alone, get dimensions for all selected layers
+  mergedAdjustments.dimensions = getDimensions(_.map(
+    selections.layers,
+    layerId => {
+      return Layers[layerId]
     }
-  }
+  ))
 
   // Layer Mapping
   let mapLayers = (layers) => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { RIETextArea } from 'riek'
 import _ from 'lodash'
 
 class TextLayer extends React.Component {
@@ -10,7 +9,18 @@ class TextLayer extends React.Component {
       text: this.props.layer.text,
       editingLayer: this.props.editingLayer
     }
+    this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({
+      text: this.props.layer.text,
+      editingLayer: this.props.editingLayer
+    })
+    // if (this.props.editingLayer) this.textEditor.focus()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -18,20 +28,29 @@ class TextLayer extends React.Component {
       text: nextProps.layer.text,
       editingLayer: nextProps.editingLayer
     })
-    // if (nextProps.editingLayer) this.textEditor.focus()
   }
 
-  componentDidMount() {
-    // if (this.props.editingLayer) this.textEditor.focus()
+  handleChange(event) {
+    this.setState({
+      text: event.target.value
+    })
   }
 
-  componentDidUpdate() {
-    // if (this.props.editingLayer) this.textEditor.focus()
+  handleFocus(event) {
+    event.target.select()
   }
 
-  handleChange(change) {
-    console.log(change)
-    this.props.setLayerAdjustment('test')
+  handleBlur(event) {
+    this.setState({
+      editingLayer: false
+    })
+    this.props.updateText(this.props.layer.id, this.state.value)
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      event.target.blur()
+    }
   }
 
   render() {
@@ -52,14 +71,18 @@ class TextLayer extends React.Component {
     const showEditorOrText = () => {
       if (this.props.editingLayer) {
         return (
-          <RIETextArea
-            value={this.state.text}
-            change={this.handleChange}
-            propName='text'
-            validate={_.isString} />
+          <input
+            autoFocus={true}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+            onFocus={this.handleFocus}
+            placeholder='Double-click to edit.'
+            type='text'
+            value={this.state.text}/>
         )
       } else {
-        return(this.props.layer.text)
+        return(this.state.text)
       }
     }
 

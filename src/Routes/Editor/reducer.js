@@ -2,6 +2,7 @@ import _ from 'lodash'
 import uuid from 'uuid'
 
 import { consoleGroup } from '../../utils/utils'
+import { getDimensions } from '../../utils/projectUtils'
 import { newLayers } from '../../store/newLayers'
 import {
   ADD_LAYER,
@@ -19,6 +20,7 @@ import {
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
+  UPDATE_TEXT,
 } from './constants'
 
 // Files Reducer
@@ -103,11 +105,11 @@ export default function Projects(state = {}, a) {
       consoleGroup('DRAG_LAYERS',[a])
       let draggedLayers = _.cloneDeep(state.Layers)
       let affectedLayers = _.clone(state.selections.layers)
-      let xOffset = a.x - state.Layers[a.layerId].adjustments.dimensions.x
-      let yOffset = a.y - state.Layers[a.layerId].adjustments.dimensions.y
+      let xDragOffset = a.x - state.Layers[a.layerId].adjustments.dimensions.x
+      let yDragOffset = a.y - state.Layers[a.layerId].adjustments.dimensions.y
       _.each(affectedLayers, (layerId) => {
-        draggedLayers[layerId].adjustments.dimensions.x += xOffset
-        draggedLayers[layerId].adjustments.dimensions.y += yOffset
+        draggedLayers[layerId].adjustments.dimensions.x += xDragOffset
+        draggedLayers[layerId].adjustments.dimensions.y += yDragOffset
       })
       return Object.assign({},state,{ Layers: draggedLayers })
 
@@ -152,12 +154,32 @@ export default function Projects(state = {}, a) {
 
     case RESIZE_LAYERS:
       consoleGroup('RESIZE_LAYERS',[a])
-      let resizedLayers = _.cloneDeep(state.Layers)
+      const { x, y, width, height } = getDimensions(_.map(
+        state.selections.layers,
+        layerId => {return state.Layers[layerId]}
+      ))
+      const { delta, xOffset, yOffset } = a
+      let wScaleFactor = (width + delta.width) / width
+      let hScaleFactor = (height + delta.height) / height
+      let scaledLayers = _.cloneDeep(state.Layers)
       _.each(state.selections.layers, (layerId) => {
-        resizedLayers[layerId].adjustments.dimensions.width += a.delta.width
-        resizedLayers[layerId].adjustments.dimensions.height += a.delta.height
+        let layerDimensions = scaledLayers[layerId].adjustments.dimensions
+        let relativeX = ((layerDimensions.x - x) * wScaleFactor) + x + xOffset
+        let relativeY = ((layerDimensions.y - y) * hScaleFactor) + y + yOffset
+        scaledLayers[layerId].adjustments.dimensions.width *= wScaleFactor
+        scaledLayers[layerId].adjustments.dimensions.height *= hScaleFactor
+        scaledLayers[layerId].adjustments.dimensions.x = Math.round(relativeX)
+        scaledLayers[layerId].adjustments.dimensions.y = Math.round(relativeY)
       })
-      return Object.assign({},state,{ Layers: resizedLayers })
+      return Object.assign({},state,{ Layers: scaledLayers })
+
+    case ROTATE_LAYERS:
+      consoleGroup('ROTATE_LAYERS',[a])
+      let rotatedLayers = _.cloneDeep(state.Layers)
+      _.each(state.selections.layers, (layerId) => {
+        rotatedLayers[layerId].adjustments.dimensions.rotation += a.degrees
+      })
+      return Object.assign({},state,{ Layers: rotatedLayers })
 
     case SELECT_ARTBOARD:
       consoleGroup('SELECT_ARTBOARD',[a])
@@ -208,6 +230,12 @@ export default function Projects(state = {}, a) {
       return Object.assign({},state,{
         items: _.unionBy(state.items, [toggledProject], 'id')
       })
+
+    case UPDATE_TEXT:
+      consoleGroup('UPDATE_TEXT',[a])
+      let textEditedLayers = _.cloneDeep(state.Layers)
+      textEditedLayers[a.layerId].text = a.text
+      return Object.assign({},state,{ Layers: adjustedLayers })
 
     default:
       // consoleGroup('File Reducer Default',[action])

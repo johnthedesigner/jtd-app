@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import idx from 'idx'
-
-import SelectionControl from './layers/SelectionControl'
 
 class Artboard extends React.Component {
   render() {
@@ -14,7 +11,6 @@ class Artboard extends React.Component {
       isSelected,
       layerSelected,
       selectArtboard,
-      selection,
       title,
       width,
     } = this.props
@@ -32,17 +28,6 @@ class Artboard extends React.Component {
       height: height
     }
 
-    const selectionControlStyles = {
-      marginLeft: idx(selection, _ => _.dimensions.x) + 'px',
-      marginTop: idx(selection, _ => _.dimensions.y) + 'px',
-      width: idx(selection, _ => _.dimensions.width)
-        * idx(selection, _ => _.dimensions.scaleX) + 'px',
-      height: idx(selection, _ => _.dimensions.height)
-        * idx(selection, _ => _.dimensions.scaleY) + 'px',
-      transform: 'rotate(' + idx(selection, _ => _.dimensions.rotation)
-        + 'deg)'
-    }
-
     return (
       <div className='artboard__wrapper' style={wrapperStyles}>
         <div
@@ -58,13 +43,9 @@ class Artboard extends React.Component {
           style={frameStyles}
           onClick={(e) => {
             e.stopPropagation()
-            selectArtboard(id)
+            // selectArtboard(id)
           }}>
           {this.props.children}
-          <SelectionControl
-            artboardId={id}
-            isActive={selection.isActive}
-            selectionControlStyles={selectionControlStyles}/>
           <div className='artboard__selection-indicator'></div>
         </div>
       </div>

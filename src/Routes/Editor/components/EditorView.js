@@ -11,6 +11,7 @@ import Artboard from './Artboard'
 import ArtboardsPalette from './sidebar/ArtboardsPalette'
 import EditorActionBar from './EditorActionBar'
 import Layer from './layers/Layer'
+import SelectionControl from './layers/SelectionControl'
 
 import './styles/editor.css'
 
@@ -70,6 +71,7 @@ class EditorView extends React.Component {
       selectLayer,
       showHideLayer,
       toggleArtboardItem,
+      updateText,
     } = this.props
 
     const mappedProject = mapProject(
@@ -78,7 +80,7 @@ class EditorView extends React.Component {
       Layers,
       selections,
       highlights
-    );
+    )
 
     const adjustments = idx(mappedProject, _ => _.adjustments)
 
@@ -100,7 +102,9 @@ class EditorView extends React.Component {
             {_.map(mappedProject.artboards,(artboard,index) => { return (
               <Artboard
                 {...artboard}
+                dragLayers={dragLayers}
                 key={index}
+                resizeLayers={resizeLayers}
                 selectArtboard={selectArtboard}
                 selections={mappedProject.selections}
                 highlightLayer={highlightLayer}>
@@ -116,8 +120,15 @@ class EditorView extends React.Component {
                     resizeLayers={resizeLayers}
                     selectedLayers={mappedProject.selections.layers}
                     selectLayer={selectLayer}
-                    highlightLayer={highlightLayer}/>
+                    highlightLayer={highlightLayer}
+                    updateText={updateText}/>
                 )})}
+                <SelectionControl
+                  artboardId={artboard.id}
+                  dimensions={artboard.selection.dimensions}
+                  dragLayers={dragLayers}
+                  isActive={artboard.selection.isActive}
+                  resizeLayers={resizeLayers}/>
               </Artboard>
             )})}
           </div>
