@@ -12,9 +12,12 @@ const initialState = {
     openProjects: [0], // TODO: Opening projects
     selections: {
       dimensions: {},
-      projectId: null,
+      projectId: 1,
       artboardId: null,
       layers: []
+    },
+    editorModes: {
+      viewArtboardOptions: false
     },
     highlights: {
       artboardId: null,

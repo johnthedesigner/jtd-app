@@ -23,6 +23,7 @@ class EditorView extends React.Component {
       copyLayers,
       deleteLayers,
       pasteLayers,
+      toggleArtboardOptions,
     } = this.props
     // Set up key commands
     bindShortcut('shift+up', () => {bumpLayers('y',-10)})
@@ -36,6 +37,7 @@ class EditorView extends React.Component {
     bindShortcut('backspace', () => {deleteLayers()})
     bindShortcut(['command+c','control+c'], () => {copyLayers()})
     bindShortcut(['command+v','control+v'], () => {pasteLayers()})
+    bindShortcut('a', () => {toggleArtboardOptions()})
   }
 
   componentWillUnmount() {
@@ -49,10 +51,12 @@ class EditorView extends React.Component {
     this.props.unbindShortcut('left')
     this.props.unbindShortcut('right')
     this.props.unbindShortcut('backspace')
+    this.props.unbindShortcut('a')
   }
 
   render() {
     const {
+      addArtboard,
       addLayer,
       adjustLayers,
       Artboards,
@@ -60,6 +64,7 @@ class EditorView extends React.Component {
       deleteLayers,
       deselectLayersArtboard,
       dragLayers,
+      editorModes,
       highlightLayer,
       highlights,
       Layers,
@@ -84,6 +89,10 @@ class EditorView extends React.Component {
 
     const adjustments = idx(mappedProject, _ => _.adjustments)
 
+    const addLargeArtboard = () => {
+      addArtboard(400, 200)
+    }
+
     return (
       <div className='editor-view__wrapper'>
 
@@ -99,54 +108,69 @@ class EditorView extends React.Component {
             <EditorActionBar
               addLayer={addLayer}
               projectId={match.params.projectId}/>
-            {_.map(mappedProject.artboards,(artboard,index) => { return (
-              <Artboard
-                {...artboard}
-                dragLayers={dragLayers}
-                key={index}
-                resizeLayers={resizeLayers}
-                selectArtboard={selectArtboard}
-                selections={mappedProject.selections}
-                highlightLayer={highlightLayer}>
-                {_.map(artboard.layers,(layer,index) => { return (
-                  <Layer
-                    adjustLayers={adjustLayers}
-                    artboardColor={artboard.artboardColor}
-                    bumpLayers={bumpLayers}
-                    deleteLayers={deleteLayers}
-                    dragLayers={dragLayers}
-                    key={index}
-                    layer={layer}
-                    resizeLayers={resizeLayers}
-                    selectedLayers={mappedProject.selections.layers}
-                    selectLayer={selectLayer}
-                    highlightLayer={highlightLayer}
-                    updateText={updateText}/>
-                )})}
-                <SelectionControl
-                  artboardId={artboard.id}
-                  dimensions={artboard.selection.dimensions}
+            <div className='editor-view__artboard-area'>
+              {_.map(mappedProject.artboards,(artboard,index) => { return (
+                <Artboard
+                  {...artboard}
                   dragLayers={dragLayers}
-                  isActive={artboard.selection.isActive}
-                  resizeLayers={resizeLayers}/>
-              </Artboard>
-            )})}
+                  key={index}
+                  resizeLayers={resizeLayers}
+                  selectArtboard={selectArtboard}
+                  selections={mappedProject.selections}
+                  highlightLayer={highlightLayer}>
+                  {_.map(artboard.layers,(layer,index) => { return (
+                    <Layer
+                      adjustLayers={adjustLayers}
+                      artboardColor={artboard.artboardColor}
+                      bumpLayers={bumpLayers}
+                      deleteLayers={deleteLayers}
+                      dragLayers={dragLayers}
+                      key={index}
+                      layer={layer}
+                      resizeLayers={resizeLayers}
+                      selectedLayers={mappedProject.selections.layers}
+                      selectLayer={selectLayer}
+                      highlightLayer={highlightLayer}
+                      updateText={updateText}/>
+                  )})}
+                  <SelectionControl
+                    artboardId={artboard.id}
+                    dimensions={artboard.selection.dimensions}
+                    dragLayers={dragLayers}
+                    isActive={artboard.selection.isActive}
+                    resizeLayers={resizeLayers}/>
+                </Artboard>
+              )})}
+            </div>
           </div>
 
           <div className='editor-view__sidebar'>
-            <ArtboardsPalette
-              artboards={mappedProject.artboards}
-              highlightLayer={highlightLayer}
-              match={match}
-              selectArtboard={selectArtboard}
-              selectLayer={selectLayer}
-              showHideLayer={showHideLayer}
-              toggleArtboardItem={toggleArtboardItem}/>
-            <AdjustmentsPalette
-              adjustments={adjustments}
-              adjustLayers={adjustLayers}
-              layerIds={selections.layers}>
-            </AdjustmentsPalette>
+            {!editorModes.viewArtboardOptions ?
+              (
+                <div>
+                  <ArtboardsPalette
+                    artboards={mappedProject.artboards}
+                    highlightLayer={highlightLayer}
+                    match={match}
+                    selectArtboard={selectArtboard}
+                    selectLayer={selectLayer}
+                    showHideLayer={showHideLayer}
+                    toggleArtboardItem={toggleArtboardItem}/>
+                  <AdjustmentsPalette
+                    adjustments={adjustments}
+                    adjustLayers={adjustLayers}
+                    layerIds={selections.layers}/>
+                </div>
+              ) : (
+                <div>
+                  <p>Artboard Options</p>
+                  <button
+                    onClick={addLargeArtboard}>
+                    New Artboard
+                  </button>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

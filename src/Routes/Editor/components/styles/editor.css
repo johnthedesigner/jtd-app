@@ -24,6 +24,9 @@ html {
   flex-direction: column;
   flex-grow: 1; }
 
+.editor-view__artboard-area {
+  overflow: scroll; }
+
 .editor-view__sidebar {
   display: flex;
   flex-direction: column;

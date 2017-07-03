@@ -1,4 +1,5 @@
 import {
+  ADD_ARTBOARD,
   ADD_LAYER,
   ADJUST_LAYERS,
   BUMP_LAYERS,
@@ -14,8 +15,19 @@ import {
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
+  TOGGLE_ARTBOARD_OPTIONS,
   UPDATE_TEXT,
 } from './constants'
+
+export function addArtboard(width, height, x, y) {
+  return {
+    type: ADD_ARTBOARD,
+    width,
+    height,
+    x,
+    y
+  }
+}
 
 export function addLayer(layerType, projectId) {
   return {
@@ -126,6 +138,12 @@ export function toggleArtboardItem(artboardId) {
   return {
     type: TOGGLE_ARTBOARD_ITEM,
     artboardId
+  }
+}
+
+export function toggleArtboardOptions() {
+  return {
+    type: TOGGLE_ARTBOARD_OPTIONS
   }
 }
 

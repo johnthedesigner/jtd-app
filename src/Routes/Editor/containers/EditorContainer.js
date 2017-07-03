@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 import {
+  addArtboard,
   addLayer,
   adjustLayers,
   bumpLayers,
@@ -16,6 +17,7 @@ import {
   selectLayer,
   showHideLayer,
   toggleArtboardItem,
+  toggleArtboardOptions,
   updateText,
 } from '../actions'
 
@@ -24,6 +26,9 @@ import '../styles/editor.css'
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addArtboard: (width, height, x, y) => {
+      dispatch(addArtboard(width, height, x, y))
+    },
     addLayer: (layerType, projectId, artboardId, layerId) => {
       dispatch(addLayer(layerType, projectId, artboardId, layerId))
     },
@@ -66,6 +71,9 @@ const mapDispatchToProps = (dispatch) => {
     toggleArtboardItem: (artboardId) => {
       dispatch(toggleArtboardItem(artboardId))
     },
+    toggleArtboardOptions: () => {
+      dispatch(toggleArtboardOptions())
+    },
     updateText: (layerId, text) => {
       dispatch(updateText(layerId, text))
     }
@@ -78,6 +86,7 @@ const mapStateToProps = (state) => ({
   Layers: state.Editor.Layers,
   Projects: state.Editor.Projects,
   selections: state.Editor.selections,
+  editorModes: state.Editor.editorModes,
 })
 
 const EditorContainer = connect(

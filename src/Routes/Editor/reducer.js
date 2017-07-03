@@ -6,6 +6,7 @@ import { getDimensions } from '../../utils/projectUtils'
 import { newLayers } from '../../store/newLayers'
 import {
   ADD_LAYER,
+  ADD_ARTBOARD,
   ADJUST_LAYERS,
   BUMP_LAYERS,
   COPY_LAYERS,
@@ -20,31 +21,60 @@ import {
   SELECT_LAYER,
   SHOW_HIDE_LAYER,
   TOGGLE_ARTBOARD_ITEM,
+  TOGGLE_ARTBOARD_OPTIONS,
   UPDATE_TEXT,
 } from './constants'
 
 // Files Reducer
 export default function Projects(state = {}, a) {
   switch (a.type) {
+    case ADD_ARTBOARD:
+      consoleGroup('ADD_LAYER',[a])
+      let artboardsLowerExtent = _.last(_.orderBy(_.map(
+        state.Projects[state.selections.projectId].artboards,
+        artboardId => {
+          return state.Artboards[artboardId].x +
+            state.Artboards[artboardId].height
+        }
+      )))
+      let newArtboard =   {
+        id: uuid.v1(),
+        title: 'New Artboard',
+        width: a.width ? a.width : 100,
+        height: a.height ? a.height : 100,
+        x: a.x ? a.x : 0,
+        y: a.y ? a.y : artboardsLowerExtent + 100,
+        layers: []
+      }
+      let projectsNewArtboard = _.cloneDeep(state.Projects)
+      projectsNewArtboard[state.selections.projectId].artboards
+        .push(newArtboard.id)
+      return Object.assign({},state,{
+        Artboards: {
+          ...state.Artboards,
+          ..._.keyBy([newArtboard],'id')
+        },
+        Projects: projectsNewArtboard
+      })
+
+
     case ADD_LAYER:
       consoleGroup('ADD_LAYER',[a])
       let newLayer = newLayers[a.layerType]()
       newLayer.id = uuid.v1()
       let newLayerObj = _.keyBy([newLayer], 'id')
-      let newLayerArtboard = state.selections.artboardId ?
+      let newLayerArtboardId = state.selections.artboardId ?
         state.selections.artboardId : state.Projects[a.projectId].artboards[0]
+      let newLayerArtboard = _.keyBy([{
+        ...state.Artboards[newLayerArtboardId],
+        layers: [
+          ...state.Artboards[newLayerArtboardId].layers,
+          newLayer.id
+        ]
+      }], 'id')
       return Object.assign({},state,{
         Layers: {...state.Layers, ...newLayerObj},
-        Artboards: _.keyBy([
-          ...state.Artboards,
-          Object.assign({},state.Artboards,{
-            ...state.Artboards[newLayerArtboard],
-            layers: [
-              ...state.Artboards[newLayerArtboard].layers,
-              newLayer.id
-            ]
-          })
-        ], 'id'),
+        Artboards: Object.assign({}, state.Artboards, newLayerArtboard),
         selections: Object.assign({},state.selections,{
           layers: [newLayer.id]
         })
@@ -229,6 +259,15 @@ export default function Projects(state = {}, a) {
       toggledProject.artboards[a.artboardId].isCollapsed = toggledValue
       return Object.assign({},state,{
         items: _.unionBy(state.items, [toggledProject], 'id')
+      })
+
+    case TOGGLE_ARTBOARD_OPTIONS:
+      consoleGroup('TOGGLE_ARTBOARD_OPTIONS',[a])
+      return Object.assign({},state,{
+        editorModes: {
+          ...state.editorModes,
+          viewArtboardOptions: !state.editorModes.viewArtboardOptions
+        }
       })
 
     case UPDATE_TEXT:
