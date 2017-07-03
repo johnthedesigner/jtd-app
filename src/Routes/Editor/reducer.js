@@ -54,7 +54,12 @@ export default function Projects(state = {}, a) {
           ...state.Artboards,
           ..._.keyBy([newArtboard],'id')
         },
-        Projects: projectsNewArtboard
+        Projects: projectsNewArtboard,
+        editorModes: {
+          ...state.editorModes,
+          viewArtboardOptions: false
+        }
+
       })
 
 
