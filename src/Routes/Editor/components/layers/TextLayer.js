@@ -1,18 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
+import { Editor, EditorState } from 'draft-js'
 
 class TextLayer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: this.props.layer.text,
+      editorState: EditorState.createEmpty(),
       editingLayer: this.props.editingLayer
     }
     this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.setTextEditorRef = ref => this.textEditor = ref
   }
 
   componentDidMount() {
@@ -20,7 +22,7 @@ class TextLayer extends React.Component {
       text: this.props.layer.text,
       editingLayer: this.props.editingLayer
     })
-    // if (this.props.editingLayer) this.textEditor.focus()
+    if (this.props.editingLayer) this.textEditor.focus()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,12 +30,11 @@ class TextLayer extends React.Component {
       text: nextProps.layer.text,
       editingLayer: nextProps.editingLayer
     })
+    if (nextProps.editingLayer) this.textEditor.focus()
   }
 
-  handleChange(event) {
-    this.setState({
-      text: event.target.value
-    })
+  handleChange(editorState) {
+    this.setState({editorState})
   }
 
   handleFocus(event) {
@@ -41,10 +42,14 @@ class TextLayer extends React.Component {
   }
 
   handleBlur(event) {
+    console.log(this.state.editorState)
     this.setState({
       editingLayer: false
     })
-    this.props.updateText(this.props.layer.id, this.state.value)
+    console.log(this.state.editorState.getCurrentContent())
+    this.props.updateText(
+      this.props.layer.id, this.state.editorState.getCurrentContent())
+    this.textEditor.blur()
   }
 
   handleKeyPress(event) {
@@ -62,33 +67,21 @@ class TextLayer extends React.Component {
     const textStyles = {
       ...layerScaleStyles,
       color: type.color,
+      fontFamily: type.fontFamily,
       position: 'absolute',
       top: 0,
       right: 0,
-      left: 0
-    }
-
-    const showEditorOrText = () => {
-      if (this.props.editingLayer) {
-        return (
-          <input
-            autoFocus={true}
-            onBlur={this.handleBlur}
-            onChange={this.handleChange}
-            onKeyPress={this.handleKeyPress}
-            onFocus={this.handleFocus}
-            placeholder='Double-click to edit.'
-            type='text'
-            value={this.state.text}/>
-        )
-      } else {
-        return(this.state.text)
-      }
+      left: 0,
+      bottom: 0
     }
 
     return (
       <span style={textStyles}>
-        {showEditorOrText()}
+        <Editor
+          ref={this.setTextEditorRef}
+          editorState={this.state.editorState}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}/>
       </span>
     )
   }

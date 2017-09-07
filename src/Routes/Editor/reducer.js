@@ -279,7 +279,7 @@ export default function Projects(state = {}, a) {
       consoleGroup('UPDATE_TEXT',[a])
       let textEditedLayers = _.cloneDeep(state.Layers)
       textEditedLayers[a.layerId].text = a.text
-      return Object.assign({},state,{ Layers: adjustedLayers })
+      return Object.assign({},state,{ Layers: textEditedLayers })
 
     default:
       // consoleGroup('File Reducer Default',[action])

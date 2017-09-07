@@ -55,6 +55,7 @@ export const mapProject = (
   // Merge all adjustments for selected layers
   const mergedAdjustments = mergeAdjustments(
     _.map(selections.layers, (layerId) => {
+      console.log(Layers)
       return Layers[layerId].adjustments
     })
   )
