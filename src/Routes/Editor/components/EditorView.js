@@ -67,6 +67,8 @@ class EditorView extends React.Component {
       editorModes,
       highlightLayer,
       highlights,
+      History,
+      historyPlayback,
       Layers,
       match,
       Projects,
@@ -107,6 +109,8 @@ class EditorView extends React.Component {
           }}>
             <EditorActionBar
               addLayer={addLayer}
+              History={History}
+              historyPlayback={historyPlayback}
               projectId={match.params.projectId}/>
             <div className='editor-view__artboard-area'>
               {_.map(mappedProject.artboards,(artboard,index) => { return (

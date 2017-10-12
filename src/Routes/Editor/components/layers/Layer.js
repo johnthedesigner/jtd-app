@@ -51,11 +51,11 @@ class Layer extends React.Component {
   }
 
   handleDoubleClick(e) {
-    console.log('double click')
-    e.stopPropagation()
-    this.setState({
-      editingLayer: true,
-    })
+    // console.log('double click')
+    // e.stopPropagation()
+    // this.setState({
+    //   editingLayer: true,
+    // })
   }
 
   handleDrag(e, data) {

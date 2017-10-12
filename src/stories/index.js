@@ -36,4 +36,4 @@ let textLayer = {
   }
 }
 storiesOf('Text Layer', module)
-  .add('with text', () => <Layer layer={textLayer} setLayerAdjustment={action('adjustment')}/>)
+  .add('with text', () => <Layer layer={textLayer} onDoubleClick={action('adjustment')}/>)

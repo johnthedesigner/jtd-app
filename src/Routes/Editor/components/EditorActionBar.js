@@ -4,6 +4,7 @@ class EditorActionBar extends React.Component {
   constructor(props) {
     super(props)
     this.addRectangle = this.addRectangle.bind(this)
+    this.playbackHistory = this.playbackHistory.bind(this)
   }
 
   addRectangle = (e) => {
@@ -18,11 +19,17 @@ class EditorActionBar extends React.Component {
     e.stopPropagation()
   }
 
+  playbackHistory = () => {
+    console.log('History Playback')
+    this.props.historyPlayback(this.props.History.actions)
+  }
+
   render() {
     return (
       <div className="editor-action-bar__wrapper">
         <button onClick={this.addRectangle}>Add Rectangle</button>
         <button onClick={this.addText}>Add Text</button>
+        <button onClick={this.playbackHistory}>History Playback</button>
       </div>
     )
   }

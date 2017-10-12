@@ -76,6 +76,22 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateText: (layerId, text) => {
       dispatch(updateText(layerId, text))
+    },
+    historyPlayback: (actions) => {
+      // Recursively trigger history actions with delays
+      function nextDispatch(increment, actionsList) {
+        console.log('dispatching next action')
+        dispatch(actionsList[increment])
+        if (actionsList[increment + 1] !== undefined) {
+          setTimeout(
+            function(){
+              nextDispatch(increment + 1, actionsList)
+            },
+            actionsList[increment + 1].delay
+          )
+        }
+      }
+      if (actions[0] !== undefined) nextDispatch(0, actions)
     }
   }
 }
@@ -87,6 +103,7 @@ const mapStateToProps = (state) => ({
   Projects: state.Editor.Projects,
   selections: state.Editor.selections,
   editorModes: state.Editor.editorModes,
+  History: state.History,
 })
 
 const EditorContainer = connect(
