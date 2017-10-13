@@ -44,8 +44,7 @@ export const getDimensions = (layers) => {
 }
 
 // Map project to populate artboards and artboards palette
-export const mapProject = (
-  Project,
+export const mapArtboards = (
   Artboards,
   Layers,
   selections,
@@ -55,7 +54,6 @@ export const mapProject = (
   // Merge all adjustments for selected layers
   const mergedAdjustments = mergeAdjustments(
     _.map(selections.layers, (layerId) => {
-      console.log(Layers)
       return Layers[layerId].adjustments
     })
   )
@@ -83,10 +81,9 @@ export const mapProject = (
   }
 
   // Artboard mapping
-  let mappedArtboards = _.map(Project.artboards, (artboard, index) => {
-    let artboardLayers = Artboards[artboard].layers
+  let mappedArtboards = _.map(Artboards, (artboard, index) => {
     let validLayerIds = _.map(Layers,(layer)=> {return layer.id})
-    let culledArtboardLayers = _.intersection(artboardLayers, validLayerIds)
+    let culledArtboardLayers = _.intersection(artboard.layers, validLayerIds)
     const mappedArtboardLayers = mapLayers(culledArtboardLayers)
     const getSelectedLayers = (layers) => {
       let selectedLayers = []
@@ -100,12 +97,13 @@ export const mapProject = (
       return selectedLayers
     }
     let selectedLayers = getSelectedLayers(mappedArtboardLayers)
+
     const mappedArtboard = {
-      ...Artboards[artboard],
-      isSelected: (artboard === selections.artboardId),
+      ...artboard,
+      isSelected: (artboard.id === selections.artboardId),
       layerSelected: (_.intersection(selections.layers, artboard.layers)
         .length > 0),
-      artboardColor: artboardColors[index],
+      artboardColor: artboardColors[0],
       layers: mappedArtboardLayers,
       selection: {
         isActive: (selectedLayers.length > 0),
@@ -117,7 +115,6 @@ export const mapProject = (
   })
 
   return {
-    ...Project,
     adjustments: mergedAdjustments,
     artboards: mappedArtboards,
     selections
