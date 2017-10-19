@@ -47,6 +47,7 @@ export default function Artboards(state = {}, a) {
         state.selections.artboardId : _.find(state.Artboards,(a)=>{
           return typeof a !== undefined
         }).id
+      newLayer.order = state.Artboards[newLayerArtboardId].layers.length
       let newLayerArtboard = _.keyBy([{
         ...state.Artboards[newLayerArtboardId],
         layers: [

@@ -33,6 +33,7 @@ class SelectionControl extends React.Component {
   }
 
   handleResize(e, direction, ref, delta) {
+    console.log(e)
     let { width, height } = this.props.dimensions
     let { scaleFactor } = this.props
 
@@ -116,7 +117,10 @@ class SelectionControl extends React.Component {
 }
 
 SelectionControl.propTypes = {
-  dimensions : PropTypes.object.isRequired
+  dimensions : PropTypes.object.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  resizeLayers: PropTypes.func.isRequired,
+  scaleFactor: PropTypes.number.isRequired,
 }
 
 export default SelectionControl

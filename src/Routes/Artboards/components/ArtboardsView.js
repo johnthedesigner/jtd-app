@@ -18,7 +18,7 @@ class ArtboardsView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      scaleFactor: 1
+      scaleFactor: 1,
     }
     this.updateDimensions = this.updateDimensions.bind(this)
   }
@@ -30,7 +30,6 @@ class ArtboardsView extends React.Component {
       copyLayers,
       deleteLayers,
       pasteLayers,
-      toggleArtboardOptions,
     } = this.props
     // Set up key commands
     bindShortcut('shift+up', () => {bumpLayers('y',-10)})
@@ -44,7 +43,6 @@ class ArtboardsView extends React.Component {
     bindShortcut('backspace', () => {deleteLayers()})
     bindShortcut(['command+c','control+c'], () => {copyLayers()})
     bindShortcut(['command+v','control+v'], () => {pasteLayers()})
-    bindShortcut('a', () => {toggleArtboardOptions()})
   }
 
   componentDidMount() {
@@ -64,13 +62,14 @@ class ArtboardsView extends React.Component {
     this.props.unbindShortcut('left')
     this.props.unbindShortcut('right')
     this.props.unbindShortcut('backspace')
-    this.props.unbindShortcut('a')
   }
 
   updateDimensions() {
+    // Get the dimensions of our artboards-wrapper
     let wrapper = document.getElementById('artboards-wrapper')
     let width = wrapper.clientWidth * (2/3) // Limit artboard to 2/3 column
     let height = wrapper.clientHeight
+    // Determine correct artboard scale factor and store in component state
     this.setState({scaleFactor: (_.min([width,height]) * .8) / 1000})
   }
 
@@ -80,8 +79,6 @@ class ArtboardsView extends React.Component {
       addLayer,
       adjustLayers,
       Artboards,
-      bumpLayers,
-      deleteLayers,
       deselectLayersArtboard,
       dragLayers,
       highlightLayer,
@@ -91,7 +88,6 @@ class ArtboardsView extends React.Component {
       selectArtboard,
       selections,
       selectLayer,
-      updateText,
     } = this.props
 
     const mappedArtboards = mapArtboards(
@@ -122,34 +118,23 @@ class ArtboardsView extends React.Component {
               {_.map(mappedArtboards.artboards,(artboard,index) => { return (
                 <Artboard
                   {...artboard}
-                  dragLayers={dragLayers}
-                  key={index}
-                  resizeLayers={resizeLayers}
-                  selectArtboard={selectArtboard}
-                  selections={mappedArtboards.selections}
                   highlightLayer={highlightLayer}
+                  key={index}
+                  selectArtboard={selectArtboard}
                   scaleFactor={this.state.scaleFactor}>
-                  {_.map(artboard.layers,(layer,index) => { return (
+                  {_.map(_.orderBy(artboard.layers,'order'),(layer,index) => { return (
                     <Layer
                       adjustLayers={adjustLayers}
                       artboardColor={artboard.artboardColor}
-                      bumpLayers={bumpLayers}
-                      deleteLayers={deleteLayers}
                       dragLayers={dragLayers}
-                      key={index}
-                      layer={layer}
-                      fill={layer.adjustments.fill.color}
-                      resizeLayers={resizeLayers}
-                      selectedLayers={mappedArtboards.selections.layers}
-                      selectLayer={selectLayer}
                       highlightLayer={highlightLayer}
-                      updateText={updateText}
+                      key={layer.id}
+                      layer={layer}
+                      selectLayer={selectLayer}
                       scaleFactor={this.state.scaleFactor}/>
                   )})}
                   <SelectionControl
-                    artboardId={artboard.id}
                     dimensions={artboard.selection.dimensions}
-                    dragLayers={dragLayers}
                     isActive={artboard.selection.isActive}
                     resizeLayers={resizeLayers}
                     scaleFactor={this.state.scaleFactor}/>
@@ -174,9 +159,13 @@ class ArtboardsView extends React.Component {
 
 ArtboardsView.propTypes = {
   Artboards: PropTypes.object.isRequired,
+  bumpLayers: PropTypes.func.isRequired,
+  copyLayers: PropTypes.func.isRequired,
+  deleteLayers: PropTypes.func.isRequired,
   deselectLayersArtboard: PropTypes.func.isRequired,
   highlights: PropTypes.object.isRequired,
   Layers: PropTypes.object.isRequired,
+  pasteLayers: PropTypes.func.isRequired,
   selections: PropTypes.object.isRequired,
 }
 

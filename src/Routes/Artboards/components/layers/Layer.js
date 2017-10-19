@@ -25,11 +25,9 @@ class Layer extends React.Component {
       height: '',
       editingLayer: false,
     }
-    this.handleDoubleClick = this.handleDoubleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
-    this.toggleHidden = this.toggleHidden.bind(this)
     this.toggleHighlighted = this.toggleHighlighted.bind(this)
     this.toggleSelected = this.toggleSelected.bind(this)
   }
@@ -50,14 +48,6 @@ class Layer extends React.Component {
     this.draggable.updateSize(scaledDimensions)
   }
 
-  handleDoubleClick(e) {
-    // console.log('double click')
-    // e.stopPropagation()
-    // this.setState({
-    //   editingLayer: true,
-    // })
-  }
-
   handleDrag(e, data) {
     let { scaleFactor } = this.props
     this.props.dragLayers(
@@ -73,10 +63,6 @@ class Layer extends React.Component {
 
   setLayerAdjustment(value) {
     this.props.adjustLayers([this.props.layer.id], 'type', 'text', value)
-  }
-
-  toggleHidden() {
-    return (this.props.layer.hide) ? ' is-hidden' : ''
   }
 
   toggleHighlighted() {
@@ -152,9 +138,7 @@ class Layer extends React.Component {
           'layer__wrapper'
           + this.toggleSelected()
           + this.toggleHighlighted()
-          + this.toggleHidden()
         }
-        onDoubleClick={this.handleDoubleClick}
         onMouseEnter={() => {
           highlightLayer(layer.id)
         }}
@@ -202,6 +186,7 @@ Layer.propTypes = {
   dragLayers: PropTypes.func.isRequired,
   highlightLayer: PropTypes.func.isRequired,
   layer: PropTypes.object.isRequired,
+  scaleFactor: PropTypes.number.isRequired,
   selectLayer: PropTypes.func.isRequired,
 }
 
