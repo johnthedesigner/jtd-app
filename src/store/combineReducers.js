@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 
-import Artboards from '../Routes/Artboards/reducer'
+import CaseStudies from '../Routes/CaseStudies/reducer'
 import History from './historyReducer'
 
 const Reducers = combineReducers({
-  Artboards,
+  CaseStudies,
   History,
 })
 

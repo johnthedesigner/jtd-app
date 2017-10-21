@@ -1,24 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import idx from 'idx'
+// import idx from 'idx'
 import _ from 'lodash'
 import {mouseTrap} from 'react-mousetrap'
 
-import { mapArtboards } from '../../../utils/projectUtils'
-import AdjustmentsPalette from './AdjustmentsPalette'
+import { mapArtboard } from '../artboardUtils'
+// import AdjustmentsPalette from './AdjustmentsPalette'
 import Artboard from './Artboard'
-import ActionBar from './ActionBar'
+// import ActionBar from './ActionBar'
 import Layer from './layers/Layer'
 import SelectionControl from './layers/SelectionControl'
 
 import './styles/artboards.css'
+import './styles/editor.css'
 
-class ArtboardsView extends React.Component {
+class ArtboardWrapper extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       scaleFactor: 1,
+      shiftKey: false
     }
     this.updateDimensions = this.updateDimensions.bind(this)
   }
@@ -66,89 +67,69 @@ class ArtboardsView extends React.Component {
 
   updateDimensions() {
     // Get the dimensions of our artboards-wrapper
-    let wrapper = document.getElementById('artboards-wrapper')
+    let { caseStudyId } = this.props
+    let wrapper = document.getElementById(`artboard-wrapper-${caseStudyId}`)
     let width = wrapper.clientWidth * (2/3) // Limit artboard to 2/3 column
     let height = wrapper.clientHeight
     // Determine correct artboard scale factor and store in component state
-    this.setState({scaleFactor: (_.min([width,height]) * .8) / 1000})
+    this.setState({scaleFactor: (_.min([width,height]) * .90) / 1000})
   }
 
   render() {
     const {
-      addArtboard,
-      addLayer,
       adjustLayers,
-      Artboards,
+      caseStudies,
+      caseStudyId,
       deselectLayersArtboard,
       dragLayers,
       highlightLayer,
-      highlights,
-      Layers,
       resizeLayers,
-      selectArtboard,
-      selections,
       selectLayer,
     } = this.props
 
-    const mappedArtboards = mapArtboards(
-      Artboards,
-      Layers,
-      selections,
-      highlights
-    )
+    const mappedArtboard = mapArtboard(caseStudies[caseStudyId])
 
-    const adjustments = idx(mappedArtboards, _ => _.adjustments)
+    // const adjustments = idx(mappedArtboard, _ => _.adjustments)
 
     return (
-      <div className='editor-view__wrapper' id='artboards-wrapper'>
+      <div
+        id={`artboard-wrapper-${caseStudyId}`}>
 
-        <div className='editor-view__tab-bar'>
-          <Link to='/'>Home</Link>{' | '}<Link to='/Projects'>Projects</Link>
-        </div>
-
-        <div className='editor-view__body'>
+        <div>
 
           <div className='editor-view__main-area' onClick={() => {
-            deselectLayersArtboard()
+            deselectLayersArtboard(mappedArtboard.id)
           }}>
-            <ActionBar
-              addArtboard={addArtboard}
-              addLayer={addLayer}/>
-            <div className='artboards-view__artboard-list'>
-              {_.map(mappedArtboards.artboards,(artboard,index) => { return (
-                <Artboard
-                  {...artboard}
-                  highlightLayer={highlightLayer}
-                  key={index}
-                  selectArtboard={selectArtboard}
-                  scaleFactor={this.state.scaleFactor}>
-                  {_.map(_.orderBy(artboard.layers,'order'),(layer,index) => { return (
-                    <Layer
-                      adjustLayers={adjustLayers}
-                      artboardColor={artboard.artboardColor}
-                      dragLayers={dragLayers}
-                      highlightLayer={highlightLayer}
-                      key={layer.id}
-                      layer={layer}
-                      selectLayer={selectLayer}
-                      scaleFactor={this.state.scaleFactor}/>
-                  )})}
-                  <SelectionControl
-                    dimensions={artboard.selection.dimensions}
-                    isActive={artboard.selection.isActive}
-                    resizeLayers={resizeLayers}
+            <div className='editor-view__artboard-area'>
+              <div className='editor-view__copy-area'>
+                <div className='editor-view__copy'>
+                  <h1>Lorem ipsum dolor sit amet</h1>
+                  <p>I know, I just call her Annabelle cause she's shaped like a…she's the belle of the ball! I'm sure Egg is a great person. I've made a huge tiny mistake. What a fun, sexy time for you. Up yours, granny! You couldn't handle it! Fun and failure both start out the same way. Sister's my new mother, Mother. And is it just me or is she looking hotter?</p>
+                </div>
+              </div>
+              <Artboard
+                {...mappedArtboard}
+                highlightLayer={highlightLayer}
+                key={mappedArtboard.id}
+                scaleFactor={this.state.scaleFactor}
+                deselectLayersArtboard={deselectLayersArtboard}>
+                {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => { return (
+                  <Layer
+                    adjustLayers={adjustLayers}
+                    caseStudyId={mappedArtboard.id}
+                    dragLayers={dragLayers}
+                    highlightLayer={highlightLayer}
+                    key={layer.id}
+                    layer={layer}
+                    selectLayer={selectLayer}
                     scaleFactor={this.state.scaleFactor}/>
-                </Artboard>
-              )})}
-            </div>
-          </div>
-
-          <div className='editor-view__sidebar'>
-            <div>
-              <AdjustmentsPalette
-                adjustments={adjustments}
-                adjustLayers={adjustLayers}
-                layerIds={selections.layers}/>
+                )})}
+                <SelectionControl
+                  dimensions={mappedArtboard.selection.dimensions}
+                  isActive={mappedArtboard.selection.isActive}
+                  resizeLayers={resizeLayers}
+                  scaleFactor={this.state.scaleFactor}/>
+              </Artboard>
             </div>
           </div>
         </div>
@@ -157,17 +138,15 @@ class ArtboardsView extends React.Component {
   }
 }
 
-ArtboardsView.propTypes = {
-  Artboards: PropTypes.object.isRequired,
+ArtboardWrapper.propTypes = {
+  caseStudies: PropTypes.object.isRequired,
   bumpLayers: PropTypes.func.isRequired,
+  caseStudyId: PropTypes.string.isRequired,
   copyLayers: PropTypes.func.isRequired,
   deleteLayers: PropTypes.func.isRequired,
   deselectLayersArtboard: PropTypes.func.isRequired,
-  highlights: PropTypes.object.isRequired,
-  Layers: PropTypes.object.isRequired,
   pasteLayers: PropTypes.func.isRequired,
-  selections: PropTypes.object.isRequired,
 }
 
 // Wrap EditorView in mouseTrap to track key events
-export default mouseTrap(ArtboardsView)
+export default mouseTrap(ArtboardWrapper)

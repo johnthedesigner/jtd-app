@@ -18,6 +18,7 @@ class SelectionControl extends React.Component {
       width: '',
       height: '',
     }
+    this.handleClick = this.handleClick.bind(this)
     this.handleResize = this.handleResize.bind(this)
     this.handleResizeStop = this.handleResizeStop.bind(this)
   }
@@ -27,13 +28,19 @@ class SelectionControl extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(scaleAllDimensions(nextProps.dimensions,nextProps.scaleFactor,true))
-    this.resizeable.updatePosition(scaleAllDimensions(nextProps.dimensions,nextProps.scaleFactor,true))
-    this.resizeable.updateSize(scaleAllDimensions(nextProps.dimensions,nextProps.scaleFactor,true))
+    let nextDimensions =
+      scaleAllDimensions(nextProps.dimensions,nextProps.scaleFactor,true)
+    this.setState(nextDimensions)
+    this.resizeable.updatePosition(nextDimensions)
+    this.resizeable.updateSize(nextDimensions)
   }
 
+  handleClick(e) {
+    e.preventDefault()
+    console.log('handle selection control click')
+  }
   handleResize(e, direction, ref, delta) {
-    console.log(e)
+    e.preventDefault()
     let { width, height } = this.props.dimensions
     let { scaleFactor } = this.props
 
@@ -53,13 +60,12 @@ class SelectionControl extends React.Component {
   }
 
   handleResizeStop(e, direction, ref, delta) {
+    e.preventDefault()
     let lowerDirection = _.toLower(direction)
     let yOffset = ( _.includes(lowerDirection, 'top'))
       ? (delta.height * -1) : 0
     let xOffset = ( _.includes(lowerDirection, 'left'))
       ? (delta.width * -1) : 0
-    console.log(scaleAllDimensions(delta,this.props.scaleFactor, false).width)
-    console.log(scaleAllDimensions(delta,this.props.scaleFactor, false).height)
     this.props.resizeLayers(
       [],
       scaleAllDimensions(delta,this.props.scaleFactor, false),
@@ -69,7 +75,6 @@ class SelectionControl extends React.Component {
   }
 
   render() {
-
     const { isActive } = this.props
     const toggleActive = () => {
       return (isActive) ? ' is-active' : ''
@@ -95,6 +100,7 @@ class SelectionControl extends React.Component {
             height: this.state.height
           }}
           disableDragging={true}
+          onClick={this.handleClick}
           onResize={this.handleResize}
           onResizeStart={this.handleResizeStart}
           onResizeStop={this.handleResizeStop}

@@ -13,11 +13,11 @@ import {
   highlightLayer,
   pasteLayers,
   resizeLayers,
-  selectArtboard,
   selectLayer,
 } from '../actions'
 
-import ArtboardsView from '../components/ArtboardsView'
+import ArtboardWrapper from '../components/ArtboardWrapper'
+import '../styles/editor.css'
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -39,8 +39,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteLayers: (layerIds) => {
       dispatch(deleteLayers(layerIds))
     },
-    deselectLayersArtboard: () => {
-      dispatch(deselectLayersArtboard())
+    deselectLayersArtboard: (caseStudyId) => {
+      dispatch(deselectLayersArtboard(caseStudyId))
     },
     dragLayers: (layerId, x, y) => {
       dispatch(dragLayers(layerId, x, y))
@@ -54,25 +54,20 @@ const mapDispatchToProps = (dispatch) => {
     resizeLayers: (layerIds, delta, xOffset, yOffset) => {
       dispatch(resizeLayers(layerIds, delta, xOffset, yOffset))
     },
-    selectArtboard: (artboardId) => {
-      dispatch(selectArtboard(artboardId))
-    },
-    selectLayer: (layerId, shiftKey) => {
-      dispatch(selectLayer(layerId, shiftKey))
+    selectLayer: (caseStudyId, layerId, shiftKey) => {
+      dispatch(selectLayer(caseStudyId, layerId, shiftKey))
     },
   }
 }
 
-const mapStateToProps = (state) => ({
-  Artboards: state.Artboards.Artboards,
-  highlights: state.Artboards.highlights,
-  Layers: state.Artboards.Layers,
-  selections: state.Artboards.selections,
+const mapStateToProps = (state, ownProps) => ({
+  caseStudies: state.CaseStudies.caseStudies,
+  caseStudyId: ownProps.caseStudyId
 })
 
-const ArtboardsContainer = connect(
+const ArtboardContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ArtboardsView)
+)(ArtboardWrapper)
 
-export default ArtboardsContainer
+export default ArtboardContainer

@@ -16,7 +16,6 @@ import {
   HIGHLIGHT_LAYER,
   PASTE_LAYERS,
   RESIZE_LAYERS,
-  SELECT_ARTBOARD,
   SELECT_LAYER,
 } from './constants'
 
@@ -105,12 +104,10 @@ export default function Artboards(state = {}, a) {
 
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup(a.type,[a])
+      let caseStudiesDeselected = _.cloneDeep(state.caseStudies)
+      caseStudiesDeselected[a.caseStudyId].selections = []
       return Object.assign({},state,{
-        selections: {
-          ...state.selections,
-          artboardId: null,
-          layers: []
-        }
+        caseStudies: caseStudiesDeselected
       })
 
     case DRAG_LAYERS:
@@ -183,32 +180,13 @@ export default function Artboards(state = {}, a) {
       })
       return Object.assign({},state,{ Layers: scaledLayers })
 
-    case SELECT_ARTBOARD:
-      consoleGroup(a.type,[a])
-      return Object.assign({},state,{
-        selections: Object.assign({},state.selections,{
-          ...state.selections,
-          artboardId: a.artboardId
-        })
-      })
-
     case SELECT_LAYER:
       consoleGroup(a.type,[a])
-      const { layers } = state.selections
-      if (_.includes(layers,a.layerId) && !a.shiftKey) {
-        return state
-      } else {
-        let parentArtboard = _.find(state.Artboards, artboard => {
-          return _.includes(artboard.layers,a.layerId)
-        })
-        return Object.assign({},state,{
-          selections: Object.assign({},state.selections,{
-            ...state.selections,
-            artboardId: parentArtboard.id,
-            layers: ((a.shiftKey) ? _.xor(layers,[a.layerId]) : [a.layerId])
-          })
-        })
-      }
+      let updatedCaseStudies = _.cloneDeep(state.caseStudies)
+      updatedCaseStudies[a.caseStudyId].selections = ((a.shiftKey) ? _.xor(updatedCaseStudies[a.caseStudyId].selections,[a.layerId]) : [a.layerId])
+      return Object.assign({}, state, {
+        caseStudies: updatedCaseStudies,
+      })
 
     default:
       return state

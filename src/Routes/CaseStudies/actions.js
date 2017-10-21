@@ -10,7 +10,6 @@ import {
   HIGHLIGHT_LAYER,
   PASTE_LAYERS,
   RESIZE_LAYERS,
-  SELECT_ARTBOARD,
   SELECT_LAYER,
 } from './constants'
 
@@ -59,9 +58,10 @@ export function deleteLayers() {
   }
 }
 
-export function deselectLayersArtboard() {
+export function deselectLayersArtboard(caseStudyId) {
   return {
-    type: DESELECT_LAYERS_ARTBOARD
+    type: DESELECT_LAYERS_ARTBOARD,
+    caseStudyId
   }
 }
 
@@ -97,16 +97,10 @@ export function resizeLayers(layerIds, delta, xOffset, yOffset) {
   }
 }
 
-export function selectArtboard(artboardId) {
-  return {
-    type: SELECT_ARTBOARD,
-    artboardId
-  }
-}
-
-export function selectLayer(layerId, shiftKey) {
+export function selectLayer(caseStudyId, layerId, shiftKey) {
   return {
     type: SELECT_LAYER,
+    caseStudyId,
     layerId,
     shiftKey
   }

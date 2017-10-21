@@ -1,16 +1,10 @@
+import _ from 'lodash'
+
+import testCaseStudy from '../caseStudies/testCaseStudy'
+
 const initialState = {
-  Artboards: {
-    Artboards: {},
-    Layers: {},
-    selections: {
-      dimensions: {},
-      artboardId: null,
-      layers: []
-    },
-    highlights: {
-      artboardId: null,
-      layerId: null
-    },
+  CaseStudies: {
+    caseStudies: _.keyBy([testCaseStudy], 'id'),
     pasteBuffer: null
   }
 }

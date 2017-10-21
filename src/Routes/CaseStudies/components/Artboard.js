@@ -12,11 +12,10 @@ class Artboard extends React.Component {
 
   artboardClick(e) {
     e.stopPropagation()
-    this.props.selectArtboard(this.props.id)
+    this.props.deselectLayersArtboard(this.props.id)
   }
 
   render() {
-
     const {
       height,
       isSelected,
@@ -55,13 +54,11 @@ class Artboard extends React.Component {
 }
 
 Artboard.propTypes = {
-  artboardColor: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   layers: PropTypes.array.isRequired,
   layerSelected: PropTypes.bool,
-  selectArtboard: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 }
 

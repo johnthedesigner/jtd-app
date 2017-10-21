@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Color from 'color'
 import idx from 'idx'
 import Draggable from 'react-rnd'
 import _ from 'lodash'
@@ -25,6 +24,7 @@ class Layer extends React.Component {
       height: '',
       editingLayer: false,
     }
+    this.handleClick = this.handleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
@@ -48,6 +48,10 @@ class Layer extends React.Component {
     this.draggable.updateSize(scaledDimensions)
   }
 
+  handleClick (e) {
+    e.stopPropagation()
+  }
+
   handleDrag(e, data) {
     let { scaleFactor } = this.props
     this.props.dragLayers(
@@ -58,7 +62,9 @@ class Layer extends React.Component {
   }
 
   handleDragStart(e, data) {
-    this.props.selectLayer(this.props.layer.id, e.shiftKey)
+    e.stopPropagation()
+    let { caseStudyId, layer } = this.props
+    this.props.selectLayer(caseStudyId, layer.id, e.shiftKey)
   }
 
   setLayerAdjustment(value) {
@@ -101,7 +107,6 @@ class Layer extends React.Component {
     }
 
     const {
-      artboardColor,
       layer,
       highlightLayer,
       scaleFactor,
@@ -113,12 +118,6 @@ class Layer extends React.Component {
       height: this.state.height
         * idx(layer, _ => _.adjustments.dimensions.scaleY) + 'px',
       userSelect: 'none',
-    }
-
-    const highlightStyles = {
-      ...layerScaleStyles,
-      borderColor: artboardColor,
-      boxShadow: '0 0 0 4px ' + Color(artboardColor).fade(0.7)
     }
 
     const enableResize = {
@@ -144,7 +143,8 @@ class Layer extends React.Component {
         }}
         onMouseLeave={() => {
           highlightLayer(null)
-        }}>
+        }}
+        onClick={this.handleClick}>
         <Draggable
           className='layer__draggable-area'
           default={{
@@ -173,7 +173,6 @@ class Layer extends React.Component {
           <div className={'layer__shape layer__shape--' + layer.type}>
             {layerType(layer, layerScaleStyles)}
           </div>
-          <div className='layer__highlight-indicator' style={highlightStyles}></div>
         </Draggable>
       </div>
     )
@@ -182,7 +181,7 @@ class Layer extends React.Component {
 
 Layer.propTypes = {
   adjustLayers: PropTypes.func.isRequired,
-  artboardColor: PropTypes.string.isRequired,
+  caseStudyId: PropTypes.string.isRequired,
   dragLayers: PropTypes.func.isRequired,
   highlightLayer: PropTypes.func.isRequired,
   layer: PropTypes.object.isRequired,
