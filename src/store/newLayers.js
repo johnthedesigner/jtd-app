@@ -1,6 +1,27 @@
 import uuid from 'uuid'
 
 export const newLayers = {
+  ellipse: () => {
+    return {
+      id: uuid.v1(),
+      type: 'ellipse',
+      title: 'ellipse',
+      adjustments: {
+        fill: {
+          backgroundColor: 'rgba(0,255,255,.75)'
+        },
+        dimensions: {
+          x: 200,
+          y: 450,
+          width: 200,
+          height: 200,
+          scaleX: 1,
+          scaleY: 1,
+          rotation: 0
+        }
+      }
+    }
+  },
   image: () => {
     return {
       id: uuid.v1(),

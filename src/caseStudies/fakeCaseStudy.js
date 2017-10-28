@@ -3,7 +3,7 @@ import uuid from 'uuid'
 import { layerTypes } from './constants'
 
 export default {
-  id: 'test',
+  id: 'fake',
   title: 'Capitalize on low hanging fruit',
   excerpt: 'Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.',
   featuredStyles: {
@@ -87,7 +87,7 @@ export default {
           y: 250,
           width: 100,
           height: 100,
-          rotation: 45
+          rotation: 0
         }
       },
     },

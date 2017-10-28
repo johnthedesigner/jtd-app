@@ -2,7 +2,7 @@ import _ from 'lodash'
 import uuid from 'uuid'
 
 import { consoleGroup } from '../../utils/utils'
-import { getDimensions } from '../../utils/projectUtils'
+import { getLayerDimensions } from './artboardUtils'
 import { newLayers } from '../../store/newLayers'
 import {
   ADD_ARTBOARD,
@@ -14,9 +14,11 @@ import {
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
   HIGHLIGHT_LAYER,
+  MOVE_LAYERS,
   PASTE_LAYERS,
   RESIZE_LAYERS,
   SELECT_LAYER,
+  TOGGLE_FLYOUT,
 } from './constants'
 
 export default function Artboards(state = {}, a) {
@@ -41,45 +43,37 @@ export default function Artboards(state = {}, a) {
       consoleGroup(a.type,[a])
       let newLayer = newLayers[a.layerType]()
       newLayer.id = uuid.v1()
-      let newLayerObj = _.keyBy([newLayer], 'id')
-      let newLayerArtboardId = state.selections.artboardId ?
-        state.selections.artboardId : _.find(state.Artboards,(a)=>{
-          return typeof a !== undefined
-        }).id
-      newLayer.order = state.Artboards[newLayerArtboardId].layers.length
-      let newLayerArtboard = _.keyBy([{
-        ...state.Artboards[newLayerArtboardId],
-        layers: [
-          ...state.Artboards[newLayerArtboardId].layers,
-          newLayer.id
-        ]
-      }], 'id')
-      return Object.assign({},state,{
-        Layers: {...state.Layers, ...newLayerObj},
-        Artboards: Object.assign({}, state.Artboards, newLayerArtboard),
-        selections: Object.assign({},state.selections,{
-          layers: [newLayer.id]
-        })
-      })
+      let newLayerCaseStudies = _.cloneDeep(state.caseStudies)
+      let newLayerArtboard = newLayerCaseStudies[a.caseStudyId]
+      newLayerArtboard.layers.push(newLayer)
+      newLayerArtboard.selections = [newLayer.id]
+      console.log(newLayerArtboard)
+      return Object.assign({},state,{ caseStudies: newLayerCaseStudies })
 
     case ADJUST_LAYERS:
       consoleGroup(a.type,[a])
-      let adjustedLayers = Object.assign({},state.Layers)
-      _.each(a.layerIds, (layerId) => {
-        adjustedLayers[layerId]
+      let adjustedCaseStudies = _.cloneDeep(state.caseStudies)
+      let adjustedArtboard = adjustedCaseStudies[a.caseStudyId]
+      let adjustedLayers = adjustedArtboard.selections
+      _.each(adjustedLayers, (layerId) => {
+        _.find(adjustedArtboard.layers,{id: layerId})
           .adjustments[a.adjustmentGroup][a.propertyName] = a.value
       })
-      return Object.assign({},state,{ Layers: adjustedLayers })
+      return Object.assign({},state,{ caseStudies: adjustedCaseStudies })
 
     case BUMP_LAYERS:
       consoleGroup(a.type,[a])
       const { axis, distance } = a
-      let bumpedLayers = Object.assign({},state.Layers)
-      _.each(state.selections.layers, (layerId) => {
-        if (bumpedLayers[layerId].adjustments) bumpedLayers[layerId]
-          .adjustments['dimensions'][axis] += (distance)
+      let bumpedCaseStudies = _.cloneDeep(state.caseStudies)
+      let bumpedArtboard = bumpedCaseStudies[a.caseStudyId]
+      let bumpedLayers = bumpedArtboard.selections
+      _.each(bumpedLayers, (layerId) => {
+        if (bumpedArtboard.layers[layerId].adjustments) {
+          bumpedArtboard.layers[layerId]
+            .adjustments['dimensions'][axis] += (distance)
+        }
       })
-      return Object.assign({},state,{ Layers: bumpedLayers })
+      return Object.assign({},state,{ caseStudies: bumpedCaseStudies })
 
     case COPY_LAYERS:
       consoleGroup(a.type,[a])
@@ -112,15 +106,19 @@ export default function Artboards(state = {}, a) {
 
     case DRAG_LAYERS:
       consoleGroup(a.type,[a])
-      let draggedLayers = _.cloneDeep(state.Layers)
-      let affectedLayers = _.clone(state.selections.layers)
-      let xDragOffset = a.x - state.Layers[a.layerId].adjustments.dimensions.x
-      let yDragOffset = a.y - state.Layers[a.layerId].adjustments.dimensions.y
+      let draggedCaseStudies = _.cloneDeep(state.caseStudies)
+      let draggedArtboard = draggedCaseStudies[a.caseStudyId]
+      let affectedLayers = draggedArtboard.selections
+      let draggedLayer = _.find(draggedArtboard.layers, {id: a.layerId})
+      console.log(draggedLayer)
+      let xDragOffset = a.x - draggedLayer.adjustments.dimensions.x
+      let yDragOffset = a.y - draggedLayer.adjustments.dimensions.y
       _.each(affectedLayers, (layerId) => {
-        draggedLayers[layerId].adjustments.dimensions.x += xDragOffset
-        draggedLayers[layerId].adjustments.dimensions.y += yDragOffset
+        let nextDraggedLayer = _.find(draggedArtboard.layers, {id: layerId})
+        nextDraggedLayer.adjustments.dimensions.x += xDragOffset
+        nextDraggedLayer.adjustments.dimensions.y += yDragOffset
       })
-      return Object.assign({},state,{ Layers: draggedLayers })
+      return Object.assign({},state,{ caseStudies: draggedCaseStudies })
 
     case HIGHLIGHT_LAYER:
       consoleGroup(a.type,[a])
@@ -129,6 +127,28 @@ export default function Artboards(state = {}, a) {
           layerId: a.layerId
         })
       })
+
+    case MOVE_LAYERS:
+      consoleGroup(a.type,[a])
+      let movedCaseStudies = _.cloneDeep(state.caseStudies)
+      let movedArtboard = movedCaseStudies[a.caseStudyId]
+      let movedLayers = _.orderBy(_.map(movedArtboard.selections, (layerId) => {
+        return _.find(movedArtboard.layers, {id: layerId})
+      }), 'order')
+      _.each(_.orderBy(movedLayers, 'order'), (layer) => {
+        // Remove each selected layer
+        _.remove(movedArtboard.layers, (checkLayer) => {
+          return (checkLayer.id === layer.id)
+        })
+      })
+      // Add selected layer back to the front or back of the list
+      movedArtboard.layers = (a.direction === 'front') ?
+        [...movedArtboard.layers, ...movedLayers] :
+        [...movedLayers, ...movedArtboard.layers]
+      _.each(movedArtboard.layers, (layer, index) => {
+        layer.order = index
+      })
+      return Object.assign({},state,{ caseStudies: movedCaseStudies })
 
     case PASTE_LAYERS:
       consoleGroup(a.type,[a])
@@ -161,31 +181,51 @@ export default function Artboards(state = {}, a) {
 
     case RESIZE_LAYERS:
       consoleGroup(a.type,[a])
-      const { x, y, width, height } = getDimensions(_.map(
-        state.selections.layers,
-        layerId => {return state.Layers[layerId]}
+      let resizedCaseStudies = _.cloneDeep(state.caseStudies)
+      let resizedArtboard = resizedCaseStudies[a.caseStudyId]
+      // let resizedLayer = _.find(resizedArtboard.layers, {id: a.layerId})
+      const { x, y, width, height } = getLayerDimensions(_.map(
+        resizedArtboard.selections,
+        layerId => {return _.find(resizedArtboard.layers, {id: layerId})}
       ))
       const { delta, xOffset, yOffset } = a
       let wScaleFactor = (width + delta.width) / width
       let hScaleFactor = (height + delta.height) / height
-      let scaledLayers = _.cloneDeep(state.Layers)
-      _.each(state.selections.layers, (layerId) => {
-        let layerDimensions = scaledLayers[layerId].adjustments.dimensions
+      _.each(resizedArtboard.selections, (layerId) => {
+        let resizedLayer = _.find(resizedArtboard.layers, {id: layerId})
+        let layerDimensions = resizedLayer.adjustments.dimensions
         let relativeX = ((layerDimensions.x - x) * wScaleFactor) + x + xOffset
         let relativeY = ((layerDimensions.y - y) * hScaleFactor) + y + yOffset
-        scaledLayers[layerId].adjustments.dimensions.width *= wScaleFactor
-        scaledLayers[layerId].adjustments.dimensions.height *= hScaleFactor
-        scaledLayers[layerId].adjustments.dimensions.x = Math.round(relativeX)
-        scaledLayers[layerId].adjustments.dimensions.y = Math.round(relativeY)
+        resizedLayer.adjustments.dimensions.width *= wScaleFactor
+        resizedLayer.adjustments.dimensions.height *= hScaleFactor
+        resizedLayer.adjustments.dimensions.x = Math.round(relativeX)
+        resizedLayer.adjustments.dimensions.y = Math.round(relativeY)
       })
-      return Object.assign({},state,{ Layers: scaledLayers })
+      return Object.assign({},state,{ caseStudies: resizedCaseStudies })
 
     case SELECT_LAYER:
       consoleGroup(a.type,[a])
-      let updatedCaseStudies = _.cloneDeep(state.caseStudies)
-      updatedCaseStudies[a.caseStudyId].selections = ((a.shiftKey) ? _.xor(updatedCaseStudies[a.caseStudyId].selections,[a.layerId]) : [a.layerId])
+      let selectedCaseStudies = _.cloneDeep(state.caseStudies)
+      let selectedArtboard = selectedCaseStudies[a.caseStudyId]
+      if (_.includes(selectedArtboard.selections,a.layerId) && !a.shiftKey) {
+        return state
+      } else {
+        selectedCaseStudies[a.caseStudyId].selections = ((a.shiftKey) ?
+          _.xor(selectedCaseStudies[a.caseStudyId].selections,[a.layerId]) :
+          [a.layerId])
+        return Object.assign({}, state, {
+          caseStudies: selectedCaseStudies,
+        })
+      }
+
+    case TOGGLE_FLYOUT:
+      consoleGroup(a.type,[a])
+      let caseStudiesWithFlyout = _.cloneDeep(state.caseStudies)
+      let activeFlyout = caseStudiesWithFlyout[a.caseStudyId].activeFlyout
+      caseStudiesWithFlyout[a.caseStudyId].activeFlyout =
+        (activeFlyout === a.flyoutId) ? undefined : a.flyoutId
       return Object.assign({}, state, {
-        caseStudies: updatedCaseStudies,
+        caseStudies: caseStudiesWithFlyout,
       })
 
     default:

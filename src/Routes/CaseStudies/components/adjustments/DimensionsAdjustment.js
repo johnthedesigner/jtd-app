@@ -8,10 +8,10 @@ class DimensionsAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'dimensions'
 
-    const { adjustments, layerIds, adjustLayers } = this.props
+    const { adjustments, adjustLayers } = this.props
 
     const setLayerAdjustment = (propertyName, value) => {
-      adjustLayers(layerIds, adjustmentGroup, propertyName, (value - 0))
+      adjustLayers(adjustmentGroup, propertyName, (value - 0))
     }
 
     let x = idx(adjustments, _ => _.x)
@@ -26,13 +26,12 @@ class DimensionsAdjustment extends React.Component {
     let height = Math.round(idx(adjustments, _ => _.height))
     if (height !== 0 && !height) height = ''
 
+    let rotation = Math.round(idx(adjustments, _ => _.rotation))
+    if (rotation !== 0 && !rotation) rotation = ''
+
     if (adjustments) {
       return(
         <div>
-          <div className="adjustment-group__header">
-            <hr/>
-            Dimensions
-          </div>
           <TextInput
             key={adjustmentGroup + 'x'}
             propertyName={'x'}
@@ -61,6 +60,13 @@ class DimensionsAdjustment extends React.Component {
             setLayerAdjustment={setLayerAdjustment}
             type='number'
             valueFromProps={height}/>
+          <TextInput
+            key={adjustmentGroup + 'rotation'}
+            propertyName={'rotation'}
+            label='Rotation'
+            setLayerAdjustment={setLayerAdjustment}
+            type='number'
+            valueFromProps={rotation}/>
         </div>
       )
     } else {
@@ -70,7 +76,8 @@ class DimensionsAdjustment extends React.Component {
 }
 
 DimensionsAdjustment.propTypes = {
-  layer : PropTypes.object
+  adjustments: PropTypes.object,
+  adjustLayers: PropTypes.func.isRequired,
 }
 
 export default DimensionsAdjustment

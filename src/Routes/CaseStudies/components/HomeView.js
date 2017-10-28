@@ -10,16 +10,16 @@ class HomeView extends React.Component {
     return (
       <div className={'home-view__wrapper'}>
         <div className='home-view__featured-case-study'>
-          <ArtboardContainer caseStudyId={'test'}/>
+          <ArtboardContainer caseStudyId={'test'} featured={true}/>
         </div>
         <div className='home-view__case-study'>
-          <ArtboardContainer caseStudyId={'test'}/>
+          <ArtboardContainer caseStudyId={'fake'}/>
         </div>
         <div className='home-view__case-study'>
-          <ArtboardContainer caseStudyId={'test'}/>
+          <ArtboardContainer caseStudyId={'fake'}/>
         </div>
         <div className='home-view__case-study'>
-          <ArtboardContainer caseStudyId={'test'}/>
+          <ArtboardContainer caseStudyId={'fake'}/>
         </div>
       </div>
     )

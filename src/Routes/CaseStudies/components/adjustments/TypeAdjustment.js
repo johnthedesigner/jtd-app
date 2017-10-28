@@ -8,10 +8,10 @@ class TypeAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'type'
 
-    const { adjustments, layerIds, adjustLayers } = this.props
+    const { adjustments, adjustLayers } = this.props
 
     const setLayerAdjustment = (propertyName, value) => {
-      adjustLayers(layerIds, adjustmentGroup, propertyName, value)
+      adjustLayers(adjustmentGroup, propertyName, value)
     }
 
     let color = idx(adjustments, _ => _.color)
@@ -39,7 +39,8 @@ class TypeAdjustment extends React.Component {
 }
 
 TypeAdjustment.propTypes = {
-  layer : PropTypes.object
+  adjustments: PropTypes.object,
+  adjustLayers: PropTypes.func.isRequired,
 }
 
 export default TypeAdjustment

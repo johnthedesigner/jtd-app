@@ -28,7 +28,6 @@ html {
   flex-direction: column;
   width: 25%;
   min-width: 200px;
-  background: #444444;
 }
 
 // Workspace
@@ -37,14 +36,17 @@ html {
   flex: 2;
 }
 .artboard__frame {
+  display: flex;
+  flex-direction: row;
   position: relative;
   min-width: 200px;
   min-height: 200px;
   margin: 0 auto;
   background-color: white;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJUlEQVQoU2PcvXv3fwY04OrqyoguxjgUFKI7GsTH5m4M3w1ChQBotCP7mQVB2wAAAABJRU5ErkJggg==);
   background-size: 10px 10px;
-  border: #444444 solid 1px;
+  & > div:nth-child(1) {
+    min-width: 100%;
+  }
 }
 .layer__wrapper {
   position: absolute;

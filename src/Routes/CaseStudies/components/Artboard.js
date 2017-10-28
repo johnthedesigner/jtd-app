@@ -17,12 +17,14 @@ class Artboard extends React.Component {
 
   render() {
     const {
-      height,
       isSelected,
       layerSelected,
-      width,
       scaleFactor,
     } = this.props
+
+    // Hard-coded artboard heights and widths
+    let width = 1000
+    let height = 1000
 
     const toggleSelected = () => {
       return (isSelected || layerSelected) ? ' is-selected' : ''
@@ -46,7 +48,6 @@ class Artboard extends React.Component {
           className={'artboard__frame' + toggleSelected()}
           style={frameStyles}>
           {this.props.children}
-          <div className='artboard__selection-indicator'></div>
         </div>
       </div>
     )
@@ -54,12 +55,9 @@ class Artboard extends React.Component {
 }
 
 Artboard.propTypes = {
-  height: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
-  layers: PropTypes.array.isRequired,
   layerSelected: PropTypes.bool,
-  width: PropTypes.number.isRequired,
 }
 
 export default Artboard

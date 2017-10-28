@@ -1,14 +1,23 @@
 .artboard__wrapper {
-  margin: 2rem auto; }
+  position: relative;
+  margin: 0 auto;
+  box-sizing: border-box; }
+
+.artboard__wrapper:hover .action-bar__button {
+  opacity: 1; }
 
 .artboard__wrapper .artboard__header {
   cursor: default; }
 
 .artboard__wrapper .artboard__frame {
   position: relative;
-  border: #444444 solid 1px;
   min-width: 200px;
-  min-height: 200px; }
+  min-height: 200px;
+  box-shadow: 0 2px 8px 3px rgba(50, 50, 50, 0.3);
+  transition: box-shadow linear .2s; }
+
+.artboard__wrapper .artboard__frame.is-selected {
+  box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
 
 .artboard__wrapper .artboard__frame .artboard__selection-indicator {
   display: block;
@@ -17,7 +26,6 @@
   right: -1px;
   bottom: -1px;
   left: -1px;
-  box-shadow: 0 0 10px 3px #111111;
   pointer-events: none;
   opacity: 0;
   transition: opacity linear .1s; }
@@ -25,11 +33,39 @@
 .artboard__wrapper .artboard__frame.is-selected > .artboard__selection-indicator {
   opacity: 1; }
 
-.resize-handle, .selection-control__wrapper .resize-handles__top-left, .selection-control__wrapper .resize-handles__top-center, .selection-control__wrapper .resize-handles__top-right, .selection-control__wrapper .resize-handles__right-middle, .selection-control__wrapper .resize-handles__bottom-right, .selection-control__wrapper .resize-handles__bottom-center, .selection-control__wrapper .resize-handles__bottom-left, .selection-control__wrapper .resize-handles__left-middle {
+.action-bar__left, .action-bar__top-right, .action-bar__bottom-right {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 3rem; }
+
+.action-bar__left {
+  top: 0;
+  left: -3rem; }
+
+.action-bar__top-right {
+  top: 0;
+  right: -3rem; }
+
+.action-bar__bottom-right {
+  bottom: 0;
+  right: -3rem; }
+
+.action-bar__button {
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: none;
+  margin: .25rem .5rem;
+  opacity: 0;
+  transition: opacity linear .2s;
+  cursor: pointer; }
+
+.resize-handle, .selection-control__wrapper .resize-handles__top-left, .selection-control__wrapper .resize-handles__top-right, .selection-control__wrapper .resize-handles__bottom-right, .selection-control__wrapper .resize-handles__bottom-left {
   width: .375rem;
   height: .375rem;
   background: white;
-  border: #888888 solid 1px;
+  border: rgba(255, 0, 188, 0.8) solid 1px;
   position: absolute;
   border-radius: 50%;
   pointer-events: none; }
@@ -90,7 +126,7 @@
   pointer-events: none !important; }
 
 .selection-control__wrapper .selection-control__resizeable-area > div {
-  border: rgba(0, 0, 0, 0.4) solid 1px;
+  border: rgba(255, 0, 188, 0.4) solid 1px;
   box-sizing: border-box; }
 
 .selection-control__wrapper .selection-control__resizeable-area > div * {
@@ -106,36 +142,16 @@
   top: -.25rem;
   left: -.25rem; }
 
-.selection-control__wrapper .resize-handles__top-center {
-  top: -.25rem;
-  left: 50%;
-  margin-left: -.25rem; }
-
 .selection-control__wrapper .resize-handles__top-right {
   top: -.25rem;
-  right: -.25rem; }
-
-.selection-control__wrapper .resize-handles__right-middle {
-  top: 50%;
-  margin-top: -.25rem;
   right: -.25rem; }
 
 .selection-control__wrapper .resize-handles__bottom-right {
   bottom: -.25rem;
   right: -.25rem; }
 
-.selection-control__wrapper .resize-handles__bottom-center {
-  bottom: -.25rem;
-  left: 50%;
-  margin-left: -.25rem; }
-
 .selection-control__wrapper .resize-handles__bottom-left {
   bottom: -.25rem;
-  left: -.25rem; }
-
-.selection-control__wrapper .resize-handles__left-middle {
-  top: 50%;
-  margin-top: -.25rem;
   left: -.25rem; }
 
 .artboard-list-item__group-wrapper {
@@ -194,3 +210,31 @@
 .layer-list-item__wrapper .layer-list-item__layer-type-icon {
   font-size: 1rem;
   line-height: inherit; }
+
+.adjustments-flyouts__wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none; }
+
+.flyout__wrapper {
+  background: #222;
+  box-shadow: 0 8px 24px 3px rgba(50, 50, 50, 0.5);
+  color: white;
+  pointer-events: all; }
+
+.flyout__header {
+  display: flex;
+  flex-direction: row;
+  height: 2rem;
+  font-size: .875rem;
+  line-height: 2; }
+
+.flyout__title {
+  flex: 1;
+  background: #111;
+  margin: 0;
+  padding: 0 .5rem;
+  line-height: 2rem; }

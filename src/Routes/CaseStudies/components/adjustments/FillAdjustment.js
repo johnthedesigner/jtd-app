@@ -8,10 +8,10 @@ class FillAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'fill'
 
-    const { adjustments, layerIds, adjustLayers } = this.props
+    const { adjustments, adjustLayers } = this.props
 
     const setLayerAdjustment = (propertyName, value) => {
-      adjustLayers(layerIds, adjustmentGroup, propertyName, value)
+      adjustLayers(adjustmentGroup, propertyName, value)
     }
 
     let backgroundColor = idx(adjustments, _ => _.backgroundColor)
@@ -39,7 +39,8 @@ class FillAdjustment extends React.Component {
 }
 
 FillAdjustment.propTypes = {
-  layer : PropTypes.object
+  adjustments: PropTypes.object,
+  adjustLayers: PropTypes.func.isRequired,
 }
 
 export default FillAdjustment

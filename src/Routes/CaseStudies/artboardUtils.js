@@ -55,7 +55,7 @@ export const getLayerDimensions = (layers) => {
 
 // Map state to layers
 let mapLayers = (layers, selections) => {
-  return _.map(layers, (layer) => {
+  return _.keyBy(_.map(layers, (layer) => {
     return {
       ...layer,
       isSelected: _.includes(selections, layer.id),
@@ -64,14 +64,14 @@ let mapLayers = (layers, selections) => {
         dimensions: layer.adjustments.dimensions
       }
     }
-  })
+  }), 'id')
 }
 
 export const mapArtboard = (artboard) => {
   let selectedLayers = _.filter(artboard.layers, (layer) => {
     return _.includes(artboard.selections, layer.id)
   })
-
+  // console.log(selectedLayers)
   return {
     ...artboard,
     isSelected: (selectedLayers.length > 0),

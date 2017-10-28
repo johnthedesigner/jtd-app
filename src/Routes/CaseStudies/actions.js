@@ -8,9 +8,11 @@ import {
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
   HIGHLIGHT_LAYER,
+  MOVE_LAYERS,
   PASTE_LAYERS,
   RESIZE_LAYERS,
   SELECT_LAYER,
+  TOGGLE_FLYOUT,
 } from './constants'
 
 export function addArtboard(width, height) {
@@ -21,26 +23,28 @@ export function addArtboard(width, height) {
   }
 }
 
-export function addLayer(layerType) {
+export function addLayer(caseStudyId, layerType) {
   return {
     type: ADD_LAYER,
+    caseStudyId,
     layerType
   }
 }
 
-export function adjustLayers(layerIds, adjustmentGroup, propertyName, value) {
+export function adjustLayers(caseStudyId, adjustmentGroup, propertyName, value) {
   return {
     type: ADJUST_LAYERS,
-    layerIds,
+    caseStudyId,
     adjustmentGroup,
     propertyName,
     value
   }
 }
 
-export function bumpLayers(axis, distance) {
+export function bumpLayers(caseStudyId, axis, distance) {
   return {
     type: BUMP_LAYERS,
+    caseStudyId,
     axis,
     distance,
   }
@@ -65,9 +69,10 @@ export function deselectLayersArtboard(caseStudyId) {
   }
 }
 
-export function dragLayers(layerId, x, y) {
+export function dragLayers(caseStudyId, layerId, x, y) {
   return {
     type: DRAG_LAYERS,
+    caseStudyId,
     layerId,
     x,
     y
@@ -81,16 +86,23 @@ export function highlightLayer(layerId) {
   }
 }
 
+export function moveLayers(caseStudyId, direction) {
+  return {
+    type: MOVE_LAYERS,
+    caseStudyId,
+    direction
+  }
+}
 export function pasteLayers() {
   return {
     type: PASTE_LAYERS
   }
 }
 
-export function resizeLayers(layerIds, delta, xOffset, yOffset) {
+export function resizeLayers(caseStudyId, delta, xOffset, yOffset) {
   return {
     type: RESIZE_LAYERS,
-    layerIds,
+    caseStudyId,
     delta,
     xOffset,
     yOffset
@@ -103,5 +115,13 @@ export function selectLayer(caseStudyId, layerId, shiftKey) {
     caseStudyId,
     layerId,
     shiftKey
+  }
+}
+
+export function toggleFlyout(caseStudyId, flyoutId) {
+  return {
+    type: TOGGLE_FLYOUT,
+    caseStudyId,
+    flyoutId
   }
 }

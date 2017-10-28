@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-class RectangleLayer extends React.Component {
+class EllipseLayer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -45,38 +45,29 @@ class RectangleLayer extends React.Component {
 
     const { fill, dimensions } = this.state.layer.adjustments
 
-    const wrapperStyles = {
+    const ellipseStyles = {
       width: '100%',
       height: '100%'
-    }
-    const rectangleStyles = {
-      transform: `rotate(${dimensions.rotation}deg)`,
-      transformOrigin: '50% 50%'
     }
 
     return (
       <div style={layerScaleStyles}>
         <svg
           fill={fill.backgroundColor}
-          style={wrapperStyles}
+          style={ellipseStyles}
           width={dimensions.width}
           height={dimensions.height}
           viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
-          <rect
-            x='0'
-            y='0'
-            width={dimensions.width}
-            height={dimensions.height}
-            style={rectangleStyles}/>
+          <ellipse cx={dimensions.width/2} cy={dimensions.height/2} rx={dimensions.width/2} ry={dimensions.height/2}/>
         </svg>
       </div>
     )
   }
 }
 
-RectangleLayer.propTypes = {
+EllipseLayer.propTypes = {
   layer : PropTypes.object.isRequired,
   layerScaleStyles: PropTypes.object.isRequired
 }
 
-export default RectangleLayer
+export default EllipseLayer

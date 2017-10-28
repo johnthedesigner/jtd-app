@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import idx from 'idx'
+import idx from 'idx'
 import _ from 'lodash'
 import {mouseTrap} from 'react-mousetrap'
 
 import { mapArtboard } from '../artboardUtils'
-// import AdjustmentsPalette from './AdjustmentsPalette'
+import AdjustmentsFlyouts from './adjustments/AdjustmentsFlyouts'
 import Artboard from './Artboard'
-// import ActionBar from './ActionBar'
+import ActionBars from './ActionBars'
 import Layer from './layers/Layer'
 import SelectionControl from './layers/SelectionControl'
 
@@ -33,14 +33,38 @@ class ArtboardWrapper extends React.Component {
       pasteLayers,
     } = this.props
     // Set up key commands
-    bindShortcut('shift+up', () => {bumpLayers('y',-10)})
-    bindShortcut('shift+down', () => {bumpLayers('y',10)})
-    bindShortcut('shift+left', () => {bumpLayers('x',-10)})
-    bindShortcut('shift+right', () => {bumpLayers('x',10)})
-    bindShortcut('up', () => {bumpLayers('y',-1)})
-    bindShortcut('down', () => {bumpLayers('y',1)})
-    bindShortcut('left', () => {bumpLayers('x',-1)})
-    bindShortcut('right', () => {bumpLayers('x',1)})
+    bindShortcut('shift+up', (e) => {
+      e.preventDefault()
+      bumpLayers('y',-10)
+    })
+    bindShortcut('shift+down', (e) => {
+      e.preventDefault()
+      bumpLayers('y',10)
+    })
+    bindShortcut('shift+left', (e) => {
+      e.preventDefault()
+      bumpLayers('x',-10)
+    })
+    bindShortcut('shift+right', (e) => {
+      e.preventDefault()
+      bumpLayers('x',10)
+    })
+    bindShortcut('up', (e) => {
+      e.preventDefault()
+      bumpLayers('y',-1)
+    })
+    bindShortcut('down', (e) => {
+      e.preventDefault()
+      bumpLayers('y',1)
+    })
+    bindShortcut('left', (e) => {
+      e.preventDefault()
+      bumpLayers('x',-1)
+    })
+    bindShortcut('right', (e) => {
+      e.preventDefault()
+      bumpLayers('x',1)
+    })
     bindShortcut('backspace', () => {deleteLayers()})
     bindShortcut(['command+c','control+c'], () => {copyLayers()})
     bindShortcut(['command+v','control+v'], () => {pasteLayers()})
@@ -77,46 +101,77 @@ class ArtboardWrapper extends React.Component {
 
   render() {
     const {
+      addLayer,
       adjustLayers,
       caseStudies,
       caseStudyId,
       deselectLayersArtboard,
       dragLayers,
+      featured,
       highlightLayer,
+      moveLayers,
       resizeLayers,
       selectLayer,
+      toggleFlyout,
     } = this.props
 
     const mappedArtboard = mapArtboard(caseStudies[caseStudyId])
 
-    // const adjustments = idx(mappedArtboard, _ => _.adjustments)
+    const adjustments = idx(mappedArtboard, _ => _.selection.adjustments)
+
+    let bgGradientStart = featured ?
+      mappedArtboard.featuredStyles.bgGradientStart :
+      'transparent'
+    let bgGradientEnd = featured ?
+      mappedArtboard.featuredStyles.bgGradientEnd :
+      'transparent'
+    let titleColor = featured ?
+      mappedArtboard.featuredStyles.titleColor :
+      mappedArtboard.nonfeaturedStyles.titleColor
+    let excerptColor = featured ?
+      mappedArtboard.featuredStyles.excerptColor :
+      '#222'
+    let buttonFill = featured ?
+      mappedArtboard.featuredStyles.buttonFill :
+      mappedArtboard.nonfeaturedStyles.buttonFill
+
+    let artboardWrapperStyles = {
+      background: `linear-gradient(to right, ${bgGradientStart}, ${bgGradientEnd})`
+    }
+    let titleStyles = {
+      color: titleColor
+    }
+    let excerptStyles = {
+      color: excerptColor
+    }
 
     return (
       <div
-        id={`artboard-wrapper-${caseStudyId}`}>
-
-        <div>
-
-          <div className='editor-view__main-area' onClick={() => {
-            deselectLayersArtboard(mappedArtboard.id)
-          }}>
-            <div className='editor-view__artboard-area'>
-              <div className='editor-view__copy-area'>
-                <div className='editor-view__copy'>
-                  <h1>Lorem ipsum dolor sit amet</h1>
-                  <p>I know, I just call her Annabelle cause she's shaped like a…she's the belle of the ball! I'm sure Egg is a great person. I've made a huge tiny mistake. What a fun, sexy time for you. Up yours, granny! You couldn't handle it! Fun and failure both start out the same way. Sister's my new mother, Mother. And is it just me or is she looking hotter?</p>
+        className='artboard__wrapper'
+        id={`artboard-wrapper-${caseStudyId}`}
+        style={artboardWrapperStyles}>
+        <div className='editor-view__main-area' onClick={() => {
+          deselectLayersArtboard(mappedArtboard.id)
+        }}>
+          <div className='editor-view__artboard-area'>
+            <div className='editor-view__copy-area'>
+              <div className='editor-view__copy'>
+                <h1 style={titleStyles}>{mappedArtboard.title}</h1>
+                <div style={excerptStyles}>
+                  <p>{mappedArtboard.excerpt}</p>
                 </div>
               </div>
-              <Artboard
-                {...mappedArtboard}
-                highlightLayer={highlightLayer}
-                key={mappedArtboard.id}
-                scaleFactor={this.state.scaleFactor}
-                deselectLayersArtboard={deselectLayersArtboard}>
+            </div>
+            <Artboard
+              {...mappedArtboard}
+              highlightLayer={highlightLayer}
+              key={mappedArtboard.id}
+              scaleFactor={this.state.scaleFactor}
+              deselectLayersArtboard={deselectLayersArtboard}>
+              <div>
                 {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => { return (
                   <Layer
                     adjustLayers={adjustLayers}
-                    caseStudyId={mappedArtboard.id}
                     dragLayers={dragLayers}
                     highlightLayer={highlightLayer}
                     key={layer.id}
@@ -125,12 +180,30 @@ class ArtboardWrapper extends React.Component {
                     scaleFactor={this.state.scaleFactor}/>
                 )})}
                 <SelectionControl
+                  caseStudyId={mappedArtboard.id}
                   dimensions={mappedArtboard.selection.dimensions}
                   isActive={mappedArtboard.selection.isActive}
                   resizeLayers={resizeLayers}
                   scaleFactor={this.state.scaleFactor}/>
-              </Artboard>
-            </div>
+              </div>
+              <div className='artboard__action-bar'>
+                <ActionBars
+                  adjustments={adjustments}
+                  adjustLayers={adjustLayers}
+                  addLayer={addLayer}
+                  buttonFill={buttonFill}
+                  caseStudyId={caseStudyId}
+                  layerIds={mappedArtboard.selection.layers}
+                  moveLayers={moveLayers}
+                  toggleFlyout={toggleFlyout}/>
+              </div>
+              <AdjustmentsFlyouts
+                adjustments={adjustments}
+                adjustLayers={adjustLayers}
+                activeFlyout={mappedArtboard.activeFlyout}
+                caseStudyId={caseStudyId}
+                toggleFlyout={toggleFlyout}/>
+            </Artboard>
           </div>
         </div>
       </div>

@@ -36,19 +36,20 @@ var buildFromPath = (path, val) => (
 )
 
 export const mergeAdjustments = (array) => {
-  if (array.length > 0) {
-    const first = _.head(array)
+  const adjustmentsArray = _.map(array, (layer) => { return layer.adjustments })
+  if (adjustmentsArray.length > 0) {
+    const first = _.head(adjustmentsArray)
 
-    const commonPaths = getAllPaths(first.adjustments).filter(path => {
-      const value = getValueAtPath(path, first.adjustments)
+    const commonPaths = getAllPaths(first).filter(path => {
+      const value = getValueAtPath(path, first)
 
-      return _.tail(array).every(obj => {
+      return _.tail(adjustmentsArray).every(obj => {
         return valueExistsAtPath(path, obj.adjustments) && getValueAtPath(path, obj.adjustments) === value
       })
     })
 
     return _.reduce(commonPaths, (commons, path) => {
-      _.merge(commons, buildFromPath(path, getValueAtPath(path, _.head(array))))
+      _.merge(commons, buildFromPath(path, getValueAtPath(path, _.head(adjustmentsArray))))
       return commons
     }, {})
   }

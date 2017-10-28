@@ -11,27 +11,29 @@ import {
   deselectLayersArtboard,
   dragLayers,
   highlightLayer,
+  moveLayers,
   pasteLayers,
   resizeLayers,
   selectLayer,
+  toggleFlyout,
 } from '../actions'
 
 import ArtboardWrapper from '../components/ArtboardWrapper'
 import '../styles/editor.css'
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addArtboard: (width, height, x, y) => {
       dispatch(addArtboard(width, height, x, y))
     },
     addLayer: (layerType) => {
-      dispatch(addLayer(layerType))
+      dispatch(addLayer(ownProps.caseStudyId, layerType))
     },
-    adjustLayers: (layerIds, adjustmentGroup, key, value) => {
-      dispatch(adjustLayers(layerIds, adjustmentGroup, key, value))
+    adjustLayers: (adjustmentGroup, key, value) => {
+      dispatch(adjustLayers(ownProps.caseStudyId, adjustmentGroup, key, value))
     },
-    bumpLayers: (layerIds, axis, sign, shiftKey) => {
-      dispatch(bumpLayers(layerIds, axis, sign, shiftKey))
+    bumpLayers: (axis, sign) => {
+      dispatch(bumpLayers(ownProps.caseStudyId, axis, sign))
     },
     copyLayers: () => {
       dispatch(copyLayers())
@@ -39,30 +41,37 @@ const mapDispatchToProps = (dispatch) => {
     deleteLayers: (layerIds) => {
       dispatch(deleteLayers(layerIds))
     },
-    deselectLayersArtboard: (caseStudyId) => {
-      dispatch(deselectLayersArtboard(caseStudyId))
+    deselectLayersArtboard: () => {
+      dispatch(deselectLayersArtboard(ownProps.caseStudyId))
     },
     dragLayers: (layerId, x, y) => {
-      dispatch(dragLayers(layerId, x, y))
+      dispatch(dragLayers(ownProps.caseStudyId, layerId, x, y))
     },
     highlightLayer: (layerId) => {
       dispatch(highlightLayer(layerId))
     },
+    moveLayers: (direction) => {
+      dispatch(moveLayers(ownProps.caseStudyId, direction))
+    },
     pasteLayers: () => {
       dispatch(pasteLayers())
     },
-    resizeLayers: (layerIds, delta, xOffset, yOffset) => {
-      dispatch(resizeLayers(layerIds, delta, xOffset, yOffset))
+    resizeLayers: (delta, xOffset, yOffset) => {
+      dispatch(resizeLayers(ownProps.caseStudyId, delta, xOffset, yOffset))
     },
-    selectLayer: (caseStudyId, layerId, shiftKey) => {
-      dispatch(selectLayer(caseStudyId, layerId, shiftKey))
+    selectLayer: (layerId, shiftKey) => {
+      dispatch(selectLayer(ownProps.caseStudyId, layerId, shiftKey))
     },
+    toggleFlyout: (flyoutId) => {
+      dispatch(toggleFlyout(ownProps.caseStudyId, flyoutId))
+    }
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   caseStudies: state.CaseStudies.caseStudies,
-  caseStudyId: ownProps.caseStudyId
+  caseStudyId: ownProps.caseStudyId,
+  featured: ownProps.featured,
 })
 
 const ArtboardContainer = connect(

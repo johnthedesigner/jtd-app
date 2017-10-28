@@ -36,11 +36,13 @@ class SelectionControl extends React.Component {
   }
 
   handleClick(e) {
-    e.preventDefault()
+    e.stopPropagation()
     console.log('handle selection control click')
   }
+
   handleResize(e, direction, ref, delta) {
-    e.preventDefault()
+    e.stopPropagation()
+
     let { width, height } = this.props.dimensions
     let { scaleFactor } = this.props
 
@@ -60,14 +62,14 @@ class SelectionControl extends React.Component {
   }
 
   handleResizeStop(e, direction, ref, delta) {
-    e.preventDefault()
+    e.stopPropagation()
+
     let lowerDirection = _.toLower(direction)
     let yOffset = ( _.includes(lowerDirection, 'top'))
       ? (delta.height * -1) : 0
     let xOffset = ( _.includes(lowerDirection, 'left'))
       ? (delta.width * -1) : 0
     this.props.resizeLayers(
-      [],
       scaleAllDimensions(delta,this.props.scaleFactor, false),
       unscaleDimension(xOffset,this.props.scaleFactor),
       unscaleDimension(yOffset,this.props.scaleFactor)
@@ -108,14 +110,10 @@ class SelectionControl extends React.Component {
             scaleDimension(10,this.props.scaleFactor),
             scaleDimension(10,this.props.scaleFactor)
           ]}>
-          <div className='resize-handles__top-left'></div>
-          <div className='resize-handles__top-center'></div>
+          <div className='resize-handles__top-left'onClick={this.handleClick}></div>
           <div className='resize-handles__top-right'></div>
-          <div className='resize-handles__right-middle'></div>
           <div className='resize-handles__bottom-right'></div>
-          <div className='resize-handles__bottom-center'></div>
           <div className='resize-handles__bottom-left'></div>
-          <div className='resize-handles__left-middle'></div>
         </Draggable>
       </div>
     )

@@ -9,7 +9,9 @@ class AppLayout extends React.Component {
   render() {
 
     return (
-      <div className='app-layout--container'>
+      <div className='app-layout__container'>
+        <div className='app-layout__nav'>
+        </div>
         <div className='app-layout__body'>
           <Route exact path='/' component={HomeContainer}/>
         </div>

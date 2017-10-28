@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import idx from 'idx'
 import Draggable from 'react-rnd'
 import _ from 'lodash'
 
-import { layerTypes } from '../../../../store/entities/Layers'
+import { layerTypes } from '../../../../caseStudies/constants'
+import EllipseLayer from './EllipseLayer'
 import ImageLayer from './ImageLayer'
 import RectangleLayer from './RectangleLayer'
+import TextLayer from './TextLayer'
 import {
   scaleDimension,
   unscaleDimension,
   scaleAllDimensions
 } from '../../artboardUtils'
-import TextLayer from './TextLayer'
 
 class Layer extends React.Component {
   constructor(props) {
@@ -63,12 +63,12 @@ class Layer extends React.Component {
 
   handleDragStart(e, data) {
     e.stopPropagation()
-    let { caseStudyId, layer } = this.props
-    this.props.selectLayer(caseStudyId, layer.id, e.shiftKey)
+    let { layer } = this.props
+    this.props.selectLayer(layer.id, e.shiftKey)
   }
 
   setLayerAdjustment(value) {
-    this.props.adjustLayers([this.props.layer.id], 'type', 'text', value)
+    this.props.adjustLayers('type', 'text', value)
   }
 
   toggleHighlighted() {
@@ -82,6 +82,12 @@ class Layer extends React.Component {
   render() {
     const layerType = (layer, layerScaleStyles) => {
       switch (layer.type) {
+        case layerTypes.ellipse:
+          return ( <EllipseLayer
+            key={layer.adjustments.fill.backgroundColor}
+            layer={layer}
+            layerScaleStyles={layerScaleStyles}/> )
+
         case layerTypes.image:
           return ( <ImageLayer
             layer={layer}
@@ -102,7 +108,7 @@ class Layer extends React.Component {
             updateText={this.props.updateText}/> )
 
         default:
-          console.log('Unrecognized layer type')
+          console.log('Unrecognized layer type: ',layer.type)
       }
     }
 
@@ -113,10 +119,8 @@ class Layer extends React.Component {
     } = this.props
 
     const layerScaleStyles = {
-      width: this.state.width
-        * idx(layer, _ => _.adjustments.dimensions.scaleX) + 'px',
-      height: this.state.height
-        * idx(layer, _ => _.adjustments.dimensions.scaleY) + 'px',
+      width: this.state.width + 'px',
+      height: this.state.height + 'px',
       userSelect: 'none',
     }
 
@@ -181,7 +185,6 @@ class Layer extends React.Component {
 
 Layer.propTypes = {
   adjustLayers: PropTypes.func.isRequired,
-  caseStudyId: PropTypes.string.isRequired,
   dragLayers: PropTypes.func.isRequired,
   highlightLayer: PropTypes.func.isRequired,
   layer: PropTypes.object.isRequired,
