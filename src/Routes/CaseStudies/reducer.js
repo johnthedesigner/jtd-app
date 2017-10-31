@@ -110,13 +110,23 @@ export default function Artboards(state = {}, a) {
       let draggedArtboard = draggedCaseStudies[a.caseStudyId]
       let affectedLayers = draggedArtboard.selections
       let draggedLayer = _.find(draggedArtboard.layers, {id: a.layerId})
-      console.log(draggedLayer)
-      let xDragOffset = a.x - draggedLayer.adjustments.dimensions.x
-      let yDragOffset = a.y - draggedLayer.adjustments.dimensions.y
+      // Get bounding box of the layer being dragged to calculate offset
+      let draggedLayerDimensions = getLayerDimensions([draggedLayer])
+      let xDragOffset = a.x - draggedLayerDimensions.x
+      let yDragOffset = a.y - draggedLayerDimensions.y
+      // For each selected layer apply offset to all points
       _.each(affectedLayers, (layerId) => {
         let nextDraggedLayer = _.find(draggedArtboard.layers, {id: layerId})
-        nextDraggedLayer.adjustments.dimensions.x += xDragOffset
-        nextDraggedLayer.adjustments.dimensions.y += yDragOffset
+        let d = nextDraggedLayer.dimensions
+        nextDraggedLayer.dimensions = {
+          x: Math.round(d.x + xDragOffset),
+          y: Math.round(d.y + yDragOffset),
+          width: d.width,
+          height: d.height,
+          rotation: d.rotation,
+          scaleX: d.scaleX,
+          scaleY: d.scaleY
+        }
       })
       return Object.assign({},state,{ caseStudies: draggedCaseStudies })
 
@@ -183,8 +193,7 @@ export default function Artboards(state = {}, a) {
       consoleGroup(a.type,[a])
       let resizedCaseStudies = _.cloneDeep(state.caseStudies)
       let resizedArtboard = resizedCaseStudies[a.caseStudyId]
-      // let resizedLayer = _.find(resizedArtboard.layers, {id: a.layerId})
-      const { x, y, width, height } = getLayerDimensions(_.map(
+      const { width, height } = getLayerDimensions(_.map(
         resizedArtboard.selections,
         layerId => {return _.find(resizedArtboard.layers, {id: layerId})}
       ))
@@ -193,13 +202,16 @@ export default function Artboards(state = {}, a) {
       let hScaleFactor = (height + delta.height) / height
       _.each(resizedArtboard.selections, (layerId) => {
         let resizedLayer = _.find(resizedArtboard.layers, {id: layerId})
-        let layerDimensions = resizedLayer.adjustments.dimensions
-        let relativeX = ((layerDimensions.x - x) * wScaleFactor) + x + xOffset
-        let relativeY = ((layerDimensions.y - y) * hScaleFactor) + y + yOffset
-        resizedLayer.adjustments.dimensions.width *= wScaleFactor
-        resizedLayer.adjustments.dimensions.height *= hScaleFactor
-        resizedLayer.adjustments.dimensions.x = Math.round(relativeX)
-        resizedLayer.adjustments.dimensions.y = Math.round(relativeY)
+        let d = resizedLayer.dimensions
+        resizedLayer.dimensions = {
+          x: Math.round(d.x + xOffset),
+          y: Math.round(d.y + yOffset),
+          width: Math.round(d.width * wScaleFactor),
+          height: Math.round(d.height * hScaleFactor),
+          rotation: d.rotation,
+          scaleX: d.scaleX,
+          scaleY: d.scaleY
+        }
       })
       return Object.assign({},state,{ caseStudies: resizedCaseStudies })
 

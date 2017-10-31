@@ -13,10 +13,13 @@ class SelectionControl extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      x: '',
-      y: '',
-      width: '',
-      height: '',
+      x: null,
+      y: null,
+      width: null,
+      height: null,
+      rotation: null,
+      scaleX: null,
+      scaleY: null
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleResize = this.handleResize.bind(this)
@@ -78,6 +81,7 @@ class SelectionControl extends React.Component {
 
   render() {
     const { isActive } = this.props
+    const { x, y, width, height, rotation } = this.state
     const toggleActive = () => {
       return (isActive) ? ' is-active' : ''
     }
@@ -88,6 +92,10 @@ class SelectionControl extends React.Component {
       left: 0,
     }
 
+    const draggableStyles = {
+      transform: `rotate(${rotation}deg)`
+    }
+
     return (
       <div
         className={'selection-control__wrapper' + toggleActive()}
@@ -96,10 +104,10 @@ class SelectionControl extends React.Component {
           className='selection-control__resizeable-area'
           ref={c => { this.resizeable = c }}
           default={{
-            x: this.state.x,
-            y: this.state.y,
-            width: this.state.width,
-            height: this.state.height
+            x,
+            y,
+            width,
+            height
           }}
           disableDragging={true}
           onClick={this.handleClick}
@@ -109,7 +117,8 @@ class SelectionControl extends React.Component {
           resizeGrid={[
             scaleDimension(10,this.props.scaleFactor),
             scaleDimension(10,this.props.scaleFactor)
-          ]}>
+          ]}
+          style={draggableStyles}>
           <div className='resize-handles__top-left'onClick={this.handleClick}></div>
           <div className='resize-handles__top-right'></div>
           <div className='resize-handles__bottom-right'></div>

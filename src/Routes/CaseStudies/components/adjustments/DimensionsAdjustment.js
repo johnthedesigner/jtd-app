@@ -8,7 +8,7 @@ class DimensionsAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'dimensions'
 
-    const { adjustments, adjustLayers } = this.props
+    const { adjustments, adjustLayers, resizeLayers } = this.props
 
     const setLayerAdjustment = (propertyName, value) => {
       adjustLayers(adjustmentGroup, propertyName, (value - 0))
@@ -29,6 +29,20 @@ class DimensionsAdjustment extends React.Component {
     let rotation = Math.round(idx(adjustments, _ => _.rotation))
     if (rotation !== 0 && !rotation) rotation = ''
 
+    const setLayerSize = ( newX, newY, newWidth, newHeight ) => {
+      let delta = {
+        x: newX - x,
+        y: newY - y,
+        width: newWidth - width,
+        height: newHeight - height
+      }
+      resizeLayers(delta, 0, 0)
+    }
+    const setX = (newX) => { setLayerSize(newX, y, width, height) }
+    const setY = (newY) => { setLayerSize(x, newY, width, height) }
+    const setWidth = (newWidth) => { setLayerSize(x, y, newWidth, height) }
+    const setHeight = (newHeight) => { setLayerSize(x, y, width, newHeight) }
+
     if (adjustments) {
       return(
         <div>
@@ -36,28 +50,28 @@ class DimensionsAdjustment extends React.Component {
             key={adjustmentGroup + 'x'}
             propertyName={'x'}
             label='x'
-            setLayerAdjustment={setLayerAdjustment}
+            setValue={setX}
             type='number'
             valueFromProps={x}/>
           <TextInput
             key={adjustmentGroup + 'y'}
             propertyName={'y'}
             label='y'
-            setLayerAdjustment={setLayerAdjustment}
+            setValue={setY}
             type='number'
             valueFromProps={y}/>
           <TextInput
             key={adjustmentGroup + 'width'}
             propertyName={'width'}
             label='Width'
-            setLayerAdjustment={setLayerAdjustment}
+            setValue={setWidth}
             type='number'
             valueFromProps={width}/>
           <TextInput
             key={adjustmentGroup + 'height'}
             propertyName={'height'}
             label='Height'
-            setLayerAdjustment={setLayerAdjustment}
+            setValue={setHeight}
             type='number'
             valueFromProps={height}/>
           <TextInput

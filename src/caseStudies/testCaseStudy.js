@@ -21,109 +21,21 @@ export default {
     {
       id: uuid.v1(),
       type: layerTypes.rectangle,
-      title: 'box 1',
+      title: 'rectangle',
       order: 0,
-      adjustments: {
-        fill: {
-          backgroundColor: 'rgba(255,255,0,.5)'
-        },
-        dimensions: {
-          x: 100,
-          y: 200,
-          width: 100,
-          height: 100,
-          rotation: 0
-        }
+      dimensions: {
+        x: 400,
+        y: 400,
+        width: 300,
+        height: 150,
+        rotation: 15,
+        scaleX: 1,
+        scaleY: 1
       },
-    },
-    {
-      id: uuid.v1(),
-      type: layerTypes.image,
-      title: 'image 1',
-      order: 1,
-      adjustments: {
-        image: {
-          src: 'http://www.placehold.it/400x400/'
-        },
-        dimensions: {
-          x: 300,
-          y: 100,
-          width: 100,
-          height: 100,
-          rotation: 0
-        }
-      }
-    },
-    {
-      id: uuid.v1(),
-      type: layerTypes.text,
-      title: 'text 1',
-      text: 'Lorem ipsum dolor sit amet',
-      order: 2,
-      adjustments: {
-        type: {
-          color: '#444444'
-        },
-        dimensions: {
-          x: 350,
-          y: 300,
-          width: 200,
-          height: 100,
-          rotation: 0
-        }
-      }
-    },
-    {
-      id: uuid.v1(),
-      type: layerTypes.rectangle,
-      title: 'box 2',
-      order: 3,
       adjustments: {
         fill: {
-          backgroundColor: 'rgba(255,0,255,.5)'
-        },
-        dimensions: {
-          x: 300,
-          y: 250,
-          width: 100,
-          height: 100,
-          rotation: 45
-        }
-      },
-    },
-    {
-      id: uuid.v1(),
-      type: layerTypes.image,
-      title: 'image 2',
-      order: 4,
-      adjustments: {
-        image: {
-          src: 'http://www.placehold.it/400x400/'
-        },
-        dimensions: {
-          x: 50,
-          y: 50,
-          width: 100,
-          height: 100,
-          rotation: 0
-        }
-      }
-    },
-    {
-      id: uuid.v1(),
-      type: layerTypes.ellipse,
-      title: 'ellipse',
-      order: 5,
-      adjustments: {
-        fill: {
-          backgroundColor: 'rgba(0,255,255,.5)'
-        },
-        dimensions: {
-          x: 500,
-          y: 450,
-          width: 100,
-          height: 100,
-          rotation: 0
+          type: 'color',
+          color: 'rgba(45,156,219,1)'
         }
       },
     }

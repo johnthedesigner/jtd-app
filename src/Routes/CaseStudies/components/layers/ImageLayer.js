@@ -15,8 +15,7 @@ class ImageLayer extends React.Component {
 }
 
 ImageLayer.propTypes = {
-  layer : PropTypes.object.isRequired,
-  layerScaleStyles: PropTypes.object.isRequired,
+  layer : PropTypes.object.isRequired
 }
 
 export default ImageLayer

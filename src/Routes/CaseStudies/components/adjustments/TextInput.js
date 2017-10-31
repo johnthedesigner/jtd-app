@@ -34,7 +34,7 @@ class TextInput extends React.Component {
   }
 
   handleBlur(event) {
-    this.props.setLayerAdjustment(this.props.propertyName, this.state.value)
+    this.props.setValue(this.state.value)
   }
 
   handleKeyPress(event) {

@@ -2,14 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import idx from 'idx'
 import _ from 'lodash'
-import {mouseTrap} from 'react-mousetrap'
+import { mouseTrap } from 'react-mousetrap'
 
 import { mapArtboard } from '../artboardUtils'
 import AdjustmentsFlyouts from './adjustments/AdjustmentsFlyouts'
 import Artboard from './Artboard'
 import ActionBars from './ActionBars'
 import Layer from './layers/Layer'
-import SelectionControl from './layers/SelectionControl'
+import DragControl from './layers/DragControl'
+import ResizeControl from './layers/ResizeControl'
+import {
+  scaleDimension,
+  unscaleDimension,
+  scaleAllDimensions
+} from '../artboardUtils'
 
 import './styles/artboards.css'
 import './styles/editor.css'
@@ -119,6 +125,8 @@ class ArtboardWrapper extends React.Component {
 
     const adjustments = idx(mappedArtboard, _ => _.selection.adjustments)
 
+    const selectionDimensions = idx(mappedArtboard, _ => _.selection.dimensions)
+
     let bgGradientStart = featured ?
       mappedArtboard.featuredStyles.bgGradientStart :
       'transparent'
@@ -169,8 +177,32 @@ class ArtboardWrapper extends React.Component {
               scaleFactor={this.state.scaleFactor}
               deselectLayersArtboard={deselectLayersArtboard}>
               <div>
+                <svg
+                  width={scaleDimension(1000, this.state.scaleFactor)}
+                  height={scaleDimension(1000, this.state.scaleFactor)}
+                  viewBox="0 0 1000 1000"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0
+                  }}>
+                  {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => {
+                    return (
+                    <Layer
+                      adjustLayers={adjustLayers}
+                      dragLayers={dragLayers}
+                      highlightLayer={highlightLayer}
+                      key={layer.id}
+                      layer={layer}
+                      selectLayer={selectLayer}
+                      scaleFactor={this.state.scaleFactor}
+                      scaleDimension={scaleDimension}
+                      scaleAllDimensions={scaleAllDimensions}
+                      unscaleDimension={unscaleDimension}/>
+                  )})}
+                </svg>
                 {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => { return (
-                  <Layer
+                  <DragControl
                     adjustLayers={adjustLayers}
                     dragLayers={dragLayers}
                     highlightLayer={highlightLayer}
@@ -179,7 +211,7 @@ class ArtboardWrapper extends React.Component {
                     selectLayer={selectLayer}
                     scaleFactor={this.state.scaleFactor}/>
                 )})}
-                <SelectionControl
+                <ResizeControl
                   caseStudyId={mappedArtboard.id}
                   dimensions={mappedArtboard.selection.dimensions}
                   isActive={mappedArtboard.selection.isActive}
@@ -202,6 +234,8 @@ class ArtboardWrapper extends React.Component {
                 adjustLayers={adjustLayers}
                 activeFlyout={mappedArtboard.activeFlyout}
                 caseStudyId={caseStudyId}
+                dimensions={selectionDimensions}
+                resizeLayers={resizeLayers}
                 toggleFlyout={toggleFlyout}/>
             </Artboard>
           </div>

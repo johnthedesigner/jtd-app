@@ -14,7 +14,7 @@ export const unscaleDimension = (dimension, scaleFactor) => {
 
 // Scale full set of layer dimensions for artboard resizing
 export const scaleAllDimensions = (dimensions, scaleFactor, scaleIn) => {
-  let { x, y, width, height } = dimensions
+  let { x, y, width, height, rotation, scaleX, scaleY } = dimensions
   function scale(dimension) {
     if (scaleIn) {
       return scaleDimension(dimension,scaleFactor)
@@ -27,27 +27,30 @@ export const scaleAllDimensions = (dimensions, scaleFactor, scaleIn) => {
     y: scale(y),
     width: scale(width),
     height: scale(height),
+    rotation,
+    scaleX,
+    scaleY
   }
 }
 
 // Get full set of collective dimenions from a set of layers
 export const getLayerDimensions = (layers) => {
   let x = _.first(_.orderBy(_.map(layers, (layer) => {
-    return layer.adjustments.dimensions.x
+    return layer.dimensions.x
   })))
 
   let y = _.first(_.orderBy(_.map(layers, (layer) => {
-    return layer.adjustments.dimensions.y
+    return layer.dimensions.y
   })))
 
   let width = _.last(_.orderBy(_.map(layers, (layer) => {
-    return (layer.adjustments.dimensions.x
-      - x + layer.adjustments.dimensions.width)
+    return (layer.dimensions.x
+      - x + layer.dimensions.width)
   })))
 
   let height = _.last(_.orderBy(_.map(layers, (layer) => {
-    return (layer.adjustments.dimensions.y
-      - y + layer.adjustments.dimensions.height)
+    return (layer.dimensions.y
+      - y + layer.dimensions.height)
   })))
 
   return { x, y, width, height }
@@ -61,7 +64,7 @@ let mapLayers = (layers, selections) => {
       isSelected: _.includes(selections, layer.id),
       adjustments: {
         ...layer.adjustments,
-        dimensions: layer.adjustments.dimensions
+        dimensions: layer.dimensions
       }
     }
   }), 'id')

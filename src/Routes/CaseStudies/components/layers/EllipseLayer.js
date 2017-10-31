@@ -66,8 +66,7 @@ class EllipseLayer extends React.Component {
 }
 
 EllipseLayer.propTypes = {
-  layer : PropTypes.object.isRequired,
-  layerScaleStyles: PropTypes.object.isRequired
+  layer : PropTypes.object.isRequired
 }
 
 export default EllipseLayer
