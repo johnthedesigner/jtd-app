@@ -201,6 +201,12 @@ class ArtboardWrapper extends React.Component {
                       unscaleDimension={unscaleDimension}/>
                   )})}
                 </svg>
+                <ResizeControl
+                  caseStudyId={mappedArtboard.id}
+                  dimensions={mappedArtboard.selection.dimensions}
+                  isActive={mappedArtboard.selection.isActive}
+                  resizeLayers={resizeLayers}
+                  scaleFactor={this.state.scaleFactor}/>
                 {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => { return (
                   <DragControl
                     adjustLayers={adjustLayers}
@@ -211,12 +217,6 @@ class ArtboardWrapper extends React.Component {
                     selectLayer={selectLayer}
                     scaleFactor={this.state.scaleFactor}/>
                 )})}
-                <ResizeControl
-                  caseStudyId={mappedArtboard.id}
-                  dimensions={mappedArtboard.selection.dimensions}
-                  isActive={mappedArtboard.selection.isActive}
-                  resizeLayers={resizeLayers}
-                  scaleFactor={this.state.scaleFactor}/>
               </div>
               <div className='artboard__action-bar'>
                 <ActionBars

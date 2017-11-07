@@ -34,17 +34,15 @@ html {
   margin: 0 auto;
   background-color: white;
   background-size: 10px 10px; }
-
-.artboard__frame > div:nth-child(1) {
-  min-width: 100%; }
+  .artboard__frame > div:nth-child(1) {
+    min-width: 100%; }
 
 .layer__wrapper {
   position: absolute;
   top: 0;
   left: 0; }
-
-.layer__wrapper.is-hidden {
-  display: none; }
+  .layer__wrapper.is-hidden {
+    display: none; }
 
 .group__selection {
   position: absolute;
@@ -70,13 +68,12 @@ html {
   border: none;
   pointer-events: none;
   user-select: none; }
-
-.layer__shape > * {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0; }
+  .layer__shape > * {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
 
 .DraftEditor-editorContainer {
   background: white; }

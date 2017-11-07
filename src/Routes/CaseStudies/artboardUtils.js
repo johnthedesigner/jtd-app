@@ -53,7 +53,9 @@ export const getLayerDimensions = (layers) => {
       - y + layer.dimensions.height)
   })))
 
-  return { x, y, width, height }
+  let rotation = ( layers.length !== 1 ) ? 0 : layers[0].dimensions.rotation
+
+  return { x, y, width, height, rotation }
 }
 
 // Map state to layers

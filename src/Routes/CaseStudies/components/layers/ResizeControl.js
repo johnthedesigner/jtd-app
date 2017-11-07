@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Draggable from 'react-rnd'
 import _ from 'lodash'
 
+import ResizeControlDropTarget from './ResizeControlDropTarget'
+import ResizeHandle from './ResizeHandle'
 import {
   scaleDimension,
   unscaleDimension,
   scaleAllDimensions
 } from '../../artboardUtils'
 
-class SelectionControl extends React.Component {
+class ResizeControl extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,66 +22,61 @@ class SelectionControl extends React.Component {
       scaleX: null,
       scaleY: null
     }
-    this.handleClick = this.handleClick.bind(this)
     this.handleResize = this.handleResize.bind(this)
-    this.handleResizeStop = this.handleResizeStop.bind(this)
   }
 
   componentWillMount() {
-    this.setState(scaleAllDimensions(this.props.dimensions,this.props.scaleFactor,true))
+    let { dimensions, scaleFactor } = this.props
+    // If selection dimensions are present, update component state
+    if (dimensions.x) {
+      this.setState(scaleAllDimensions(dimensions,scaleFactor,true))
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    let nextDimensions =
-      scaleAllDimensions(nextProps.dimensions,nextProps.scaleFactor,true)
-    this.setState(nextDimensions)
-    this.resizeable.updatePosition(nextDimensions)
-    this.resizeable.updateSize(nextDimensions)
+    let { dimensions, scaleFactor } = nextProps
+    // If selection dimensions are present, update component state
+    if (dimensions.x) {
+      this.setState(scaleAllDimensions(dimensions,scaleFactor,true))
+    }
   }
 
-  handleClick(e) {
-    e.stopPropagation()
-    console.log('handle selection control click')
-  }
-
-  handleResize(e, direction, ref, delta) {
-    e.stopPropagation()
-
-    let { width, height } = this.props.dimensions
-    let { scaleFactor } = this.props
-
-    // Get x,y offset if dragging from top left
-    let xOffset = ( _.startsWith(direction, 'top'))
-      ? delta.height * -1 : delta.height
-    let yOffset = ( _.startsWith(direction, 'left'))
-      ? delta.width * -1 : delta.width
-
-    // Scale values before setting in component state
-    this.setState({
-      x: this.state.x  + xOffset,
-      y: this.state.y + yOffset,
-      width: scaleDimension(width,scaleFactor) + delta.width,
-      height: scaleDimension(height,scaleFactor) + delta.height,
+  handleResize(resizeDirectives, resizeType) {
+    let delta = { x: 0, y: 0, height: 0, width: 0 }
+    let xOffset = 0
+    let yOffset = 0
+    _.each(resizeDirectives, (directive) => {
+      let { direction, distance } = directive
+      switch(direction) {
+        case 'top':
+          delta.height = distance
+          yOffset = 0 - distance
+          break
+        case 'right':
+          delta.width = distance
+          break
+        case 'bottom':
+          delta.height = distance
+          break
+        case 'left':
+          delta.width = distance
+          xOffset = 0 - distance
+          break
+        default:
+          // Do nothing
+      }
     })
-  }
-
-  handleResizeStop(e, direction, ref, delta) {
-    e.stopPropagation()
-
-    let lowerDirection = _.toLower(direction)
-    let yOffset = ( _.includes(lowerDirection, 'top'))
-      ? (delta.height * -1) : 0
-    let xOffset = ( _.includes(lowerDirection, 'left'))
-      ? (delta.width * -1) : 0
+    // console.log('call resizeLayers: ', resizeType)
     this.props.resizeLayers(
       scaleAllDimensions(delta,this.props.scaleFactor, false),
       unscaleDimension(xOffset,this.props.scaleFactor),
-      unscaleDimension(yOffset,this.props.scaleFactor)
+      unscaleDimension(yOffset,this.props.scaleFactor),
+      resizeType
     )
   }
 
   render() {
-    const { isActive } = this.props
+    const { dimensions, isActive } = this.props
     const { x, y, width, height, rotation } = this.state
     const toggleActive = () => {
       return (isActive) ? ' is-active' : ''
@@ -88,52 +84,55 @@ class SelectionControl extends React.Component {
 
     const resizeableControlStyles = {
       position: 'absolute',
-      top: 0,
-      left: 0,
-    }
-
-    const draggableStyles = {
+      top: y,
+      left: x,
+      width,
+      height,
       transform: `rotate(${rotation}deg)`
     }
 
     return (
-      <div
-        className={'selection-control__wrapper' + toggleActive()}
-        style={resizeableControlStyles}>
-        <Draggable
-          className='selection-control__resizeable-area'
-          ref={c => { this.resizeable = c }}
-          default={{
-            x,
-            y,
-            width,
-            height
-          }}
-          disableDragging={true}
-          onClick={this.handleClick}
-          onResize={this.handleResize}
-          onResizeStart={this.handleResizeStart}
-          onResizeStop={this.handleResizeStop}
-          resizeGrid={[
-            scaleDimension(10,this.props.scaleFactor),
-            scaleDimension(10,this.props.scaleFactor)
-          ]}
-          style={draggableStyles}>
-          <div className='resize-handles__top-left'onClick={this.handleClick}></div>
-          <div className='resize-handles__top-right'></div>
-          <div className='resize-handles__bottom-right'></div>
-          <div className='resize-handles__bottom-left'></div>
-        </Draggable>
-      </div>
+      <ResizeControlDropTarget
+        dimensions={this.state}
+        handleResize={this.handleResize}>
+        <div
+          className={'resize-control__wrapper' + toggleActive()}
+          style={resizeableControlStyles}>
+          <ResizeHandle
+            className='resize-handle__top'
+            directions={['top']}/>
+          <ResizeHandle
+            className='resize-handle__right'
+            directions={['right']}/>
+          <ResizeHandle
+            className='resize-handle__bottom'
+            directions={['bottom']}/>
+          <ResizeHandle
+            className='resize-handle__left'
+            directions={['left']}/>
+          <ResizeHandle
+            className='resize-handle__top-left'
+            directions={['top', 'left']}/>
+          <ResizeHandle
+            className='resize-handle__top-right'
+            directions={['top', 'right']}/>
+          <ResizeHandle
+            className='resize-handle__bottom-right'
+            directions={['bottom', 'right']}/>
+          <ResizeHandle
+            className='resize-handle__bottom-left'
+            directions={['bottom', 'left']}/>
+        </div>
+      </ResizeControlDropTarget>
     )
   }
 }
 
-SelectionControl.propTypes = {
-  dimensions : PropTypes.object.isRequired,
+ResizeControl.propTypes = {
+  dimensions: PropTypes.object.isRequired,
   isActive: PropTypes.bool.isRequired,
   resizeLayers: PropTypes.func.isRequired,
   scaleFactor: PropTypes.number.isRequired,
 }
 
-export default SelectionControl
+export default ResizeControl

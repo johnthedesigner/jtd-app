@@ -25,17 +25,33 @@ class Layer extends React.Component {
   }
 
   componentWillMount() {
-    const { dimensions } = this.props.layer
+    let { dimensions, tempDimensions } = this.props.layer
     let { scaleFactor, scaleAllDimensions } = this.props
-    let scaledDimensions = scaleAllDimensions(dimensions,scaleFactor,true)
+    let layerDimensions = {}
+    if (tempDimensions !== undefined) {
+      console.log('use temp dimensions')
+      layerDimensions = tempDimensions
+    } else {
+      console.log('use dimensions')
+      layerDimensions = dimensions
+    }
+    let scaledDimensions = scaleAllDimensions(layerDimensions,scaleFactor,true)
     this.setState(scaledDimensions)
   }
 
   componentWillReceiveProps(nextProps) {
-    let { dimensions } = nextProps.layer
+    let { dimensions, tempDimensions } = nextProps.layer
     let { scaleFactor, scaleAllDimensions } = nextProps
-    let scaledDimensions = scaleAllDimensions(dimensions,scaleFactor,true)
-    this.setState(scaledDimensions)
+    let layerDimensions = {}
+    if (tempDimensions !== undefined) {
+      console.log('use temp dimensions')
+      console.log(tempDimensions)
+      this.setState(tempDimensions)
+    } else {
+      console.log('use dimensions')
+      console.log(dimensions)
+      this.setState(dimensions)
+    }
   }
 
   toggleHighlighted() {
@@ -47,6 +63,7 @@ class Layer extends React.Component {
   }
 
   render() {
+    console.log('render layer')
     const layerType = (layer) => {
       switch (layer.type) {
         case layerTypes.ellipse:
@@ -60,6 +77,7 @@ class Layer extends React.Component {
 
         case layerTypes.rectangle:
           return ( <RectangleLayer
+            dimensions={this.state}
             key={layer.adjustments.fill.backgroundColor}
             layer={layer}/> )
 

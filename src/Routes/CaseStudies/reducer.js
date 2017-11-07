@@ -203,7 +203,7 @@ export default function Artboards(state = {}, a) {
       _.each(resizedArtboard.selections, (layerId) => {
         let resizedLayer = _.find(resizedArtboard.layers, {id: layerId})
         let d = resizedLayer.dimensions
-        resizedLayer.dimensions = {
+        let updatedDimensions = {
           x: Math.round(d.x + xOffset),
           y: Math.round(d.y + yOffset),
           width: Math.round(d.width * wScaleFactor),
@@ -211,6 +211,15 @@ export default function Artboards(state = {}, a) {
           rotation: d.rotation,
           scaleX: d.scaleX,
           scaleY: d.scaleY
+        }
+        // Apply new dimensions either temporarily or permanently
+        if (a.resizeType === 'drag') {
+          // Apply dimensions on a temporary basis while dragging
+          resizedLayer.tempDimensions = updatedDimensions
+        } else {
+          // Apply dimensions update on drop
+          resizedLayer.dimensions = updatedDimensions
+          resizedLayer.tempDimensions = undefined
         }
       })
       return Object.assign({},state,{ caseStudies: resizedCaseStudies })

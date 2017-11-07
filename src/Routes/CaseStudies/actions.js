@@ -99,13 +99,14 @@ export function pasteLayers() {
   }
 }
 
-export function resizeLayers(caseStudyId, delta, xOffset, yOffset) {
+export function resizeLayers(caseStudyId, delta, xOffset, yOffset, resizeType) {
   return {
     type: RESIZE_LAYERS,
     caseStudyId,
     delta,
     xOffset,
-    yOffset
+    yOffset,
+    resizeType
   }
 }
 

@@ -56,8 +56,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     pasteLayers: () => {
       dispatch(pasteLayers())
     },
-    resizeLayers: (delta, xOffset, yOffset) => {
-      dispatch(resizeLayers(ownProps.caseStudyId, delta, xOffset, yOffset))
+    resizeLayers: (delta, xOffset, yOffset, resizeType) => {
+      dispatch(
+        resizeLayers(ownProps.caseStudyId, delta, xOffset, yOffset, resizeType)
+      )
     },
     selectLayer: (layerId, shiftKey) => {
       dispatch(selectLayer(ownProps.caseStudyId, layerId, shiftKey))
