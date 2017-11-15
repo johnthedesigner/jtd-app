@@ -16,9 +16,7 @@ class Layer extends React.Component {
       y: null,
       width: null,
       height: null,
-      rotation: null,
-      scaleX: null,
-      scaleY: null
+      rotation: null
     }
     this.toggleHighlighted = this.toggleHighlighted.bind(this)
     this.toggleSelected = this.toggleSelected.bind(this)
@@ -41,8 +39,6 @@ class Layer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     let { dimensions, tempDimensions } = nextProps.layer
-    let { scaleFactor, scaleAllDimensions } = nextProps
-    let layerDimensions = {}
     if (tempDimensions !== undefined) {
       console.log('use temp dimensions')
       console.log(tempDimensions)

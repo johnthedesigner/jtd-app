@@ -17,9 +17,7 @@ class DragControl extends React.Component {
       y: null,
       width: null,
       height: null,
-      rotation: null,
-      scaleX: null,
-      scaleY: null
+      rotation: null
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
@@ -78,7 +76,7 @@ class DragControl extends React.Component {
 
   render() {
     const { scaleFactor } = this.props
-    const { x, y, width, height, rotation, scaleX, scaleY } = this.state
+    const { x, y, width, height, rotation } = this.state
 
     const draggableStyles = {
       transform: `rotate(${rotation}deg)`

@@ -5,7 +5,6 @@ import _ from 'lodash'
 import ResizeControlDropTarget from './ResizeControlDropTarget'
 import ResizeHandle from './ResizeHandle'
 import {
-  scaleDimension,
   unscaleDimension,
   scaleAllDimensions
 } from '../../artboardUtils'
@@ -76,7 +75,7 @@ class ResizeControl extends React.Component {
   }
 
   render() {
-    const { dimensions, isActive } = this.props
+    const { isActive } = this.props
     const { x, y, width, height, rotation } = this.state
     const toggleActive = () => {
       return (isActive) ? ' is-active' : ''

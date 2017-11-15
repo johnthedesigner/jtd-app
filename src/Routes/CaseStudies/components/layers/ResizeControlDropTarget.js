@@ -7,59 +7,24 @@ class ResizeControlDropTarget extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      coords: {},
       pointerOffset: {}
     }
     this.calculateLayerResize = this.calculateLayerResize.bind(this)
-    this.rotateCoords = this.rotateCoords.bind(this)
-  }
-
-  rotateCoords(dimensions) {
-    let { x, y, width, height, rotation } = dimensions
-    let theta =  rotation * Math.PI / 180.0
-    if (dimensions.x) {
-      let center = [x + width / 2, y + height / 2]
-      let coordsUnrotated = {
-        topLeft: [x, y],
-        topRight: [x + width, y],
-        bottomRight: [x + width, y + height],
-        bottomLeft: [x, y + height]
-      }
-      let rotatePoint = (coords) => {
-        let dX = coords[0] - center[0]
-        let dY = coords[1] - center[1]
-        return [
-          dX * Math.cos(theta) - dY * Math.sin(theta) + center[0],
-          dX * Math.sin(theta) + dY * Math.cos(theta) + center[1]
-        ]
-      }
-      let coordsRotated = {
-        center,
-        topLeft: rotatePoint(coordsUnrotated.topLeft),
-        topRight: rotatePoint(coordsUnrotated.topRight),
-        bottomRight: rotatePoint(coordsUnrotated.bottomRight),
-        bottomLeft: rotatePoint(coordsUnrotated.bottomLeft)
-      }
-      return coordsRotated
-    }
   }
 
   componentWillMount() {
     this.setState({
-      coords: this.rotateCoords(this.props.dimensions),
       dimensions: this.props.dimensions
     })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      coords: this.rotateCoords(nextProps.dimensions),
       dimensions: nextProps.dimensions
     })
   }
 
   calculateLayerResize(offset, handleInfo) {
-    let { coords, dimensions } = this.state
     let { x, y } = offset
     let getVectoredDistance = (direction) => {
       // Get original drag distance
@@ -67,27 +32,31 @@ class ResizeControlDropTarget extends React.Component {
         Math.pow(x, 2) +
         Math.pow(y, 2)
       )
-      // Get drag angle in degrees
-      let angle = Math.atan2(y, x) * 180 / Math.PI
-      // Adjust angle for rotation and handle offset
+      // Adjust offset coordinates to drag axis
+      let adjustedOffset = [x, y]
       switch(direction) {
         case 'top':
-          angle = angle + 90 - dimensions.rotation
+          adjustedOffset = [-1 * y, x]
           break
         case 'right':
-          angle = angle + 0 - dimensions.rotation
+          adjustedOffset = [x, y]
           break
         case 'bottom':
-          angle = angle - 90 - dimensions.rotation
+          adjustedOffset = [y, -1 * x]
           break
         case 'left':
-          angle = angle + 180 - dimensions.rotation
+          adjustedOffset = [-1 * x, y]
           break
         default:
           // Do nothing
       }
+      // Get drag angle in degrees
+      let angleRadians = Math.atan2(adjustedOffset[1], adjustedOffset[0])
       // Get vectored drag distance
-      let vectoredDistance = Math.abs(distance * Math.cos(angle))
+      let vectoredDistance = distance * Math.cos(angleRadians)
+      // console.log(x,y)
+      // console.log(distance)
+      // console.log(vectoredDistance)
       return vectoredDistance
     }
     // Return an array of directions/scale distances
@@ -129,10 +98,8 @@ const dropTargetSpec = {
   },
   hover(props, monitor, component) {
     let newPointerOffset = monitor.getDifferenceFromInitialOffset()
-    console.log(component.state.pointerOffset)
-    console.log(newPointerOffset)
     if (
-      newPointerOffset.x !== component.state.pointerOffset.x &&
+      newPointerOffset.x !== component.state.pointerOffset.x ||
       newPointerOffset.y !== component.state.pointerOffset.y
     ) {
       let resizeDirectives = component.calculateLayerResize(
