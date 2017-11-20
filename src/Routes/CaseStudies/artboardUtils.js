@@ -9,7 +9,7 @@ export const scaleDimension = (dimension, scaleFactor) => {
 
 // Unscale an individual Dimension for artboard resizing
 export const unscaleDimension = (dimension, scaleFactor) => {
-  return Math.round(Math.round((dimension / scaleFactor) / 10) * 10)
+  return Math.round(Math.round((dimension / scaleFactor) / 1) * 1)
 }
 
 // Scale full set of layer dimensions for artboard resizing

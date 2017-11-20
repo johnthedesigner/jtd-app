@@ -208,9 +208,7 @@ export default function Artboards(state = {}, a) {
           y: Math.round(d.y + yOffset),
           width: Math.round(d.width * wScaleFactor),
           height: Math.round(d.height * hScaleFactor),
-          rotation: d.rotation,
-          scaleX: d.scaleX,
-          scaleY: d.scaleY
+          rotation: d.rotation
         }
         // Apply new dimensions either temporarily or permanently
         if (a.resizeType === 'drag') {

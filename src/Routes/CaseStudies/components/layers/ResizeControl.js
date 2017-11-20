@@ -44,32 +44,55 @@ class ResizeControl extends React.Component {
     let delta = { x: 0, y: 0, height: 0, width: 0 }
     let xOffset = 0
     let yOffset = 0
+
+    // Calculate how much additional offset is needed for rotated layers
+    const getRotationOffset = (axis, distance) => {
+      let rotationOffset = {
+        x: distance * Math.cos((axis % 360) * (Math.PI / 180)),
+        y: distance * Math.sin((axis % 360) * (Math.PI / 180))
+      }
+      return rotationOffset
+    }
+
+    // For each resize direction apply scale and position offsets
     _.each(resizeDirectives, (directive) => {
       let { direction, distance } = directive
+      let { rotation } = this.state
+
+      // First, apply position and scale offsets based on unrotated layer
+      let resizeAxis = rotation
       switch(direction) {
-        case 'top':
-          delta.height = distance
-          yOffset = 0 - distance
-          break
         case 'right':
           delta.width = distance
+          xOffset -= distance / 2
           break
         case 'bottom':
+          resizeAxis += 90
           delta.height = distance
+          yOffset -= distance / 2
           break
         case 'left':
+          resizeAxis += 180
           delta.width = distance
-          xOffset = 0 - distance
+          xOffset -= distance / 2
+          break
+        case 'top':
+          resizeAxis += 270
+          delta.height = distance
+          yOffset -= distance / 2
           break
         default:
           // Do nothing
       }
+
+      // Then apply additional offset for rotated layers
+      xOffset += getRotationOffset(resizeAxis, (distance / 2)).x
+      yOffset += getRotationOffset(resizeAxis, (distance / 2)).y
     })
-    // console.log('call resizeLayers: ', resizeType)
     this.props.resizeLayers(
-      scaleAllDimensions(delta,this.props.scaleFactor, false),
-      unscaleDimension(xOffset,this.props.scaleFactor),
-      unscaleDimension(yOffset,this.props.scaleFactor),
+      scaleAllDimensions(delta, this.props.scaleFactor, false),
+      unscaleDimension(xOffset, this.props.scaleFactor),
+      unscaleDimension(yOffset, this.props.scaleFactor),
       resizeType
     )
   }

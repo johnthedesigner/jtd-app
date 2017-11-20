@@ -92,7 +92,7 @@ class Layer extends React.Component {
       }
     }
 
-    const { layer } = this.props
+    let { layer } = this.props
 
     return (
       <g>

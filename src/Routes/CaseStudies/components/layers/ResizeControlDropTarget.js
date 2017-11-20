@@ -32,7 +32,7 @@ class ResizeControlDropTarget extends React.Component {
         Math.pow(x, 2) +
         Math.pow(y, 2)
       )
-      // Adjust offset coordinates to drag axis
+      // Adjust Offset coordinates realative to each side
       let adjustedOffset = [x, y]
       switch(direction) {
         case 'top':
@@ -45,18 +45,16 @@ class ResizeControlDropTarget extends React.Component {
           adjustedOffset = [y, -1 * x]
           break
         case 'left':
-          adjustedOffset = [-1 * x, y]
+          adjustedOffset = [-1 * y, -1 * x]
           break
         default:
           // Do nothing
       }
       // Get drag angle in degrees
       let angleRadians = Math.atan2(adjustedOffset[1], adjustedOffset[0])
+      angleRadians -= this.state.dimensions.rotation * (Math.PI / 180)
       // Get vectored drag distance
       let vectoredDistance = distance * Math.cos(angleRadians)
-      // console.log(x,y)
-      // console.log(distance)
-      // console.log(vectoredDistance)
       return vectoredDistance
     }
     // Return an array of directions/scale distances

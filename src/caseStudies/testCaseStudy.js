@@ -24,13 +24,11 @@ export default {
       title: 'rectangle',
       order: 0,
       dimensions: {
-        x: 400,
-        y: 400,
+        x: 350,
+        y: 350,
         width: 300,
-        height: 150,
-        rotation: 15,
-        scaleX: 1,
-        scaleY: 1
+        height: 300,
+        rotation: 45
       },
       adjustments: {
         fill: {
