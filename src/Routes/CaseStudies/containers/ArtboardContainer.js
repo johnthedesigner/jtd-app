@@ -14,6 +14,7 @@ import {
   moveLayers,
   pasteLayers,
   resizeLayers,
+  scaleLayer,
   selectLayer,
   toggleFlyout,
 } from '../actions'
@@ -60,6 +61,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(
         resizeLayers(ownProps.caseStudyId, delta, xOffset, yOffset, resizeType)
       )
+    },
+    scaleLayer: (scaleDirectives, previewOnly) => {
+      dispatch(scaleLayer(ownProps.caseStudyId, scaleDirectives, previewOnly))
     },
     selectLayer: (layerId, shiftKey) => {
       dispatch(selectLayer(ownProps.caseStudyId, layerId, shiftKey))

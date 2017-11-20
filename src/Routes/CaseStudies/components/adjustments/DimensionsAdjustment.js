@@ -8,11 +8,7 @@ class DimensionsAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'dimensions'
 
-    const { adjustments, adjustLayers, resizeLayers } = this.props
-
-    const setLayerAdjustment = (propertyName, value) => {
-      adjustLayers(adjustmentGroup, propertyName, (value - 0))
-    }
+    const { adjustments, scaleLayer } = this.props
 
     let x = idx(adjustments, _ => _.x)
     if (x !== 0 && !x) x = ''
@@ -29,20 +25,37 @@ class DimensionsAdjustment extends React.Component {
     let rotation = Math.round(idx(adjustments, _ => _.rotation))
     if (rotation !== 0 && !rotation) rotation = ''
 
-    const setLayerSize = ( newX, newY, newWidth, newHeight ) => {
+    const setLayerSize = ( newX, newY, newWidth, newHeight, newRotation ) => {
       let delta = {
         x: newX - x,
         y: newY - y,
         width: newWidth - width,
-        height: newHeight - height
+        height: newHeight - height,
+        rotation: newRotation
       }
-      resizeLayers(delta, 0, 0)
+      // resizeLayers(delta, 0, 0)
     }
-    const setX = (newX) => { setLayerSize(newX, y, width, height) }
-    const setY = (newY) => { setLayerSize(x, newY, width, height) }
-    const setWidth = (newWidth) => { setLayerSize(x, y, newWidth, height) }
-    const setHeight = (newHeight) => { setLayerSize(x, y, width, newHeight) }
-
+    const setX = (newX) => {
+      setLayerSize(newX, y, width, height, rotation)
+    }
+    const setY = (newY) => {
+      setLayerSize(x, newY, width, height, rotation)
+    }
+    const setWidth = (newWidth) => {
+      let distance = newWidth - width
+      scaleLayer([
+        { direction: 'right', distance }
+      ], false)
+    }
+    const setHeight = (newHeight) => {
+      let distance = newHeight - height
+      scaleLayer([
+        { direction: 'bottom', distance }
+      ], false)
+    }
+    const setRotation = newRotation => {
+      setLayerSize(x, y, width, height, newRotation)
+    }
     if (adjustments) {
       return(
         <div>
@@ -78,7 +91,7 @@ class DimensionsAdjustment extends React.Component {
             key={adjustmentGroup + 'rotation'}
             propertyName={'rotation'}
             label='Rotation'
-            setLayerAdjustment={setLayerAdjustment}
+            setValue={setRotation}
             type='number'
             valueFromProps={rotation}/>
         </div>

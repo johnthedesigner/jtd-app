@@ -27,10 +27,8 @@ class Layer extends React.Component {
     let { scaleFactor, scaleAllDimensions } = this.props
     let layerDimensions = {}
     if (tempDimensions !== undefined) {
-      console.log('use temp dimensions')
       layerDimensions = tempDimensions
     } else {
-      console.log('use dimensions')
       layerDimensions = dimensions
     }
     let scaledDimensions = scaleAllDimensions(layerDimensions,scaleFactor,true)
@@ -40,12 +38,8 @@ class Layer extends React.Component {
   componentWillReceiveProps(nextProps) {
     let { dimensions, tempDimensions } = nextProps.layer
     if (tempDimensions !== undefined) {
-      console.log('use temp dimensions')
-      console.log(tempDimensions)
       this.setState(tempDimensions)
     } else {
-      console.log('use dimensions')
-      console.log(dimensions)
       this.setState(dimensions)
     }
   }
@@ -59,7 +53,6 @@ class Layer extends React.Component {
   }
 
   render() {
-    console.log('render layer')
     const layerType = (layer) => {
       switch (layer.type) {
         case layerTypes.ellipse:

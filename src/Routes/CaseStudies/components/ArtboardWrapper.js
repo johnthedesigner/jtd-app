@@ -116,7 +116,7 @@ class ArtboardWrapper extends React.Component {
       featured,
       highlightLayer,
       moveLayers,
-      resizeLayers,
+      scaleLayer,
       selectLayer,
       toggleFlyout,
     } = this.props
@@ -205,7 +205,7 @@ class ArtboardWrapper extends React.Component {
                   caseStudyId={mappedArtboard.id}
                   dimensions={mappedArtboard.selection.dimensions}
                   isActive={mappedArtboard.selection.isActive}
-                  resizeLayers={resizeLayers}
+                  scaleLayer={scaleLayer}
                   scaleFactor={this.state.scaleFactor}/>
                 {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => { return (
                   <DragControl
@@ -235,7 +235,7 @@ class ArtboardWrapper extends React.Component {
                 activeFlyout={mappedArtboard.activeFlyout}
                 caseStudyId={caseStudyId}
                 dimensions={selectionDimensions}
-                resizeLayers={resizeLayers}
+                scaleLayer={scaleLayer}
                 toggleFlyout={toggleFlyout}/>
             </Artboard>
           </div>

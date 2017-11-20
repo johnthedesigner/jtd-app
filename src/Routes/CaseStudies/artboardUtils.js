@@ -14,7 +14,7 @@ export const unscaleDimension = (dimension, scaleFactor) => {
 
 // Scale full set of layer dimensions for artboard resizing
 export const scaleAllDimensions = (dimensions, scaleFactor, scaleIn) => {
-  let { x, y, width, height, rotation, scaleX, scaleY } = dimensions
+  let { x, y, width, height, rotation } = dimensions
   function scale(dimension) {
     if (scaleIn) {
       return scaleDimension(dimension,scaleFactor)
@@ -28,8 +28,6 @@ export const scaleAllDimensions = (dimensions, scaleFactor, scaleIn) => {
     width: scale(width),
     height: scale(height),
     rotation,
-    scaleX,
-    scaleY
   }
 }
 
@@ -76,7 +74,7 @@ export const mapArtboard = (artboard) => {
   let selectedLayers = _.filter(artboard.layers, (layer) => {
     return _.includes(artboard.selections, layer.id)
   })
-  // console.log(selectedLayers)
+  console.log(selectedLayers)
   return {
     ...artboard,
     isSelected: (selectedLayers.length > 0),

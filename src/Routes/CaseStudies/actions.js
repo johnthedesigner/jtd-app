@@ -11,6 +11,7 @@ import {
   MOVE_LAYERS,
   PASTE_LAYERS,
   RESIZE_LAYERS,
+  SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
 } from './constants'
@@ -107,6 +108,15 @@ export function resizeLayers(caseStudyId, delta, xOffset, yOffset, resizeType) {
     xOffset,
     yOffset,
     resizeType
+  }
+}
+
+export function scaleLayer(caseStudyId, scaleDirectives, previewOnly) {
+  return{
+    type: SCALE_LAYER,
+    caseStudyId,
+    scaleDirectives,
+    previewOnly
   }
 }
 

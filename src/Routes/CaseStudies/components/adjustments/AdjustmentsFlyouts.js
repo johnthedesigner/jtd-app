@@ -23,7 +23,7 @@ class AdjustmentsFlyouts extends React.Component {
       adjustments,
       activeFlyout,
       dimensions,
-      resizeLayers,
+      scaleLayer,
       toggleFlyout,
     } = this.props
 
@@ -36,7 +36,7 @@ class AdjustmentsFlyouts extends React.Component {
           toggleFlyout={toggleFlyout}>
           <DimensionsAdjustment
             adjustLayers={adjustLayers}
-            resizeLayers={resizeLayers}
+            scaleLayer={scaleLayer}
             adjustments={dimensions}/>
         </Flyout>
         <Flyout

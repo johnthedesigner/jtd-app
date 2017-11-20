@@ -17,6 +17,7 @@ import {
   MOVE_LAYERS,
   PASTE_LAYERS,
   RESIZE_LAYERS,
+  SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
 } from './constants'
@@ -221,6 +222,76 @@ export default function Artboards(state = {}, a) {
         }
       })
       return Object.assign({},state,{ caseStudies: resizedCaseStudies })
+
+    case SCALE_LAYER:
+      consoleGroup(a.type,[a])
+      let scaledCaseStudies = _.cloneDeep(state.caseStudies)
+      let scaledArtboard = scaledCaseStudies[a.caseStudyId]
+      let scaledSelections = scaledArtboard.selections
+      // Only attempt to apply new adjustments if a single layer is selected
+      if (scaledSelections.length === 1) {
+        // Get the affected layer and its dimensions
+        let scaledLayer = _.find(
+          scaledArtboard.layers,
+          {'id': scaledSelections[0]}
+        )
+        let newDimensions = _.cloneDeep(scaledLayer.dimensions)
+
+        // Calculate how much additional offset is needed for rotated layers
+        const getRotationOffset = (axis, distance) => {
+          return {
+            x: distance * Math.cos((axis % 360) * (Math.PI / 180)),
+            y: distance * Math.sin((axis % 360) * (Math.PI / 180))
+          }
+        }
+
+        // For each resize direction apply scale and position offsets
+        _.each(a.scaleDirectives, (directive) => {
+          let { direction, distance } = directive
+          console.log(distance)
+
+          // First, apply position and scale offsets based on unrotated layer
+          let resizeAxis = newDimensions.rotation
+          switch(direction) {
+            case 'right':
+              newDimensions.width += distance
+              newDimensions.x -= distance / 2
+              break
+            case 'bottom':
+              resizeAxis += 90
+              newDimensions.height += distance
+              newDimensions.y -= distance / 2
+              break
+            case 'left':
+              resizeAxis += 180
+              newDimensions.width += distance
+              newDimensions.x -= distance / 2
+              break
+            case 'top':
+              resizeAxis += 270
+              newDimensions.height += distance
+              newDimensions.y -= distance / 2
+              break
+            default:
+              // Do nothing
+          }
+
+          // Then apply additional offset for rotated layers
+          newDimensions.x += getRotationOffset(resizeAxis, (distance / 2)).x
+          newDimensions.y += getRotationOffset(resizeAxis, (distance / 2)).y
+          console.log(newDimensions)
+        })
+        // Apply new dimensions temporarily (on drag) or permanently (on drop)
+        if (a.previewOnly) {
+          scaledLayer.tempDimensions = newDimensions
+        } else {
+          scaledLayer.dimensions = newDimensions
+          scaledLayer.tempDimensions = undefined
+        }
+      }
+      return Object.assign({}, state, {
+        caseStudies: scaledCaseStudies,
+      })
 
     case SELECT_LAYER:
       consoleGroup(a.type,[a])
