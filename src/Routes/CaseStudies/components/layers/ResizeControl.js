@@ -66,13 +66,14 @@ class ResizeControl extends React.Component {
           adjustedOffset = [y, -1 * x]
           break
         case 'left':
-          adjustedOffset = [-1 * y, -1 * x]
+          adjustedOffset = [-1 * x, -1 * y]
           break
         default:
           // Do nothing
       }
       // Get drag angle in degrees adjusted for scale factor
       let angleRadians = Math.atan2(adjustedOffset[1], adjustedOffset[0])
+      console.log(angleRadians)
       angleRadians -= this.state.dimensions.rotation * (Math.PI / 180)
       // Get vectored drag distance and undo scale factor
       let vectoredDistance = distance * Math.cos(angleRadians)

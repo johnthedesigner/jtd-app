@@ -21,7 +21,7 @@ html {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  overflow: scroll;
+  overflow: hidden;
 }
 .editor-view__sidebar {
   display: flex;

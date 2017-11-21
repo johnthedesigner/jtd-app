@@ -24,15 +24,13 @@ class Layer extends React.Component {
 
   componentWillMount() {
     let { dimensions, tempDimensions } = this.props.layer
-    let { scaleFactor, scaleAllDimensions } = this.props
     let layerDimensions = {}
     if (tempDimensions !== undefined) {
       layerDimensions = tempDimensions
     } else {
       layerDimensions = dimensions
     }
-    let scaledDimensions = scaleAllDimensions(layerDimensions,scaleFactor,true)
-    this.setState(scaledDimensions)
+    this.setState(layerDimensions)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,6 +55,7 @@ class Layer extends React.Component {
       switch (layer.type) {
         case layerTypes.ellipse:
           return ( <EllipseLayer
+            dimensions={this.state}
             key={layer.adjustments.fill.backgroundColor}
             layer={layer}/> )
 

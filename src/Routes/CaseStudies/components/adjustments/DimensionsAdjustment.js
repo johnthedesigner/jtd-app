@@ -26,27 +26,27 @@ class DimensionsAdjustment extends React.Component {
     if (rotation !== 0 && !rotation) rotation = ''
 
     const setX = (newX) => {
-      let distance = newX - x
+      let distance = Math.floor(newX - x)
       bumpLayers('x', distance)
     }
     const setY = (newY) => {
-      let distance = newY - y
+      let distance = Math.floor(newY - y)
       bumpLayers('y', distance)
     }
     const setWidth = (newWidth) => {
-      let distance = newWidth - width
+      let distance = Math.floor(newWidth - width)
       scaleLayer([
         { direction: 'right', distance }
       ], false)
     }
     const setHeight = (newHeight) => {
-      let distance = newHeight - height
+      let distance = Math.floor(newHeight - height)
       scaleLayer([
         { direction: 'bottom', distance }
       ], false)
     }
     const setRotation = (degrees) => {
-      rotateLayer(degrees)
+      rotateLayer(Math.floor(degrees))
     }
     if (adjustments) {
       return(

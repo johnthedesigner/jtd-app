@@ -48,7 +48,6 @@ export default function Artboards(state = {}, a) {
       let newLayerArtboard = newLayerCaseStudies[a.caseStudyId]
       newLayerArtboard.layers.push(newLayer)
       newLayerArtboard.selections = [newLayer.id]
-      console.log(newLayerArtboard)
       return Object.assign({},state,{ caseStudies: newLayerCaseStudies })
 
     case ADJUST_LAYERS:

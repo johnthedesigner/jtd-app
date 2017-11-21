@@ -110,8 +110,8 @@ class DragControl extends React.Component {
             height
           }}
           dragGrid={[
-            scaleDimension(10,scaleFactor),
-            scaleDimension(10,scaleFactor)
+            scaleDimension(1,scaleFactor),
+            scaleDimension(1,scaleFactor)
           ]}
           enableResizing={enableResize}
           height={height}
@@ -119,8 +119,8 @@ class DragControl extends React.Component {
           onDragStart={this.handleDragStart}
           ref={c => { this.draggable = c }}
           resizeGrid={[
-            scaleDimension(10,scaleFactor),
-            scaleDimension(10,scaleFactor)
+            scaleDimension(1,scaleFactor),
+            scaleDimension(1,scaleFactor)
           ]}
           style={draggableStyles}
           width={width}/>

@@ -1,30 +1,26 @@
-import uuid from 'uuid'
-
 export const newLayers = {
   ellipse: () => {
     return {
-      id: uuid.v1(),
       type: 'ellipse',
       title: 'ellipse',
+      order: 0,
+      dimensions: {
+        x: 450,
+        y: 450,
+        width: 100,
+        height: 100,
+        rotation: 0
+      },
       adjustments: {
         fill: {
-          backgroundColor: 'rgba(0,255,255,.75)'
-        },
-        dimensions: {
-          x: 200,
-          y: 450,
-          width: 200,
-          height: 200,
-          scaleX: 1,
-          scaleY: 1,
-          rotation: 0
+          type: 'color',
+          color: 'rgba(11,231,183,1)'
         }
-      }
+      },
     }
   },
   image: () => {
     return {
-      id: uuid.v1(),
       type: 'image',
       title: 'image',
       adjustments: {
@@ -45,28 +41,26 @@ export const newLayers = {
   },
   rectangle: () => {
     return {
-      id: uuid.v1(),
       type: 'rectangle',
       title: 'rectangle',
+      order: 0,
+      dimensions: {
+        x: 450,
+        y: 450,
+        width: 100,
+        height: 100,
+        rotation: 0
+      },
       adjustments: {
         fill: {
-          backgroundColor: 'rgba(255,255,0,.5)'
-        },
-        dimensions: {
-          x: 0,
-          y: 0,
-          width: 100,
-          height: 100,
-          scaleX: 1,
-          scaleY: 1,
-          rotation: 0
+          type: 'color',
+          color: 'rgba(11,231,183,1)'
         }
-      }
+      },
     }
   },
   text: () => {
     return {
-      id: uuid.v1(),
       type: 'text',
       title: 'text',
       text: 'Enter new text.',
