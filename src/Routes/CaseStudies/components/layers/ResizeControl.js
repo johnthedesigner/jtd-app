@@ -105,7 +105,7 @@ class ResizeControl extends React.Component {
       top: 0,
       right: 0,
       bottom: 0,
-      left: 0
+      left: 0,
     }
 
     const resizeableControlStyles = {
@@ -187,9 +187,9 @@ function collect(connect, monitor) {
     // to let React DnD handle the drag events:
     connectDropTarget: connect.dropTarget(),
     // You can ask the monitor about the current drag state:
-    isOver: true,
-    isOverCurrent: monitor.isOver({ shallow: true }),
-    canDrop: true,
+    isOver: monitor.isOver(),
+    isOverCurrent: monitor.isOver(),
+    canDrop: monitor.canDrop(),
     itemType: monitor.getItemType()
   }
 }
