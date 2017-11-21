@@ -109,6 +109,7 @@ class ArtboardWrapper extends React.Component {
     const {
       addLayer,
       adjustLayers,
+      bumpLayers,
       caseStudies,
       caseStudyId,
       deselectLayersArtboard,
@@ -233,6 +234,7 @@ class ArtboardWrapper extends React.Component {
                 adjustments={adjustments}
                 adjustLayers={adjustLayers}
                 activeFlyout={mappedArtboard.activeFlyout}
+                bumpLayers={bumpLayers}
                 caseStudyId={caseStudyId}
                 dimensions={selectionDimensions}
                 scaleLayer={scaleLayer}

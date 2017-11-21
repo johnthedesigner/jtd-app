@@ -16,7 +16,6 @@ import {
   HIGHLIGHT_LAYER,
   MOVE_LAYERS,
   PASTE_LAYERS,
-  RESIZE_LAYERS,
   SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
@@ -68,11 +67,11 @@ export default function Artboards(state = {}, a) {
       let bumpedCaseStudies = _.cloneDeep(state.caseStudies)
       let bumpedArtboard = bumpedCaseStudies[a.caseStudyId]
       let bumpedLayers = bumpedArtboard.selections
+      console.log(bumpedArtboard.layers)
+      console.log(bumpedLayers)
       _.each(bumpedLayers, (layerId) => {
-        if (bumpedArtboard.layers[layerId].adjustments) {
-          bumpedArtboard.layers[layerId]
-            .adjustments['dimensions'][axis] += (distance)
-        }
+        let bumpedLayer = _.find(bumpedArtboard.layers, {id: layerId})
+        bumpedLayer.dimensions[axis] += (distance)
       })
       return Object.assign({},state,{ caseStudies: bumpedCaseStudies })
 
@@ -189,39 +188,6 @@ export default function Artboards(state = {}, a) {
           layers: _.keys(pastedLayers)
         })
       })
-
-    case RESIZE_LAYERS:
-      consoleGroup(a.type,[a])
-      let resizedCaseStudies = _.cloneDeep(state.caseStudies)
-      let resizedArtboard = resizedCaseStudies[a.caseStudyId]
-      const { width, height } = getLayerDimensions(_.map(
-        resizedArtboard.selections,
-        layerId => {return _.find(resizedArtboard.layers, {id: layerId})}
-      ))
-      const { delta, xOffset, yOffset } = a
-      let wScaleFactor = (width + delta.width) / width
-      let hScaleFactor = (height + delta.height) / height
-      _.each(resizedArtboard.selections, (layerId) => {
-        let resizedLayer = _.find(resizedArtboard.layers, {id: layerId})
-        let d = resizedLayer.dimensions
-        let updatedDimensions = {
-          x: Math.round(d.x + xOffset),
-          y: Math.round(d.y + yOffset),
-          width: Math.round(d.width * wScaleFactor),
-          height: Math.round(d.height * hScaleFactor),
-          rotation: d.rotation
-        }
-        // Apply new dimensions either temporarily or permanently
-        if (a.resizeType === 'drag') {
-          // Apply dimensions on a temporary basis while dragging
-          resizedLayer.tempDimensions = updatedDimensions
-        } else {
-          // Apply dimensions update on drop
-          resizedLayer.dimensions = updatedDimensions
-          resizedLayer.tempDimensions = undefined
-        }
-      })
-      return Object.assign({},state,{ caseStudies: resizedCaseStudies })
 
     case SCALE_LAYER:
       consoleGroup(a.type,[a])

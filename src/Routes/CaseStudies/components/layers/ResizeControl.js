@@ -102,6 +102,7 @@ class ResizeControl extends React.Component {
     }
 
     const dropTargetStyles = {
+      display: (isActive ? 'block' : 'none'),
       position: 'absolute',
       top: 0,
       right: 0,

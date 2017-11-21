@@ -13,7 +13,6 @@ import {
   highlightLayer,
   moveLayers,
   pasteLayers,
-  resizeLayers,
   scaleLayer,
   selectLayer,
   toggleFlyout,
@@ -33,8 +32,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     adjustLayers: (adjustmentGroup, key, value) => {
       dispatch(adjustLayers(ownProps.caseStudyId, adjustmentGroup, key, value))
     },
-    bumpLayers: (axis, sign) => {
-      dispatch(bumpLayers(ownProps.caseStudyId, axis, sign))
+    bumpLayers: (axis, distance) => {
+      dispatch(bumpLayers(ownProps.caseStudyId, axis, distance))
     },
     copyLayers: () => {
       dispatch(copyLayers())
@@ -56,11 +55,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     pasteLayers: () => {
       dispatch(pasteLayers())
-    },
-    resizeLayers: (delta, xOffset, yOffset, resizeType) => {
-      dispatch(
-        resizeLayers(ownProps.caseStudyId, delta, xOffset, yOffset, resizeType)
-      )
     },
     scaleLayer: (scaleDirectives, previewOnly) => {
       dispatch(scaleLayer(ownProps.caseStudyId, scaleDirectives, previewOnly))

@@ -8,7 +8,7 @@ class DimensionsAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'dimensions'
 
-    const { adjustments, scaleLayer } = this.props
+    const { adjustments, bumpLayers, scaleLayer } = this.props
 
     let x = idx(adjustments, _ => _.x)
     if (x !== 0 && !x) x = ''
@@ -25,21 +25,13 @@ class DimensionsAdjustment extends React.Component {
     let rotation = Math.round(idx(adjustments, _ => _.rotation))
     if (rotation !== 0 && !rotation) rotation = ''
 
-    const setLayerSize = ( newX, newY, newWidth, newHeight, newRotation ) => {
-      let delta = {
-        x: newX - x,
-        y: newY - y,
-        width: newWidth - width,
-        height: newHeight - height,
-        rotation: newRotation
-      }
-      // resizeLayers(delta, 0, 0)
-    }
     const setX = (newX) => {
-      setLayerSize(newX, y, width, height, rotation)
+      let distance = newX - x
+      bumpLayers('x', distance)
     }
     const setY = (newY) => {
-      setLayerSize(x, newY, width, height, rotation)
+      let distance = newY - y
+      bumpLayers('y', distance)
     }
     const setWidth = (newWidth) => {
       let distance = newWidth - width
@@ -54,7 +46,7 @@ class DimensionsAdjustment extends React.Component {
       ], false)
     }
     const setRotation = newRotation => {
-      setLayerSize(x, y, width, height, newRotation)
+      // setLayerSize(x, y, width, height, newRotation)
     }
     if (adjustments) {
       return(
