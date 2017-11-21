@@ -59,30 +59,40 @@ class TextLayer extends React.Component {
   }
 
   render() {
-
-    const { layer, layerScaleStyles } = this.props
-
-    const { type } = layer.adjustments
-
-    const textStyles = {
-      ...layerScaleStyles,
-      color: type.color,
-      fontFamily: type.fontFamily,
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      left: 0,
-      bottom: 0
+    let { align, color, fontSize } = this.props.layer.adjustments.text
+    let { x, y, width, height, rotation } = this.props.layer.dimensions
+    let { text } = this.props.layer
+    let rotateOriginX = x + width / 2
+    let rotateOriginY = y + height / 2
+    // Default left-aligned text props
+    let textAnchor = 'start'
+    let dx = 0
+    // Center-aligned text props
+    if (align === 'center') {
+      textAnchor = 'middle'
+      dx = width / 2
+    }
+    // Right-aligned text props
+    if (align === 'right') {
+      textAnchor = 'end'
+      dx = width
     }
 
     return (
-      <span style={textStyles}>
-        <Editor
-          ref={this.setTextEditorRef}
-          editorState={this.state.editorState}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}/>
-      </span>
+      <text
+        ref={(t) => this.textBox = t}
+        fill={color}
+        fontSize={fontSize}
+        x={x}
+        y={y}
+        dx={dx}
+        dy={fontSize}
+        textAnchor={textAnchor}
+        transform={
+          `rotate(${rotation} ${rotateOriginX} ${rotateOriginY})`
+        }>
+        {text}
+      </text>
     )
   }
 }

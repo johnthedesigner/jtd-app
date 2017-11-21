@@ -63,19 +63,20 @@ export const newLayers = {
     return {
       type: 'text',
       title: 'text',
-      text: 'Enter new text.',
+      text: 'Lorem ipsum dolor sit amet, lorem ipsum. Dolor sit amet lorem, ipsum dolor sit.',
+      order: 0,
+      dimensions: {
+        x: 400,
+        y: 450,
+        width: 200,
+        height: 100,
+        rotation: 0
+      },
       adjustments: {
-        type: {
-          color: '#444444'
-        },
-        dimensions: {
-          x: 0,
-          y: 0,
-          width: 200,
-          height: 100,
-          scaleX: 1,
-          scaleY: 1,
-          rotation: 0
+        text: {
+          textColor: '#444444',
+          fontSize: 24,
+          align: 'left'
         }
       }
     }
