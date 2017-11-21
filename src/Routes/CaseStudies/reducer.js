@@ -16,6 +16,7 @@ import {
   HIGHLIGHT_LAYER,
   MOVE_LAYERS,
   PASTE_LAYERS,
+  ROTATE_LAYER,
   SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
@@ -189,6 +190,16 @@ export default function Artboards(state = {}, a) {
         })
       })
 
+    case ROTATE_LAYER:
+      consoleGroup(a.type,[a])
+      const { degrees, caseStudyId } = a
+      let rotatedCaseStudies = _.cloneDeep(state.caseStudies)
+      let rotatedArtboard = rotatedCaseStudies[caseStudyId]
+      let rotatedLayerId = rotatedArtboard.selections[0]
+      let rotatedLayer = _.find(rotatedArtboard.layers, {id: rotatedLayerId})
+      rotatedLayer.dimensions.rotation = degrees
+      return Object.assign({},state,{ caseStudies: rotatedCaseStudies })
+
     case SCALE_LAYER:
       consoleGroup(a.type,[a])
       let scaledCaseStudies = _.cloneDeep(state.caseStudies)
@@ -214,7 +225,6 @@ export default function Artboards(state = {}, a) {
         // For each resize direction apply scale and position offsets
         _.each(a.scaleDirectives, (directive) => {
           let { direction, distance } = directive
-          console.log(distance)
 
           // First, apply position and scale offsets based on unrotated layer
           let resizeAxis = newDimensions.rotation
@@ -245,7 +255,6 @@ export default function Artboards(state = {}, a) {
           // Then apply additional offset for rotated layers
           newDimensions.x += getRotationOffset(resizeAxis, (distance / 2)).x
           newDimensions.y += getRotationOffset(resizeAxis, (distance / 2)).y
-          console.log(newDimensions)
         })
         // Apply new dimensions temporarily (on drag) or permanently (on drop)
         if (a.previewOnly) {

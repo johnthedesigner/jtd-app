@@ -13,6 +13,7 @@ import {
   highlightLayer,
   moveLayers,
   pasteLayers,
+  rotateLayer,
   scaleLayer,
   selectLayer,
   toggleFlyout,
@@ -55,6 +56,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     pasteLayers: () => {
       dispatch(pasteLayers())
+    },
+    rotateLayer: (degrees) => {
+      dispatch(rotateLayer(ownProps.caseStudyId, degrees))
     },
     scaleLayer: (scaleDirectives, previewOnly) => {
       dispatch(scaleLayer(ownProps.caseStudyId, scaleDirectives, previewOnly))

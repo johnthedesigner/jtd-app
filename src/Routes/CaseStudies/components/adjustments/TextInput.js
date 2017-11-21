@@ -34,7 +34,6 @@ class TextInput extends React.Component {
   }
 
   handleBlur(event) {
-    console.log(this.props)
     this.props.setValue(this.state.value)
   }
 

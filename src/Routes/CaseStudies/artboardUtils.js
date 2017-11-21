@@ -32,24 +32,23 @@ export const scaleAllDimensions = (dimensions, scaleFactor, scaleIn) => {
 }
 
 // Get full set of collective dimenions from a set of layers
+// If no layers are supplied, return 0 for all dimensions
 export const getLayerDimensions = (layers) => {
-  let x = _.first(_.orderBy(_.map(layers, (layer) => {
+  let x = (layers[0] ? _.first(_.orderBy(_.map(layers, (layer) => {
     return layer.dimensions.x
-  })))
+  }))) : 0)
 
-  let y = _.first(_.orderBy(_.map(layers, (layer) => {
+  let y = (layers[0] ? _.first(_.orderBy(_.map(layers, (layer) => {
     return layer.dimensions.y
-  })))
+  }))) : 0)
 
-  let width = _.last(_.orderBy(_.map(layers, (layer) => {
-    return (layer.dimensions.x
-      - x + layer.dimensions.width)
-  })))
+  let width = (layers[0] ? _.last(_.orderBy(_.map(layers, (layer) => {
+    return (layer.dimensions.x - x + layer.dimensions.width)
+  }))) : 0)
 
-  let height = _.last(_.orderBy(_.map(layers, (layer) => {
-    return (layer.dimensions.y
-      - y + layer.dimensions.height)
-  })))
+  let height = (layers[0] ? _.last(_.orderBy(_.map(layers, (layer) => {
+    return (layer.dimensions.y - y + layer.dimensions.height)
+  }))) : 0)
 
   let rotation = ( layers.length !== 1 ) ? 0 : layers[0].dimensions.rotation
 
@@ -74,7 +73,6 @@ export const mapArtboard = (artboard) => {
   let selectedLayers = _.filter(artboard.layers, (layer) => {
     return _.includes(artboard.selections, layer.id)
   })
-  console.log(selectedLayers)
   return {
     ...artboard,
     isSelected: (selectedLayers.length > 0),

@@ -8,7 +8,7 @@ class DimensionsAdjustment extends React.Component {
   render() {
     let adjustmentGroup = 'dimensions'
 
-    const { adjustments, bumpLayers, scaleLayer } = this.props
+    const { adjustments, bumpLayers, rotateLayer, scaleLayer } = this.props
 
     let x = idx(adjustments, _ => _.x)
     if (x !== 0 && !x) x = ''
@@ -45,8 +45,8 @@ class DimensionsAdjustment extends React.Component {
         { direction: 'bottom', distance }
       ], false)
     }
-    const setRotation = newRotation => {
-      // setLayerSize(x, y, width, height, newRotation)
+    const setRotation = (degrees) => {
+      rotateLayer(degrees)
     }
     if (adjustments) {
       return(

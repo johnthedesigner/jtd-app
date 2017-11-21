@@ -117,6 +117,7 @@ class ArtboardWrapper extends React.Component {
       featured,
       highlightLayer,
       moveLayers,
+      rotateLayer,
       scaleLayer,
       selectLayer,
       toggleFlyout,
@@ -237,6 +238,7 @@ class ArtboardWrapper extends React.Component {
                 bumpLayers={bumpLayers}
                 caseStudyId={caseStudyId}
                 dimensions={selectionDimensions}
+                rotateLayer={rotateLayer}
                 scaleLayer={scaleLayer}
                 toggleFlyout={toggleFlyout}/>
             </Artboard>

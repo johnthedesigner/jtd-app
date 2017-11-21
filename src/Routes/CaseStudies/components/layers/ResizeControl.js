@@ -74,8 +74,6 @@ class ResizeControl extends React.Component {
       // Get drag angle in degrees adjusted for scale factor
       let angleRadians = Math.atan2(adjustedOffset[1], adjustedOffset[0])
       angleRadians -= this.state.dimensions.rotation * (Math.PI / 180)
-      console.log(this.state.dimensions)
-      console.log(angleRadians / (Math.PI / 180))
       // Get vectored drag distance and undo scale factor
       let vectoredDistance = distance * Math.cos(angleRadians)
       vectoredDistance = unscaleDimension(vectoredDistance, scaleFactor)
@@ -189,9 +187,9 @@ function collect(connect, monitor) {
     // to let React DnD handle the drag events:
     connectDropTarget: connect.dropTarget(),
     // You can ask the monitor about the current drag state:
-    isOver: monitor.isOver(),
+    isOver: true,
     isOverCurrent: monitor.isOver({ shallow: true }),
-    canDrop: monitor.canDrop(),
+    canDrop: true,
     itemType: monitor.getItemType()
   }
 }

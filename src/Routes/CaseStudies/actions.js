@@ -10,6 +10,7 @@ import {
   HIGHLIGHT_LAYER,
   MOVE_LAYERS,
   PASTE_LAYERS,
+  ROTATE_LAYER,
   SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
@@ -96,6 +97,14 @@ export function moveLayers(caseStudyId, direction) {
 export function pasteLayers() {
   return {
     type: PASTE_LAYERS
+  }
+}
+
+export function rotateLayer(caseStudyId, degrees) {
+  return {
+    type: ROTATE_LAYER,
+    caseStudyId,
+    degrees
   }
 }
 
