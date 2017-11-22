@@ -63,7 +63,7 @@ export const newLayers = {
     return {
       type: 'text',
       title: 'text',
-      text: 'Lorem ipsum dolor sit amet, lorem ipsum. Dolor sit amet lorem, ipsum dolor sit.',
+      text: 'Add your own text',
       order: 0,
       dimensions: {
         x: 400,

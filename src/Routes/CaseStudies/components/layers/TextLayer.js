@@ -46,7 +46,7 @@ class TextLayer extends React.Component {
   render() {
     let { align, color, fontSize } = this.props.layer.adjustments.text
     let { x, y, width, height, rotation } = this.props.layer.dimensions
-    let { text } = this.props.layer
+    let { text, isEditable } = this.props.layer
     let textArray = text.split(' ')
     let rotateOriginX = x + width / 2
     let rotateOriginY = y + height / 2
@@ -64,6 +64,11 @@ class TextLayer extends React.Component {
       dx = width
     }
 
+    // Hide svg text while editing
+    let textStyles = {
+      visibility: (isEditable ? 'hidden' : 'visible')
+    }
+
     return (
       <text
         ref={t => this.textTag = t}
@@ -74,12 +79,13 @@ class TextLayer extends React.Component {
         y={y}
         dx={dx}
         dy={fontSize}
+        style={textStyles}
         textAnchor={textAnchor}
         transform={
           `rotate(${rotation} ${rotateOriginX} ${rotateOriginY})`
         }>
         {_.map(textArray, (chunk, index) => { return(
-          <tspan key={index}>{chunk + ' '}</tspan>
+          <tspan key={index} textAnchor={textAnchor}>{chunk + ' '}</tspan>
         )})}
       </text>
     )

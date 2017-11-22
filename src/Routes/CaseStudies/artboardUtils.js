@@ -56,11 +56,12 @@ export const getLayerDimensions = (layers) => {
 }
 
 // Map state to layers
-let mapLayers = (layers, selections) => {
+let mapLayers = (layers, selections, editableTextLayer) => {
   return _.keyBy(_.map(layers, (layer) => {
     return {
       ...layer,
       isSelected: _.includes(selections, layer.id),
+      isEditable: _.includes(editableTextLayer, layer.id),
       adjustments: {
         ...layer.adjustments,
         dimensions: layer.dimensions
@@ -79,7 +80,11 @@ export const mapArtboard = (artboard) => {
     layerSelected: (
       _.intersection(artboard.selections, artboard.layers).length > 0
     ),
-    layers: mapLayers(artboard.layers, artboard.selections),
+    layers: mapLayers(
+      artboard.layers,
+      artboard.selections,
+      artboard.editableTextLayer
+    ),
     selection: {
       isActive: (selectedLayers.length > 0),
       adjustments: mergeAdjustments(selectedLayers),
