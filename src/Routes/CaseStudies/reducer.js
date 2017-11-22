@@ -88,15 +88,18 @@ export default function Artboards(state = {}, a) {
 
     case DELETE_LAYERS:
       consoleGroup(a.type,[a])
-      let culledLayers = _.omitBy(state.Layers, layer => {
-        return _.includes(state.selections.layers, layer.id)
+      let culledCaseStudies = _.cloneDeep(state.caseStudies)
+      let culledArtboard = culledCaseStudies[a.caseStudyId]
+      // console.log(culledArtboard.layers)
+      // console.log(culledArtboard.selections)
+      // console.log(_.remove(culledArtboard.Layers, (layer) => {
+      //   return _.includes(culledArtboard.selections, layer.id)
+      // }))
+      culledArtboard.layers = _.remove(culledArtboard.layers, (layer) => {
+        return (layer.id !== culledArtboard.selections[0])
       })
-      return Object.assign({},state,{
-        Layers: culledLayers,
-        selections: Object.assign({},state.selections,{
-          layers: []
-        })
-      })
+      culledArtboard.selections = []
+      return Object.assign({}, state, { caseStudies: culledCaseStudies })
 
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup(a.type,[a])

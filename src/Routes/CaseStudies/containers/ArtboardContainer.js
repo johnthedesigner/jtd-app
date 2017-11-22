@@ -41,8 +41,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     copyLayers: () => {
       dispatch(copyLayers())
     },
-    deleteLayers: (layerIds) => {
-      dispatch(deleteLayers(layerIds))
+    deleteLayers: () => {
+      dispatch(deleteLayers(ownProps.caseStudyId))
     },
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard(ownProps.caseStudyId))

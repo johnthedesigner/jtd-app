@@ -59,9 +59,10 @@ export function copyLayers() {
   }
 }
 
-export function deleteLayers() {
+export function deleteLayers(caseStudyId) {
   return {
-    type: DELETE_LAYERS
+    type: DELETE_LAYERS,
+    caseStudyId
   }
 }
 
