@@ -6,8 +6,7 @@ class TextLayer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: '',
-      lines: [[]]
+      text: ''
     }
     this.layoutText = this.layoutText.bind(this)
   }

@@ -45,8 +45,10 @@ class TextLayerEditor extends React.Component {
   }
 
   handleChange(e) {
-    this.props.updateText(e.target.value)
-    this.setState({ textarea: e.target.value })
+    // Strip some characters to prevent scripting
+    let preppedText = e.target.value.replace(/[<>]/gi, '')
+    this.props.updateText(preppedText)
+    this.setState({ textarea: preppedText })
   }
 
   handleClick(e) {
