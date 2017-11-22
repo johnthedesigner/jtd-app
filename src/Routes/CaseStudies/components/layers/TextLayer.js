@@ -6,33 +6,36 @@ class TextLayer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: ''
+      text: '',
     }
     this.layoutText = this.layoutText.bind(this)
   }
 
   componentDidMount() {
     this.setState({ text: this.props.text })
-    this.layoutText()
+    this.layoutText(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ text: nextProps.text })
-    this.layoutText()
+    this.layoutText(nextProps)
   }
 
-  layoutText() {
+  layoutText(props) {
     let { textTag } = this
-    let { fontSize } = this.props.layer.adjustments.text
-    let { width } = this.props.layer.dimensions
+    let { fontSize } = props.layer.adjustments.text
+    let { width } = props.layer.dimensions
     // Prepare to track current row width and vertical offset
     let rowWidth = 0
     let lineHeight = fontSize * 1.2
-    _.each(textTag.children, (child) => {
+    _.each(textTag.children, (child, index) => {
       // Get width of child element and see if it fits on the current row
       let childWidth = child.getComputedTextLength()
       if ((rowWidth + childWidth) < width) {
-        // It fits! increment row width to track how long the row is getting
+        // It fits! no x offset needed, lineHeight offset for first chunk only
+        child.setAttribute('dx', 0)
+        child.setAttribute('dy', (index === 0 ? lineHeight : 0))
+        // Increment row width to track how long the row is getting
         rowWidth += childWidth
       } else {
         // It doesn't fit, offset this element to start next row
