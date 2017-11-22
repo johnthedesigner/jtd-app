@@ -53,9 +53,10 @@ export function bumpLayers(caseStudyId, axis, distance) {
   }
 }
 
-export function copyLayers() {
+export function copyLayers(caseStudyId) {
   return {
-    type: COPY_LAYERS
+    type: COPY_LAYERS,
+    caseStudyId
   }
 }
 
@@ -105,9 +106,10 @@ export function moveLayers(caseStudyId, direction) {
     direction
   }
 }
-export function pasteLayers() {
+export function pasteLayers(caseStudyId) {
   return {
-    type: PASTE_LAYERS
+    type: PASTE_LAYERS,
+    caseStudyId
   }
 }
 

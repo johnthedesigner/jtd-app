@@ -69,8 +69,6 @@ export default function Artboards(state = {}, a) {
       let bumpedCaseStudies = _.cloneDeep(state.caseStudies)
       let bumpedArtboard = bumpedCaseStudies[a.caseStudyId]
       let bumpedLayers = bumpedArtboard.selections
-      console.log(bumpedArtboard.layers)
-      console.log(bumpedLayers)
       _.each(bumpedLayers, (layerId) => {
         let bumpedLayer = _.find(bumpedArtboard.layers, {id: layerId})
         bumpedLayer.dimensions[axis] += (distance)
@@ -79,8 +77,12 @@ export default function Artboards(state = {}, a) {
 
     case COPY_LAYERS:
       consoleGroup(a.type,[a])
-      let copiedLayers = _.map(state.selections.layers, layerId => {
-        return Object.assign({},state.Layers[layerId])
+      let copiedCaseStudies = _.cloneDeep(state.caseStudies)
+      let copiedArtboard = copiedCaseStudies[a.caseStudyId]
+      let copiedLayers = _.map(copiedArtboard.selections, layerId => {
+        return Object.assign({}, _.find(copiedArtboard.layers, (layer) => {
+          return layer.id === layerId
+        }))
       })
       return Object.assign({},state,{
         pasteBuffer: _.cloneDeep(copiedLayers)
@@ -90,11 +92,6 @@ export default function Artboards(state = {}, a) {
       consoleGroup(a.type,[a])
       let culledCaseStudies = _.cloneDeep(state.caseStudies)
       let culledArtboard = culledCaseStudies[a.caseStudyId]
-      // console.log(culledArtboard.layers)
-      // console.log(culledArtboard.selections)
-      // console.log(_.remove(culledArtboard.Layers, (layer) => {
-      //   return _.includes(culledArtboard.selections, layer.id)
-      // }))
       culledArtboard.layers = _.remove(culledArtboard.layers, (layer) => {
         return (layer.id !== culledArtboard.selections[0])
       })
@@ -174,32 +171,20 @@ export default function Artboards(state = {}, a) {
 
     case PASTE_LAYERS:
       consoleGroup(a.type,[a])
+      let pastedCaseStudies = _.cloneDeep(state.caseStudies)
+      let pastedArtboard = pastedCaseStudies[a.caseStudyId]
       let pastedLayers = _.map(state.pasteBuffer, layer => {
         let pastedLayer = _.cloneDeep(layer)
         pastedLayer.id = uuid.v4()
         return pastedLayer
       })
-      pastedLayers = _.keyBy(pastedLayers, 'id')
-      let targetArtboard = Object.assign({},
-        state.Artboards[state.selections.artboardId])
-      targetArtboard.layers = [
-        ...targetArtboard.layers,
-        ..._.keys(pastedLayers)
+      let pastedLayerIds = _.map(pastedLayers, (layer) => { return layer.id })
+      pastedArtboard.layers = [
+        ...pastedArtboard.layers,
+        ...pastedLayers
       ]
-      let updatedArtboards = _.keyBy([
-        ...state.Artboards,
-        targetArtboard
-      ],'id')
-      return Object.assign({},state,{
-        Layers: {
-          ...state.Layers,
-          ...pastedLayers
-        },
-        Artboards: updatedArtboards,
-        selections: Object.assign({},state.selections,{
-          layers: _.keys(pastedLayers)
-        })
-      })
+      pastedArtboard.selections = pastedLayerIds
+      return Object.assign({}, state, { caseStudies: pastedCaseStudies })
 
     case ROTATE_LAYER:
       consoleGroup(a.type,[a])

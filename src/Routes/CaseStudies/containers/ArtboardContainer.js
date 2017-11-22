@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(bumpLayers(ownProps.caseStudyId, axis, distance))
     },
     copyLayers: () => {
-      dispatch(copyLayers())
+      dispatch(copyLayers(ownProps.caseStudyId))
     },
     deleteLayers: () => {
       dispatch(deleteLayers(ownProps.caseStudyId))
@@ -60,7 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(moveLayers(ownProps.caseStudyId, direction))
     },
     pasteLayers: () => {
-      dispatch(pasteLayers())
+      dispatch(pasteLayers(ownProps.caseStudyId))
     },
     rotateLayer: (degrees) => {
       dispatch(rotateLayer(ownProps.caseStudyId, degrees))
