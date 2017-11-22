@@ -39,5 +39,6 @@ export default {
     }
   ],
   selections: [],
+  editingTextLayer: null,
   activeFlyout: null
 }

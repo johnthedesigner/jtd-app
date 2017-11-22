@@ -10,7 +10,7 @@ class RectangleLayer extends React.Component {
     let rotateOriginY = dimensions.y + dimensions.height / 2
     return (
       <rect
-        ref={r => {this.rect = r}}
+        draggable={false}
         x={dimensions.x}
         y={dimensions.y}
         width={dimensions.width}

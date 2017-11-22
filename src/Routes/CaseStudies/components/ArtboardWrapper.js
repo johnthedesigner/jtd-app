@@ -9,6 +9,7 @@ import AdjustmentsFlyouts from './adjustments/AdjustmentsFlyouts'
 import Artboard from './Artboard'
 import ActionBars from './ActionBars'
 import Layer from './layers/Layer'
+import TextLayerEditor from './layers/TextLayerEditor'
 import DragControl from './layers/DragControl'
 import ResizeControl from './layers/ResizeControl'
 import {
@@ -114,6 +115,7 @@ class ArtboardWrapper extends React.Component {
       caseStudyId,
       deselectLayersArtboard,
       dragLayers,
+      enableTextEditor,
       featured,
       highlightLayer,
       moveLayers,
@@ -121,9 +123,29 @@ class ArtboardWrapper extends React.Component {
       scaleLayer,
       selectLayer,
       toggleFlyout,
+      updateText,
     } = this.props
 
     const mappedArtboard = mapArtboard(caseStudies[caseStudyId])
+
+    const EditableTextLayer = (props) => {
+      if (mappedArtboard.editableTextLayer) {
+        let textLayer = _.filter(mappedArtboard.layers, (layer) => {
+          // Show editable text layer
+          return layer.id === mappedArtboard.editableTextLayer
+        })
+        return (
+          <TextLayerEditor
+            enableTextEditor={enableTextEditor}
+            key={textLayer.id}
+            layer={textLayer[0]}
+            scaleFactor={this.state.scaleFactor}
+            updateText={updateText}/>
+        )
+      } else {
+        return null
+      }
+    }
 
     const adjustments = idx(mappedArtboard, _ => _.selection.adjustments)
 
@@ -213,12 +235,14 @@ class ArtboardWrapper extends React.Component {
                   <DragControl
                     adjustLayers={adjustLayers}
                     dragLayers={dragLayers}
+                    enableTextEditor={enableTextEditor}
                     highlightLayer={highlightLayer}
                     key={layer.id}
                     layer={layer}
                     selectLayer={selectLayer}
                     scaleFactor={this.state.scaleFactor}/>
                 )})}
+                <EditableTextLayer />
               </div>
               <div className='artboard__action-bar'>
                 <ActionBars

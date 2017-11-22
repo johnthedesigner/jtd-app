@@ -72,12 +72,7 @@ class Layer extends React.Component {
         case layerTypes.text:
           return ( <TextLayer
             dimensions={this.state}
-            editingLayer={this.state.editingLayer}
-            layer={layer}
-            scaleDimension={this.props.scaleDimension}
-            setLayerAdjustment={this.setLayerAdjustment}
-            unscaleDimension={this.props.unscaleDimension}
-            updateText={this.props.updateText}/> )
+            layer={layer}/> )
 
         default:
           console.log('Unrecognized layer type: ',layer.type)

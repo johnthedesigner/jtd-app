@@ -1,67 +1,54 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { Editor, EditorState } from 'draft-js'
 
 class TextLayer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      editorState: EditorState.createEmpty(),
-      editingLayer: this.props.editingLayer
+      text: '',
+      lines: [[]]
     }
-    this.handleBlur = this.handleBlur.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
-    this.setTextEditorRef = ref => this.textEditor = ref
+    this.layoutText = this.layoutText.bind(this)
   }
 
   componentDidMount() {
-    this.setState({
-      text: this.props.layer.text,
-      editingLayer: this.props.editingLayer
-    })
-    if (this.props.editingLayer) this.textEditor.focus()
+    this.setState({ text: this.props.text })
+    this.layoutText()
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      text: nextProps.layer.text,
-      editingLayer: nextProps.editingLayer
+    this.setState({ text: nextProps.text })
+    this.layoutText()
+  }
+
+  layoutText() {
+    let { textTag } = this
+    let { fontSize } = this.props.layer.adjustments.text
+    let { width } = this.props.layer.dimensions
+    // Prepare to track current row width and vertical offset
+    let rowWidth = 0
+    let lineHeight = fontSize * 1.2
+    _.each(textTag.children, (child) => {
+      // Get width of child element and see if it fits on the current row
+      let childWidth = child.getComputedTextLength()
+      if ((rowWidth + childWidth) < width) {
+        // It fits! increment row width to track how long the row is getting
+        rowWidth += childWidth
+      } else {
+        // It doesn't fit, offset this element to start next row
+        child.setAttribute('dx', (-1 * rowWidth))
+        child.setAttribute('dy', lineHeight)
+        rowWidth = childWidth
+      }
     })
-    if (nextProps.editingLayer) this.textEditor.focus()
-  }
-
-  handleChange(editorState) {
-    this.setState({editorState})
-  }
-
-  handleFocus(event) {
-    event.target.select()
-  }
-
-  handleBlur(event) {
-    console.log(this.state.editorState)
-    this.setState({
-      editingLayer: false
-    })
-    console.log(this.state.editorState.getCurrentContent())
-    this.props.updateText(
-      this.props.layer.id, this.state.editorState.getCurrentContent())
-    this.textEditor.blur()
-  }
-
-  handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      event.target.blur()
-    }
   }
 
   render() {
     let { align, color, fontSize } = this.props.layer.adjustments.text
     let { x, y, width, height, rotation } = this.props.layer.dimensions
     let { text } = this.props.layer
+    let textArray = text.split(' ')
     let rotateOriginX = x + width / 2
     let rotateOriginY = y + height / 2
     // Default left-aligned text props
@@ -80,7 +67,8 @@ class TextLayer extends React.Component {
 
     return (
       <text
-        ref={(t) => this.textBox = t}
+        ref={t => this.textTag = t}
+        draggable={false}
         fill={color}
         fontSize={fontSize}
         x={x}
@@ -91,7 +79,9 @@ class TextLayer extends React.Component {
         transform={
           `rotate(${rotation} ${rotateOriginX} ${rotateOriginY})`
         }>
-        {text}
+        {_.map(textArray, (chunk, index) => { return(
+          <tspan key={index}>{chunk + ' '}</tspan>
+        )})}
       </text>
     )
   }

@@ -13,6 +13,7 @@ import {
   DELETE_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
+  ENABLE_TEXT_EDITOR,
   HIGHLIGHT_LAYER,
   MOVE_LAYERS,
   PASTE_LAYERS,
@@ -20,6 +21,7 @@ import {
   SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
+  UPDATE_TEXT,
 } from './constants'
 
 export default function Artboards(state = {}, a) {
@@ -128,7 +130,14 @@ export default function Artboards(state = {}, a) {
           scaleY: d.scaleY
         }
       })
-      return Object.assign({},state,{ caseStudies: draggedCaseStudies })
+      return Object.assign({}, state, { caseStudies: draggedCaseStudies })
+
+    case ENABLE_TEXT_EDITOR:
+      consoleGroup(a.type,[a])
+      let editTextCaseStudies = _.cloneDeep(state.caseStudies)
+      let editTextArtboard = editTextCaseStudies[a.caseStudyId]
+      editTextArtboard.editableTextLayer = a.layerId
+      return Object.assign({}, state, { caseStudies: editTextCaseStudies })
 
     case HIGHLIGHT_LAYER:
       consoleGroup(a.type,[a])
@@ -158,7 +167,7 @@ export default function Artboards(state = {}, a) {
       _.each(movedArtboard.layers, (layer, index) => {
         layer.order = index
       })
-      return Object.assign({},state,{ caseStudies: movedCaseStudies })
+      return Object.assign({}, state, { caseStudies: movedCaseStudies })
 
     case PASTE_LAYERS:
       consoleGroup(a.type,[a])
@@ -197,7 +206,7 @@ export default function Artboards(state = {}, a) {
       let rotatedLayerId = rotatedArtboard.selections[0]
       let rotatedLayer = _.find(rotatedArtboard.layers, {id: rotatedLayerId})
       rotatedLayer.dimensions.rotation = degrees
-      return Object.assign({},state,{ caseStudies: rotatedCaseStudies })
+      return Object.assign({}, state, { caseStudies: rotatedCaseStudies })
 
     case SCALE_LAYER:
       consoleGroup(a.type,[a])
@@ -263,9 +272,7 @@ export default function Artboards(state = {}, a) {
           scaledLayer.tempDimensions = undefined
         }
       }
-      return Object.assign({}, state, {
-        caseStudies: scaledCaseStudies,
-      })
+      return Object.assign({}, state, { caseStudies: scaledCaseStudies })
 
     case SELECT_LAYER:
       consoleGroup(a.type,[a])
@@ -290,6 +297,18 @@ export default function Artboards(state = {}, a) {
         (activeFlyout === a.flyoutId) ? undefined : a.flyoutId
       return Object.assign({}, state, {
         caseStudies: caseStudiesWithFlyout,
+      })
+
+    case UPDATE_TEXT:
+      consoleGroup(a.type,[a])
+      let newTextCaseStudies = _.cloneDeep(state.caseStudies)
+      let newTextArtboard = newTextCaseStudies[a.caseStudyId]
+      let newTextLayer = _.filter(newTextArtboard.layers, (layer) => {
+        return layer.id === newTextArtboard.editableTextLayer
+      })[0]
+      newTextLayer.text = a.text
+      return Object.assign({}, state, {
+        caseStudies: newTextCaseStudies,
       })
 
     default:

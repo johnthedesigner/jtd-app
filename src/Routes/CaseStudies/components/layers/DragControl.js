@@ -20,6 +20,7 @@ class DragControl extends React.Component {
       rotation: null
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleDoubleClick = this.handleDoubleClick.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
     this.setLayerAdjustment = this.setLayerAdjustment.bind(this)
@@ -45,6 +46,14 @@ class DragControl extends React.Component {
 
   handleClick (e) {
     e.stopPropagation()
+  }
+
+  handleDoubleClick (e) {
+    e.stopPropagation()
+    let { enableTextEditor, layer } = this.props
+    if (layer.type === 'text') {
+      enableTextEditor(layer.id)
+    }
   }
 
   handleDrag(e, data) {
@@ -100,7 +109,8 @@ class DragControl extends React.Component {
           + this.toggleSelected()
           + this.toggleHighlighted()
         }
-        onClick={this.handleClick}>
+        onClick={this.handleClick}
+        onDoubleClick={this.handleDoubleClick}>
         <Draggable
           className='layer__draggable-area'
           default={{

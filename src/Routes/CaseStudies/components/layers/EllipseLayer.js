@@ -10,7 +10,7 @@ class EllipseLayer extends React.Component {
     let rotateOriginY = dimensions.y + (dimensions.height / 2)
     return (
       <ellipse
-        ref={r => {this.rect = r}}
+        draggable={false}
         cx={dimensions.x + (dimensions.width / 2)}
         cy={dimensions.y + (dimensions.height / 2)}
         rx={dimensions.width / 2}

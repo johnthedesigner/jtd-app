@@ -7,6 +7,7 @@ import {
   DELETE_LAYERS,
   DESELECT_LAYERS_ARTBOARD,
   DRAG_LAYERS,
+  ENABLE_TEXT_EDITOR,
   HIGHLIGHT_LAYER,
   MOVE_LAYERS,
   PASTE_LAYERS,
@@ -14,6 +15,7 @@ import {
   SCALE_LAYER,
   SELECT_LAYER,
   TOGGLE_FLYOUT,
+  UPDATE_TEXT,
 } from './constants'
 
 export function addArtboard(width, height) {
@@ -80,6 +82,14 @@ export function dragLayers(caseStudyId, layerId, x, y) {
   }
 }
 
+export function enableTextEditor(caseStudyId, layerId) {
+  return {
+    type: ENABLE_TEXT_EDITOR,
+    caseStudyId,
+    layerId
+  }
+}
+
 export function highlightLayer(layerId) {
   return {
     type: HIGHLIGHT_LAYER,
@@ -131,5 +141,13 @@ export function toggleFlyout(caseStudyId, flyoutId) {
     type: TOGGLE_FLYOUT,
     caseStudyId,
     flyoutId
+  }
+}
+
+export function updateText(caseStudyId, text) {
+  return {
+    type: UPDATE_TEXT,
+    caseStudyId,
+    text
   }
 }

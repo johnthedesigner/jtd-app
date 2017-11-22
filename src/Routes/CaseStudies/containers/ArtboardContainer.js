@@ -10,6 +10,7 @@ import {
   deleteLayers,
   deselectLayersArtboard,
   dragLayers,
+  enableTextEditor,
   highlightLayer,
   moveLayers,
   pasteLayers,
@@ -17,6 +18,7 @@ import {
   scaleLayer,
   selectLayer,
   toggleFlyout,
+  updateText,
 } from '../actions'
 
 import ArtboardWrapper from '../components/ArtboardWrapper'
@@ -48,6 +50,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     dragLayers: (layerId, x, y) => {
       dispatch(dragLayers(ownProps.caseStudyId, layerId, x, y))
     },
+    enableTextEditor: (layerId) => {
+      dispatch(enableTextEditor(ownProps.caseStudyId, layerId))
+    },
     highlightLayer: (layerId) => {
       dispatch(highlightLayer(layerId))
     },
@@ -68,7 +73,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     toggleFlyout: (flyoutId) => {
       dispatch(toggleFlyout(ownProps.caseStudyId, flyoutId))
-    }
+    },
+    updateText: (text) => {
+      dispatch(updateText(ownProps.caseStudyId, text))
+    },
   }
 }
 
