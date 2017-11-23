@@ -57,6 +57,7 @@ class DragControl extends React.Component {
   }
 
   handleDrag(e, data) {
+    e.stopPropagation()
     let { scaleFactor } = this.props
     this.props.dragLayers(
       this.props.layer.id,

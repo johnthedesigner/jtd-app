@@ -1,0 +1,237 @@
+// Artboard
+.artboard__wrapper {
+  position: relative;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  &:hover .action-bar__button {
+    opacity: 1;
+  }
+
+  .artboard__header {
+    cursor: default;
+  }
+  .artboard__frame {
+    position: relative;
+    min-width: 200px;
+    min-height: 200px;
+    box-shadow: 0 2px 8px 3px rgba(50,50,50,.3);
+    transition: box-shadow linear .2s;
+
+    &.is-selected {
+      box-shadow: 0 4px 12px 3px rgba(50,50,50,.5);
+    }
+    .artboard__selection-indicator {
+      display: block;
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity linear .1s;
+    }
+    &.is-selected > .artboard__selection-indicator {
+      opacity: 1;
+    }
+  }
+}
+
+// Layers
+.layer__wrapper, .group__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+
+  .layer__shape {
+    position: relative;
+
+    & .layer__shape--text {
+      position: relative;
+      z-index: 1000;
+    }
+  }
+  & > *:not(.layer__wrapper, .layer__shape--group, .layer__highlight-indicator) {
+    pointer-events: initial;
+  }
+
+  .layer__highlight-indicator,// TODO: This should probably be a mixin
+  .layer__selection-indicator {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity linear .1s;
+  }
+  .layer__highlight-indicator{
+    border: cyan solid 1px;
+  }
+  .layer__selection-indicator {
+    border: #444444 solid 1px;
+  }
+  &.is-highlighted .layer__highlight-indicator,
+  &.is-selected .layer__selection-indicator{
+    opacity: 1;
+  }
+}
+
+// Resize Controls
+.resize-control__wrapper {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity linear .1s;
+  pointer-events: none;
+
+  & > div {
+    box-sizing: border-box;
+
+    * {
+      pointer-events: auto;
+    }
+  }
+
+  &.is-active {
+    opacity: 1;
+
+    & > * {
+      pointer-events: initial;
+    }
+  }
+}
+
+// Resize Handles
+$resizeEdgeWidth: .5rem;
+
+.resize-handle {
+  position: absolute;
+}
+.resize-handle__top {
+  top: - $resizeEdgeWidth;
+  right: $resizeEdgeWidth;
+  left: $resizeEdgeWidth;
+  height: $resizeEdgeWidth;
+  cursor: ns-resize;
+}
+.resize-handle__right {
+  top: $resizeEdgeWidth;
+  right: - $resizeEdgeWidth;
+  bottom: $resizeEdgeWidth;
+  width: $resizeEdgeWidth;
+  cursor: ew-resize;
+}
+.resize-handle__bottom {
+  right: $resizeEdgeWidth;
+  bottom: - $resizeEdgeWidth;
+  left: $resizeEdgeWidth;
+  height: $resizeEdgeWidth;
+  cursor: ns-resize;
+}
+.resize-handle__left {
+  bottom: $resizeEdgeWidth;
+  left: - $resizeEdgeWidth;
+  top: $resizeEdgeWidth;
+  width: $resizeEdgeWidth;
+  cursor: ew-resize;
+}
+.resize-handle__top-left,
+.resize-handle__top-right,
+.resize-handle__bottom-right,
+.resize-handle__bottom-left {
+  width: $resizeEdgeWidth;
+  height: $resizeEdgeWidth;
+  background: white;
+  border: $resizeHandleStroke solid 2px;
+  border-radius: 50%;
+}
+.resize-handle__top-left {
+  @extend .resize-handle;
+  top: - $resizeEdgeWidth;
+  left: - $resizeEdgeWidth;
+}
+.resize-handle__top-right {
+  @extend .resize-handle;
+  top: - $resizeEdgeWidth;
+  right: - $resizeEdgeWidth;
+}
+.resize-handle__bottom-right {
+  @extend .resize-handle;
+  bottom: - $resizeEdgeWidth;
+  right: - $resizeEdgeWidth;
+}
+.resize-handle__bottom-left {
+  @extend .resize-handle;
+  bottom: - $resizeEdgeWidth;
+  left: - $resizeEdgeWidth;
+}
+
+// Action Bars
+.action-bar__left, .action-bar__top-right, .action-bar__bottom-right {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 3rem;
+}
+.action-bar__left {
+  top: 0;
+  left: -3rem;
+}
+.action-bar__top-right {
+  top: 0;
+  right: -3rem;
+}
+.action-bar__bottom-right {
+  bottom: 0;
+  right: -3rem;
+}
+.action-bar__button {
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: none;
+  margin: .25rem .5rem;
+  opacity: 0;
+  transition: opacity linear .2s;
+  cursor: pointer;
+}
+
+// Adjustment Flyouts
+.adjustments-flyouts__wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+.flyout__wrapper {
+  background: #222;
+  box-shadow: 0 8px 24px 3px rgba(50,50,50,.5);
+  color: white;
+  pointer-events: all;
+}
+.flyout__header {
+  display: flex;
+  flex-direction: row;
+  height: 2rem;
+  font-size: .875rem;
+  line-height: 2;
+}
+.flyout__title {
+  flex: 1;
+  background: #111;
+  margin: 0;
+  padding: 0 .5rem;
+  line-height: 2rem;
+}
