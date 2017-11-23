@@ -1,0 +1,107 @@
+html {
+  height: 100%;
+}
+
+// Editor Layout
+.editor-view__wrapper {
+}
+.editor-view__body {
+}
+.editor-view__main-area {
+}
+.editor-view__copy-area {
+  flex: 1;
+}
+.editor-view__copy {
+  padding: 2rem 1rem 2rem 6rem;
+}
+.editor-view__artboard-area {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  overflow: hidden;
+}
+.editor-view__sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  min-width: 200px;
+}
+
+// Workspace
+.artboard__wrapper {
+  margin: 2rem auto;
+  flex: 2;
+}
+.artboard__frame {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  min-width: 200px;
+  min-height: 200px;
+  margin: 0 auto;
+  background-color: white;
+  background-size: 10px 10px;
+  & > div:nth-child(1) {
+    min-width: 100%;
+  }
+}
+.layer__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &.is-hidden{
+    display:none;
+  }
+}
+.group__selection {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+// Artboards Palette
+.layer-list-item__wrapper {
+
+  .layer-list-item__show-hide {
+    opacity: 0;
+    transition: opacity .2s linear;
+  }
+  &.is-hidden {
+
+    .layer-list-item__show-hide {
+      opacity: .75;
+    }
+  }
+  &:hover {
+    .layer-list-item__show-hide {
+      opacity: 1;
+    }
+  }
+}
+.sublayer-group__wrapper {
+  padding-left: 1rem;
+}
+
+.layer__shape {
+  outline: none;
+  background: none;
+  border: none;
+  pointer-events: none;
+  user-select: none;
+
+  & > * {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.DraftEditor-editorContainer {
+  background: white;
+}

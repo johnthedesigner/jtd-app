@@ -22,7 +22,6 @@ import {
 } from '../actions'
 
 import ArtboardWrapper from '../components/ArtboardWrapper'
-import '../styles/editor.css'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 
 import HomeContainer from '../Routes/CaseStudies/containers/HomeContainer'
 
-import '../App.css'
+// import '../App.css'
 
 class AppLayout extends React.Component {
   render() {

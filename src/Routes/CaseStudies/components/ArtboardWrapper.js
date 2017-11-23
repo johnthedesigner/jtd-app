@@ -18,9 +18,6 @@ import {
   scaleAllDimensions
 } from '../artboardUtils'
 
-import './styles/artboards.css'
-import './styles/editor.css'
-
 class ArtboardWrapper extends React.Component {
   constructor(props) {
     super(props)

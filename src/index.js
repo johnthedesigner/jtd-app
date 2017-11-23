@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import createStore from './store/createStore'
 import App from './App'
-import './index.css'
+import './styles/styles.css'
 
 injectTapEventPlugin()
 

@@ -2,9 +2,6 @@ import React from 'react'
 
 import ArtboardContainer from '../containers/ArtboardContainer'
 
-import './styles/artboards.css'
-import './styles/editor.css'
-
 class HomeView extends React.Component {
   render() {
     return (
