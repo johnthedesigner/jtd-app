@@ -57,8 +57,9 @@ html {
   position: absolute;
   top: 0;
   left: 0; }
-  .layer__wrapper.is-hidden {
-    display: none; }
+
+.layer__wrapper.is-hidden {
+  display: none; }
 
 .group__selection {
   position: absolute;
@@ -84,12 +85,13 @@ html {
   border: none;
   pointer-events: none;
   user-select: none; }
-  .layer__shape > * {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0; }
+
+.layer__shape > * {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
 
 .DraftEditor-editorContainer {
   background: white; }
