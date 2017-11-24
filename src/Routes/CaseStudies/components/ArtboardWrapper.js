@@ -222,14 +222,13 @@ class ArtboardWrapper extends React.Component {
                   )})}
                 </svg>
                 <ResizeControl
-                  caseStudyId={mappedArtboard.id}
                   dragLayers={dragLayers}
                   dimensions={mappedArtboard.selection.dimensions}
                   enableTextEditor={enableTextEditor}
                   isActive={mappedArtboard.selection.isActive}
                   layers={mappedArtboard.layers}
-                  scaleLayer={scaleLayer}
                   scaleFactor={this.state.scaleFactor}
+                  scaleLayer={scaleLayer}
                   selectLayer={selectLayer}/>
                 <EditableTextLayer />
               </div>

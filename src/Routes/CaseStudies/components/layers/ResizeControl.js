@@ -191,7 +191,6 @@ const dropTargetSpec = {
           monitor.getDifferenceFromInitialOffset(),
           monitor.getItem()
         )
-        console.log(resizeDirectives)
         props.scaleLayer(resizeDirectives, false)
         break
 
@@ -224,7 +223,6 @@ const dropTargetSpec = {
             newPointerOffset,
             monitor.getItem()
           )
-          console.log(resizeDirectives)
         // Set latest pointer offset before dispatching drag event
           component.state.pointerOffset = newPointerOffset
           props.scaleLayer(resizeDirectives, true)
@@ -267,9 +265,13 @@ function collect(connect, monitor) {
 
 ResizeControl.propTypes = {
   dimensions: PropTypes.object.isRequired,
+  dragLayers: PropTypes.func.isRequired,
+  enableTextEditor: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
+  layers: PropTypes.object.isRequired,
   scaleFactor: PropTypes.number.isRequired,
   scaleLayer: PropTypes.func.isRequired,
+  selectLayer: PropTypes.func.isRequired,
 }
 
 export default DragDropContext(HTML5Backend)(
