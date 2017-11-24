@@ -191,7 +191,8 @@ const dropTargetSpec = {
           monitor.getDifferenceFromInitialOffset(),
           monitor.getItem()
         )
-        props.scaleLayer(resizeDirectives, true)
+        console.log(resizeDirectives)
+        props.scaleLayer(resizeDirectives, false)
         break
 
       case 'DRAGGABLE':
@@ -223,7 +224,8 @@ const dropTargetSpec = {
             newPointerOffset,
             monitor.getItem()
           )
-          // Set latest pointer offset before dispatching drag event
+          console.log(resizeDirectives)
+        // Set latest pointer offset before dispatching drag event
           component.state.pointerOffset = newPointerOffset
           props.scaleLayer(resizeDirectives, true)
           break

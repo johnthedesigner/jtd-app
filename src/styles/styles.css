@@ -47,9 +47,8 @@ body {
   margin: 2rem auto;
   margin: 0 auto;
   box-sizing: border-box; }
-
-.artboard__wrapper:hover .action-bar__button {
-  opacity: 1; }
+  .artboard__wrapper:hover .action-bar__button {
+    opacity: 1; }
 
 .artboard__header {
   cursor: default; }
@@ -65,9 +64,8 @@ body {
   margin: 0 auto;
   box-shadow: 0 2px 8px 3px rgba(50, 50, 50, 0.3);
   transition: box-shadow linear .2s; }
-
-.artboard__frame.is-selected {
-  box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
+  .artboard__frame.is-selected {
+    box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
 
 .artboard__selection-indicator {
   display: block;
@@ -96,18 +94,14 @@ body {
   opacity: 0;
   transition: opacity linear .1s;
   pointer-events: none; }
-
-.resize-control__wrapper > div {
-  box-sizing: border-box; }
-
-.resize-control__wrapper > div * {
-  pointer-events: auto; }
-
-.resize-control__wrapper.is-active {
-  opacity: 1; }
-
-.resize-control__wrapper.is-active > * {
-  pointer-events: initial; }
+  .resize-control__wrapper > div {
+    box-sizing: border-box; }
+    .resize-control__wrapper > div * {
+      pointer-events: auto; }
+  .resize-control__wrapper.is-active {
+    opacity: 1; }
+    .resize-control__wrapper.is-active > * {
+      pointer-events: initial; }
 
 .resize-handle, .resize-handle__top-left, .resize-handle__top-right, .resize-handle__bottom-right, .resize-handle__bottom-left {
   position: absolute; }
