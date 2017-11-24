@@ -1,3 +1,6 @@
+html {
+  height: 100%; }
+
 body {
   margin: 0;
   padding: 0;
@@ -18,28 +21,55 @@ body {
 .editor-view__copy p {
   font-size: .875rem; }
 
+.editor-view__copy-area {
+  flex: 1; }
+
+.editor-view__copy {
+  padding: 2rem 1rem 2rem 6rem; }
+
+.editor-view__artboard-area {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  overflow: hidden; }
+
+.editor-view__sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  min-width: 200px; }
+
 .artboard__wrapper {
+  flex: 2;
   position: relative;
+  margin: 2rem auto;
   margin: 0 auto;
   box-sizing: border-box; }
 
 .artboard__wrapper:hover .action-bar__button {
   opacity: 1; }
 
-.artboard__wrapper .artboard__header {
+.artboard__header {
   cursor: default; }
 
-.artboard__wrapper .artboard__frame {
+.artboard__frame {
+  background-color: white;
+  background-size: 10px 10px;
+  display: flex;
+  flex-direction: row;
   position: relative;
   min-width: 200px;
   min-height: 200px;
+  margin: 0 auto;
   box-shadow: 0 2px 8px 3px rgba(50, 50, 50, 0.3);
   transition: box-shadow linear .2s; }
 
-.artboard__wrapper .artboard__frame.is-selected {
+.artboard__frame.is-selected {
   box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
 
-.artboard__wrapper .artboard__frame .artboard__selection-indicator {
+.artboard__selection-indicator {
   display: block;
   position: absolute;
   top: -1px;
@@ -50,50 +80,12 @@ body {
   opacity: 0;
   transition: opacity linear .1s; }
 
-.artboard__wrapper .artboard__frame.is-selected > .artboard__selection-indicator {
-  opacity: 1; }
-
-.layer__wrapper, .group__wrapper {
+.layer__wrapper {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
   user-select: none; }
-
-.layer__wrapper .layer__shape, .group__wrapper .layer__shape {
-  position: relative; }
-
-.layer__wrapper .layer__shape .layer__shape--text, .group__wrapper .layer__shape .layer__shape--text {
-  position: relative;
-  z-index: 1000; }
-
-.layer__wrapper > *:not(.layer__wrapper):not(.layer__shape--group):not(.layer__highlight-indicator), .group__wrapper > *:not(.layer__wrapper):not(.layer__shape--group):not(.layer__highlight-indicator) {
-  pointer-events: initial; }
-
-.layer__wrapper .layer__highlight-indicator,
-.layer__wrapper .layer__selection-indicator, .group__wrapper .layer__highlight-indicator,
-.group__wrapper .layer__selection-indicator {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  box-sizing: border-box;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity linear .1s; }
-
-.layer__wrapper .layer__highlight-indicator, .group__wrapper .layer__highlight-indicator {
-  border: cyan solid 1px; }
-
-.layer__wrapper .layer__selection-indicator, .group__wrapper .layer__selection-indicator {
-  border: #444444 solid 1px; }
-
-.layer__wrapper.is-highlighted .layer__highlight-indicator,
-.layer__wrapper.is-selected .layer__selection-indicator, .group__wrapper.is-highlighted .layer__highlight-indicator,
-.group__wrapper.is-selected .layer__selection-indicator {
-  opacity: 1; }
 
 .resize-control__wrapper {
   display: block;
@@ -229,204 +221,3 @@ body {
   margin: 0;
   padding: 0 .5rem;
   line-height: 2rem; }
-
-.artboard__wrapper {
-  position: relative;
-  margin: 0 auto;
-  box-sizing: border-box; }
-
-.artboard__wrapper:hover .action-bar__button {
-  opacity: 1; }
-
-.artboard__wrapper .artboard__header {
-  cursor: default; }
-
-.artboard__wrapper .artboard__frame {
-  position: relative;
-  min-width: 200px;
-  min-height: 200px;
-  box-shadow: 0 2px 8px 3px rgba(50, 50, 50, 0.3);
-  transition: box-shadow linear .2s; }
-
-.artboard__wrapper .artboard__frame.is-selected {
-  box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
-
-.artboard__wrapper .artboard__frame .artboard__selection-indicator {
-  display: block;
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  bottom: -1px;
-  left: -1px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity linear .1s; }
-
-.artboard__wrapper .artboard__frame.is-selected > .artboard__selection-indicator {
-  opacity: 1; }
-
-html {
-  height: 100%; }
-
-.editor-view__copy-area {
-  flex: 1; }
-
-.editor-view__copy {
-  padding: 2rem 1rem 2rem 6rem; }
-
-.editor-view__artboard-area {
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  overflow: hidden; }
-
-.editor-view__sidebar {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  min-width: 200px; }
-
-.artboard__wrapper {
-  margin: 2rem auto;
-  flex: 2; }
-
-.artboard__frame {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  min-width: 200px;
-  min-height: 200px;
-  margin: 0 auto;
-  background-color: white;
-  background-size: 10px 10px; }
-
-.artboard__frame > div:nth-child(1) {
-  min-width: 100%; }
-
-.layer__wrapper {
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-.layer__wrapper.is-hidden {
-  display: none; }
-
-.group__selection {
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-.layer-list-item__wrapper .layer-list-item__show-hide {
-  opacity: 0;
-  transition: opacity .2s linear; }
-
-.layer-list-item__wrapper.is-hidden .layer-list-item__show-hide {
-  opacity: .75; }
-
-.layer-list-item__wrapper:hover .layer-list-item__show-hide {
-  opacity: 1; }
-
-.sublayer-group__wrapper {
-  padding-left: 1rem; }
-
-.layer__shape {
-  outline: none;
-  background: none;
-  border: none;
-  pointer-events: none;
-  user-select: none; }
-
-.layer__shape > * {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0; }
-
-.DraftEditor-editorContainer {
-  background: white; }
-
-html {
-  height: 100%; }
-
-.editor-view__copy-area {
-  flex: 1; }
-
-.editor-view__copy {
-  padding: 2rem 1rem 2rem 6rem; }
-
-.editor-view__artboard-area {
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  overflow: hidden; }
-
-.editor-view__sidebar {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  min-width: 200px; }
-
-.artboard__wrapper {
-  margin: 2rem auto;
-  flex: 2; }
-
-.artboard__frame {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  min-width: 200px;
-  min-height: 200px;
-  margin: 0 auto;
-  background-color: white;
-  background-size: 10px 10px; }
-
-.artboard__frame > div:nth-child(1) {
-  min-width: 100%; }
-
-.layer__wrapper {
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-.layer__wrapper.is-hidden {
-  display: none; }
-
-.group__selection {
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-.layer-list-item__wrapper .layer-list-item__show-hide {
-  opacity: 0;
-  transition: opacity .2s linear; }
-
-.layer-list-item__wrapper.is-hidden .layer-list-item__show-hide {
-  opacity: .75; }
-
-.layer-list-item__wrapper:hover .layer-list-item__show-hide {
-  opacity: 1; }
-
-.sublayer-group__wrapper {
-  padding-left: 1rem; }
-
-.layer__shape {
-  outline: none;
-  background: none;
-  border: none;
-  pointer-events: none;
-  user-select: none; }
-
-.layer__shape > * {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0; }
-
-.DraftEditor-editorContainer {
-  background: white; }

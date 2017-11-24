@@ -1,86 +1,77 @@
+// Editor Layout TODO: eliminate editor naming and possibly reorganize this
+.editor-view__copy-area {
+  flex: 1;
+}
+.editor-view__copy {
+  padding: 2rem 1rem 2rem 6rem;
+}
+.editor-view__artboard-area {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  overflow: hidden;
+}
+.editor-view__sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  min-width: 200px;
+}
+
 // Artboard
 .artboard__wrapper {
+  flex: 2;
   position: relative;
+  margin: 2rem auto;
   margin: 0 auto;
   box-sizing: border-box;
 
   &:hover .action-bar__button {
     opacity: 1;
   }
+}
 
-  .artboard__header {
-    cursor: default;
-  }
-  .artboard__frame {
-    position: relative;
-    min-width: 200px;
-    min-height: 200px;
-    box-shadow: 0 2px 8px 3px rgba(50,50,50,.3);
-    transition: box-shadow linear .2s;
+.artboard__header {
+  cursor: default;
+}
 
-    &.is-selected {
-      box-shadow: 0 4px 12px 3px rgba(50,50,50,.5);
-    }
-    .artboard__selection-indicator {
-      display: block;
-      position: absolute;
-      top: -1px;
-      right: -1px;
-      bottom: -1px;
-      left: -1px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity linear .1s;
-    }
-    &.is-selected > .artboard__selection-indicator {
-      opacity: 1;
-    }
+.artboard__frame {
+  background-color: white;
+  background-size: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  min-width: 200px;
+  min-height: 200px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px 3px rgba(50,50,50,.3);
+  transition: box-shadow linear .2s;
+
+  &.is-selected {
+    box-shadow: 0 4px 12px 3px rgba(50,50,50,.5);
   }
+}
+.artboard__selection-indicator {
+  display: block;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity linear .1s;
 }
 
 // Layers
-.layer__wrapper, .group__wrapper {
+.layer__wrapper {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
   user-select: none;
-
-  .layer__shape {
-    position: relative;
-
-    & .layer__shape--text {
-      position: relative;
-      z-index: 1000;
-    }
-  }
-  & > *:not(.layer__wrapper, .layer__shape--group, .layer__highlight-indicator) {
-    pointer-events: initial;
-  }
-
-  .layer__highlight-indicator,// TODO: This should probably be a mixin
-  .layer__selection-indicator {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    box-sizing: border-box;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity linear .1s;
-  }
-  .layer__highlight-indicator{
-    border: cyan solid 1px;
-  }
-  .layer__selection-indicator {
-    border: #444444 solid 1px;
-  }
-  &.is-highlighted .layer__highlight-indicator,
-  &.is-selected .layer__selection-indicator{
-    opacity: 1;
-  }
 }
 
 // Resize Controls
