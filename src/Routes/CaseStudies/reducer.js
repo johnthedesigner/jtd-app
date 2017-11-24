@@ -2,7 +2,6 @@ import _ from 'lodash'
 import uuid from 'uuid'
 
 import { consoleGroup } from '../../utils/utils'
-import { getLayerDimensions } from './artboardUtils'
 import { newLayers } from '../../store/newLayers'
 import {
   ADD_ARTBOARD,
@@ -111,23 +110,17 @@ export default function Artboards(state = {}, a) {
       let draggedCaseStudies = _.cloneDeep(state.caseStudies)
       let draggedArtboard = draggedCaseStudies[a.caseStudyId]
       let affectedLayers = draggedArtboard.selections
-      let draggedLayer = _.find(draggedArtboard.layers, {id: a.layerId})
-      // Get bounding box of the layer being dragged to calculate offset
-      let draggedLayerDimensions = getLayerDimensions([draggedLayer])
-      let xDragOffset = a.x - draggedLayerDimensions.x
-      let yDragOffset = a.y - draggedLayerDimensions.y
       // For each selected layer apply offset to all points
       _.each(affectedLayers, (layerId) => {
         let nextDraggedLayer = _.find(draggedArtboard.layers, {id: layerId})
-        let d = nextDraggedLayer.dimensions
-        nextDraggedLayer.dimensions = {
-          x: Math.round(d.x + xDragOffset),
-          y: Math.round(d.y + yDragOffset),
-          width: d.width,
-          height: d.height,
-          rotation: d.rotation,
-          scaleX: d.scaleX,
-          scaleY: d.scaleY
+        let draggedDimensions = _.cloneDeep(nextDraggedLayer.dimensions)
+        draggedDimensions.x += Math.round(a.x)
+        draggedDimensions.y += Math.round(a.y)
+        if (a.previewOnly) {
+          nextDraggedLayer.tempDimensions = draggedDimensions
+        } else {
+          nextDraggedLayer.dimensions = draggedDimensions
+          nextDraggedLayer.tempDimensions = undefined
         }
       })
       return Object.assign({}, state, { caseStudies: draggedCaseStudies })

@@ -23,8 +23,8 @@ class ResizeHandle extends React.Component {
     return connectDragSource(
       <div
         className={`resize-handle ${className}`}
-        onClick={(e) => e.stopPropagation()}
-        style={{ opacity: isDragging ? 0.5 : 1 }}/>
+        onClick={(e) => {console.log('clicked resize-handle')}}
+        style={{ opacity: isDragging ? 0 : 1 }}/>
     )
   }
 }
@@ -34,4 +34,4 @@ ResizeHandle.propTypes = {
   isDragging: PropTypes.bool.isRequired,
 }
 
-export default DragSource('HANDLE', handleSource, collect)(ResizeHandle);
+export default DragSource('RESIZEABLE', handleSource, collect)(ResizeHandle);

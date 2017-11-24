@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { DragDropContext, DropTarget } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
+import DragHandle from './DragHandle'
 import ResizeHandle from './ResizeHandle'
 import { scaleAllDimensions, unscaleDimension } from '../../artboardUtils'
 
@@ -21,6 +22,7 @@ class ResizeControl extends React.Component {
       pointerOffset: {},
     }
     this.calculateLayerResize = this.calculateLayerResize.bind(this)
+    this.handleDrag = this.handleDrag.bind(this)
     this.handleResize = this.handleResize.bind(this)
   }
 
@@ -88,12 +90,23 @@ class ResizeControl extends React.Component {
     })
   }
 
+  handleDrag(layerId, x, y) {
+    this.props.dragLayers(layerId, x, y)
+  }
+
   handleResize(resizeDirectives, previewOnly) {
     this.props.scaleLayer(resizeDirectives, previewOnly)
   }
 
   render() {
-    const { connectDropTarget, isActive } = this.props
+    const {
+      connectDropTarget,
+      dragLayers,
+      enableTextEditor,
+      isActive,
+      layers,
+      selectLayer,
+    } = this.props
     const { x, y, width, height, rotation } = this.state.dimensions
     const toggleActive = () => {
       return (isActive) ? ' is-active' : ''
@@ -114,14 +127,20 @@ class ResizeControl extends React.Component {
       left: x,
       width,
       height,
-      transform: `rotate(${rotation}deg)`
+      transform: `rotate(${rotation}deg)`,
+      pointerEvents: 'none',
     }
 
     return connectDropTarget(
-      <div className='resize-control__drop-target' style={dropTargetStyles}>
+      <div>
+        <div
+          className='resize-control__drop-target'
+          style={dropTargetStyles}
+          onClick={(e) => {console.log('clicked resize-control__drop-target')}}/>
         <div
           className={'resize-control__wrapper' + toggleActive()}
-          style={resizeableControlStyles}>
+          style={resizeableControlStyles}
+          onClick={(e) => {console.log('clicked resize-control__wrapper')}}>
           <ResizeHandle
             className='resize-handle__top'
             directions={['top']}/>
@@ -147,6 +166,16 @@ class ResizeControl extends React.Component {
             className='resize-handle__bottom-left'
             directions={['bottom', 'left']}/>
         </div>
+        {_.map(_.orderBy(layers,'order'),(layer,index) => { return (
+          <DragHandle
+            dragLayers={dragLayers}
+            enableTextEditor={enableTextEditor}
+            HTML5Backend={HTML5Backend}
+            key={layer.id}
+            layer={layer}
+            selectLayer={selectLayer}
+            scaleFactor={this.props.scaleFactor}/>
+        )})}
       </div>
     )
   }
@@ -155,25 +184,65 @@ class ResizeControl extends React.Component {
 // Capture handle drag and drop activity
 const dropTargetSpec = {
   drop(props, monitor, component) {
-    let resizeDirectives = component.calculateLayerResize(
-      monitor.getDifferenceFromInitialOffset(),
-      monitor.getItem()
-    )
-    component.handleResize(resizeDirectives, false)
+    let handleType = monitor.getItemType()
+    switch (handleType) {
+      case 'RESIZEABLE':
+        let resizeDirectives = component.calculateLayerResize(
+          monitor.getDifferenceFromInitialOffset(),
+          monitor.getItem()
+        )
+        props.scaleLayer(resizeDirectives, true)
+        break
+
+      case 'DRAGGABLE':
+        let dragOffset = monitor.getDifferenceFromInitialOffset()
+        let layerId = monitor.getItem().layerId
+        props.dragLayers(
+          layerId,
+          unscaleDimension(dragOffset.x, props.scaleFactor),
+          unscaleDimension(dragOffset.y, props.scaleFactor),
+          false
+        )
+        break
+
+      default:
+        break
+    }
   },
   hover(props, monitor, component) {
     let newPointerOffset = monitor.getDifferenceFromInitialOffset()
+    // Only do something if the pointer has moved
     if (
       newPointerOffset.x !== component.state.pointerOffset.x ||
       newPointerOffset.y !== component.state.pointerOffset.y
     ) {
-      let resizeDirectives = component.calculateLayerResize(
-        newPointerOffset,
-        monitor.getItem()
-      )
-      // Set latest pointer offset before dispatching drag event
-      component.state.pointerOffset = newPointerOffset
-      component.handleResize(resizeDirectives, true)
+      let handleType = monitor.getItemType()
+      switch (handleType) {
+        case 'RESIZEABLE':
+          let resizeDirectives = component.calculateLayerResize(
+            newPointerOffset,
+            monitor.getItem()
+          )
+          // Set latest pointer offset before dispatching drag event
+          component.state.pointerOffset = newPointerOffset
+          props.scaleLayer(resizeDirectives, true)
+          break
+
+        case 'DRAGGABLE':
+          let dragOffset = monitor.getDifferenceFromInitialOffset()
+          let layerId = monitor.getItem().layerId
+          component.state.pointerOffset = newPointerOffset
+          props.dragLayers(
+            layerId,
+            unscaleDimension(dragOffset.x, props.scaleFactor),
+            unscaleDimension(dragOffset.y, props.scaleFactor),
+            true
+          )
+          break
+
+        default:
+          break
+      }
     } else {
       component.state.pointerOffset = newPointerOffset
     }
@@ -201,4 +270,9 @@ ResizeControl.propTypes = {
   scaleLayer: PropTypes.func.isRequired,
 }
 
-export default DragDropContext(HTML5Backend)(DropTarget('HANDLE', dropTargetSpec, collect)(ResizeControl))
+export default DragDropContext(HTML5Backend)(
+  DropTarget(
+    ['RESIZEABLE', 'DRAGGABLE'],
+    dropTargetSpec,
+    collect
+  )(ResizeControl))

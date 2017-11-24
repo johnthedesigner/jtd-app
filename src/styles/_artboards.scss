@@ -76,6 +76,7 @@
 
 // Resize Controls
 .resize-control__wrapper {
+  // background: #F00;
   display: block;
   position: absolute;
   top: 0;
@@ -100,6 +101,11 @@
       pointer-events: initial;
     }
   }
+}
+
+// Drag Controls
+.drag-handle {
+  // background: rgba(255,0,0,.4);
 }
 
 // Resize Handles

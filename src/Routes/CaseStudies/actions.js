@@ -74,13 +74,14 @@ export function deselectLayersArtboard(caseStudyId) {
   }
 }
 
-export function dragLayers(caseStudyId, layerId, x, y) {
+export function dragLayers(caseStudyId, layerId, x, y, previewOnly) {
   return {
     type: DRAG_LAYERS,
     caseStudyId,
     layerId,
     x,
-    y
+    y,
+    previewOnly,
   }
 }
 

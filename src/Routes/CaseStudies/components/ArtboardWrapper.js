@@ -10,7 +10,6 @@ import Artboard from './Artboard'
 import ActionBars from './ActionBars'
 import Layer from './layers/Layer'
 import TextLayerEditor from './layers/TextLayerEditor'
-import DragControl from './layers/DragControl'
 import ResizeControl from './layers/ResizeControl'
 import {
   scaleDimension,
@@ -224,21 +223,14 @@ class ArtboardWrapper extends React.Component {
                 </svg>
                 <ResizeControl
                   caseStudyId={mappedArtboard.id}
+                  dragLayers={dragLayers}
                   dimensions={mappedArtboard.selection.dimensions}
+                  enableTextEditor={enableTextEditor}
                   isActive={mappedArtboard.selection.isActive}
+                  layers={mappedArtboard.layers}
                   scaleLayer={scaleLayer}
-                  scaleFactor={this.state.scaleFactor}/>
-                {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => { return (
-                  <DragControl
-                    adjustLayers={adjustLayers}
-                    dragLayers={dragLayers}
-                    enableTextEditor={enableTextEditor}
-                    highlightLayer={highlightLayer}
-                    key={layer.id}
-                    layer={layer}
-                    selectLayer={selectLayer}
-                    scaleFactor={this.state.scaleFactor}/>
-                )})}
+                  scaleFactor={this.state.scaleFactor}
+                  selectLayer={selectLayer}/>
                 <EditableTextLayer />
               </div>
               <div className='artboard__action-bar'>

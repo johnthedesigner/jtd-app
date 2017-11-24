@@ -46,8 +46,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deselectLayersArtboard: () => {
       dispatch(deselectLayersArtboard(ownProps.caseStudyId))
     },
-    dragLayers: (layerId, x, y) => {
-      dispatch(dragLayers(ownProps.caseStudyId, layerId, x, y))
+    dragLayers: (layerId, x, y, previewOnly) => {
+      dispatch(dragLayers(ownProps.caseStudyId, layerId, x, y, previewOnly))
     },
     enableTextEditor: (layerId) => {
       dispatch(enableTextEditor(ownProps.caseStudyId, layerId))
