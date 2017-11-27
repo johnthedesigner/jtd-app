@@ -26,8 +26,12 @@ class AdjustmentsPanel extends React.Component {
       scaleLayer,
     } = this.props
 
+    let activeClass = (dimensions.x ? 'active' : '')
+
     return (
-      <div className="adjustments-panel__wrapper" onClick={this.handleClick}>
+      <div
+        className={`adjustments-panel__wrapper ${activeClass}`}
+        onClick={this.handleClick}>
         <div className="adjustments-panel__header">Dimensions</div>
         <DimensionsAdjustment
           adjustLayers={adjustLayers}

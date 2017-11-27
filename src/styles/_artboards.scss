@@ -108,6 +108,11 @@
 // Drag Controls
 .drag-handle {
   // background: rgba(255,0,0,.4);
+  box-sizing: border-box;
+
+  &:hover {
+    border: $magenta solid 1px;
+  }
 }
 
 // Resize Handles
@@ -151,7 +156,7 @@ $resizeEdgeWidth: .5rem;
   width: $resizeEdgeWidth;
   height: $resizeEdgeWidth;
   background: white;
-  border: $resizeHandleStroke solid 2px;
+  border: $magenta solid 1px;
   border-radius: 50%;
 }
 .resize-handle__top-left {
@@ -214,13 +219,19 @@ $resizeEdgeWidth: .5rem;
   bottom: 1rem;
   width: 9rem;
   padding-right: 1rem;
-  margin-left: -8rem;
+  margin-left: 1rem;
   box-sizing: border-box;
+  overflow: auto;
   z-index: 10;
   background: #333;
   color: white;
   box-shadow: 0 2px 5px rgba(0,0,0,.3);
   border-radius: .1875rem;
+  transition: margin-left ease-in-out .2s;
+
+  &.active {
+    margin-left: -8rem;
+  }
 }
 .adjustments-panel__header {
   background: #111;

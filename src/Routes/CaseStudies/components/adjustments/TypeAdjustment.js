@@ -27,10 +27,6 @@ class TypeAdjustment extends React.Component {
     if (adjustments) {
       return(
         <div>
-          <div className="adjustment-group__header">
-            <hr/>
-            Type Styles
-          </div>
           <ColorInput
             key={adjustmentGroup + 'color'}
             propertyName={'color'}

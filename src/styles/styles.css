@@ -111,6 +111,12 @@ body {
 .resize-control__wrapper.is-active > * {
   pointer-events: initial; }
 
+.drag-handle {
+  box-sizing: border-box; }
+
+.drag-handle:hover {
+  border: rgba(255, 0, 188, 0.9) solid 1px; }
+
 .resize-handle, .resize-handle__top-left, .resize-handle__top-right, .resize-handle__bottom-right, .resize-handle__bottom-left {
   position: absolute; }
 
@@ -149,7 +155,7 @@ body {
   width: 0.5rem;
   height: 0.5rem;
   background: white;
-  border: rgba(255, 0, 188, 0.4) solid 2px;
+  border: rgba(255, 0, 188, 0.9) solid 1px;
   border-radius: 50%; }
 
 .resize-handle__top-left {
@@ -204,13 +210,18 @@ body {
   bottom: 1rem;
   width: 9rem;
   padding-right: 1rem;
-  margin-left: -8rem;
+  margin-left: 1rem;
   box-sizing: border-box;
+  overflow: auto;
   z-index: 10;
   background: #333;
   color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  border-radius: .1875rem; }
+  border-radius: .1875rem;
+  transition: margin-left ease-in-out .2s; }
+
+.adjustments-panel__wrapper.active {
+  margin-left: -8rem; }
 
 .adjustments-panel__header {
   background: #111;
