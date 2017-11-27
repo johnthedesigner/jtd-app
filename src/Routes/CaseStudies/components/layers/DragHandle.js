@@ -33,6 +33,7 @@ class DragHandle extends React.Component {
       }
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleDoubleClick = this.handleDoubleClick.bind(this)
   }
 
   componentDidMount() {
@@ -54,6 +55,11 @@ class DragHandle extends React.Component {
     this.props.selectLayer(this.props.layer.id)
   }
 
+  handleDoubleClick(e) {
+    e.stopPropagation()
+    this.props.enableTextEditor(this.props.layer.id)
+  }
+
   render() {
     const { connectDragSource, isDragging } = this.props
     const { x, y, width, height, rotation } = this.state.dimensions
@@ -72,6 +78,7 @@ class DragHandle extends React.Component {
       <div
         className={`drag-handle`}
         onClick={this.handleClick}
+        onDoubleClick={this.handleDoubleClick}
         onDrag={this.handleDrag}
         style={dragHandleStyles}/>
     )

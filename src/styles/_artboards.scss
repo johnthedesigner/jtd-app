@@ -65,6 +65,9 @@
   &.is-selected {
     box-shadow: 0 4px 12px 3px rgba(50,50,50,.5);
   }
+  svg {
+    user-select: none;
+  }
 }
 
 // Layers
@@ -264,7 +267,7 @@ $resizeEdgeWidth: .5rem;
   }
   > input {
     font-family: 'Source Code Pro', sans-serif;
-    line-height: 2;
+    line-height: 1.5;
     flex: 6;
     width: 60px;
     margin: 0 .25rem;

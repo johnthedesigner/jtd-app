@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import idx from 'idx'
+import _ from 'lodash'
 
 import ColorInput from './ColorInput'
+import SelectInput from './SelectInput'
 import TextInput from './TextInput'
+
+import { fontSizes } from './typeStyles'
 
 class TypeAdjustment extends React.Component {
   render() {
@@ -18,6 +22,9 @@ class TypeAdjustment extends React.Component {
     const setFontSize = (value) => {
       setLayerAdjustment('fontSize', value)
     }
+    const fontSizeOptions = _.map(fontSizes, (size) => {
+      return { name: size, value: size }
+    })
 
     let color = idx(adjustments, _ => _.textColor)
     if (!color) color = ''
@@ -33,12 +40,12 @@ class TypeAdjustment extends React.Component {
             label='Text Color'
             setLayerAdjustment={setLayerAdjustment}
             valueFromProps={color}/>
-          <TextInput
+          <SelectInput
             key={adjustmentGroup + 'fontSize'}
             propertyName={'fontSize'}
             label='Size'
+            options={fontSizeOptions}
             setValue={setFontSize}
-            type='number'
             valueFromProps={fontSize}/>
         </div>
       )

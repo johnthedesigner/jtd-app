@@ -82,6 +82,9 @@ body {
 .artboard__svg-wrapper.is-selected {
   box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
 
+.artboard__svg-wrapper svg {
+  user-select: none; }
+
 .layer__wrapper {
   position: absolute;
   top: 0;
@@ -252,7 +255,7 @@ body {
 
 .adjustments-input--text > input {
   font-family: 'Source Code Pro', sans-serif;
-  line-height: 2;
+  line-height: 1.5;
   flex: 6;
   width: 60px;
   margin: 0 .25rem;

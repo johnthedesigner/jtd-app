@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 class TextInput extends React.Component {
   constructor(props) {
     super(props)
     this.state = { value: '' }
-    this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleFocus = this.handleFocus.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentWillMount() {
@@ -24,45 +22,27 @@ class TextInput extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      value: event.target.value
-    })
-  }
-
-  handleFocus(event) {
-    event.target.select()
-  }
-
-  handleBlur(event) {
-    this.props.setValue(this.state.value)
-  }
-
-  handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      event.target.blur()
-    } else if (this.props.type === 'number') {
-      // console.log(event.key)
-    }
+    this.props.setValue(event.target.value)
   }
 
   render() {
     const {
       propertyName,
       label,
+      options,
       type,
     } = this.props
 
     return (
-      <div className='adjustments-input adjustments-input--text'>
+      <div className='adjustments-input adjustments-input--select'>
         <label htmlFor={'dimensions-adjustment__' + propertyName}>{label}</label>
-        <input
-          type={type}
+        <select
           value={this.state.value}
-          placeholder={'-'}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}
-          onKeyPress={this.handleKeyPress}
-          onFocus={this.handleFocus}/>
+          onChange={this.handleChange}>
+          {_.map(options, (option) => {
+            return(<option key={option.value} value={option.value}>{option.name}</option>)
+          })}
+        </select>
       </div>
     )
   }
