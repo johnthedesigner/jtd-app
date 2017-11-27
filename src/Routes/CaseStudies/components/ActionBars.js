@@ -37,7 +37,7 @@ class ActionBars extends React.Component {
   render() {
     return (
       <div>
-        <div className="action-bar__left" onClick={this.handleClick}>
+        <div className="action-bar__top-right" onClick={this.handleClick}>
           <button
             className='action-bar__button'
             onClick={this.addRectangle}>
@@ -59,7 +59,7 @@ class ActionBars extends React.Component {
             <ActionIcon iconType='textLayer' fill={this.props.buttonFill}/>
           </button>
         </div>
-        <div className="action-bar__top-right" onClick={this.handleClick}>
+        <div className="action-bar__bottom-right" onClick={this.handleClick}>
           <button
             className='action-bar__button'
             onClick={e => {
@@ -73,29 +73,6 @@ class ActionBars extends React.Component {
               this.props.moveLayers('back')
             }}>
             <ActionIcon iconType='sendToBack' fill={this.props.buttonFill}/>
-          </button>
-        </div>
-        <div className="action-bar__bottom-right" onClick={this.handleClick}>
-          <button
-            className='action-bar__button'
-            onClick={e => {
-              this.props.toggleFlyout('dimensions')
-            }}>
-            <ActionIcon iconType='resize' fill={this.props.buttonFill}/>
-          </button>
-          <button
-          className='action-bar__button'
-          onClick={e => {
-            this.props.toggleFlyout('fill')
-          }}>
-            <ActionIcon iconType='fill' fill={this.props.buttonFill}/>
-          </button>
-          <button
-          className='action-bar__button'
-          onClick={e => {
-            this.props.toggleFlyout('type')
-          }}>
-            <ActionIcon iconType='text' fill={this.props.buttonFill}/>
           </button>
         </div>
       </div>

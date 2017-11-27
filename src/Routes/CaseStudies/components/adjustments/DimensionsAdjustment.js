@@ -54,37 +54,42 @@ class DimensionsAdjustment extends React.Component {
           <TextInput
             key={adjustmentGroup + 'x'}
             propertyName={'x'}
-            label='x'
+            label='X'
             setValue={setX}
-            type='number'
+            suffix='px'
+            type='text'
             valueFromProps={x}/>
           <TextInput
             key={adjustmentGroup + 'y'}
             propertyName={'y'}
-            label='y'
+            label='Y'
             setValue={setY}
-            type='number'
+            suffix='px'
+            type='text'
             valueFromProps={y}/>
           <TextInput
             key={adjustmentGroup + 'width'}
             propertyName={'width'}
-            label='Width'
+            label='W'
             setValue={setWidth}
-            type='number'
+            suffix='px'
+            type='text'
             valueFromProps={width}/>
           <TextInput
             key={adjustmentGroup + 'height'}
             propertyName={'height'}
-            label='Height'
+            label='H'
             setValue={setHeight}
-            type='number'
+            suffix='px'
+            type='text'
             valueFromProps={height}/>
           <TextInput
             key={adjustmentGroup + 'rotation'}
             propertyName={'rotation'}
-            label='Rotation'
+            label='R'
             setValue={setRotation}
-            type='number'
+            suffix='deg'
+            type='text'
             valueFromProps={rotation}/>
         </div>
       )

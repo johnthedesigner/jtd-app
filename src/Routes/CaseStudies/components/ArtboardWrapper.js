@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { mouseTrap } from 'react-mousetrap'
 
 import { mapArtboard } from '../artboardUtils'
-import AdjustmentsFlyouts from './adjustments/AdjustmentsFlyouts'
+import AdjustmentsPanel from './adjustments/AdjustmentsPanel'
 import Artboard from './Artboard'
 import ActionBars from './ActionBars'
 import Layer from './layers/Layer'
@@ -196,16 +196,11 @@ class ArtboardWrapper extends React.Component {
               key={mappedArtboard.id}
               scaleFactor={this.state.scaleFactor}
               deselectLayersArtboard={deselectLayersArtboard}>
-              <div>
+              <div className='artboard__svg-wrapper'>
                 <svg
                   width={scaleDimension(1000, this.state.scaleFactor)}
                   height={scaleDimension(1000, this.state.scaleFactor)}
-                  viewBox="0 0 1000 1000"
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0
-                  }}>
+                  viewBox="0 0 1000 1000">
                   {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => {
                     return (
                     <Layer
@@ -243,16 +238,14 @@ class ArtboardWrapper extends React.Component {
                   moveLayers={moveLayers}
                   toggleFlyout={toggleFlyout}/>
               </div>
-              <AdjustmentsFlyouts
+              <AdjustmentsPanel
                 adjustments={adjustments}
                 adjustLayers={adjustLayers}
-                activeFlyout={mappedArtboard.activeFlyout}
                 bumpLayers={bumpLayers}
                 caseStudyId={caseStudyId}
                 dimensions={selectionDimensions}
                 rotateLayer={rotateLayer}
-                scaleLayer={scaleLayer}
-                toggleFlyout={toggleFlyout}/>
+                scaleLayer={scaleLayer}/>
             </Artboard>
           </div>
         </div>

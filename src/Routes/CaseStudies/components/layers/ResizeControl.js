@@ -135,12 +135,10 @@ class ResizeControl extends React.Component {
       <div>
         <div
           className='resize-control__drop-target'
-          style={dropTargetStyles}
-          onClick={(e) => {console.log('clicked resize-control__drop-target')}}/>
+          style={dropTargetStyles}/>
         <div
           className={'resize-control__wrapper' + toggleActive()}
-          style={resizeableControlStyles}
-          onClick={(e) => {console.log('clicked resize-control__wrapper')}}>
+          style={resizeableControlStyles}>
           <ResizeHandle
             className='resize-handle__top'
             directions={['top']}/>

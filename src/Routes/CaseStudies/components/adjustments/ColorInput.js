@@ -36,14 +36,23 @@ class ColorInput extends React.Component {
       label,
     } = this.props
 
+    const thumbnailStyles = {
+      background: this.state.value,
+      width: '20px',
+      height: '20px',
+      border: '#ddd solid 1px',
+    }
+
     return (
       <div>
         <label htmlFor={'color-adjustment__' + propertyName}>{label}</label>
-        <SketchPicker
-          color={this.state.value}
-          onChangeComplete={this.handleChangeComplete}
-          triangle='top-right'
-        />
+        <div style={thumbnailStyles}/>
+        <div style={{display: 'none'}}>
+          <SketchPicker
+            color={this.state.value}
+            onChangeComplete={this.handleChangeComplete}
+            triangle='top-right'/>
+        </div>
       </div>
     )
   }

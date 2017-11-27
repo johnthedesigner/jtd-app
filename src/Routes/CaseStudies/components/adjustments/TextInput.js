@@ -34,6 +34,8 @@ class TextInput extends React.Component {
   }
 
   handleBlur(event) {
+    let { suffix } =  this.props
+    let removeSuffix = (suffix ? suffix : '')
     this.props.setValue(this.state.value)
   }
 
@@ -49,15 +51,18 @@ class TextInput extends React.Component {
     const {
       propertyName,
       label,
+      suffix,
       type,
     } = this.props
 
+    let applySuffix = (suffix ? suffix : '')
+
     return (
-      <div>
+      <div className='adjustments-input adjustments-input--text'>
         <label htmlFor={'dimensions-adjustment__' + propertyName}>{label}</label>
         <input
           type={type}
-          value={this.state.value}
+          value={this.state.value + applySuffix}
           placeholder={'-'}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
