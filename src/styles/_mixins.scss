@@ -1,0 +1,41 @@
+// Fonts
+@mixin font-source-code() {
+  font-family: 'Source Code Pro', sans-serif;
+}
+
+@mixin radius() {
+  border-radius: .125rem;
+}
+
+// Adjustment Inputs
+@mixin adjustments-label() {
+  font-family: 'Source Code Pro', sans-serif;
+  font-size: .75rem;
+  color: white;
+  display: block;
+  flex: 1;
+  margin: 0 .5rem;
+}
+
+@mixin adjustments-text-input() {
+  @include font-source-code();
+  line-height: 1.5;
+  padding: 0 .25rem;
+  box-sizing: border-box;
+  background: #666;
+  border: none;
+  border-radius: .125rem;
+  color: white;
+}
+
+@mixin adjustments-select-input() {
+  @include font-source-code();
+  @include radius();
+  appearance: none;
+  line-height: 1.5;
+  padding: 0 .25rem;
+  box-sizing: border-box;
+  background: #666;
+  border: none;
+  color: white;
+}

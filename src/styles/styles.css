@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   height: 100%; }
 
@@ -247,21 +248,59 @@ body {
 .adjustments-input--text > label {
   font-family: 'Source Code Pro', sans-serif;
   font-size: .75rem;
-  text-align: center;
   color: white;
   display: block;
   flex: 1;
-  margin: 0 .25rem; }
+  margin: 0 .5rem; }
 
 .adjustments-input--text > input {
   font-family: 'Source Code Pro', sans-serif;
   line-height: 1.5;
-  flex: 6;
-  width: 60px;
-  margin: 0 .25rem;
   padding: 0 .25rem;
   box-sizing: border-box;
   background: #666;
   border: none;
   border-radius: .125rem;
-  color: white; }
+  color: white;
+  flex: 6;
+  width: 60px;
+  margin: 0 .25rem; }
+
+.adjustments-input--select {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 7.25rem;
+  padding: .25rem; }
+
+.adjustments-input--select > label {
+  font-family: 'Source Code Pro', sans-serif;
+  font-size: .75rem;
+  color: white;
+  display: block;
+  flex: 1;
+  margin: 0 .5rem; }
+
+.adjustments-input--select > select {
+  font-family: 'Source Code Pro', sans-serif;
+  border-radius: .125rem;
+  appearance: none;
+  line-height: 1.5;
+  padding: 0 .25rem;
+  box-sizing: border-box;
+  background: #666;
+  border: none;
+  color: white;
+  flex: 6;
+  width: 60px;
+  margin: 0 .25rem; }
+
+.adjustments-input--select::after {
+  content: '⌄';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: .75rem;
+  line-height: 1.5rem;
+  pointer-events: none; }

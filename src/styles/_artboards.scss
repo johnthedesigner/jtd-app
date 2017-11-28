@@ -257,25 +257,40 @@ $resizeEdgeWidth: .5rem;
   padding: .25rem;
 
   > label {
-    font-family: 'Source Code Pro', sans-serif;
-    font-size: .75rem;
-    text-align: center;
-    color: white;
-    display: block;
-    flex: 1;
-    margin: 0 .25rem;
+    @include adjustments-label();
   }
   > input {
-    font-family: 'Source Code Pro', sans-serif;
-    line-height: 1.5;
+    @include adjustments-text-input();
     flex: 6;
     width: 60px;
     margin: 0 .25rem;
-    padding: 0 .25rem;
-    box-sizing: border-box;
-    background: #666;
-    border: none;
-    border-radius: .125rem;
-    color: white;
+  }
+}
+
+.adjustments-input--select {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 7.25rem;
+  padding: .25rem;
+
+  > label {
+    @include adjustments-label();
+  }
+  > select {
+    @include adjustments-select-input();
+    flex: 6;
+    width: 60px;
+    margin: 0 .25rem;
+  }
+  &::after {
+    content: '⌄';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: .75rem;
+    line-height: 1.5rem;
+    pointer-events: none;
   }
 }
