@@ -52,9 +52,17 @@ class TextInput extends React.Component {
       type,
     } = this.props
 
+    const labelStyles = {
+      display: (label ? 'block' : 'none')
+    }
+
     return (
       <div className='adjustments-input adjustments-input--text'>
-        <label htmlFor={'dimensions-adjustment__' + propertyName}>{label}</label>
+        <label
+          htmlFor={'dimensions-adjustment__' + propertyName}
+          style={labelStyles}>
+          {label}
+        </label>
         <input
           type={type}
           value={this.state.value}
@@ -70,7 +78,7 @@ class TextInput extends React.Component {
 
 TextInput.propTypes = {
   propertyName: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string
 }
 
 export default TextInput

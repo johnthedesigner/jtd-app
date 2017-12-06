@@ -37,16 +37,13 @@ class ColorInput extends React.Component {
     } = this.props
 
     const thumbnailStyles = {
-      background: this.state.value,
-      width: '20px',
-      height: '20px',
-      border: '#ddd solid 1px',
+      background: this.state.value
     }
 
     return (
       <div>
         <label htmlFor={'color-adjustment__' + propertyName}>{label}</label>
-        <div style={thumbnailStyles}/>
+        <div className='color-adjustment__thumbnail' style={thumbnailStyles}/>
         <div style={{display: 'none'}}>
           <SketchPicker
             color={this.state.value}
@@ -60,7 +57,7 @@ class ColorInput extends React.Component {
 
 ColorInput.propTypes = {
   propertyName: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string
 }
 
 export default ColorInput

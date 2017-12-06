@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-class TextInput extends React.Component {
+class SelectInput extends React.Component {
   constructor(props) {
     super(props)
     this.state = { value: '' }
@@ -33,9 +33,17 @@ class TextInput extends React.Component {
       type,
     } = this.props
 
+    const labelStyles = {
+      display: (label ? 'block' : 'none')
+    }
+
     return (
       <div className='adjustments-input adjustments-input--select'>
-        <label htmlFor={'dimensions-adjustment__' + propertyName}>{label}</label>
+        <label
+          htmlFor={'dimensions-adjustment__' + propertyName}
+          style={labelStyles}>
+          {label}
+        </label>
         <select
           value={this.state.value}
           onChange={this.handleChange}>
@@ -48,9 +56,9 @@ class TextInput extends React.Component {
   }
 }
 
-TextInput.propTypes = {
+SelectInput.propTypes = {
   propertyName: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string
 }
 
-export default TextInput
+export default SelectInput

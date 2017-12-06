@@ -50,7 +50,7 @@ class DimensionsAdjustment extends React.Component {
     }
     if (adjustments) {
       return(
-        <div>
+        <div className='adjustments-panel__adjustment-block'>
           <TextInput
             key={adjustmentGroup + 'x'}
             propertyName={'x'}

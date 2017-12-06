@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+import { typeStyles } from '../adjustments/adjustmentOptions'
+import { unscaleDimension } from '../../artboardUtils'
+
 class TextLayer extends React.Component {
   constructor(props) {
     super(props)
@@ -18,13 +21,16 @@ class TextLayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ text: nextProps.text })
-    this.layoutText(nextProps)
+  }
+
+  componentDidUpdate() {
+    this.layoutText(this.props)
   }
 
   layoutText(props) {
     let { textTag } = this
     let { fontSize } = props.layer.adjustments.text
-    let { width } = props.layer.dimensions
+    let { height, width } = props.layer.dimensions
     // Prepare to track current row width and vertical offset
     let rowWidth = 0
     let lineHeight = fontSize * 1.2
@@ -47,7 +53,15 @@ class TextLayer extends React.Component {
   }
 
   render() {
-    let { align, color, fontSize } = this.props.layer.adjustments.text
+    let {
+      align,
+      color,
+      fontFamily,
+      fontSize
+    } = this.props.layer.adjustments.text
+    let fontFamilyProps = _.find(typeStyles.families, (family) => {
+      return (family.id === fontFamily)
+    })
     let { x, y, width, height, rotation } = this.props.layer.dimensions
     let { text, isEditable } = this.props.layer
     let textArray = text.split(' ')
@@ -69,7 +83,7 @@ class TextLayer extends React.Component {
 
     // Hide svg text while editing
     let textStyles = {
-      visibility: (isEditable ? 'hidden' : 'visible')
+      visibility: (isEditable ? 'hidden' : 'visible'),
     }
 
     return (
@@ -82,6 +96,7 @@ class TextLayer extends React.Component {
         y={y}
         dx={dx}
         dy={fontSize}
+        fontFamily={fontFamilyProps.value}
         style={textStyles}
         textAnchor={textAnchor}
         transform={

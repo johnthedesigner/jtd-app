@@ -204,16 +204,13 @@ class ArtboardWrapper extends React.Component {
                   {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => {
                     return (
                     <Layer
-                      adjustLayers={adjustLayers}
                       dragLayers={dragLayers}
                       highlightLayer={highlightLayer}
-                      key={layer.id}
+                      key={`layer${layer.id}`}
                       layer={layer}
                       selectLayer={selectLayer}
                       scaleFactor={this.state.scaleFactor}
-                      scaleDimension={scaleDimension}
-                      scaleAllDimensions={scaleAllDimensions}
-                      unscaleDimension={unscaleDimension}/>
+                      scaleLayer={scaleLayer}/>
                   )})}
                 </svg>
                 <ResizeControl

@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import idx from 'idx'
+import _ from 'lodash'
 
 import ColorInput from './ColorInput'
+import SelectInput from './SelectInput'
+import { fillTypes } from './adjustmentOptions'
 
 class FillAdjustment extends React.Component {
   render() {
@@ -14,19 +17,28 @@ class FillAdjustment extends React.Component {
       adjustLayers(adjustmentGroup, propertyName, value)
     }
 
+    const setFillType = (value) => setLayerAdjustment('type', value)
+    const fillTypeOptions = _.map(fillTypes, option => {
+      return { name: option.name, value: option.type }
+    })
+    let type = idx(adjustments, _ => _.type)
+    if (!type) type = ''
+
     let backgroundColor = idx(adjustments, _ => _.color)
     if (!backgroundColor) backgroundColor = ''
 
     if (adjustments) {
       return(
-        <div>
-          <div className="adjustment-group__header">
-            Fill
-          </div>
+        <div className='adjustments-panel__adjustment-block'>
+          <SelectInput
+            key={adjustmentGroup + 'type'}
+            options={fillTypeOptions}
+            propertyName={'type'}
+            setValue={setFillType}
+            valueFromProps={type}/>
           <ColorInput
             key={adjustmentGroup + 'backgroundColor'}
             propertyName={'backgroundColor'}
-            label='Color'
             setLayerAdjustment={setLayerAdjustment}
             valueFromProps={backgroundColor}/>
         </div>

@@ -5,7 +5,7 @@ import _ from 'lodash'
 class EllipseLayer extends React.Component {
   render() {
     let { dimensions } = this.props
-    let { fill } = this.props.layer.adjustments
+    let { fill, stroke } = this.props.layer.adjustments
     let rotateOriginX = dimensions.x + (dimensions.width / 2)
     let rotateOriginY = dimensions.y + (dimensions.height / 2)
     return (
@@ -16,6 +16,8 @@ class EllipseLayer extends React.Component {
         rx={dimensions.width / 2}
         ry={dimensions.height / 2}
         fill={fill.color}
+        stroke={stroke.color}
+        strokeWidth={stroke.width}
         transform={
           `rotate(${dimensions.rotation} ${rotateOriginX} ${rotateOriginY})`
         }/>

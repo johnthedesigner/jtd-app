@@ -14,12 +14,13 @@
   color: white;
   display: block;
   flex: 1;
-  margin: 0 .5rem;
+  margin-right: .5rem;
 }
 
 @mixin adjustments-text-input() {
   @include font-source-code();
   line-height: 1.5;
+  width: 100%;
   padding: 0 .25rem;
   box-sizing: border-box;
   background: #666;
@@ -33,6 +34,7 @@
   @include radius();
   appearance: none;
   line-height: 1.5;
+  width: 100%;
   padding: 0 .25rem;
   box-sizing: border-box;
   background: #666;

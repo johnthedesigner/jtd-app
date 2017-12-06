@@ -17,27 +17,7 @@ export default {
     buttonFill: '#999999',
     titleColor: '#21967D'
   },
-  layers: [
-    {
-      id: uuid.v1(),
-      type: layerTypes.rectangle,
-      title: 'rectangle',
-      order: 0,
-      dimensions: {
-        x: 350,
-        y: 350,
-        width: 300,
-        height: 300,
-        rotation: 45
-      },
-      adjustments: {
-        fill: {
-          type: 'color',
-          color: 'rgba(45,156,219,1)'
-        }
-      },
-    }
-  ],
+  layers: [],
   selections: [],
   editingTextLayer: null,
   activeFlyout: null

@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import idx from 'idx'
 
-import FillAdjustment from './FillAdjustment'
 import DimensionsAdjustment from './DimensionsAdjustment'
-import TypeAdjustment from './TypeAdjustment'
+import FillAdjustment from './FillAdjustment'
+import StrokeAdjustment from './StrokeAdjustment'
+import TextAdjustment from './TextAdjustment'
 
 class AdjustmentsPanel extends React.Component {
   constructor(props) {
@@ -43,8 +44,12 @@ class AdjustmentsPanel extends React.Component {
         <FillAdjustment
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.fill)}/>
+        <div className="adjustments-panel__header">Stroke</div>
+        <StrokeAdjustment
+          adjustLayers={adjustLayers}
+          adjustments={idx(adjustments, _ => _.stroke)}/>
         <div className="adjustments-panel__header">Type</div>
-        <TypeAdjustment
+        <TextAdjustment
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.text)}/>
       </div>

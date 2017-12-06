@@ -15,6 +15,10 @@ export const newLayers = {
         fill: {
           type: 'color',
           color: 'rgba(11,231,183,1)'
+        },
+        stroke: {
+          color: 'rgba(40,40,40,1)',
+          width: 1
         }
       },
     }
@@ -55,6 +59,10 @@ export const newLayers = {
         fill: {
           type: 'color',
           color: 'rgba(11,231,183,1)'
+        },
+        stroke: {
+          color: 'rgba(40,40,40,1)',
+          width: 1
         }
       },
     }
@@ -75,6 +83,7 @@ export const newLayers = {
       adjustments: {
         text: {
           textColor: '#444444',
+          fontFamily: 'sans',
           fontSize: 24,
           align: 'left'
         }

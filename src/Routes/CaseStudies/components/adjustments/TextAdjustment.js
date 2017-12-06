@@ -7,7 +7,7 @@ import ColorInput from './ColorInput'
 import SelectInput from './SelectInput'
 import TextInput from './TextInput'
 
-import { fontSizes } from './typeStyles'
+import { fontSizes, typeStyles } from './adjustmentOptions'
 
 class TypeAdjustment extends React.Component {
   render() {
@@ -19,27 +19,36 @@ class TypeAdjustment extends React.Component {
       adjustLayers(adjustmentGroup, propertyName, value)
     }
 
-    const setFontSize = (value) => {
-      setLayerAdjustment('fontSize', value)
+    let fontFamily = idx(adjustments, _ => _.fontFamily)
+    if (!fontFamily) fontFamily = ''
+    const fontFamilyOptions = _.map(typeStyles.families, (style) => {
+      return { name: style.name, value: style.id }
+    })
+    const setFontFamily = (value) => {
+      setLayerAdjustment('fontFamily', value)
     }
+
+    let fontSize = idx(adjustments, _ => _.fontSize)
+    if (!fontSize) fontSize = ''
     const fontSizeOptions = _.map(fontSizes, (size) => {
       return { name: size, value: size }
     })
+    const setFontSize = (value) => {
+      setLayerAdjustment('fontSize', value)
+    }
 
     let color = idx(adjustments, _ => _.textColor)
     if (!color) color = ''
-    let fontSize = idx(adjustments, _ => _.fontSize)
-    if (!fontSize) fontSize = ''
 
     if (adjustments) {
       return(
-        <div>
-          <ColorInput
-            key={adjustmentGroup + 'color'}
-            propertyName={'color'}
-            label='Text Color'
-            setLayerAdjustment={setLayerAdjustment}
-            valueFromProps={color}/>
+        <div className='adjustments-panel__adjustment-block'>
+          <SelectInput
+            key={adjustmentGroup + 'fontFamily'}
+            propertyName={'fontFamily'}
+            options={fontFamilyOptions}
+            setValue={setFontFamily}
+            valueFromProps={fontFamily}/>
           <SelectInput
             key={adjustmentGroup + 'fontSize'}
             propertyName={'fontSize'}
@@ -47,6 +56,11 @@ class TypeAdjustment extends React.Component {
             options={fontSizeOptions}
             setValue={setFontSize}
             valueFromProps={fontSize}/>
+          <ColorInput
+            key={adjustmentGroup + 'color'}
+            propertyName={'color'}
+            setLayerAdjustment={setLayerAdjustment}
+            valueFromProps={color}/>
         </div>
       )
     } else {

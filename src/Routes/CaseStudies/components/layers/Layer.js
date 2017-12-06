@@ -71,8 +71,11 @@ class Layer extends React.Component {
 
         case layerTypes.text:
           return ( <TextLayer
+            scaleLayer={this.props.scaleLayer}
             dimensions={this.state}
-            layer={layer}/> )
+            layer={layer}
+            scaleFactor={this.props.scaleFactor}
+            scaleLayer={this.props.scaleLayer}/> )
 
         default:
           console.log('Unrecognized layer type: ',layer.type)
@@ -82,7 +85,7 @@ class Layer extends React.Component {
     let { layer } = this.props
 
     return (
-      <g>
+      <g key={`g${layer.id}`}>
         {layerType(layer)}
       </g>
     )

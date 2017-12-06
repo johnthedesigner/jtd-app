@@ -17,3 +17,8 @@ export const typeStyles = {
   ]}
 
 export const fontSizes = [6,8,12,16,18,24,28,32,36,48,60,72,96,144]
+
+export const fillTypes = [
+  {type: 'color', name: 'Color'},
+  {type: 'gradient', name: 'Gradient'}
+]
