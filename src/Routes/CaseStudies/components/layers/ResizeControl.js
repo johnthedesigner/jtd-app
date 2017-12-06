@@ -20,6 +20,7 @@ class ResizeControl extends React.Component {
         rotation: 0,
       },
       pointerOffset: {},
+      lastDragUpdate: 0,
     }
     this.calculateLayerResize = this.calculateLayerResize.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
@@ -209,10 +210,14 @@ const dropTargetSpec = {
   },
   hover(props, monitor, component) {
     let newPointerOffset = monitor.getDifferenceFromInitialOffset()
+    let rightNow = Date.now()
+    let dragInterval = rightNow - component.state.lastDragUpdate
     // Only do something if the pointer has moved
+    // Also wait at least a little between updates to limit updates per second
     if (
-      newPointerOffset.x !== component.state.pointerOffset.x ||
-      newPointerOffset.y !== component.state.pointerOffset.y
+      (newPointerOffset.x !== component.state.pointerOffset.x ||
+      newPointerOffset.y !== component.state.pointerOffset.y) &&
+      dragInterval > 20
     ) {
       let handleType = monitor.getItemType()
       switch (handleType) {
@@ -222,14 +227,16 @@ const dropTargetSpec = {
             monitor.getItem()
           )
         // Set latest pointer offset before dispatching drag event
-          component.state.pointerOffset = newPointerOffset
-          props.scaleLayer(resizeDirectives, true)
-          break
+        component.state.pointerOffset = newPointerOffset
+        component.state.lastDragUpdate = rightNow
+        props.scaleLayer(resizeDirectives, true)
+        break
 
         case 'DRAGGABLE':
           let dragOffset = monitor.getDifferenceFromInitialOffset()
           let layerId = monitor.getItem().layerId
           component.state.pointerOffset = newPointerOffset
+          component.state.lastDragUpdate = rightNow
           props.dragLayers(
             layerId,
             unscaleDimension(dragOffset.x, props.scaleFactor),
@@ -242,7 +249,8 @@ const dropTargetSpec = {
           break
       }
     } else {
-      component.state.pointerOffset = newPointerOffset
+      // component.state.pointerOffset = newPointerOffset
+      // component.state.lastDragUpdate = rightNow
     }
   }
 }

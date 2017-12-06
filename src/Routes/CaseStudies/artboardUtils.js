@@ -36,19 +36,19 @@ export const scaleAllDimensions = (dimensions, scaleFactor, scaleIn) => {
 export const getLayerDimensions = (layers) => {
   let x = (layers[0] ? _.first(_.orderBy(_.map(layers, (layer) => {
     return layer.dimensions.x
-  }))) : 0)
+  }))) : null)
 
   let y = (layers[0] ? _.first(_.orderBy(_.map(layers, (layer) => {
     return layer.dimensions.y
-  }))) : 0)
+  }))) : null)
 
   let width = (layers[0] ? _.last(_.orderBy(_.map(layers, (layer) => {
     return (layer.dimensions.x - x + layer.dimensions.width)
-  }))) : 0)
+  }))) : null)
 
   let height = (layers[0] ? _.last(_.orderBy(_.map(layers, (layer) => {
     return (layer.dimensions.y - y + layer.dimensions.height)
-  }))) : 0)
+  }))) : null)
 
   let rotation = ( layers.length !== 1 ) ? 0 : layers[0].dimensions.rotation
 

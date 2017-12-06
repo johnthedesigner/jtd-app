@@ -206,7 +206,7 @@ class ArtboardWrapper extends React.Component {
                     <Layer
                       dragLayers={dragLayers}
                       highlightLayer={highlightLayer}
-                      key={`layer${layer.id}`}
+                      key={layer.id}
                       layer={layer}
                       selectLayer={selectLayer}
                       scaleFactor={this.state.scaleFactor}

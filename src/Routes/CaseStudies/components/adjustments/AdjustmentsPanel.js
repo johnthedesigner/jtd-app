@@ -27,7 +27,8 @@ class AdjustmentsPanel extends React.Component {
       scaleLayer,
     } = this.props
 
-    let activeClass = (dimensions.x ? 'active' : '')
+    // Only show adjustments panel if anything is selected
+    let activeClass = (dimensions.x !== null ? 'active' : '')
 
     return (
       <div
