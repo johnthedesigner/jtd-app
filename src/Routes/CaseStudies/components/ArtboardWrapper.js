@@ -244,8 +244,8 @@ class ArtboardWrapper extends React.Component {
                   layers={mappedArtboard.layers}
                   scaleFactor={this.state.scaleFactor}
                   scaleLayer={scaleLayer}
+                  selections={mappedArtboard.selections}
                   selectLayer={selectLayer}
-                  tempDimensions={mappedArtboard.selection.tempDimensions}
                 />
                 <EditableTextLayer />
               </div>

@@ -28,21 +28,37 @@ class ResizeControl extends React.Component {
   }
 
   componentWillMount() {
-    let { dimensions, scaleFactor } = this.props;
-    // If selection dimensions are present, update component state
-    if (dimensions.x !== null) {
-      this.setState({
-        dimensions: scaleAllDimensions(dimensions, scaleFactor, true)
-      });
-    }
+    let { dimensions, layers, selections } = this.props;
+    // If only one layer is selected, grab tempDimensions from that layer
+    let tempDimensions =
+      selections.length === 1 ? layers[selections[0]].tempDimensions : false;
+    this.setLayerDimensions(dimensions, tempDimensions);
   }
 
   componentWillReceiveProps(nextProps) {
-    let { dimensions, scaleFactor } = nextProps;
+    let { dimensions, layers, selections } = nextProps;
+    // If only one layer is selected, grab tempDimensions from that layer
+    let tempDimensions =
+      selections.length === 1 ? layers[selections[0]].tempDimensions : false;
+    this.setLayerDimensions(dimensions, tempDimensions);
+  }
+
+  setLayerDimensions(dimensions, tempDimensions) {
+    let layerDimensions = {};
+    if (tempDimensions) {
+      layerDimensions = tempDimensions;
+    } else {
+      layerDimensions = dimensions;
+    }
+
     // If selection dimensions are present, update component state
-    if (dimensions.x !== null) {
+    if (layerDimensions.x !== null) {
       this.setState({
-        dimensions: scaleAllDimensions(dimensions, scaleFactor, true)
+        dimensions: scaleAllDimensions(
+          layerDimensions,
+          this.props.scaleFactor,
+          true
+        )
       });
     }
   }
@@ -278,6 +294,7 @@ ResizeControl.propTypes = {
   layers: PropTypes.object.isRequired,
   scaleFactor: PropTypes.number.isRequired,
   scaleLayer: PropTypes.func.isRequired,
+  selections: PropTypes.array.isRequired,
   selectLayer: PropTypes.func.isRequired
 };
 
