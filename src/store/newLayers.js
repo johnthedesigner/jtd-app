@@ -84,8 +84,8 @@ export const newLayers = {
         text: {
           textColor: '#444444',
           fontFamily: 'sans',
-          fontSize: 24,
-          align: 'left'
+          fontSize: 60,
+          align: 'right'
         }
       }
     }

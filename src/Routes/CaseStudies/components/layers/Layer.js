@@ -18,12 +18,12 @@ class Layer extends React.Component {
       height: null,
       rotation: null
     }
+    this.setLayerDimensions = this.setLayerDimensions.bind(this)
     this.toggleHighlighted = this.toggleHighlighted.bind(this)
     this.toggleSelected = this.toggleSelected.bind(this)
   }
 
-  componentWillMount() {
-    let { dimensions, tempDimensions } = this.props.layer
+  setLayerDimensions(dimensions, tempDimensions) {
     let layerDimensions = {}
     if (tempDimensions !== undefined) {
       layerDimensions = tempDimensions
@@ -33,13 +33,14 @@ class Layer extends React.Component {
     this.setState(layerDimensions)
   }
 
+  componentWillMount() {
+    let { dimensions, tempDimensions } = this.props.layer
+    this.setLayerDimensions(dimensions, tempDimensions)
+  }
+
   componentWillReceiveProps(nextProps) {
     let { dimensions, tempDimensions } = nextProps.layer
-    if (tempDimensions !== undefined) {
-      this.setState(tempDimensions)
-    } else {
-      this.setState(dimensions)
-    }
+    this.setLayerDimensions(dimensions, tempDimensions)
   }
 
   toggleHighlighted() {

@@ -9,6 +9,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "npm-run-all": "^4.0.2",
+    "popper.js": "^1.12.9",
     "prop-types": "^15.5.8",
     "radium": "^0.18.2",
     "react": "^15.5.4",

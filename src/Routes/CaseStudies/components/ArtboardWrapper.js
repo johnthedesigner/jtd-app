@@ -1,30 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import idx from 'idx'
-import _ from 'lodash'
-import { mouseTrap } from 'react-mousetrap'
+import React from "react";
+import PropTypes from "prop-types";
+import idx from "idx";
+import _ from "lodash";
+import { mouseTrap } from "react-mousetrap";
 
-import { mapArtboard } from '../artboardUtils'
-import AdjustmentsPanel from './adjustments/AdjustmentsPanel'
-import Artboard from './Artboard'
-import ActionBars from './ActionBars'
-import Layer from './layers/Layer'
-import TextLayerEditor from './layers/TextLayerEditor'
-import ResizeControl from './layers/ResizeControl'
+import { mapArtboard } from "../artboardUtils";
+import AdjustmentsPanel from "./adjustments/AdjustmentsPanel";
+import Artboard from "./Artboard";
+import ActionBars from "./ActionBars";
+import Layer from "./layers/Layer";
+import TextLayerEditor from "./layers/TextLayerEditor";
+import ResizeControl from "./layers/ResizeControl";
 import {
   scaleDimension,
   unscaleDimension,
   scaleAllDimensions
-} from '../artboardUtils'
+} from "../artboardUtils";
 
 class ArtboardWrapper extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       scaleFactor: 1,
       shiftKey: false
-    }
-    this.updateDimensions = this.updateDimensions.bind(this)
+    };
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   componentWillMount() {
@@ -33,73 +33,79 @@ class ArtboardWrapper extends React.Component {
       bumpLayers,
       copyLayers,
       deleteLayers,
-      pasteLayers,
-    } = this.props
+      pasteLayers
+    } = this.props;
     // Set up key commands
-    bindShortcut('shift+up', (e) => {
-      e.preventDefault()
-      bumpLayers('y',-10)
-    })
-    bindShortcut('shift+down', (e) => {
-      e.preventDefault()
-      bumpLayers('y',10)
-    })
-    bindShortcut('shift+left', (e) => {
-      e.preventDefault()
-      bumpLayers('x',-10)
-    })
-    bindShortcut('shift+right', (e) => {
-      e.preventDefault()
-      bumpLayers('x',10)
-    })
-    bindShortcut('up', (e) => {
-      e.preventDefault()
-      bumpLayers('y',-1)
-    })
-    bindShortcut('down', (e) => {
-      e.preventDefault()
-      bumpLayers('y',1)
-    })
-    bindShortcut('left', (e) => {
-      e.preventDefault()
-      bumpLayers('x',-1)
-    })
-    bindShortcut('right', (e) => {
-      e.preventDefault()
-      bumpLayers('x',1)
-    })
-    bindShortcut('backspace', () => {deleteLayers()})
-    bindShortcut(['command+c','control+c'], () => {copyLayers()})
-    bindShortcut(['command+v','control+v'], () => {pasteLayers()})
+    bindShortcut("shift+up", e => {
+      e.preventDefault();
+      bumpLayers("y", -10);
+    });
+    bindShortcut("shift+down", e => {
+      e.preventDefault();
+      bumpLayers("y", 10);
+    });
+    bindShortcut("shift+left", e => {
+      e.preventDefault();
+      bumpLayers("x", -10);
+    });
+    bindShortcut("shift+right", e => {
+      e.preventDefault();
+      bumpLayers("x", 10);
+    });
+    bindShortcut("up", e => {
+      e.preventDefault();
+      bumpLayers("y", -1);
+    });
+    bindShortcut("down", e => {
+      e.preventDefault();
+      bumpLayers("y", 1);
+    });
+    bindShortcut("left", e => {
+      e.preventDefault();
+      bumpLayers("x", -1);
+    });
+    bindShortcut("right", e => {
+      e.preventDefault();
+      bumpLayers("x", 1);
+    });
+    bindShortcut("backspace", () => {
+      deleteLayers();
+    });
+    bindShortcut(["command+c", "control+c"], () => {
+      copyLayers();
+    });
+    bindShortcut(["command+v", "control+v"], () => {
+      pasteLayers();
+    });
   }
 
   componentDidMount() {
-    this.updateDimensions()
-    window.addEventListener('resize', this.updateDimensions)
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions)
+    window.removeEventListener("resize", this.updateDimensions);
     // Unbind shortcuts when unmounting
-    this.props.unbindShortcut('shift+up')
-    this.props.unbindShortcut('shift+down')
-    this.props.unbindShortcut('shift+left')
-    this.props.unbindShortcut('shift+right')
-    this.props.unbindShortcut('up')
-    this.props.unbindShortcut('down')
-    this.props.unbindShortcut('left')
-    this.props.unbindShortcut('right')
-    this.props.unbindShortcut('backspace')
+    this.props.unbindShortcut("shift+up");
+    this.props.unbindShortcut("shift+down");
+    this.props.unbindShortcut("shift+left");
+    this.props.unbindShortcut("shift+right");
+    this.props.unbindShortcut("up");
+    this.props.unbindShortcut("down");
+    this.props.unbindShortcut("left");
+    this.props.unbindShortcut("right");
+    this.props.unbindShortcut("backspace");
   }
 
   updateDimensions() {
     // Get the dimensions of our artboards-wrapper
-    let { caseStudyId } = this.props
-    let wrapper = document.getElementById(`artboard-wrapper-${caseStudyId}`)
-    let width = wrapper.clientWidth * (2/3) // Limit artboard to 2/3 column
-    let height = wrapper.clientHeight
+    let { caseStudyId } = this.props;
+    let wrapper = document.getElementById(`artboard-wrapper-${caseStudyId}`);
+    let width = wrapper.clientWidth * (2 / 3); // Limit artboard to 2/3 column
+    let height = wrapper.clientHeight;
     // Determine correct artboard scale factor and store in component state
-    this.setState({scaleFactor: (_.min([width,height]) * .90) / 1000})
+    this.setState({ scaleFactor: _.min([width, height]) * 0.9 / 1000 });
   }
 
   render() {
@@ -119,71 +125,81 @@ class ArtboardWrapper extends React.Component {
       scaleLayer,
       selectLayer,
       toggleFlyout,
-      updateText,
-    } = this.props
+      updateText
+    } = this.props;
 
-    const mappedArtboard = mapArtboard(caseStudies[caseStudyId])
+    const mappedArtboard = mapArtboard(caseStudies[caseStudyId]);
 
-    const EditableTextLayer = (props) => {
+    const EditableTextLayer = props => {
       if (mappedArtboard.editableTextLayer) {
-        let textLayer = _.filter(mappedArtboard.layers, (layer) => {
+        let textLayer = _.filter(mappedArtboard.layers, layer => {
           // Show editable text layer
-          return layer.id === mappedArtboard.editableTextLayer
-        })
+          return layer.id === mappedArtboard.editableTextLayer;
+        });
         return (
           <TextLayerEditor
             enableTextEditor={enableTextEditor}
             key={textLayer.id}
             layer={textLayer[0]}
             scaleFactor={this.state.scaleFactor}
-            updateText={updateText}/>
-        )
+            updateText={updateText}
+          />
+        );
       } else {
-        return null
+        return null;
       }
-    }
+    };
 
-    const adjustments = idx(mappedArtboard, _ => _.selection.adjustments)
+    const adjustments = idx(mappedArtboard, _ => _.selection.adjustments);
 
-    const selectionDimensions = idx(mappedArtboard, _ => _.selection.dimensions)
+    const selectionDimensions = idx(
+      mappedArtboard,
+      _ => _.selection.dimensions
+    );
 
-    let bgGradientStart = featured ?
-      mappedArtboard.featuredStyles.bgGradientStart :
-      'transparent'
-    let bgGradientEnd = featured ?
-      mappedArtboard.featuredStyles.bgGradientEnd :
-      'transparent'
-    let titleColor = featured ?
-      mappedArtboard.featuredStyles.titleColor :
-      mappedArtboard.nonfeaturedStyles.titleColor
-    let excerptColor = featured ?
-      mappedArtboard.featuredStyles.excerptColor :
-      '#222'
-    let buttonFill = featured ?
-      mappedArtboard.featuredStyles.buttonFill :
-      mappedArtboard.nonfeaturedStyles.buttonFill
+    let bgGradientStart = featured
+      ? mappedArtboard.featuredStyles.bgGradientStart
+      : "transparent";
+    let bgGradientEnd = featured
+      ? mappedArtboard.featuredStyles.bgGradientEnd
+      : "transparent";
+    let titleColor = featured
+      ? mappedArtboard.featuredStyles.titleColor
+      : mappedArtboard.nonfeaturedStyles.titleColor;
+    let excerptColor = featured
+      ? mappedArtboard.featuredStyles.excerptColor
+      : "#222";
+    let buttonFill = featured
+      ? mappedArtboard.featuredStyles.buttonFill
+      : mappedArtboard.nonfeaturedStyles.buttonFill;
 
     let artboardWrapperStyles = {
-      background: `linear-gradient(to right, ${bgGradientStart}, ${bgGradientEnd})`
-    }
+      background: `linear-gradient(to right, ${bgGradientStart}, ${
+        bgGradientEnd
+      })`
+    };
     let titleStyles = {
       color: titleColor
-    }
+    };
     let excerptStyles = {
       color: excerptColor
-    }
+    };
 
     return (
       <div
-        className='artboard__wrapper'
+        className="artboard__wrapper"
         id={`artboard-wrapper-${caseStudyId}`}
-        style={artboardWrapperStyles}>
-        <div className='editor-view__main-area' onClick={() => {
-          deselectLayersArtboard(mappedArtboard.id)
-        }}>
-          <div className='editor-view__artboard-area'>
-            <div className='editor-view__copy-area'>
-              <div className='editor-view__copy'>
+        style={artboardWrapperStyles}
+      >
+        <div
+          className="editor-view__main-area"
+          onClick={() => {
+            deselectLayersArtboard(mappedArtboard.id);
+          }}
+        >
+          <div className="editor-view__artboard-area">
+            <div className="editor-view__copy-area">
+              <div className="editor-view__copy">
                 <h1 style={titleStyles}>{mappedArtboard.title}</h1>
                 <div style={excerptStyles}>
                   <p>{mappedArtboard.excerpt}</p>
@@ -195,23 +211,30 @@ class ArtboardWrapper extends React.Component {
               highlightLayer={highlightLayer}
               key={mappedArtboard.id}
               scaleFactor={this.state.scaleFactor}
-              deselectLayersArtboard={deselectLayersArtboard}>
-              <div className='artboard__svg-wrapper'>
+              deselectLayersArtboard={deselectLayersArtboard}
+            >
+              <div className="artboard__svg-wrapper">
                 <svg
                   width={scaleDimension(1000, this.state.scaleFactor)}
                   height={scaleDimension(1000, this.state.scaleFactor)}
-                  viewBox="0 0 1000 1000">
-                  {_.map(_.orderBy(mappedArtboard.layers,'order'),(layer,index) => {
-                    return (
-                    <Layer
-                      dragLayers={dragLayers}
-                      highlightLayer={highlightLayer}
-                      key={layer.id}
-                      layer={layer}
-                      selectLayer={selectLayer}
-                      scaleFactor={this.state.scaleFactor}
-                      scaleLayer={scaleLayer}/>
-                  )})}
+                  viewBox="0 0 1000 1000"
+                >
+                  {_.map(
+                    _.orderBy(mappedArtboard.layers, "order"),
+                    (layer, index) => {
+                      return (
+                        <Layer
+                          dragLayers={dragLayers}
+                          highlightLayer={highlightLayer}
+                          key={layer.id}
+                          layer={layer}
+                          selectLayer={selectLayer}
+                          scaleFactor={this.state.scaleFactor}
+                          scaleLayer={scaleLayer}
+                        />
+                      );
+                    }
+                  )}
                 </svg>
                 <ResizeControl
                   dragLayers={dragLayers}
@@ -221,10 +244,12 @@ class ArtboardWrapper extends React.Component {
                   layers={mappedArtboard.layers}
                   scaleFactor={this.state.scaleFactor}
                   scaleLayer={scaleLayer}
-                  selectLayer={selectLayer}/>
+                  selectLayer={selectLayer}
+                  tempDimensions={mappedArtboard.selection.tempDimensions}
+                />
                 <EditableTextLayer />
               </div>
-              <div className='artboard__action-bar'>
+              <div className="artboard__action-bar">
                 <ActionBars
                   adjustments={adjustments}
                   adjustLayers={adjustLayers}
@@ -233,7 +258,8 @@ class ArtboardWrapper extends React.Component {
                   caseStudyId={caseStudyId}
                   layerIds={mappedArtboard.selection.layers}
                   moveLayers={moveLayers}
-                  toggleFlyout={toggleFlyout}/>
+                  toggleFlyout={toggleFlyout}
+                />
               </div>
               <AdjustmentsPanel
                 adjustments={adjustments}
@@ -242,12 +268,13 @@ class ArtboardWrapper extends React.Component {
                 caseStudyId={caseStudyId}
                 dimensions={selectionDimensions}
                 rotateLayer={rotateLayer}
-                scaleLayer={scaleLayer}/>
+                scaleLayer={scaleLayer}
+              />
             </Artboard>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -258,8 +285,8 @@ ArtboardWrapper.propTypes = {
   copyLayers: PropTypes.func.isRequired,
   deleteLayers: PropTypes.func.isRequired,
   deselectLayersArtboard: PropTypes.func.isRequired,
-  pasteLayers: PropTypes.func.isRequired,
-}
+  pasteLayers: PropTypes.func.isRequired
+};
 
 // Wrap EditorView in mouseTrap to track key events
-export default mouseTrap(ArtboardWrapper)
+export default mouseTrap(ArtboardWrapper);

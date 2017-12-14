@@ -21,6 +21,7 @@ class TextLayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ text: nextProps.text })
+    this.layoutText(this.props)
   }
 
   componentDidUpdate() {
@@ -29,26 +30,60 @@ class TextLayer extends React.Component {
 
   layoutText(props) {
     let { textTag } = this
-    let { fontSize } = props.layer.adjustments.text
-    let { height, width } = props.layer.dimensions
-    // Prepare to track current row width and vertical offset
-    let rowWidth = 0
-    let lineHeight = fontSize * 1.2
+    let { align, fontSize } = props.layer.adjustments.text
+    let layerHeight = props.layer.dimensions.height
+    let layerWidth = props.layer.dimensions.width
+
+    // Keep track of text rows
+    let currentRow = 0 // Start with the first row (duh)
+
+    // Set up array to contain rows, starting with first row
+    let rows = [{
+      firstChild: 0, // index of the current row's first element
+      width: 0, // We'll increment this as we go
+      offset: 0 // track offset if necessary for text alignment
+    }]
+
+    const getAlignOffset = (layerWidth, rowWidth, align) => {
+      let alignOffset = 0
+      if (align === 'center') alignOffset = (layerWidth - rowWidth) / 2
+      if (align === 'right') alignOffset = (layerWidth - rowWidth)
+      return alignOffset
+    }
+
+    // Go through each text element and build rows
     _.each(textTag.children, (child, index) => {
-      // Get width of child element and see if it fits on the current row
+      // Get width of child element
       let childWidth = child.getComputedTextLength()
-      if ((rowWidth + childWidth) < width) {
-        // It fits! no x offset needed, lineHeight offset for first chunk only
-        child.setAttribute('dx', 0)
-        child.setAttribute('dy', (index === 0 ? lineHeight : 0))
-        // Increment row width to track how long the row is getting
-        rowWidth += childWidth
+
+      console.log(rows[currentRow].width + childWidth, layerWidth)
+      if ((rows[currentRow].width + childWidth) < layerWidth) {
+        // It fits! add to row width and update alignment offset
+        rows[currentRow].width += childWidth
+        rows[currentRow].offset = getAlignOffset(
+          layerWidth,
+          rows[currentRow].width,
+          align
+        )
       } else {
-        // It doesn't fit, offset this element to start next row
-        child.setAttribute('dx', (-1 * rowWidth))
-        child.setAttribute('dy', lineHeight)
-        rowWidth = childWidth
+        // It didn't fit. increment row and add new row to rows array
+        currentRow = currentRow + 1
+        rows[currentRow] = {
+          firstChild: index,
+          width: childWidth,
+          offset: getAlignOffset(layerWidth, childWidth, align)
+        }
       }
+    })
+
+    // Go through rows data and apply positioning
+    let lineHeight = fontSize * 1.2 // How far to offset new rows vertically
+    _.each(rows, (row, index) => {
+      let firstWord = textTag.children[row.firstChild]
+      let prevRow = rows[index - 1]
+      let prevRowOffset = index > 0 ? (prevRow.width + prevRow.offset) * -1 : 0
+      firstWord.setAttribute('dx', prevRowOffset + row.offset)
+      firstWord.setAttribute('dy', lineHeight)
     })
   }
 
@@ -70,16 +105,16 @@ class TextLayer extends React.Component {
     // Default left-aligned text props
     let textAnchor = 'start'
     let dx = 0
-    // Center-aligned text props
-    if (align === 'center') {
-      textAnchor = 'middle'
-      dx = width / 2
-    }
-    // Right-aligned text props
-    if (align === 'right') {
-      textAnchor = 'end'
-      dx = width
-    }
+    // // Center-aligned text props
+    // if (align === 'center') {
+    //   textAnchor = 'middle'
+    //   dx = width / 2
+    // }
+    // // Right-aligned text props
+    // if (align === 'right') {
+    //   textAnchor = 'end'
+    //   dx = width
+    // }
 
     // Hide svg text while editing
     let textStyles = {
@@ -92,6 +127,7 @@ class TextLayer extends React.Component {
         draggable={false}
         fill={color}
         fontSize={fontSize}
+        key={`rect${this.props.layer.id}`}
         x={x}
         y={y}
         dx={dx}
