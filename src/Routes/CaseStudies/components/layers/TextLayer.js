@@ -1,110 +1,105 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import _ from 'lodash'
+import React from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
 
-import { typeStyles } from '../adjustments/adjustmentOptions'
-import { unscaleDimension } from '../../artboardUtils'
+import { typeStyles } from "../adjustments/adjustmentOptions";
 
 class TextLayer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      text: '',
-    }
-    this.layoutText = this.layoutText.bind(this)
+      text: ""
+    };
+    this.layoutText = this.layoutText.bind(this);
   }
 
   componentDidMount() {
-    this.setState({ text: this.props.text })
-    this.layoutText(this.props)
+    this.setState({ text: this.props.text });
+    this.layoutText(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ text: nextProps.text })
-    this.layoutText(this.props)
+    this.setState({ text: nextProps.text });
+    this.layoutText(this.props);
   }
 
   componentDidUpdate() {
-    this.layoutText(this.props)
+    this.layoutText(this.props);
   }
 
   layoutText(props) {
-    let { textTag } = this
-    let { align, fontSize } = props.layer.adjustments.text
-    let layerHeight = props.layer.dimensions.height
-    let layerWidth = props.layer.dimensions.width
+    let { textTag } = this;
+    let { align, fontSize } = props.layer.adjustments.text;
+    let layerWidth = props.layer.dimensions.width;
 
     // Keep track of text rows
-    let currentRow = 0 // Start with the first row (duh)
+    let currentRow = 0; // Start with the first row (duh)
 
     // Set up array to contain rows, starting with first row
-    let rows = [{
-      firstChild: 0, // index of the current row's first element
-      width: 0, // We'll increment this as we go
-      offset: 0 // track offset if necessary for text alignment
-    }]
+    let rows = [
+      {
+        firstChild: 0, // index of the current row's first element
+        width: 0, // We'll increment this as we go
+        offset: 0 // track offset if necessary for text alignment
+      }
+    ];
 
     const getAlignOffset = (layerWidth, rowWidth, align) => {
-      let alignOffset = 0
-      if (align === 'center') alignOffset = (layerWidth - rowWidth) / 2
-      if (align === 'right') alignOffset = (layerWidth - rowWidth)
-      return alignOffset
-    }
+      let alignOffset = 0;
+      if (align === "center") alignOffset = (layerWidth - rowWidth) / 2;
+      if (align === "right") alignOffset = layerWidth - rowWidth;
+      return alignOffset;
+    };
 
     // Go through each text element and build rows
     _.each(textTag.children, (child, index) => {
       // Get width of child element
-      let childWidth = child.getComputedTextLength()
+      let childWidth = child.getComputedTextLength();
 
-      console.log(rows[currentRow].width + childWidth, layerWidth)
-      if ((rows[currentRow].width + childWidth) < layerWidth) {
+      console.log(rows[currentRow].width + childWidth, layerWidth);
+      if (rows[currentRow].width + childWidth < layerWidth) {
         // It fits! add to row width and update alignment offset
-        rows[currentRow].width += childWidth
+        rows[currentRow].width += childWidth;
         rows[currentRow].offset = getAlignOffset(
           layerWidth,
           rows[currentRow].width,
           align
-        )
+        );
       } else {
         // It didn't fit. increment row and add new row to rows array
-        currentRow = currentRow + 1
+        currentRow++;
         rows[currentRow] = {
           firstChild: index,
           width: childWidth,
           offset: getAlignOffset(layerWidth, childWidth, align)
-        }
+        };
       }
-    })
+    });
 
     // Go through rows data and apply positioning
-    let lineHeight = fontSize * 1.2 // How far to offset new rows vertically
+    let lineHeight = fontSize * 1.2; // How far to offset new rows vertically
     _.each(rows, (row, index) => {
-      let firstWord = textTag.children[row.firstChild]
-      let prevRow = rows[index - 1]
-      let prevRowOffset = index > 0 ? (prevRow.width + prevRow.offset) * -1 : 0
-      firstWord.setAttribute('dx', prevRowOffset + row.offset)
-      firstWord.setAttribute('dy', lineHeight)
-    })
+      let firstWord = textTag.children[row.firstChild];
+      let prevRow = rows[index - 1];
+      let prevRowOffset = index > 0 ? (prevRow.width + prevRow.offset) * -1 : 0;
+      firstWord.setAttribute("dx", prevRowOffset + row.offset);
+      firstWord.setAttribute("dy", lineHeight);
+    });
   }
 
   render() {
-    let {
-      align,
-      color,
-      fontFamily,
-      fontSize
-    } = this.props.layer.adjustments.text
-    let fontFamilyProps = _.find(typeStyles.families, (family) => {
-      return (family.id === fontFamily)
-    })
-    let { x, y, width, height, rotation } = this.props.layer.dimensions
-    let { text, isEditable } = this.props.layer
-    let textArray = text.split(' ')
-    let rotateOriginX = x + width / 2
-    let rotateOriginY = y + height / 2
+    let { color, fontFamily, fontSize } = this.props.layer.adjustments.text;
+    let fontFamilyProps = _.find(typeStyles.families, family => {
+      return family.id === fontFamily;
+    });
+    let { x, y, width, height, rotation } = this.props.layer.dimensions;
+    let { text, isEditable } = this.props.layer;
+    let textArray = text.split(" ");
+    let rotateOriginX = x + width / 2;
+    let rotateOriginY = y + height / 2;
     // Default left-aligned text props
-    let textAnchor = 'start'
-    let dx = 0
+    let textAnchor = "start";
+    let dx = 0;
     // // Center-aligned text props
     // if (align === 'center') {
     //   textAnchor = 'middle'
@@ -118,12 +113,12 @@ class TextLayer extends React.Component {
 
     // Hide svg text while editing
     let textStyles = {
-      visibility: (isEditable ? 'hidden' : 'visible'),
-    }
+      visibility: isEditable ? "hidden" : "visible"
+    };
 
     return (
       <text
-        ref={t => this.textTag = t}
+        ref={t => (this.textTag = t)}
         draggable={false}
         fill={color}
         fontSize={fontSize}
@@ -135,19 +130,22 @@ class TextLayer extends React.Component {
         fontFamily={fontFamilyProps.value}
         style={textStyles}
         textAnchor={textAnchor}
-        transform={
-          `rotate(${rotation} ${rotateOriginX} ${rotateOriginY})`
-        }>
-        {_.map(textArray, (chunk, index) => { return(
-          <tspan key={index} textAnchor={textAnchor}>{chunk + ' '}</tspan>
-        )})}
+        transform={`rotate(${rotation} ${rotateOriginX} ${rotateOriginY})`}
+      >
+        {_.map(textArray, (chunk, index) => {
+          return (
+            <tspan key={index} textAnchor={textAnchor}>
+              {chunk + " "}
+            </tspan>
+          );
+        })}
       </text>
-    )
+    );
   }
 }
 
 TextLayer.propTypes = {
-  layer : PropTypes.object.isRequired
-}
+  layer: PropTypes.object.isRequired
+};
 
-export default TextLayer
+export default TextLayer;

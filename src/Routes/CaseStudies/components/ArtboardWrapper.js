@@ -11,11 +11,7 @@ import ActionBars from "./ActionBars";
 import Layer from "./layers/Layer";
 import TextLayerEditor from "./layers/TextLayerEditor";
 import ResizeControl from "./layers/ResizeControl";
-import {
-  scaleDimension,
-  unscaleDimension,
-  scaleAllDimensions
-} from "../artboardUtils";
+import { scaleDimension } from "../artboardUtils";
 
 class ArtboardWrapper extends React.Component {
   constructor(props) {
