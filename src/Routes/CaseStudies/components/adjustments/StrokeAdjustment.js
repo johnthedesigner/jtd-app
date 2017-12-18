@@ -39,7 +39,7 @@ class StrokeAdjustment extends React.Component {
           <ColorInput
             key={adjustmentGroup + "color"}
             propertyName={"color"}
-            setLayerAdjustment={setStrokeColor}
+            setLayerAdjustment={setLayerAdjustment}
             valueFromProps={strokeColor}
           />
         </div>

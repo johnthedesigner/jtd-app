@@ -1,8 +1,8 @@
 export const newLayers = {
   ellipse: () => {
     return {
-      type: 'ellipse',
-      title: 'ellipse',
+      type: "ellipse",
+      title: "ellipse",
       order: 0,
       dimensions: {
         x: 450,
@@ -13,23 +13,23 @@ export const newLayers = {
       },
       adjustments: {
         fill: {
-          type: 'color',
-          color: 'rgba(11,231,183,1)'
+          type: "color",
+          color: "rgba(11,231,183,1)"
         },
         stroke: {
-          color: 'rgba(40,40,40,1)',
-          width: 1
+          color: "rgba(0,0,0)",
+          width: 0
         }
-      },
-    }
+      }
+    };
   },
   image: () => {
     return {
-      type: 'image',
-      title: 'image',
+      type: "image",
+      title: "image",
       adjustments: {
         image: {
-          src: 'http://www.placehold.it/400x400/'
+          src: "http://www.placehold.it/400x400/"
         },
         dimensions: {
           x: 0,
@@ -41,12 +41,12 @@ export const newLayers = {
           rotation: 0
         }
       }
-    }
+    };
   },
   rectangle: () => {
     return {
-      type: 'rectangle',
-      title: 'rectangle',
+      type: "rectangle",
+      title: "rectangle",
       order: 0,
       dimensions: {
         x: 450,
@@ -57,21 +57,25 @@ export const newLayers = {
       },
       adjustments: {
         fill: {
-          type: 'color',
-          color: 'rgba(11,231,183,1)'
+          type: "gradient",
+          gradient: {
+            start: "rgba(11,231,183,1)",
+            end: "rgba(11,231,183,1)",
+            angle: 0
+          }
         },
         stroke: {
-          color: 'rgba(40,40,40,1)',
-          width: 1
+          color: "rgba(0,0,0)",
+          width: 0
         }
-      },
-    }
+      }
+    };
   },
   text: () => {
     return {
-      type: 'text',
-      title: 'text',
-      text: 'Add your own text',
+      type: "text",
+      title: "text",
+      text: "Add your own text",
       order: 0,
       dimensions: {
         x: 400,
@@ -82,12 +86,12 @@ export const newLayers = {
       },
       adjustments: {
         text: {
-          textColor: '#444444',
-          fontFamily: 'sans',
-          fontSize: 60,
-          align: 'right'
+          textColor: "rgba(0,0,0)",
+          fontFamily: "sans",
+          fontSize: 24,
+          align: "left"
         }
       }
-    }
+    };
   }
-}
+};

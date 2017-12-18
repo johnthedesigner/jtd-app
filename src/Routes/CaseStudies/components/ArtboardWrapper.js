@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import idx from "idx";
+import Color from "color";
 import _ from "lodash";
 import { mouseTrap } from "react-mousetrap";
 
@@ -215,6 +216,47 @@ class ArtboardWrapper extends React.Component {
                   height={scaleDimension(1000, this.state.scaleFactor)}
                   viewBox="0 0 1000 1000"
                 >
+                  <defs>
+                    {_.map(mappedArtboard.layers, layer => {
+                      let { fill } = layer.adjustments;
+                      if (fill === undefined) return null;
+                      let gradientConfig;
+                      if (fill.type === "gradient") {
+                        gradientConfig = {
+                          angle: fill.gradient.angle,
+                          start: fill.gradient.start,
+                          end: fill.gradient.end
+                        };
+                      } else {
+                        gradientConfig = {
+                          angle: 0,
+                          start: fill.color,
+                          end: fill.color
+                        };
+                      }
+                      return (
+                        <linearGradient
+                          key={layer.id}
+                          id={`gradient${layer.id}`}
+                          x1="0%"
+                          x2="0%"
+                          y1="0%"
+                          y2="100%"
+                        >
+                          <stop
+                            className="stop1"
+                            offset="0%"
+                            stopColor={Color(gradientConfig.start).hex()}
+                          />
+                          <stop
+                            className="stop2"
+                            offset="100%"
+                            stopColor={Color(gradientConfig.end).hex()}
+                          />
+                        </linearGradient>
+                      );
+                    })}
+                  </defs>
                   {_.map(
                     _.orderBy(mappedArtboard.layers, "order"),
                     (layer, index) => {

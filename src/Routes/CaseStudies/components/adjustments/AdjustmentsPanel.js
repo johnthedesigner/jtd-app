@@ -1,20 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import idx from 'idx'
+import React from "react";
+import PropTypes from "prop-types";
+import idx from "idx";
 
-import DimensionsAdjustment from './DimensionsAdjustment'
-import FillAdjustment from './FillAdjustment'
-import StrokeAdjustment from './StrokeAdjustment'
-import TextAdjustment from './TextAdjustment'
+import DimensionsAdjustment from "./DimensionsAdjustment";
+import FillAdjustment from "./FillAdjustment";
+import StrokeAdjustment from "./StrokeAdjustment";
+import TextAdjustment from "./TextAdjustment";
 
 class AdjustmentsPanel extends React.Component {
   constructor(props) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
-    e.stopPropagation()
+    e.stopPropagation();
   }
 
   render() {
@@ -22,44 +22,53 @@ class AdjustmentsPanel extends React.Component {
       adjustLayers,
       adjustments,
       bumpLayers,
+      projectColors,
       dimensions,
       rotateLayer,
-      scaleLayer,
-    } = this.props
+      scaleLayer
+    } = this.props;
 
     // Only show adjustments panel if anything is selected
-    let activeClass = (dimensions.x !== null ? 'active' : '')
+    let activeClass = dimensions.x !== null ? "active" : "";
 
     return (
       <div
         className={`adjustments-panel__wrapper ${activeClass}`}
-        onClick={this.handleClick}>
+        onClick={this.handleClick}
+      >
         <div className="adjustments-panel__header">Dimensions</div>
         <DimensionsAdjustment
           adjustLayers={adjustLayers}
           bumpLayers={bumpLayers}
           rotateLayer={rotateLayer}
           scaleLayer={scaleLayer}
-          adjustments={dimensions}/>
+          adjustments={dimensions}
+        />
         <div className="adjustments-panel__header">Fill</div>
         <FillAdjustment
           adjustLayers={adjustLayers}
-          adjustments={idx(adjustments, _ => _.fill)}/>
+          adjustments={idx(adjustments, _ => _.fill)}
+          projectColors={projectColors}
+        />
         <div className="adjustments-panel__header">Stroke</div>
         <StrokeAdjustment
           adjustLayers={adjustLayers}
-          adjustments={idx(adjustments, _ => _.stroke)}/>
+          adjustments={idx(adjustments, _ => _.stroke)}
+          projectColors={projectColors}
+        />
         <div className="adjustments-panel__header">Type</div>
         <TextAdjustment
           adjustLayers={adjustLayers}
-          adjustments={idx(adjustments, _ => _.text)}/>
+          adjustments={idx(adjustments, _ => _.text)}
+          projectColors={projectColors}
+        />
       </div>
-    )
+    );
   }
 }
 
 AdjustmentsPanel.propTypes = {
-  adjustments : PropTypes.object,
-}
+  adjustments: PropTypes.object
+};
 
-export default AdjustmentsPanel
+export default AdjustmentsPanel;

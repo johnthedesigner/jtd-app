@@ -1,109 +1,37 @@
 import React from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import { SketchPicker } from "react-color";
-import Overlay from "react-overlays/lib/Overlay";
+
+import ColorPicker from "./ColorPicker";
 
 class ColorInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPicker: false,
-      value: ""
+      showPicker: false
     };
-    this.handleChangeComplete = this.handleChangeComplete.bind(this);
     this.togglePicker = this.togglePicker.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      value: this.props.valueFromProps,
-      portalContainer: findDOMNode(document.body),
-      portalTarget: findDOMNode(this.target)
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      value: nextProps.valueFromProps
-    });
-  }
-
-  handleChangeComplete(color, event) {
-    const { rgb } = color;
-    let newColor = `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`;
-    this.setState({
-      value: newColor
-    });
-    this.props.setLayerAdjustment(this.props.propertyName, this.state.value);
+    this.updateColor = this.updateColor.bind(this);
   }
 
   togglePicker() {
     this.setState({ showPicker: !this.state.showPicker });
   }
 
-  render() {
-    console.log(this.state.portalTarget);
-    console.log(this.state.portalContainer);
+  updateColor(color) {
+    this.togglePicker();
+    this.props.setLayerAdjustment(this.props.propertyName, color);
+  }
 
-    const { propertyName, label } = this.props;
+  render() {
+    const { projectColors, propertyName, label } = this.props;
 
     const thumbnailStyles = {
-      background: this.state.value,
+      background: this.props.valueFromProps,
       position: "relative"
     };
 
-    const TooltipStyle = {
-      position: "absolute",
-      padding: "0 5px"
-    };
-
-    const PlacementStyles = {
-      left: {
-        tooltip: { marginLeft: -3, padding: "0 5px" },
-        arrow: {
-          right: 0,
-          marginTop: -5,
-          borderWidth: "5px 0 5px 5px",
-          borderLeftColor: "#000"
-        }
-      },
-      right: {
-        tooltip: { marginRight: 3, padding: "0 5px" },
-        arrow: {
-          left: 0,
-          marginTop: -5,
-          borderWidth: "5px 5px 5px 0",
-          borderRightColor: "#000"
-        }
-      },
-      top: {
-        tooltip: { marginTop: -3, padding: "5px 0" },
-        arrow: {
-          bottom: 0,
-          marginLeft: -5,
-          borderWidth: "5px 5px 0",
-          borderTopColor: "#000"
-        }
-      },
-      bottom: {
-        tooltip: { marginBottom: 3, padding: "5px 0" },
-        arrow: {
-          top: 0,
-          marginLeft: -5,
-          borderWidth: "0 5px 5px",
-          borderBottomColor: "#000"
-        }
-      }
-    };
-
-    const Tooltip = props => {
-      return (
-        <div style={{ ...TooltipStyle, ...PlacementStyles.right.tooltip }}>
-          {props.children}
-        </div>
-      );
-    };
+    let colors = ["#2F80ED", "#BB6BD9", "#FF8DC0", "#FFB26E"];
 
     return (
       <div>
@@ -118,24 +46,11 @@ class ColorInput extends React.Component {
           }}
           style={thumbnailStyles}
         />
-        <Overlay
-          container={this.target}
+        <ColorPicker
+          colors={colors}
+          updateColor={this.updateColor}
           show={this.state.showPicker}
-          onHide={() => this.setState({ showPicker: false })}
-          placement="left"
-          shouldUpdatePosition={true}
-          target={this.state.portalTarget}
-        >
-          <Tooltip>
-            <div className={`color-adjustment__picker-${propertyName}`}>
-              <SketchPicker
-                color={this.state.value}
-                onChangeComplete={this.handleChangeComplete}
-                triangle="top-right"
-              />
-            </div>
-          </Tooltip>
-        </Overlay>
+        />
       </div>
     );
   }
