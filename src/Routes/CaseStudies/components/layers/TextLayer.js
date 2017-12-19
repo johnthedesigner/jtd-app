@@ -53,10 +53,13 @@ class TextLayer extends React.Component {
 
     // Go through each text element and build rows
     _.each(textTag.children, (child, index) => {
+      // Reset existing positioning
+      child.setAttribute("dx", 0);
+      child.setAttribute("dy", 0);
+
       // Get width of child element
       let childWidth = child.getComputedTextLength();
 
-      console.log(rows[currentRow].width + childWidth, layerWidth);
       if (rows[currentRow].width + childWidth < layerWidth) {
         // It fits! add to row width and update alignment offset
         rows[currentRow].width += childWidth;
@@ -88,7 +91,14 @@ class TextLayer extends React.Component {
   }
 
   render() {
-    let { color, fontFamily, fontSize } = this.props.layer.adjustments.text;
+    let {
+      color,
+      fontFamily,
+      fontSize,
+      fontWeight,
+      italic,
+      underline
+    } = this.props.layer.adjustments.text;
     let fontFamilyProps = _.find(typeStyles.families, family => {
       return family.id === fontFamily;
     });
@@ -128,8 +138,11 @@ class TextLayer extends React.Component {
         dx={dx}
         dy={fontSize}
         fontFamily={fontFamilyProps.value}
+        fontStyle={italic ? "italic" : "normal"}
+        fontWeight={fontWeight}
         style={textStyles}
         textAnchor={textAnchor}
+        textDecoration={underline ? "underline" : "none"}
         transform={`rotate(${rotation} ${rotateOriginX} ${rotateOriginY})`}
       >
         {_.map(textArray, (chunk, index) => {

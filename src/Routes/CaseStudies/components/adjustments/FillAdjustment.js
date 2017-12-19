@@ -7,35 +7,41 @@ import ColorInput from "./ColorInput";
 import GradientInput from "./GradientInput";
 import SelectInput from "./SelectInput";
 import { fillTypes } from "./adjustmentOptions";
+import { colorsWithFallback } from "../../colorUtils";
 
 class FillAdjustment extends React.Component {
   render() {
-    let adjustmentGroup = "fill";
+    const { adjustments, adjustLayers, projectColors } = this.props;
 
-    const { adjustments, adjustLayers } = this.props;
-
-    const setLayerAdjustment = (propertyName, value) => {
-      adjustLayers(adjustmentGroup, propertyName, value);
+    const setGradientFill = gradient => {
+      adjustLayers("fill", "gradient", gradient);
+      adjustLayers("fill", "color", null);
     };
 
-    const setFillType = value => setLayerAdjustment("type", value);
+    const setSolidFill = solid => {
+      adjustLayers("fill", "color", solid);
+      adjustLayers("fill", "gradient", null);
+    };
+
+    const setFillType = value => {
+      adjustLayers("fill", "type", value);
+    };
+
     const fillTypeOptions = _.map(fillTypes, option => {
       return { name: option.name, value: option.type };
     });
-    let type = idx(adjustments, _ => _.type);
-    if (!type) type = "";
-
-    let backgroundColor = idx(adjustments, _ => _.color);
-    if (!backgroundColor) backgroundColor = "";
-
-    let linearGradient = idx(adjustments, _ => _.gradient);
-    if (!backgroundColor) backgroundColor = "";
 
     if (adjustments) {
+      let type = idx(adjustments, _ => _.type);
+
+      // Get solid color and gradient to use for each other's fallback
+      let backgroundColor = idx(adjustments, _ => _.color);
+      let linearGradient = idx(adjustments, _ => _.gradient);
+      let fillColors = colorsWithFallback(backgroundColor, linearGradient);
+
       return (
         <div className="adjustments-panel__adjustment-block">
           <SelectInput
-            key={adjustmentGroup + "type"}
             options={fillTypeOptions}
             propertyName={"type"}
             setValue={setFillType}
@@ -43,18 +49,18 @@ class FillAdjustment extends React.Component {
           />
           {type === "color" && (
             <ColorInput
-              key={adjustmentGroup + "color"}
+              handleChange={setSolidFill}
+              projectColors={projectColors}
               propertyName={"color"}
-              setLayerAdjustment={setLayerAdjustment}
-              valueFromProps={backgroundColor}
+              valueFromProps={fillColors.solid}
             />
           )}
           {type === "gradient" && (
             <GradientInput
-              key={adjustmentGroup + "gradient"}
+              handleChange={setGradientFill}
+              projectColors={projectColors}
               propertyName={"gradient"}
-              setLayerAdjustment={setLayerAdjustment}
-              valueFromProps={linearGradient}
+              valueFromProps={fillColors.gradient}
             />
           )}
         </div>
@@ -67,7 +73,8 @@ class FillAdjustment extends React.Component {
 
 FillAdjustment.propTypes = {
   adjustments: PropTypes.object,
-  adjustLayers: PropTypes.func.isRequired
+  adjustLayers: PropTypes.func.isRequired,
+  projectColors: PropTypes.array.isRequired
 };
 
 export default FillAdjustment;

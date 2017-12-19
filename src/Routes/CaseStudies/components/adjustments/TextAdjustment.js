@@ -5,39 +5,82 @@ import _ from "lodash";
 
 import ColorInput from "./ColorInput";
 import SelectInput from "./SelectInput";
+import ToggleInput from "./ToggleInput";
 
 import { fontSizes, typeStyles } from "./adjustmentOptions";
 
 class TypeAdjustment extends React.Component {
   render() {
-    let adjustmentGroup = "text";
+    const adjustmentGroup = "text";
+    const { adjustments, adjustLayers, projectColors } = this.props;
 
-    const { adjustments, adjustLayers } = this.props;
+    if (!adjustments) return null;
 
-    const setLayerAdjustment = (propertyName, value) => {
-      adjustLayers(adjustmentGroup, propertyName, value);
-    };
+    let align = idx(adjustments, _ => _.align);
+    if (!align) align = "left";
+
+    let fontColor = idx(adjustments, _ => _.color);
+    if (!fontColor) fontColor = "";
 
     let fontFamily = idx(adjustments, _ => _.fontFamily);
     if (!fontFamily) fontFamily = "";
-    const fontFamilyOptions = _.map(typeStyles.families, style => {
-      return { name: style.name, value: style.id };
-    });
-    const setFontFamily = value => {
-      setLayerAdjustment("fontFamily", value);
-    };
 
     let fontSize = idx(adjustments, _ => _.fontSize);
     if (!fontSize) fontSize = "";
+
+    let fontWeight = idx(adjustments, _ => _.fontWeight);
+    if (!fontWeight) fontWeight = "";
+
+    let italic = idx(adjustments, _ => _.italic);
+    if (!italic) italic = "";
+
+    let underline = idx(adjustments, _ => _.underline);
+    if (!underline) underline = "";
+
+    const alignOptions = _.map(["left", "center", "right"], option => {
+      return { name: option, value: option };
+    });
+
+    const fontFamilyOptions = _.map(typeStyles.families, style => {
+      return { name: style.name, value: style.id };
+    });
+
     const fontSizeOptions = _.map(fontSizes, size => {
       return { name: size, value: size };
     });
-    const setFontSize = value => {
-      setLayerAdjustment("fontSize", value);
+
+    const currentFamily = _.find(typeStyles.families, { id: fontFamily });
+    const fontWeightOptions = _.map(currentFamily.weights, weight => {
+      return { name: weight, value: weight };
+    });
+
+    const alignText = alignment => {
+      adjustLayers("text", "align", alignment);
     };
 
-    let color = idx(adjustments, _ => _.textColor);
-    if (!color) color = "";
+    const setFontColor = color => {
+      adjustLayers("text", "color", color);
+    };
+
+    const setFontFamily = value => {
+      adjustLayers("text", "fontFamily", value);
+    };
+
+    const setFontSize = value => {
+      adjustLayers("text", "fontSize", value);
+    };
+
+    const setFontWeight = value => {
+      adjustLayers("text", "fontWeight", value);
+    };
+
+    const toggleItalics = () => {
+      adjustLayers("text", "italic", !italic);
+    };
+
+    const toggleUnderline = () => {
+      adjustLayers("text", "underline", !underline);
+    };
 
     if (adjustments) {
       return (
@@ -50,6 +93,14 @@ class TypeAdjustment extends React.Component {
             valueFromProps={fontFamily}
           />
           <SelectInput
+            key={adjustmentGroup + "fontWeight"}
+            propertyName={"fontWeight"}
+            label="Weight"
+            options={fontWeightOptions}
+            setValue={setFontWeight}
+            valueFromProps={fontWeight}
+          />
+          <SelectInput
             key={adjustmentGroup + "fontSize"}
             propertyName={"fontSize"}
             label="Size"
@@ -57,11 +108,30 @@ class TypeAdjustment extends React.Component {
             setValue={setFontSize}
             valueFromProps={fontSize}
           />
+          <SelectInput
+            key={adjustmentGroup + "align"}
+            propertyName={"align"}
+            label="Align"
+            options={alignOptions}
+            setValue={alignText}
+            valueFromProps={align}
+          />
           <ColorInput
             key={adjustmentGroup + "color"}
+            projectColors={projectColors}
             propertyName={"color"}
-            setLayerAdjustment={setLayerAdjustment}
-            valueFromProps={color}
+            handleChange={setFontColor}
+            valueFromProps={fontColor}
+          />
+          <ToggleInput
+            propertyName={"italic"}
+            handleChange={toggleItalics}
+            valueFromProps={italic}
+          />
+          <ToggleInput
+            propertyName={"underline"}
+            handleChange={toggleUnderline}
+            valueFromProps={underline}
           />
         </div>
       );
@@ -73,7 +143,8 @@ class TypeAdjustment extends React.Component {
 
 TypeAdjustment.propTypes = {
   adjustments: PropTypes.object,
-  adjustLayers: PropTypes.func.isRequired
+  adjustLayers: PropTypes.func.isRequired,
+  projectColors: PropTypes.array.isRequired
 };
 
 export default TypeAdjustment;

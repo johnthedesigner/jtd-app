@@ -1,5 +1,4 @@
 import React from "react";
-import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 
 import ColorPicker from "./ColorPicker";
@@ -20,22 +19,19 @@ class ColorInput extends React.Component {
 
   updateColor(color) {
     this.togglePicker();
-    this.props.setLayerAdjustment(this.props.propertyName, color);
+    this.props.handleChange(color);
   }
 
   render() {
-    const { projectColors, propertyName, label } = this.props;
+    const { projectColors, propertyName, valueFromProps } = this.props;
 
     const thumbnailStyles = {
-      background: this.props.valueFromProps,
+      background: valueFromProps,
       position: "relative"
     };
 
-    let colors = ["#2F80ED", "#BB6BD9", "#FF8DC0", "#FFB26E"];
-
     return (
       <div>
-        <label htmlFor={`color-adjustment__${propertyName}`}>{label}</label>
         <div
           className={`color-adjustment__thumbnail color-adjustment__thumbnail--${
             propertyName
@@ -47,7 +43,7 @@ class ColorInput extends React.Component {
           style={thumbnailStyles}
         />
         <ColorPicker
-          colors={colors}
+          colors={projectColors}
           updateColor={this.updateColor}
           show={this.state.showPicker}
         />
@@ -57,8 +53,10 @@ class ColorInput extends React.Component {
 }
 
 ColorInput.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  projectColors: PropTypes.array.isRequired,
   propertyName: PropTypes.string.isRequired,
-  label: PropTypes.string
+  valueFromProps: PropTypes.string.isRequired
 };
 
 export default ColorInput;

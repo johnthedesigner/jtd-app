@@ -86,10 +86,13 @@ export const newLayers = {
       },
       adjustments: {
         text: {
-          textColor: "rgba(0,0,0)",
+          align: "left",
           fontFamily: "sans",
-          fontSize: 24,
-          align: "left"
+          fontSize: 120,
+          fontWeight: 300,
+          italic: true,
+          textColor: "rgba(0,0,0)",
+          underline: true
         }
       }
     };

@@ -62,7 +62,6 @@ export default function Artboards(state = {}, a) {
         ][a.propertyName] =
           a.value;
       });
-      console.log(adjustedArtboard);
       return Object.assign({}, state, { caseStudies: adjustedCaseStudies });
 
     case BUMP_LAYERS:

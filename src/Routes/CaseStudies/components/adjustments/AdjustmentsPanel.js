@@ -68,7 +68,8 @@ class AdjustmentsPanel extends React.Component {
 }
 
 AdjustmentsPanel.propTypes = {
-  adjustments: PropTypes.object
+  adjustments: PropTypes.object,
+  projectColors: PropTypes.array.isRequired
 };
 
 export default AdjustmentsPanel;

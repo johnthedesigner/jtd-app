@@ -13,6 +13,7 @@ import Layer from "./layers/Layer";
 import TextLayerEditor from "./layers/TextLayerEditor";
 import ResizeControl from "./layers/ResizeControl";
 import { scaleDimension } from "../artboardUtils";
+import { colorsWithFallback } from "../colorUtils";
 
 class ArtboardWrapper extends React.Component {
   constructor(props) {
@@ -73,6 +74,11 @@ class ArtboardWrapper extends React.Component {
     });
     bindShortcut(["command+v", "control+v"], () => {
       pasteLayers();
+    });
+    bindShortcut("command+e", () => {
+      console.log(
+        JSON.stringify(this.props.caseStudies[this.props.caseStudyId])
+      );
     });
   }
 
@@ -220,20 +226,21 @@ class ArtboardWrapper extends React.Component {
                     {_.map(mappedArtboard.layers, layer => {
                       let { fill } = layer.adjustments;
                       if (fill === undefined) return null;
-                      let gradientConfig;
+                      let fillColors = colorsWithFallback(
+                        fill.color,
+                        fill.gradient
+                      );
+                      let fillConfig;
                       if (fill.type === "gradient") {
-                        gradientConfig = {
-                          angle: fill.gradient.angle,
-                          start: fill.gradient.start,
-                          end: fill.gradient.end
-                        };
+                        fillConfig = fillColors.gradient;
                       } else {
-                        gradientConfig = {
+                        fillConfig = {
                           angle: 0,
-                          start: fill.color,
-                          end: fill.color
+                          start: fillColors.solid,
+                          end: fillColors.solid
                         };
                       }
+
                       return (
                         <linearGradient
                           key={layer.id}
@@ -246,12 +253,12 @@ class ArtboardWrapper extends React.Component {
                           <stop
                             className="stop1"
                             offset="0%"
-                            stopColor={Color(gradientConfig.start).hex()}
+                            stopColor={Color(fillConfig.start).hex()}
                           />
                           <stop
                             className="stop2"
                             offset="100%"
-                            stopColor={Color(gradientConfig.end).hex()}
+                            stopColor={Color(fillConfig.end).hex()}
                           />
                         </linearGradient>
                       );
@@ -305,6 +312,7 @@ class ArtboardWrapper extends React.Component {
                 bumpLayers={bumpLayers}
                 caseStudyId={caseStudyId}
                 dimensions={selectionDimensions}
+                projectColors={mappedArtboard.projectColors}
                 rotateLayer={rotateLayer}
                 scaleLayer={scaleLayer}
               />

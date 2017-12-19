@@ -10,7 +10,7 @@ class StrokeAdjustment extends React.Component {
   render() {
     let adjustmentGroup = "stroke";
 
-    const { adjustments, adjustLayers } = this.props;
+    const { adjustments, adjustLayers, projectColors } = this.props;
 
     const setLayerAdjustment = (propertyName, value) => {
       adjustLayers(adjustmentGroup, propertyName, value);
@@ -28,7 +28,6 @@ class StrokeAdjustment extends React.Component {
       return (
         <div className="adjustments-panel__adjustment-block">
           <TextInput
-            key={adjustmentGroup + "width"}
             propertyName={"width"}
             label="Width"
             setValue={setStrokeWidth}
@@ -37,9 +36,9 @@ class StrokeAdjustment extends React.Component {
             valueFromProps={strokeWidth}
           />
           <ColorInput
-            key={adjustmentGroup + "color"}
+            projectColors={projectColors}
             propertyName={"color"}
-            setLayerAdjustment={setLayerAdjustment}
+            handleChange={setStrokeColor}
             valueFromProps={strokeColor}
           />
         </div>
