@@ -74,7 +74,6 @@ export default function Artboards(state = {}, a) {
         let bumpedLayer = _.find(bumpedArtboard.layers, { id: layerId });
         bumpedLayer.dimensions[axis] += distance;
       });
-      console.log(bumpedCaseStudies);
       return Object.assign({}, state, { caseStudies: bumpedCaseStudies });
 
     case COPY_LAYERS:

@@ -48,9 +48,8 @@ body {
   margin: 2rem auto;
   margin: 0 auto;
   box-sizing: border-box; }
-
-.artboard__wrapper:hover .action-bar__button {
-  opacity: 1; }
+  .artboard__wrapper:hover .action-bar__button {
+    opacity: 1; }
 
 .artboard__header {
   cursor: default; }
@@ -79,12 +78,10 @@ body {
   box-shadow: 0 2px 8px 3px rgba(50, 50, 50, 0.3);
   transition: box-shadow linear 0.2s;
   z-index: 11; }
-
-.artboard__svg-wrapper.is-selected {
-  box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
-
-.artboard__svg-wrapper svg {
-  user-select: none; }
+  .artboard__svg-wrapper.is-selected {
+    box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
+  .artboard__svg-wrapper svg {
+    user-select: none; }
 
 .layer__wrapper {
   position: absolute;
@@ -102,24 +99,19 @@ body {
   opacity: 0;
   transition: opacity linear 0.1s;
   pointer-events: none; }
-
-.resize-control__wrapper > div {
-  box-sizing: border-box; }
-
-.resize-control__wrapper > div * {
-  pointer-events: auto; }
-
-.resize-control__wrapper.is-active {
-  opacity: 1; }
-
-.resize-control__wrapper.is-active > * {
-  pointer-events: initial; }
+  .resize-control__wrapper > div {
+    box-sizing: border-box; }
+    .resize-control__wrapper > div * {
+      pointer-events: auto; }
+  .resize-control__wrapper.is-active {
+    opacity: 1; }
+    .resize-control__wrapper.is-active > * {
+      pointer-events: initial; }
 
 .drag-handle {
   box-sizing: border-box; }
-
-.drag-handle:hover {
-  border: rgba(255, 0, 188, 0.9) solid 1px; }
+  .drag-handle:hover {
+    border: rgba(255, 0, 188, 0.9) solid 1px; }
 
 .resize-handle, .resize-handle__top-left, .resize-handle__top-right, .resize-handle__bottom-right, .resize-handle__bottom-left {
   position: absolute; }
@@ -225,9 +217,8 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 0.1875rem;
   transition: margin-left ease-in-out 0.2s; }
-
-.adjustments-panel__wrapper.active {
-  margin-left: -8rem; }
+  .adjustments-panel__wrapper.active {
+    margin-left: -8rem; }
 
 .adjustments-panel__header {
   background: #111;
@@ -235,10 +226,9 @@ body {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
   margin-top: 1px; }
-
-.adjustments-panel__header:first-child {
-  border-radius: 0.1875rem 0 0;
-  margin-top: none; }
+  .adjustments-panel__header:first-child {
+    border-radius: 0.1875rem 0 0;
+    margin-top: none; }
 
 .adjustments-panel__adjustment-block {
   width: 100%;
@@ -252,27 +242,25 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding: 0.25rem 0; }
-
-.adjustments-input--text > label {
-  font-family: 'Source Code Pro', sans-serif;
-  font-size: .75rem;
-  color: white;
-  display: block;
-  flex: 1;
-  margin-right: .5rem;
-  flex: 1; }
-
-.adjustments-input--text > input {
-  font-family: 'Source Code Pro', sans-serif;
-  line-height: 1.5;
-  width: 100%;
-  padding: 0 .25rem;
-  box-sizing: border-box;
-  background: #666;
-  border: none;
-  border-radius: .125rem;
-  color: white;
-  flex: 4; }
+  .adjustments-input--text > label {
+    font-family: 'Source Code Pro', sans-serif;
+    font-size: .75rem;
+    color: white;
+    display: block;
+    flex: 1;
+    margin-right: .5rem;
+    flex: 1; }
+  .adjustments-input--text > input {
+    font-family: 'Source Code Pro', sans-serif;
+    line-height: 1.5;
+    width: 100%;
+    padding: 0 .25rem;
+    box-sizing: border-box;
+    background: #666;
+    border: none;
+    border-radius: .125rem;
+    color: white;
+    flex: 4; }
 
 .adjustments-input--select {
   position: relative;
@@ -280,37 +268,34 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding: 0.25rem 0; }
-
-.adjustments-input--select > label {
-  font-family: 'Source Code Pro', sans-serif;
-  font-size: .75rem;
-  color: white;
-  display: block;
-  flex: 1;
-  margin-right: .5rem;
-  flex: 1; }
-
-.adjustments-input--select > select {
-  font-family: 'Source Code Pro', sans-serif;
-  border-radius: .125rem;
-  appearance: none;
-  line-height: 1.5;
-  width: 100%;
-  padding: 0 .25rem;
-  box-sizing: border-box;
-  background: #666;
-  border: none;
-  color: white;
-  flex: 4; }
-
-.adjustments-input--select::after {
-  content: "⌄";
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0.25rem;
-  line-height: 1.5rem;
-  pointer-events: none; }
+  .adjustments-input--select > label {
+    font-family: 'Source Code Pro', sans-serif;
+    font-size: .75rem;
+    color: white;
+    display: block;
+    flex: 1;
+    margin-right: .5rem;
+    flex: 1; }
+  .adjustments-input--select > select {
+    font-family: 'Source Code Pro', sans-serif;
+    border-radius: .125rem;
+    appearance: none;
+    line-height: 1.5;
+    width: 100%;
+    padding: 0 .25rem;
+    box-sizing: border-box;
+    background: #666;
+    border: none;
+    color: white;
+    flex: 4; }
+  .adjustments-input--select::after {
+    content: "⌄";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0.25rem;
+    line-height: 1.5rem;
+    pointer-events: none; }
 
 .color-adjustment__thumbnail,
 .gradient-adjustment__gradient-start-thumbnail,
