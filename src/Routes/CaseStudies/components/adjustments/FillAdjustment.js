@@ -15,12 +15,10 @@ class FillAdjustment extends React.Component {
 
     const setGradientFill = gradient => {
       adjustLayers("fill", "gradient", gradient);
-      adjustLayers("fill", "color", null);
     };
 
     const setSolidFill = solid => {
       adjustLayers("fill", "color", solid);
-      adjustLayers("fill", "gradient", null);
     };
 
     const setFillType = value => {

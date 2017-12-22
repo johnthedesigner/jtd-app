@@ -47,6 +47,7 @@ export default function Artboards(state = {}, a) {
       newLayer.id = uuid.v1();
       let newLayerCaseStudies = _.cloneDeep(state.caseStudies);
       let newLayerArtboard = newLayerCaseStudies[a.caseStudyId];
+      newLayer.order = newLayerArtboard.layers.length + 1;
       newLayerArtboard.layers.push(newLayer);
       newLayerArtboard.selections = [newLayer.id];
       return Object.assign({}, state, { caseStudies: newLayerCaseStudies });

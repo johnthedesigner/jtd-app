@@ -37,14 +37,10 @@ class GradientInput extends React.Component {
   }
 
   updateGradientAngle(angle) {
-    let fillUpdate = {
-      color: undefined,
-      gradient: {
-        ...this.props.valueFromProps,
-        ...{ angle }
-      }
-    };
-    this.props.handleChange(fillUpdate);
+    this.props.handleChange({
+      ...this.props.valueFromProps,
+      angle: 1 * angle // Have to make sure angle ends up being a number
+    });
   }
 
   render() {

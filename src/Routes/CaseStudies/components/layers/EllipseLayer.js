@@ -8,6 +8,7 @@ class EllipseLayer extends React.Component {
     let { stroke } = this.props.layer.adjustments;
     let rotateOriginX = dimensions.x + dimensions.width / 2;
     let rotateOriginY = dimensions.y + dimensions.height / 2;
+
     return (
       <ellipse
         draggable={false}
@@ -16,7 +17,7 @@ class EllipseLayer extends React.Component {
         rx={dimensions.width / 2}
         ry={dimensions.height / 2}
         fill={`url(#gradient${this.props.layer.id})`}
-        stroke={stroke.color}
+        stroke={stroke.color ? stroke.color : "rgba(32,32,32)"}
         strokeWidth={stroke.width}
         transform={`rotate(${dimensions.rotation} ${rotateOriginX} ${
           rotateOriginY
