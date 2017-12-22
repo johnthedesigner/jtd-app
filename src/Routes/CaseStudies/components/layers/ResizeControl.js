@@ -129,10 +129,10 @@ class ResizeControl extends React.Component {
     const dropTargetStyles = {
       display: isActive ? "block" : "none",
       position: "absolute",
-      top: -2000,
-      right: -2000,
-      bottom: -2000,
-      left: -2000
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
     };
 
     const resizeableControlStyles = {
