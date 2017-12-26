@@ -88,11 +88,11 @@ export const newLayers = {
         text: {
           align: "left",
           fontFamily: "sans",
-          fontSize: 120,
+          fontSize: 24,
           fontWeight: 300,
-          italic: true,
+          italic: false,
           textColor: "rgba(0,0,0)",
-          underline: true
+          underline: false
         }
       }
     };
