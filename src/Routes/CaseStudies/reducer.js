@@ -98,7 +98,7 @@ export default function Artboards(state = {}, a) {
       let culledCaseStudies = _.cloneDeep(state.caseStudies);
       let culledArtboard = culledCaseStudies[a.caseStudyId];
       culledArtboard.layers = _.remove(culledArtboard.layers, layer => {
-        return layer.id !== culledArtboard.selections[0];
+        return !_.includes(culledArtboard.selections, layer.id);
       });
       culledArtboard.selections = [];
       return Object.assign({}, state, { caseStudies: culledCaseStudies });

@@ -77,7 +77,7 @@ class ArtboardWrapper extends React.Component {
     });
     bindShortcut("command+e", () => {
       console.log(
-        JSON.stringify(this.props.caseStudies[this.props.caseStudyId])
+        JSON.stringify(this.props.caseStudies[this.props.artboardId])
       );
     });
   }
@@ -103,8 +103,8 @@ class ArtboardWrapper extends React.Component {
 
   updateDimensions() {
     // Get the dimensions of our artboards-wrapper
-    let { caseStudyId } = this.props;
-    let wrapper = document.getElementById(`artboard-wrapper-${caseStudyId}`);
+    let { artboardId } = this.props;
+    let wrapper = document.getElementById(`artboard-wrapper-${artboardId}`);
     let width = wrapper.clientWidth * (2 / 3); // Limit artboard to 2/3 column
     let height = wrapper.clientHeight;
     // Determine correct artboard scale factor and store in component state
@@ -115,13 +115,12 @@ class ArtboardWrapper extends React.Component {
     const {
       addLayer,
       adjustLayers,
+      artboardId,
       bumpLayers,
       caseStudies,
-      caseStudyId,
       deselectLayersArtboard,
       dragLayers,
       enableTextEditor,
-      featured,
       highlightLayer,
       moveLayers,
       rotateLayer,
@@ -131,7 +130,7 @@ class ArtboardWrapper extends React.Component {
       updateText
     } = this.props;
 
-    const mappedArtboard = mapArtboard(caseStudies[caseStudyId]);
+    const mappedArtboard = mapArtboard(caseStudies[artboardId]);
 
     const EditableTextLayer = props => {
       if (mappedArtboard.editableTextLayer) {
@@ -160,165 +159,120 @@ class ArtboardWrapper extends React.Component {
       _ => _.selection.dimensions
     );
 
-    let bgGradientStart = featured
-      ? mappedArtboard.featuredStyles.bgGradientStart
-      : "transparent";
-    let bgGradientEnd = featured
-      ? mappedArtboard.featuredStyles.bgGradientEnd
-      : "transparent";
-    let titleColor = featured
-      ? mappedArtboard.featuredStyles.titleColor
-      : mappedArtboard.nonfeaturedStyles.titleColor;
-    let excerptColor = featured
-      ? mappedArtboard.featuredStyles.excerptColor
-      : "#222";
-    let buttonFill = featured
-      ? mappedArtboard.featuredStyles.buttonFill
-      : mappedArtboard.nonfeaturedStyles.buttonFill;
-
-    let artboardWrapperStyles = {
-      background: `linear-gradient(to right, ${bgGradientStart}, ${
-        bgGradientEnd
-      })`
-    };
-    let titleStyles = {
-      color: titleColor
-    };
-    let excerptStyles = {
-      color: excerptColor
-    };
-
     return (
       <div
         className="artboard__wrapper"
-        id={`artboard-wrapper-${caseStudyId}`}
-        style={artboardWrapperStyles}
+        id={`artboard-wrapper-${artboardId}`}
+        onClick={() => {
+          deselectLayersArtboard(mappedArtboard.id);
+        }}
       >
-        <div
-          className="editor-view__main-area"
-          onClick={() => {
-            deselectLayersArtboard(mappedArtboard.id);
-          }}
+        <Artboard
+          {...mappedArtboard}
+          highlightLayer={highlightLayer}
+          key={mappedArtboard.id}
+          scaleFactor={this.state.scaleFactor}
+          deselectLayersArtboard={deselectLayersArtboard}
         >
-          <div className="editor-view__artboard-area">
-            <div className="editor-view__copy-area">
-              <div className="editor-view__copy">
-                <h1 style={titleStyles}>{mappedArtboard.title}</h1>
-                <div style={excerptStyles}>
-                  <p>{mappedArtboard.excerpt}</p>
-                </div>
-              </div>
-            </div>
-            <Artboard
-              {...mappedArtboard}
-              highlightLayer={highlightLayer}
-              key={mappedArtboard.id}
-              scaleFactor={this.state.scaleFactor}
-              deselectLayersArtboard={deselectLayersArtboard}
+          <div className="artboard__svg-wrapper">
+            <svg
+              width={scaleDimension(1000, this.state.scaleFactor)}
+              height={scaleDimension(1000, this.state.scaleFactor)}
+              viewBox="0 0 1000 1000"
             >
-              <div className="artboard__svg-wrapper">
-                <svg
-                  width={scaleDimension(1000, this.state.scaleFactor)}
-                  height={scaleDimension(1000, this.state.scaleFactor)}
-                  viewBox="0 0 1000 1000"
-                >
-                  <defs>
-                    {_.map(mappedArtboard.layers, layer => {
-                      let { fill } = layer.adjustments;
-                      if (fill === undefined) return null;
-                      let fillColors = colorsWithFallback(
-                        fill.color,
-                        fill.gradient
-                      );
-                      let fillConfig;
-                      if (fill.type === "gradient") {
-                        fillConfig = fillColors.gradient;
-                      } else {
-                        fillConfig = {
-                          angle: 0,
-                          start: fillColors.solid,
-                          end: fillColors.solid
-                        };
-                      }
+              <defs>
+                {_.map(mappedArtboard.layers, layer => {
+                  let { fill } = layer.adjustments;
+                  if (fill === undefined) return null;
+                  let fillColors = colorsWithFallback(
+                    fill.color,
+                    fill.gradient
+                  );
+                  let fillConfig;
+                  if (fill.type === "gradient") {
+                    fillConfig = fillColors.gradient;
+                  } else {
+                    fillConfig = {
+                      angle: 0,
+                      start: fillColors.solid,
+                      end: fillColors.solid
+                    };
+                  }
 
-                      return (
-                        <linearGradient
-                          key={layer.id}
-                          id={`gradient${layer.id}`}
-                          x1="0%"
-                          x2="0%"
-                          y1="0%"
-                          y2="100%"
-                        >
-                          <stop
-                            className="stop1"
-                            offset="0%"
-                            stopColor={Color(fillConfig.start).hex()}
-                          />
-                          <stop
-                            className="stop2"
-                            offset="100%"
-                            stopColor={Color(fillConfig.end).hex()}
-                          />
-                        </linearGradient>
-                      );
-                    })}
-                  </defs>
-                  {_.map(
-                    _.orderBy(mappedArtboard.layers, "order"),
-                    (layer, index) => {
-                      return (
-                        <Layer
-                          dragLayers={dragLayers}
-                          highlightLayer={highlightLayer}
-                          key={layer.id}
-                          layer={layer}
-                          selectLayer={selectLayer}
-                          scaleFactor={this.state.scaleFactor}
-                          scaleLayer={scaleLayer}
-                        />
-                      );
-                    }
-                  )}
-                </svg>
-                <ResizeControl
-                  dragLayers={dragLayers}
-                  dimensions={mappedArtboard.selection.dimensions}
-                  enableTextEditor={enableTextEditor}
-                  isActive={mappedArtboard.selection.isActive}
-                  layers={mappedArtboard.layers}
-                  scaleFactor={this.state.scaleFactor}
-                  scaleLayer={scaleLayer}
-                  selections={mappedArtboard.selections}
-                  selectLayer={selectLayer}
-                />
-                <EditableTextLayer />
-              </div>
-              <div className="artboard__action-bar">
-                <ActionBars
-                  adjustments={adjustments}
-                  adjustLayers={adjustLayers}
-                  addLayer={addLayer}
-                  buttonFill={buttonFill}
-                  caseStudyId={caseStudyId}
-                  layerIds={mappedArtboard.selection.layers}
-                  moveLayers={moveLayers}
-                  toggleFlyout={toggleFlyout}
-                />
-              </div>
-              <AdjustmentsPanel
-                adjustments={adjustments}
-                adjustLayers={adjustLayers}
-                bumpLayers={bumpLayers}
-                caseStudyId={caseStudyId}
-                dimensions={selectionDimensions}
-                projectColors={mappedArtboard.projectColors}
-                rotateLayer={rotateLayer}
-                scaleLayer={scaleLayer}
-              />
-            </Artboard>
+                  return (
+                    <linearGradient
+                      key={layer.id}
+                      id={`gradient${layer.id}`}
+                      x1="0%"
+                      x2="0%"
+                      y1="0%"
+                      y2="100%"
+                    >
+                      <stop
+                        className="stop1"
+                        offset="0%"
+                        stopColor={Color(fillConfig.start).hex()}
+                      />
+                      <stop
+                        className="stop2"
+                        offset="100%"
+                        stopColor={Color(fillConfig.end).hex()}
+                      />
+                    </linearGradient>
+                  );
+                })}
+              </defs>
+              {_.map(
+                _.orderBy(mappedArtboard.layers, "order"),
+                (layer, index) => {
+                  return (
+                    <Layer
+                      dragLayers={dragLayers}
+                      highlightLayer={highlightLayer}
+                      key={layer.id}
+                      layer={layer}
+                      selectLayer={selectLayer}
+                      scaleFactor={this.state.scaleFactor}
+                      scaleLayer={scaleLayer}
+                    />
+                  );
+                }
+              )}
+            </svg>
+            <ResizeControl
+              dragLayers={dragLayers}
+              dimensions={mappedArtboard.selection.dimensions}
+              enableTextEditor={enableTextEditor}
+              isActive={mappedArtboard.selection.isActive}
+              layers={mappedArtboard.layers}
+              scaleFactor={this.state.scaleFactor}
+              scaleLayer={scaleLayer}
+              selections={mappedArtboard.selections}
+              selectLayer={selectLayer}
+            />
+            <EditableTextLayer />
           </div>
-        </div>
+          <div className="artboard__action-bar">
+            <ActionBars
+              adjustments={adjustments}
+              adjustLayers={adjustLayers}
+              addLayer={addLayer}
+              buttonFill={"black"}
+              layerIds={mappedArtboard.selection.layers}
+              moveLayers={moveLayers}
+              toggleFlyout={toggleFlyout}
+            />
+          </div>
+          <AdjustmentsPanel
+            adjustments={adjustments}
+            adjustLayers={adjustLayers}
+            bumpLayers={bumpLayers}
+            dimensions={selectionDimensions}
+            projectColors={mappedArtboard.projectColors}
+            rotateLayer={rotateLayer}
+            scaleLayer={scaleLayer}
+          />
+        </Artboard>
       </div>
     );
   }
@@ -327,7 +281,7 @@ class ArtboardWrapper extends React.Component {
 ArtboardWrapper.propTypes = {
   caseStudies: PropTypes.object.isRequired,
   bumpLayers: PropTypes.func.isRequired,
-  caseStudyId: PropTypes.string.isRequired,
+  artboardId: PropTypes.string.isRequired,
   copyLayers: PropTypes.func.isRequired,
   deleteLayers: PropTypes.func.isRequired,
   deselectLayersArtboard: PropTypes.func.isRequired,

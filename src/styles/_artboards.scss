@@ -1,36 +1,44 @@
-// Editor Layout TODO: eliminate editor naming and possibly reorganize this
-.editor-view__copy-area {
-  flex: 1;
+// Home Block
+.home-block {
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
-.editor-view__copy {
+.home-block__text-section {
+  flex: 1;
+  padding-left: 4rem;
+}
+.home-block__text-container {
   padding: 2rem 1rem 2rem 6rem;
 }
-.editor-view__artboard-area {
-  height: 90vh;
+.home-block__artboard-section {
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  overflow: hidden;
-}
-.editor-view__sidebar {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  min-width: 200px;
+  overflow: visible;
 }
 
 // Artboard
 .artboard__wrapper {
-  flex: 2;
+  height: 90vh;
+  width: 100%;
   position: relative;
   margin: 2rem auto;
   margin: 0 auto;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   &:hover .action-bar__button {
     opacity: 1;
   }
+}
+
+.artboard {
+  margin: 0 auto;
 }
 
 .artboard__header {

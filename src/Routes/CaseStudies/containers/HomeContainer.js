@@ -1,20 +1,22 @@
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
-import HomeView from '../components/HomeView'
+import { deselectLayersArtboard } from "../actions";
+import HomeView from "../components/HomeView";
 
-const mapDispatchToProps = (dispatch) => {
-  return {}
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    deselectLayersArtboard: artboardId => {
+      dispatch(deselectLayersArtboard(artboardId));
+    }
+  };
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     Artboards: state.CaseStudies.caseStudies
-  }
-}
+  };
+};
 
-const HomeContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeView)
+const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(HomeView);
 
-export default HomeContainer
+export default HomeContainer;

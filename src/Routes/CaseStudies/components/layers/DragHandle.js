@@ -52,7 +52,7 @@ class DragHandle extends React.Component {
 
   handleClick(e) {
     e.stopPropagation();
-    this.props.selectLayer(this.props.layer.id);
+    this.props.selectLayer(this.props.layer.id, e.shiftKey);
   }
 
   handleDoubleClick(e) {

@@ -29,59 +29,59 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(addArtboard(width, height, x, y));
     },
     addLayer: layerType => {
-      dispatch(addLayer(ownProps.caseStudyId, layerType));
+      dispatch(addLayer(ownProps.artboardId, layerType));
     },
     adjustLayers: (adjustmentGroup, key, value) => {
-      dispatch(adjustLayers(ownProps.caseStudyId, adjustmentGroup, key, value));
+      dispatch(adjustLayers(ownProps.artboardId, adjustmentGroup, key, value));
     },
     bumpLayers: (axis, distance) => {
-      dispatch(bumpLayers(ownProps.caseStudyId, axis, distance));
+      dispatch(bumpLayers(ownProps.artboardId, axis, distance));
     },
     copyLayers: () => {
-      dispatch(copyLayers(ownProps.caseStudyId));
+      dispatch(copyLayers(ownProps.artboardId));
     },
     deleteLayers: () => {
-      dispatch(deleteLayers(ownProps.caseStudyId));
+      dispatch(deleteLayers(ownProps.artboardId));
     },
     deselectLayersArtboard: () => {
-      dispatch(deselectLayersArtboard(ownProps.caseStudyId));
+      dispatch(deselectLayersArtboard(ownProps.artboardId));
     },
     dragLayers: (layerId, x, y, previewOnly) => {
-      dispatch(dragLayers(ownProps.caseStudyId, layerId, x, y, previewOnly));
+      dispatch(dragLayers(ownProps.artboardId, layerId, x, y, previewOnly));
     },
     enableTextEditor: layerId => {
-      dispatch(enableTextEditor(ownProps.caseStudyId, layerId));
+      dispatch(enableTextEditor(ownProps.artboardId, layerId));
     },
     highlightLayer: layerId => {
       dispatch(highlightLayer(layerId));
     },
     moveLayers: direction => {
-      dispatch(moveLayers(ownProps.caseStudyId, direction));
+      dispatch(moveLayers(ownProps.artboardId, direction));
     },
     pasteLayers: () => {
-      dispatch(pasteLayers(ownProps.caseStudyId));
+      dispatch(pasteLayers(ownProps.artboardId));
     },
     rotateLayer: degrees => {
-      dispatch(rotateLayer(ownProps.caseStudyId, degrees));
+      dispatch(rotateLayer(ownProps.artboardId, degrees));
     },
     scaleLayer: (scaleDirectives, previewOnly) => {
-      dispatch(scaleLayer(ownProps.caseStudyId, scaleDirectives, previewOnly));
+      dispatch(scaleLayer(ownProps.artboardId, scaleDirectives, previewOnly));
     },
     selectLayer: (layerId, shiftKey) => {
-      dispatch(selectLayer(ownProps.caseStudyId, layerId, shiftKey));
+      dispatch(selectLayer(ownProps.artboardId, layerId, shiftKey));
     },
     toggleFlyout: flyoutId => {
-      dispatch(toggleFlyout(ownProps.caseStudyId, flyoutId));
+      dispatch(toggleFlyout(ownProps.artboardId, flyoutId));
     },
     updateText: text => {
-      dispatch(updateText(ownProps.caseStudyId, text));
+      dispatch(updateText(ownProps.artboardId, text));
     }
   };
 };
 
 const mapStateToProps = (state, ownProps) => ({
   caseStudies: state.CaseStudies.caseStudies,
-  caseStudyId: ownProps.caseStudyId,
+  artboardId: ownProps.artboardId,
   featured: ownProps.featured
 });
 
