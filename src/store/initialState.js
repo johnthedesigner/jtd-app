@@ -1,19 +1,10 @@
 import _ from "lodash";
 
-import testCaseStudy from "../caseStudies/testCaseStudy";
-import fakeCaseStudy from "../caseStudies/fakeCaseStudy";
-
-// Put all artboards into an object keyed by artboard ID
-const packagedArtboards = _.keyBy([testCaseStudy, fakeCaseStudy], "id");
-
-let artboardHistories = {};
-_.each(packagedArtboards, artboard => {
-  artboardHistories[artboard.id] = [];
-});
+import { artboards, artboardHistories } from "./artboardFactory";
 
 const initialState = {
   Artboards: {
-    artboards: packagedArtboards,
+    artboards: artboards,
     history: artboardHistories,
     pasteBuffer: null
   }

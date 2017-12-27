@@ -91,7 +91,7 @@ export default {
     {
       type: "text",
       title: "text",
-      text: "John the Designer",
+      text: "Lorem ipsum dolor.",
       order: 4,
       dimensions: { x: 100, y: 450, width: 800, height: 100, rotation: 0 },
       adjustments: {

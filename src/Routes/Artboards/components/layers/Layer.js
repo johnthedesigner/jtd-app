@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-import { layerTypes } from "../../../../caseStudies/constants";
+import { layerTypes } from "../../../../store/artboardFactory";
 import EllipseLayer from "./EllipseLayer";
 import ImageLayer from "./ImageLayer";
 import RectangleLayer from "./RectangleLayer";
