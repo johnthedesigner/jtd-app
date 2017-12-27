@@ -1,31 +1,44 @@
 // Fonts
 @mixin font-source-code() {
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: "Source Code Pro", sans-serif;
 }
 
 @mixin radius() {
-  border-radius: .125rem;
+  border-radius: 0.125rem;
+}
+
+@mixin button() {
+  @include radius();
+  color: white;
+  background: black;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  transition: background linear 0.2s;
+
+  &:hover {
+    background: #333;
+  }
 }
 
 // Adjustment Inputs
 @mixin adjustments-label() {
-  font-family: 'Source Code Pro', sans-serif;
-  font-size: .75rem;
+  font-family: "Source Code Pro", sans-serif;
+  font-size: 0.75rem;
   color: white;
   display: block;
   flex: 1;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 @mixin adjustments-text-input() {
   @include font-source-code();
   line-height: 1.5;
   width: 100%;
-  padding: 0 .25rem;
+  padding: 0 0.25rem;
   box-sizing: border-box;
   background: #666;
   border: none;
-  border-radius: .125rem;
+  border-radius: 0.125rem;
   color: white;
 }
 
@@ -35,7 +48,7 @@
   appearance: none;
   line-height: 1.5;
   width: 100%;
-  padding: 0 .25rem;
+  padding: 0 0.25rem;
   box-sizing: border-box;
   background: #666;
   border: none;

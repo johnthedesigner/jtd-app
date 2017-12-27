@@ -1,0 +1,14 @@
+.home-item__title {
+  @include font-source-code();
+  font-weight: 300;
+  font-size: 1.75rem;
+}
+
+.home-item__blurb {
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+.home-item__cta {
+  @include button();
+}
