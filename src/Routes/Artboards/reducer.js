@@ -242,6 +242,10 @@ export default function Artboards(state = {}, a) {
           // Then apply additional offset for rotated layers
           newDimensions.x += getRotationOffset(resizeAxis, distance / 2).x;
           newDimensions.y += getRotationOffset(resizeAxis, distance / 2).y;
+
+          // Make sure we end up with integers
+          newDimensions.x = Math.round(newDimensions.x);
+          newDimensions.y = Math.round(newDimensions.y);
         });
         // Apply new dimensions temporarily (on drag) or permanently (on drop)
         if (a.previewOnly) {
