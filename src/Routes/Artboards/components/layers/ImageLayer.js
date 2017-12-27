@@ -7,7 +7,6 @@ import imageLibrary from "./imageLibrary";
 class ImageLayer extends React.Component {
   render() {
     let { dimensions, layer } = this.props;
-    console.log(layer);
     let rotateOriginX = dimensions.x + dimensions.width / 2;
     let rotateOriginY = dimensions.y + dimensions.height / 2;
     let selectedImage = imageLibrary[layer.imageId];

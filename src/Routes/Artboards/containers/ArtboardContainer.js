@@ -25,8 +25,8 @@ import ArtboardWrapper from "../components/ArtboardWrapper";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addLayer: (layerType, imageId) => {
-      dispatch(addLayer(ownProps.artboardId, layerType, imageId));
+    addLayer: (layerType, image) => {
+      dispatch(addLayer(ownProps.artboardId, layerType, image));
     },
     adjustLayers: (adjustmentGroup, key, value) => {
       dispatch(adjustLayers(ownProps.artboardId, adjustmentGroup, key, value));

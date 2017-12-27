@@ -9,29 +9,38 @@ class ImagePicker extends React.Component {
     // Don't show the picker if it's not toggled on
     if (!this.props.showImagePicker) return null;
 
-    const addImageLayer = (e, imageId) => {
+    const addImageLayer = (e, image) => {
       this.props.toggleImagePicker();
-      this.props.addLayer("image", imageId);
+      this.props.addLayer("image", image);
       e.stopPropagation();
     };
 
-    const ImageThumbnail = props => {
-      console.log(props);
+    const ImageThumbnail = image => {
       return (
         <div className="image-picker__thumbnail">
           <img
-            src={props.url}
-            onClick={e => addImageLayer(e, props.id)}
-            alt={props.id}
+            src={image.image.url}
+            onClick={e => addImageLayer(e, image.image)}
+            alt={image.image.id}
           />
         </div>
       );
     };
     return (
       <div className="image-picker">
-        {_.map(imageLibrary, image => {
-          return <ImageThumbnail key={image.id} {...image} />;
-        })}
+        <div className="image-picker__body">
+          {_.map(imageLibrary, image => {
+            return <ImageThumbnail key={image.id} image={image} />;
+          })}
+        </div>
+        <div className="image-picker__footer">
+          <button
+            className="image-picker__cancel-button"
+            onClick={this.props.toggleImagePicker}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     );
   }

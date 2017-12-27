@@ -23,18 +23,17 @@ export const newLayers = {
       }
     };
   },
-  image: imageId => {
-    console.log(imageId);
+  image: image => {
     return {
-      imageId,
+      imageId: image.id,
       type: "image",
       title: "image",
       order: 0,
       dimensions: {
-        x: 450,
-        y: 450,
-        width: 100,
-        height: 100,
+        x: (1000 - image.width) / 2,
+        y: (1000 - image.width) / 2,
+        width: image.width,
+        height: image.height,
         rotation: 0
       },
       adjustments: {}

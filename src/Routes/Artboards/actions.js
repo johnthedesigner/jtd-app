@@ -18,12 +18,12 @@ import {
   UPDATE_TEXT
 } from "./constants";
 
-export function addLayer(artboardId, layerType, imageId) {
+export function addLayer(artboardId, layerType, image) {
   return {
     type: ADD_LAYER,
     artboardId,
     layerType,
-    imageId
+    image
   };
 }
 

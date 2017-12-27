@@ -44,7 +44,7 @@ export default function Artboards(state = {}, a) {
       consoleGroup(a.type, [a]);
       let newLayer;
       if (a.layerType === "image") {
-        newLayer = newLayers[a.layerType](a.imageId);
+        newLayer = newLayers[a.layerType](a.image);
       } else {
         newLayer = newLayers[a.layerType]();
       }

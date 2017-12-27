@@ -348,6 +348,7 @@ body {
 
 .image-picker {
   display: flex;
+  flex-direction: column;
   position: absolute;
   padding: 0.25rem;
   top: 1rem;
@@ -358,14 +359,33 @@ body {
   z-index: 100;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6); }
 
+.image-picker:hover .image-picker__thumbnail img {
+  opacity: 0.75; }
+
+.image-picker__body {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto; }
+
+.image-picker__footer {
+  height: 3rem; }
+
 .image-picker__thumbnail {
-  width: 33%; }
+  transition: opacity linear 0.2s;
+  width: 33.3%; }
 
 .image-picker__thumbnail > img {
+  display: block;
   width: 100%;
   padding: 0.25rem;
   box-sizing: border-box;
-  height: auto; }
+  height: auto;
+  background: transparent;
+  transition: all linear 0.2s; }
+
+.image-picker__thumbnail:hover img:hover {
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1; }
 
 .home-item__title {
   font-family: "Source Code Pro", sans-serif;

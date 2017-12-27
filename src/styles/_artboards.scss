@@ -339,6 +339,7 @@ $resizeEdgeWidth: 0.5rem;
 // Image picker
 .image-picker {
   display: flex;
+  flex-direction: column;
   position: absolute;
   padding: 0.25rem;
   top: 1rem;
@@ -348,15 +349,38 @@ $resizeEdgeWidth: 0.5rem;
   background: white;
   z-index: 100;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+
+  &:hover .image-picker__thumbnail img {
+    opacity: 0.75;
+  }
+}
+
+.image-picker__body {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.image-picker__footer {
+  height: 3rem;
 }
 
 .image-picker__thumbnail {
-  width: 33%;
+  transition: opacity linear 0.2s;
+  width: 33.3%;
 
   > img {
+    display: block;
     width: 100%;
     padding: 0.25rem;
     box-sizing: border-box;
     height: auto;
+    background: rgba(0, 0, 0, 0);
+    transition: all linear 0.2s;
+  }
+
+  &:hover img:hover {
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 1;
   }
 }
