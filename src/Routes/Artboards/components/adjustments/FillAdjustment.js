@@ -38,29 +38,32 @@ class FillAdjustment extends React.Component {
       let fillColors = colorsWithFallback(backgroundColor, linearGradient);
 
       return (
-        <div className="adjustments-panel__adjustment-block">
-          <SelectInput
-            options={fillTypeOptions}
-            propertyName={"type"}
-            setValue={setFillType}
-            valueFromProps={type}
-          />
-          {type === "color" && (
-            <ColorInput
-              handleChange={setSolidFill}
-              projectColors={projectColors}
-              propertyName={"color"}
-              valueFromProps={fillColors.solid}
+        <div>
+          <div className="adjustments-panel__header">Fill</div>
+          <div className="adjustments-panel__adjustment-block">
+            <SelectInput
+              options={fillTypeOptions}
+              propertyName={"type"}
+              setValue={setFillType}
+              valueFromProps={type}
             />
-          )}
-          {type === "gradient" && (
-            <GradientInput
-              handleChange={setGradientFill}
-              projectColors={projectColors}
-              propertyName={"gradient"}
-              valueFromProps={fillColors.gradient}
-            />
-          )}
+            {type === "color" && (
+              <ColorInput
+                handleChange={setSolidFill}
+                projectColors={projectColors}
+                propertyName={"color"}
+                valueFromProps={fillColors.solid}
+              />
+            )}
+            {type === "gradient" && (
+              <GradientInput
+                handleChange={setGradientFill}
+                projectColors={projectColors}
+                propertyName={"gradient"}
+                valueFromProps={fillColors.gradient}
+              />
+            )}
+          </div>
         </div>
       );
     } else {

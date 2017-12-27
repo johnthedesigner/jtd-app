@@ -45,18 +45,21 @@ class BlendAdjustment extends React.Component {
 
     if (adjustments) {
       return (
-        <div className="adjustments-panel__adjustment-block">
-          <SelectInput
-            propertyName={"mode"}
-            options={blendModeOptions}
-            setValue={setBlendMode}
-            valueFromProps={blendMode}
-          />
-          <TextInput
-            propertyName={"opacity"}
-            setValue={setOpacity}
-            valueFromProps={opacity}
-          />
+        <div>
+          <div className="adjustments-panel__header">Blend &amp; Opacity</div>
+          <div className="adjustments-panel__adjustment-block">
+            <SelectInput
+              propertyName={"mode"}
+              options={blendModeOptions}
+              setValue={setBlendMode}
+              valueFromProps={blendMode}
+            />
+            <TextInput
+              propertyName={"opacity"}
+              setValue={setOpacity}
+              valueFromProps={opacity}
+            />
+          </div>
         </div>
       );
     } else {

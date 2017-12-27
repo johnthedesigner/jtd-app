@@ -84,55 +84,58 @@ class TypeAdjustment extends React.Component {
 
     if (adjustments) {
       return (
-        <div className="adjustments-panel__adjustment-block">
-          <SelectInput
-            key={adjustmentGroup + "fontFamily"}
-            propertyName={"fontFamily"}
-            options={fontFamilyOptions}
-            setValue={setFontFamily}
-            valueFromProps={fontFamily}
-          />
-          <SelectInput
-            key={adjustmentGroup + "fontWeight"}
-            propertyName={"fontWeight"}
-            label="Weight"
-            options={fontWeightOptions}
-            setValue={setFontWeight}
-            valueFromProps={fontWeight}
-          />
-          <SelectInput
-            key={adjustmentGroup + "fontSize"}
-            propertyName={"fontSize"}
-            label="Size"
-            options={fontSizeOptions}
-            setValue={setFontSize}
-            valueFromProps={fontSize}
-          />
-          <SelectInput
-            key={adjustmentGroup + "align"}
-            propertyName={"align"}
-            label="Align"
-            options={alignOptions}
-            setValue={alignText}
-            valueFromProps={align}
-          />
-          <ColorInput
-            key={adjustmentGroup + "color"}
-            projectColors={projectColors}
-            propertyName={"color"}
-            handleChange={setFontColor}
-            valueFromProps={fontColor}
-          />
-          <ToggleInput
-            propertyName={"italic"}
-            handleChange={toggleItalics}
-            valueFromProps={italic}
-          />
-          <ToggleInput
-            propertyName={"underline"}
-            handleChange={toggleUnderline}
-            valueFromProps={underline}
-          />
+        <div>
+          <div className="adjustments-panel__header">Text</div>
+          <div className="adjustments-panel__adjustment-block">
+            <SelectInput
+              key={adjustmentGroup + "fontFamily"}
+              propertyName={"fontFamily"}
+              options={fontFamilyOptions}
+              setValue={setFontFamily}
+              valueFromProps={fontFamily}
+            />
+            <SelectInput
+              key={adjustmentGroup + "fontWeight"}
+              propertyName={"fontWeight"}
+              label="Weight"
+              options={fontWeightOptions}
+              setValue={setFontWeight}
+              valueFromProps={fontWeight}
+            />
+            <SelectInput
+              key={adjustmentGroup + "fontSize"}
+              propertyName={"fontSize"}
+              label="Size"
+              options={fontSizeOptions}
+              setValue={setFontSize}
+              valueFromProps={fontSize}
+            />
+            <SelectInput
+              key={adjustmentGroup + "align"}
+              propertyName={"align"}
+              label="Align"
+              options={alignOptions}
+              setValue={alignText}
+              valueFromProps={align}
+            />
+            <ColorInput
+              key={adjustmentGroup + "color"}
+              projectColors={projectColors}
+              propertyName={"color"}
+              handleChange={setFontColor}
+              valueFromProps={fontColor}
+            />
+            <ToggleInput
+              propertyName={"italic"}
+              handleChange={toggleItalics}
+              valueFromProps={italic}
+            />
+            <ToggleInput
+              propertyName={"underline"}
+              handleChange={toggleUnderline}
+              valueFromProps={underline}
+            />
+          </div>
         </div>
       );
     } else {

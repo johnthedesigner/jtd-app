@@ -5,10 +5,10 @@ export const newLayers = {
       title: "ellipse",
       order: 0,
       dimensions: {
-        x: 450,
-        y: 450,
-        width: 100,
-        height: 100,
+        x: 200,
+        y: 200,
+        width: 600,
+        height: 600,
         rotation: 0
       },
       adjustments: {
@@ -54,10 +54,10 @@ export const newLayers = {
       title: "rectangle",
       order: 0,
       dimensions: {
-        x: 450,
-        y: 450,
-        width: 100,
-        height: 100,
+        x: 200,
+        y: 200,
+        width: 600,
+        height: 600,
         rotation: 0
       },
       adjustments: {
@@ -87,10 +87,10 @@ export const newLayers = {
       text: "Add your own text",
       order: 0,
       dimensions: {
-        x: 400,
+        x: 300,
         y: 450,
-        width: 200,
-        height: 100,
+        width: 400,
+        height: 200,
         rotation: 0
       },
       adjustments: {
@@ -101,7 +101,7 @@ export const newLayers = {
         text: {
           align: "left",
           fontFamily: "sans",
-          fontSize: 24,
+          fontSize: 36,
           fontWeight: 300,
           italic: false,
           textColor: "rgba(0,0,0)",

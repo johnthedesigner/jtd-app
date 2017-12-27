@@ -26,21 +26,24 @@ class StrokeAdjustment extends React.Component {
 
     if (adjustments) {
       return (
-        <div className="adjustments-panel__adjustment-block">
-          <TextInput
-            propertyName={"width"}
-            label="Width"
-            setValue={setStrokeWidth}
-            suffix="px"
-            type="text"
-            valueFromProps={strokeWidth}
-          />
-          <ColorInput
-            projectColors={projectColors}
-            propertyName={"color"}
-            handleChange={setStrokeColor}
-            valueFromProps={strokeColor}
-          />
+        <div>
+          <div className="adjustments-panel__header">Stroke</div>
+          <div className="adjustments-panel__adjustment-block">
+            <TextInput
+              propertyName={"width"}
+              label="Width"
+              setValue={setStrokeWidth}
+              suffix="px"
+              type="text"
+              valueFromProps={strokeWidth}
+            />
+            <ColorInput
+              projectColors={projectColors}
+              propertyName={"color"}
+              handleChange={setStrokeColor}
+              valueFromProps={strokeColor}
+            />
+          </div>
         </div>
       );
     } else {

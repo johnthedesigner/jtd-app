@@ -37,7 +37,6 @@ class AdjustmentsPanel extends React.Component {
         className={`adjustments-panel__wrapper ${activeClass}`}
         onClick={this.handleClick}
       >
-        <div className="adjustments-panel__header">Dimensions</div>
         <DimensionsAdjustment
           adjustLayers={adjustLayers}
           bumpLayers={bumpLayers}
@@ -45,25 +44,21 @@ class AdjustmentsPanel extends React.Component {
           scaleLayer={scaleLayer}
           adjustments={dimensions}
         />
-        <div className="adjustments-panel__header">Fill</div>
         <FillAdjustment
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.fill)}
           projectColors={projectColors}
         />
-        <div className="adjustments-panel__header">Stroke</div>
         <StrokeAdjustment
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.stroke)}
           projectColors={projectColors}
         />
-        <div className="adjustments-panel__header">Type</div>
         <TextAdjustment
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.text)}
           projectColors={projectColors}
         />
-        <div className="adjustments-panel__header">Blend &amp; Opacity</div>
         <BlendAdjustment
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.blending)}
