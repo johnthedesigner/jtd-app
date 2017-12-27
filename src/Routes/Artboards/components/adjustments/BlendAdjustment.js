@@ -48,6 +48,7 @@ class BlendAdjustment extends React.Component {
         <div>
           <div className="adjustments-panel__header">Blend &amp; Opacity</div>
           <div className="adjustments-panel__adjustment-block">
+            <label style={{ fontSize: 12 }}>Blending mode</label>
             <SelectInput
               propertyName={"mode"}
               options={blendModeOptions}
@@ -55,6 +56,7 @@ class BlendAdjustment extends React.Component {
               valueFromProps={blendMode}
             />
             <TextInput
+              label="Opacity"
               propertyName={"opacity"}
               setValue={setOpacity}
               valueFromProps={opacity}
