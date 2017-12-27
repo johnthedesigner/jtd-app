@@ -22,19 +22,19 @@ import {
   UPDATE_TEXT
 } from "./constants";
 
-// Add an updated artboard to its own history
-const updateHistory = artboard => {
-  artboard.history.push(_.cloneDeep(artboard));
-};
-
 export default function Artboards(state = {}, a) {
+  // Add an updated artboard to its own history
+  const updateHistory = artboard => {
+    state.history[artboard.id].push(artboard);
+  };
+
   // Prepare cloned artboard
   let clonedArtboards = a.artboardId ? _.cloneDeep(state.artboards) : null;
   let clonedArtboard = a.artboardId ? clonedArtboards[a.artboardId] : null;
 
   // Add initial history entry if one isn't present
-  if (clonedArtboard && clonedArtboard.history.length === 0) {
-    clonedArtboard.history.push(_.cloneDeep(clonedArtboard));
+  if (clonedArtboard && state.history[a.artboardId].length === 0) {
+    state.history[a.artboardId].push(_.cloneDeep(clonedArtboard));
   }
 
   // Switching between action types
@@ -264,14 +264,17 @@ export default function Artboards(state = {}, a) {
 
     case UNDO_ACTION:
       consoleGroup(a.type, [a]);
-      let newHistory = clonedArtboard.history;
+      let artboardHistory = _.cloneDeep(state.history[a.artboardId]);
       // Allow undo action if there is a history
-      if (clonedArtboard.history && clonedArtboard.history.length > 1) {
+      if (artboardHistory && artboardHistory.length > 1) {
         // Overwrite the artboard with the previous history item
-        clonedArtboards[a.artboardId] = newHistory[newHistory.length - 2];
-        // Write the new artboard back into history
-        clonedArtboards[a.artboardId].history.push(
-          _.cloneDeep(clonedArtboards[a.artboardId])
+        clonedArtboards[a.artboardId] =
+          artboardHistory[artboardHistory.length - 2];
+        // drop undone history items
+        state.history[a.artboardId] = _.slice(
+          artboardHistory,
+          0,
+          artboardHistory.length - 1
         );
         return Object.assign({}, state, {
           artboards: clonedArtboards

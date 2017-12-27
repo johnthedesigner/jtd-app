@@ -129,10 +129,10 @@ class ResizeControl extends React.Component {
     const dropTargetStyles = {
       display: isActive ? "block" : "none",
       position: "absolute",
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
+      top: isActive ? -1000 : 0,
+      right: isActive ? -1000 : 0,
+      bottom: isActive ? -1000 : 0,
+      left: isActive ? -1000 : 0
     };
 
     const resizeableControlStyles = {
@@ -148,6 +148,19 @@ class ResizeControl extends React.Component {
     return connectDropTarget(
       <div>
         <div className="resize-control__drop-target" style={dropTargetStyles} />
+        {_.map(_.orderBy(layers, "order"), (layer, index) => {
+          return (
+            <DragHandle
+              dragLayers={dragLayers}
+              enableTextEditor={enableTextEditor}
+              HTML5Backend={HTML5Backend}
+              key={layer.id}
+              layer={layer}
+              selectLayer={selectLayer}
+              scaleFactor={this.props.scaleFactor}
+            />
+          );
+        })}
         <div
           className={"resize-control__wrapper" + toggleActive()}
           style={resizeableControlStyles}
@@ -179,19 +192,6 @@ class ResizeControl extends React.Component {
             directions={["bottom", "left"]}
           />
         </div>
-        {_.map(_.orderBy(layers, "order"), (layer, index) => {
-          return (
-            <DragHandle
-              dragLayers={dragLayers}
-              enableTextEditor={enableTextEditor}
-              HTML5Backend={HTML5Backend}
-              key={layer.id}
-              layer={layer}
-              selectLayer={selectLayer}
-              scaleFactor={this.props.scaleFactor}
-            />
-          );
-        })}
       </div>
     );
   }

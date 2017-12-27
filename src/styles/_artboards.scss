@@ -103,7 +103,7 @@
     box-sizing: border-box;
 
     * {
-      pointer-events: auto;
+      pointer-events: all;
     }
   }
 
@@ -121,7 +121,8 @@
   // background: rgba(255,0,0,.4);
   box-sizing: border-box;
 
-  &:hover {
+  &:hover,
+  &.is-selected {
     border: $magenta solid 1px;
   }
 }
@@ -172,23 +173,23 @@ $resizeEdgeWidth: 0.5rem;
 }
 .resize-handle__top-left {
   @extend .resize-handle;
-  top: - $resizeEdgeWidth;
-  left: - $resizeEdgeWidth;
+  top: - $resizeEdgeWidth / 2;
+  left: - $resizeEdgeWidth / 2;
 }
 .resize-handle__top-right {
   @extend .resize-handle;
-  top: - $resizeEdgeWidth;
-  right: - $resizeEdgeWidth;
+  top: - $resizeEdgeWidth / 2;
+  right: - $resizeEdgeWidth / 2;
 }
 .resize-handle__bottom-right {
   @extend .resize-handle;
-  bottom: - $resizeEdgeWidth;
-  right: - $resizeEdgeWidth;
+  bottom: - $resizeEdgeWidth / 2;
+  right: - $resizeEdgeWidth / 2;
 }
 .resize-handle__bottom-left {
   @extend .resize-handle;
-  bottom: - $resizeEdgeWidth;
-  left: - $resizeEdgeWidth;
+  bottom: - $resizeEdgeWidth / 2;
+  left: - $resizeEdgeWidth / 2;
 }
 
 // Action Bars

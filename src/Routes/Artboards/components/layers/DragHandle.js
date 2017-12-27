@@ -63,7 +63,7 @@ class DragHandle extends React.Component {
   }
 
   render() {
-    const { connectDragSource, isDragging } = this.props;
+    const { connectDragSource, isDragging, layer } = this.props;
     const { x, y, width, height, rotation } = this.state.dimensions;
 
     const dragHandleStyles = {
@@ -78,7 +78,7 @@ class DragHandle extends React.Component {
 
     return connectDragSource(
       <div
-        className={`drag-handle`}
+        className={`drag-handle ${layer.isSelected ? "is-selected" : ""}`}
         onClick={this.handleClick}
         onDoubleClick={this.handleDoubleClick}
         onDrag={this.handleDrag}
