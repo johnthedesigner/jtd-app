@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import idx from "idx";
 
+import BlendAdjustment from "./BlendAdjustment";
 import DimensionsAdjustment from "./DimensionsAdjustment";
 import FillAdjustment from "./FillAdjustment";
 import StrokeAdjustment from "./StrokeAdjustment";
@@ -61,6 +62,11 @@ class AdjustmentsPanel extends React.Component {
           adjustLayers={adjustLayers}
           adjustments={idx(adjustments, _ => _.text)}
           projectColors={projectColors}
+        />
+        <div className="adjustments-panel__header">Blend &amp; Opacity</div>
+        <BlendAdjustment
+          adjustLayers={adjustLayers}
+          adjustments={idx(adjustments, _ => _.blending)}
         />
       </div>
     );

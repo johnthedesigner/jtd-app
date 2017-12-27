@@ -18,6 +18,10 @@ export default {
       order: 0,
       dimensions: { x: 40, y: 500, width: 920, height: 460, rotation: 0 },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         fill: {
           type: "gradient",
           gradient: {
@@ -37,6 +41,10 @@ export default {
       order: 1,
       dimensions: { x: 40, y: 40, width: 920, height: 460, rotation: 0 },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         fill: {
           type: "gradient",
           gradient: {
@@ -56,6 +64,10 @@ export default {
       order: 2,
       dimensions: { x: 260, y: 250, width: 500, height: 500, rotation: 0 },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         fill: {
           type: "gradient",
           color: null,
@@ -75,6 +87,10 @@ export default {
       order: 3,
       dimensions: { x: 240, y: 250, width: 500, height: 500, rotation: 0 },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         fill: {
           type: "gradient",
           color: null,
@@ -95,6 +111,10 @@ export default {
       order: 4,
       dimensions: { x: 100, y: 450, width: 800, height: 100, rotation: 0 },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         text: {
           align: "center",
           fontFamily: "mono",

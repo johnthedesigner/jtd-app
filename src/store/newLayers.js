@@ -12,6 +12,10 @@ export const newLayers = {
         rotation: 0
       },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         fill: {
           type: "color",
           color: "rgba(11,231,183,1)"
@@ -36,7 +40,12 @@ export const newLayers = {
         height: image.height,
         rotation: 0
       },
-      adjustments: {}
+      adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        }
+      }
     };
   },
   rectangle: () => {
@@ -52,6 +61,10 @@ export const newLayers = {
         rotation: 0
       },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         fill: {
           type: "gradient",
           gradient: {
@@ -81,6 +94,10 @@ export const newLayers = {
         rotation: 0
       },
       adjustments: {
+        blending: {
+          mode: "normal",
+          opacity: 1
+        },
         text: {
           align: "left",
           fontFamily: "sans",

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import idx from "idx";
 
 import { typeStyles } from "../adjustments/adjustmentOptions";
 
@@ -110,20 +111,12 @@ class TextLayer extends React.Component {
     // Default left-aligned text props
     let textAnchor = "start";
     let dx = 0;
-    // // Center-aligned text props
-    // if (align === 'center') {
-    //   textAnchor = 'middle'
-    //   dx = width / 2
-    // }
-    // // Right-aligned text props
-    // if (align === 'right') {
-    //   textAnchor = 'end'
-    //   dx = width
-    // }
 
-    // Hide svg text while editing
+    let blendMode = idx(this.props.layer, _ => _.adjustments.blending.mode);
+
     let textStyles = {
-      visibility: isEditable ? "hidden" : "visible"
+      visibility: isEditable ? "hidden" : "visible",
+      mixBlendMode: blendMode ? blendMode : "normal"
     };
 
     return (
