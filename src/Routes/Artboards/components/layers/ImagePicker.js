@@ -10,8 +10,8 @@ class ImagePicker extends React.Component {
     if (!this.props.showImagePicker) return null;
 
     const addImageLayer = (e, imageId) => {
-      this.props.addLayer("image", imageId);
       this.props.toggleImagePicker();
+      this.props.addLayer("image", imageId);
       e.stopPropagation();
     };
 
