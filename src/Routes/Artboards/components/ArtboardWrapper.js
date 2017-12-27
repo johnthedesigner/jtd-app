@@ -14,6 +14,7 @@ import TextLayerEditor from "./layers/TextLayerEditor";
 import ResizeControl from "./layers/ResizeControl";
 import { scaleDimension } from "../artboardUtils";
 import { colorsWithFallback } from "../colorUtils";
+import ImagePicker from "./layers/ImagePicker";
 
 class ArtboardWrapper extends React.Component {
   constructor(props) {
@@ -128,6 +129,7 @@ class ArtboardWrapper extends React.Component {
       rotateLayer,
       scaleLayer,
       selectLayer,
+      toggleImagePicker,
       updateText
     } = this.props;
 
@@ -261,6 +263,7 @@ class ArtboardWrapper extends React.Component {
               buttonFill={"black"}
               layerIds={mappedArtboard.selection.layers}
               moveLayers={moveLayers}
+              toggleImagePicker={toggleImagePicker}
             />
           </div>
           <AdjustmentsPanel
@@ -271,6 +274,11 @@ class ArtboardWrapper extends React.Component {
             projectColors={mappedArtboard.projectColors}
             rotateLayer={rotateLayer}
             scaleLayer={scaleLayer}
+          />
+          <ImagePicker
+            addLayer={addLayer}
+            showImagePicker={mappedArtboard.showImagePicker}
+            toggleImagePicker={toggleImagePicker}
           />
         </Artboard>
       </div>

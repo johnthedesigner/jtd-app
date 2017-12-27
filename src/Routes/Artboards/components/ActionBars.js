@@ -6,20 +6,15 @@ import ActionIcon from "./ActionIcons";
 class ActionBars extends React.Component {
   constructor(props) {
     super(props);
-    this.addImage = this.addImage.bind(this);
     this.addRectangle = this.addRectangle.bind(this);
     this.addText = this.addText.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.showImagePicker = this.showImagePicker.bind(this);
   }
 
   addEllipse = e => {
     e.target.blur();
     this.props.addLayer("ellipse");
-  };
-
-  addImage = e => {
-    e.target.blur();
-    this.props.addLayer("image", "test1");
   };
 
   addRectangle = e => {
@@ -34,6 +29,11 @@ class ActionBars extends React.Component {
 
   handleClick = e => e.stopPropagation();
 
+  showImagePicker = e => {
+    e.target.blur();
+    this.props.toggleImagePicker();
+  };
+
   render() {
     return (
       <div>
@@ -44,7 +44,7 @@ class ActionBars extends React.Component {
           <button className="action-bar__button" onClick={this.addEllipse}>
             <ActionIcon iconType="ellipse" fill={this.props.buttonFill} />
           </button>
-          <button className="action-bar__button" onClick={this.addImage}>
+          <button className="action-bar__button" onClick={this.showImagePicker}>
             <ActionIcon iconType="image" fill={this.props.buttonFill} />
           </button>
           <button className="action-bar__button" onClick={this.addText}>

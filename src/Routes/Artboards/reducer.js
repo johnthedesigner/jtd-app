@@ -18,6 +18,7 @@ import {
   ROTATE_LAYER,
   SCALE_LAYER,
   SELECT_LAYER,
+  TOGGLE_IMAGE_PICKER,
   UNDO_ACTION,
   UPDATE_TEXT
 } from "./constants";
@@ -265,6 +266,13 @@ export default function Artboards(state = {}, a) {
           artboards: clonedArtboards
         });
       }
+
+    case TOGGLE_IMAGE_PICKER:
+      consoleGroup(a.type, [a]);
+      clonedArtboard.showImagePicker = !clonedArtboard.showImagePicker;
+      return Object.assign({}, state, {
+        artboards: clonedArtboards
+      });
 
     case UNDO_ACTION:
       consoleGroup(a.type, [a]);

@@ -16,6 +16,7 @@ import {
   rotateLayer,
   scaleLayer,
   selectLayer,
+  toggleImagePicker,
   undoAction,
   updateText
 } from "../actions";
@@ -65,6 +66,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     selectLayer: (layerId, shiftKey) => {
       dispatch(selectLayer(ownProps.artboardId, layerId, shiftKey));
+    },
+    toggleImagePicker: () => {
+      dispatch(toggleImagePicker(ownProps.artboardId));
     },
     undoAction: () => {
       dispatch(undoAction(ownProps.artboardId));

@@ -335,3 +335,28 @@ $resizeEdgeWidth: 0.5rem;
   border-radius: 50%;
   border: #bbb 1px solid;
 }
+
+// Image picker
+.image-picker {
+  display: flex;
+  position: absolute;
+  padding: 0.25rem;
+  top: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  background: white;
+  z-index: 100;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+.image-picker__thumbnail {
+  width: 33%;
+
+  > img {
+    width: 100%;
+    padding: 0.25rem;
+    box-sizing: border-box;
+    height: auto;
+  }
+}

@@ -13,7 +13,7 @@ import {
   ROTATE_LAYER,
   SCALE_LAYER,
   SELECT_LAYER,
-  TOGGLE_FLYOUT,
+  TOGGLE_IMAGE_PICKER,
   UNDO_ACTION,
   UPDATE_TEXT
 } from "./constants";
@@ -133,11 +133,10 @@ export function selectLayer(artboardId, layerId, shiftKey) {
   };
 }
 
-export function toggleFlyout(artboardId, flyoutId) {
+export function toggleImagePicker(artboardId) {
   return {
-    type: TOGGLE_FLYOUT,
-    artboardId,
-    flyoutId
+    type: TOGGLE_IMAGE_PICKER,
+    artboardId
   };
 }
 
