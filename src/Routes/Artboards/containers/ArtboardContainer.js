@@ -7,7 +7,7 @@ import {
   bumpLayers,
   copyLayers,
   deleteLayers,
-  deselectLayersArtboard,
+  deselectLayers,
   dragLayers,
   enableTextEditor,
   highlightLayer,
@@ -39,8 +39,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deleteLayers: () => {
       dispatch(deleteLayers(ownProps.artboardId));
     },
-    deselectLayersArtboard: () => {
-      dispatch(deselectLayersArtboard(ownProps.artboardId));
+    deselectLayers: () => {
+      dispatch(deselectLayers(ownProps.artboardId));
     },
     dragLayers: (layerId, x, y, previewOnly) => {
       dispatch(dragLayers(ownProps.artboardId, layerId, x, y, previewOnly));

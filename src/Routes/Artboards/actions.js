@@ -4,7 +4,7 @@ import {
   BUMP_LAYERS,
   COPY_LAYERS,
   DELETE_LAYERS,
-  DESELECT_LAYERS_ARTBOARD,
+  DESELECT_LAYERS,
   DRAG_LAYERS,
   ENABLE_TEXT_EDITOR,
   HIGHLIGHT_LAYER,
@@ -59,9 +59,9 @@ export function deleteLayers(artboardId) {
   };
 }
 
-export function deselectLayersArtboard(artboardId) {
+export function deselectLayers(artboardId) {
   return {
-    type: DESELECT_LAYERS_ARTBOARD,
+    type: DESELECT_LAYERS,
     artboardId
   };
 }

@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 
-import { deselectLayersArtboard } from "../actions";
+import { deselectLayers } from "../actions";
 import HomeView from "../components/HomeView";
 
 const mapDispatchToProps = dispatch => {
   return {
-    deselectLayersArtboard: artboardId => {
-      dispatch(deselectLayersArtboard(artboardId));
+    deselectLayers: artboardId => {
+      dispatch(deselectLayers(artboardId));
     }
   };
 };

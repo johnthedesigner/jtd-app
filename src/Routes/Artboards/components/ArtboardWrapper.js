@@ -120,7 +120,7 @@ class ArtboardWrapper extends React.Component {
       artboards,
       artboardId,
       bumpLayers,
-      deselectLayersArtboard,
+      deselectLayers,
       dragLayers,
       enableTextEditor,
       highlightLayer,
@@ -165,7 +165,7 @@ class ArtboardWrapper extends React.Component {
         className="artboard__wrapper"
         id={`artboard-wrapper-${artboardId}`}
         onClick={() => {
-          deselectLayersArtboard(mappedArtboard.id);
+          deselectLayers(mappedArtboard.id);
         }}
       >
         <Artboard
@@ -173,7 +173,7 @@ class ArtboardWrapper extends React.Component {
           highlightLayer={highlightLayer}
           key={mappedArtboard.id}
           scaleFactor={this.state.scaleFactor}
-          deselectLayersArtboard={deselectLayersArtboard}
+          deselectLayers={deselectLayers}
         >
           <div className="artboard__svg-wrapper">
             <svg
@@ -284,7 +284,7 @@ ArtboardWrapper.propTypes = {
   artboardId: PropTypes.string.isRequired,
   copyLayers: PropTypes.func.isRequired,
   deleteLayers: PropTypes.func.isRequired,
-  deselectLayersArtboard: PropTypes.func.isRequired,
+  deselectLayers: PropTypes.func.isRequired,
   pasteLayers: PropTypes.func.isRequired
 };
 

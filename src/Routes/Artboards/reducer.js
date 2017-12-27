@@ -9,7 +9,7 @@ import {
   BUMP_LAYERS,
   COPY_LAYERS,
   DELETE_LAYERS,
-  DESELECT_LAYERS_ARTBOARD,
+  DESELECT_LAYERS,
   DRAG_LAYERS,
   ENABLE_TEXT_EDITOR,
   HIGHLIGHT_LAYER,
@@ -95,7 +95,7 @@ export default function Artboards(state = {}, a) {
       updateHistory(clonedArtboard);
       return Object.assign({}, state, { artboards: clonedArtboards });
 
-    case DESELECT_LAYERS_ARTBOARD:
+    case DESELECT_LAYERS:
       consoleGroup(a.type, [a]);
       clonedArtboards[a.artboardId].selections = [];
       return Object.assign({}, state, {

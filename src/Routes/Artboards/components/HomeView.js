@@ -4,15 +4,12 @@ import HomeBlock from "./HomeBlock";
 
 class HomeView extends React.Component {
   render() {
-    let { deselectLayersArtboard } = this.props;
+    let { deselectLayers } = this.props;
 
     return (
       <div className={"home-view__wrapper"}>
         <div className="home-view__featured-case-study">
-          <HomeBlock
-            artboardId={"fake"}
-            deselectLayersArtboard={deselectLayersArtboard}
-          >
+          <HomeBlock artboardId={"fake"} deselectLayers={deselectLayers}>
             <h3>Capitalize on low hanging fruit</h3>
             <p>
               Bring to the table win-win survival strategies to ensure proactive

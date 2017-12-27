@@ -12,7 +12,7 @@ class Artboard extends React.Component {
 
   artboardClick(e) {
     e.stopPropagation();
-    this.props.deselectLayersArtboard(this.props.id);
+    this.props.deselectLayers(this.props.id);
   }
 
   render() {
