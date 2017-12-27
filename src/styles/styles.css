@@ -127,10 +127,12 @@ body {
   pointer-events: initial; }
 
 .drag-handle {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  border: rgba(255, 0, 188, 0) solid 0.5px;
+  transition: border linear 0.1s; }
 
 .drag-handle:hover, .drag-handle.is-selected {
-  border: rgba(255, 0, 188, 0.9) solid 1px; }
+  border: rgba(255, 0, 188, 0.9) solid 0.5px; }
 
 .resize-handle, .resize-handle__top-left, .resize-handle__top-right, .resize-handle__bottom-right, .resize-handle__bottom-left {
   position: absolute; }
@@ -167,27 +169,27 @@ body {
 .resize-handle__top-right,
 .resize-handle__bottom-right,
 .resize-handle__bottom-left {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
   background: white;
   border: rgba(255, 0, 188, 0.9) solid 1px;
   border-radius: 50%; }
 
 .resize-handle__top-left {
-  top: -0.25rem;
-  left: -0.25rem; }
+  top: -0.33333rem;
+  left: -0.33333rem; }
 
 .resize-handle__top-right {
-  top: -0.25rem;
-  right: -0.25rem; }
+  top: -0.33333rem;
+  right: -0.33333rem; }
 
 .resize-handle__bottom-right {
-  bottom: -0.25rem;
-  right: -0.25rem; }
+  bottom: -0.33333rem;
+  right: -0.33333rem; }
 
 .resize-handle__bottom-left {
-  bottom: -0.25rem;
-  left: -0.25rem; }
+  bottom: -0.33333rem;
+  left: -0.33333rem; }
 
 .action-bar__left,
 .action-bar__top-right,
@@ -217,7 +219,8 @@ body {
   margin: 0.25rem 0.5rem;
   opacity: 0;
   transition: opacity linear 0.2s;
-  cursor: pointer; }
+  cursor: pointer;
+  z-index: 100; }
 
 .adjustments-panel__wrapper {
   font-family: "Source Code Pro", sans-serif;

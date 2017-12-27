@@ -120,10 +120,12 @@
 .drag-handle {
   // background: rgba(255,0,0,.4);
   box-sizing: border-box;
+  border: rgba(255, 0, 188, 0) solid 0.5px;
+  transition: border linear 0.1s;
 
   &:hover,
   &.is-selected {
-    border: $magenta solid 1px;
+    border: $magenta solid 0.5px;
   }
 }
 
@@ -165,31 +167,31 @@ $resizeEdgeWidth: 0.5rem;
 .resize-handle__top-right,
 .resize-handle__bottom-right,
 .resize-handle__bottom-left {
-  width: $resizeEdgeWidth;
-  height: $resizeEdgeWidth;
+  width: $resizeEdgeWidth * 1.5;
+  height: $resizeEdgeWidth * 1.5;
   background: white;
   border: $magenta solid 1px;
   border-radius: 50%;
 }
 .resize-handle__top-left {
   @extend .resize-handle;
-  top: - $resizeEdgeWidth / 2;
-  left: - $resizeEdgeWidth / 2;
+  top: - $resizeEdgeWidth / 1.5;
+  left: - $resizeEdgeWidth / 1.5;
 }
 .resize-handle__top-right {
   @extend .resize-handle;
-  top: - $resizeEdgeWidth / 2;
-  right: - $resizeEdgeWidth / 2;
+  top: - $resizeEdgeWidth / 1.5;
+  right: - $resizeEdgeWidth / 1.5;
 }
 .resize-handle__bottom-right {
   @extend .resize-handle;
-  bottom: - $resizeEdgeWidth / 2;
-  right: - $resizeEdgeWidth / 2;
+  bottom: - $resizeEdgeWidth / 1.5;
+  right: - $resizeEdgeWidth / 1.5;
 }
 .resize-handle__bottom-left {
   @extend .resize-handle;
-  bottom: - $resizeEdgeWidth / 2;
-  left: - $resizeEdgeWidth / 2;
+  bottom: - $resizeEdgeWidth / 1.5;
+  left: - $resizeEdgeWidth / 1.5;
 }
 
 // Action Bars
@@ -222,6 +224,7 @@ $resizeEdgeWidth: 0.5rem;
   opacity: 0;
   transition: opacity linear 0.2s;
   cursor: pointer;
+  z-index: 100;
 }
 
 // Adjustments Panel

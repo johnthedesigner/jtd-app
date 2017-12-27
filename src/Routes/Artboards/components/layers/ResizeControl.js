@@ -114,6 +114,7 @@ class ResizeControl extends React.Component {
 
   render() {
     const {
+      canDrop,
       connectDropTarget,
       dragLayers,
       enableTextEditor,
@@ -129,10 +130,10 @@ class ResizeControl extends React.Component {
     const dropTargetStyles = {
       display: isActive ? "block" : "none",
       position: "absolute",
-      top: isActive ? -1000 : 0,
-      right: isActive ? -1000 : 0,
-      bottom: isActive ? -1000 : 0,
-      left: isActive ? -1000 : 0
+      top: canDrop ? -1000 : 0,
+      right: canDrop ? -1000 : 0,
+      bottom: canDrop ? -1000 : 0,
+      left: canDrop ? -1000 : 0
     };
 
     const resizeableControlStyles = {

@@ -98,7 +98,6 @@ export default function Artboards(state = {}, a) {
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup(a.type, [a]);
       clonedArtboards[a.artboardId].selections = [];
-      updateHistory(clonedArtboard);
       return Object.assign({}, state, {
         artboards: clonedArtboards
       });
