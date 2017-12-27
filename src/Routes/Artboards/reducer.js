@@ -4,7 +4,6 @@ import uuid from "uuid";
 import { consoleGroup } from "../../utils/utils";
 import { newLayers } from "../../store/newLayers";
 import {
-  ADD_ARTBOARD,
   ADD_LAYER,
   ADJUST_LAYERS,
   BUMP_LAYERS,
@@ -19,72 +18,66 @@ import {
   ROTATE_LAYER,
   SCALE_LAYER,
   SELECT_LAYER,
-  TOGGLE_FLYOUT,
+  UNDO_ACTION,
   UPDATE_TEXT
 } from "./constants";
 
-export default function Artboards(state = {}, a) {
-  switch (a.type) {
-    case ADD_ARTBOARD:
-      consoleGroup(a.type, [a]);
-      let newArtboard = {
-        id: uuid.v1(),
-        title: "New Artboard",
-        width: a.width ? a.width : 1000,
-        height: a.height ? a.height : 1000,
-        layers: []
-      };
-      return Object.assign({}, state, {
-        Artboards: {
-          ...state.Artboards,
-          ..._.keyBy([newArtboard], "id")
-        }
-      });
+// Add an updated artboard to its own history
+const updateHistory = artboard => {
+  artboard.history.push(_.cloneDeep(artboard));
+};
 
+export default function Artboards(state = {}, a) {
+  // Prepare cloned artboard
+  let clonedArtboards = a.artboardId ? _.cloneDeep(state.artboards) : null;
+  let clonedArtboard = a.artboardId ? clonedArtboards[a.artboardId] : null;
+
+  // Add initial history entry if one isn't present
+  if (clonedArtboard && clonedArtboard.history.length === 0) {
+    clonedArtboard.history.push(_.cloneDeep(clonedArtboard));
+  }
+
+  // Switching between action types
+  switch (a.type) {
     case ADD_LAYER:
       consoleGroup(a.type, [a]);
       let newLayer = newLayers[a.layerType]();
       newLayer.id = uuid.v1();
-      let newLayerCaseStudies = _.cloneDeep(state.caseStudies);
-      let newLayerArtboard = newLayerCaseStudies[a.caseStudyId];
-      newLayer.order = newLayerArtboard.layers.length + 1;
-      newLayerArtboard.layers.push(newLayer);
-      newLayerArtboard.selections = [newLayer.id];
-      return Object.assign({}, state, { caseStudies: newLayerCaseStudies });
+      newLayer.order = clonedArtboard.layers.length + 1;
+      clonedArtboard.layers.push(newLayer);
+      clonedArtboard.selections = [newLayer.id];
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case ADJUST_LAYERS:
       consoleGroup(a.type, [a]);
-      let adjustedCaseStudies = _.cloneDeep(state.caseStudies);
-      let adjustedArtboard = adjustedCaseStudies[a.caseStudyId];
-      let adjustedLayers = adjustedArtboard.selections;
+      let adjustedLayers = clonedArtboard.selections;
       _.each(adjustedLayers, layerId => {
-        _.find(adjustedArtboard.layers, { id: layerId }).adjustments[
+        _.find(clonedArtboard.layers, { id: layerId }).adjustments[
           a.adjustmentGroup
         ][a.propertyName] =
           a.value;
       });
-      return Object.assign({}, state, { caseStudies: adjustedCaseStudies });
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case BUMP_LAYERS:
       consoleGroup(a.type, [a]);
       const { axis, distance } = a;
-      let bumpedCaseStudies = _.cloneDeep(state.caseStudies);
-      let bumpedArtboard = bumpedCaseStudies[a.caseStudyId];
-      let bumpedLayers = bumpedArtboard.selections;
+      let bumpedLayers = clonedArtboard.selections;
       _.each(bumpedLayers, layerId => {
-        let bumpedLayer = _.find(bumpedArtboard.layers, { id: layerId });
+        let bumpedLayer = _.find(clonedArtboard.layers, { id: layerId });
         bumpedLayer.dimensions[axis] += distance;
       });
-      return Object.assign({}, state, { caseStudies: bumpedCaseStudies });
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case COPY_LAYERS:
       consoleGroup(a.type, [a]);
-      let copiedCaseStudies = _.cloneDeep(state.caseStudies);
-      let copiedArtboard = copiedCaseStudies[a.caseStudyId];
-      let copiedLayers = _.map(copiedArtboard.selections, layerId => {
+      let copiedLayers = _.map(clonedArtboard.selections, layerId => {
         return Object.assign(
           {},
-          _.find(copiedArtboard.layers, layer => {
+          _.find(clonedArtboard.layers, layer => {
             return layer.id === layerId;
           })
         );
@@ -95,30 +88,27 @@ export default function Artboards(state = {}, a) {
 
     case DELETE_LAYERS:
       consoleGroup(a.type, [a]);
-      let culledCaseStudies = _.cloneDeep(state.caseStudies);
-      let culledArtboard = culledCaseStudies[a.caseStudyId];
-      culledArtboard.layers = _.remove(culledArtboard.layers, layer => {
-        return !_.includes(culledArtboard.selections, layer.id);
+      clonedArtboard.layers = _.remove(clonedArtboard.layers, layer => {
+        return !_.includes(clonedArtboard.selections, layer.id);
       });
-      culledArtboard.selections = [];
-      return Object.assign({}, state, { caseStudies: culledCaseStudies });
+      clonedArtboard.selections = [];
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case DESELECT_LAYERS_ARTBOARD:
       consoleGroup(a.type, [a]);
-      let caseStudiesDeselected = _.cloneDeep(state.caseStudies);
-      caseStudiesDeselected[a.caseStudyId].selections = [];
+      clonedArtboards[a.artboardId].selections = [];
+      updateHistory(clonedArtboard);
       return Object.assign({}, state, {
-        caseStudies: caseStudiesDeselected
+        artboards: clonedArtboards
       });
 
     case DRAG_LAYERS:
       consoleGroup(a.type, [a]);
-      let draggedCaseStudies = _.cloneDeep(state.caseStudies);
-      let draggedArtboard = draggedCaseStudies[a.caseStudyId];
-      let affectedLayers = draggedArtboard.selections;
+      let affectedLayers = clonedArtboard.selections;
       // For each selected layer apply offset to all points
       _.each(affectedLayers, layerId => {
-        let nextDraggedLayer = _.find(draggedArtboard.layers, { id: layerId });
+        let nextDraggedLayer = _.find(clonedArtboard.layers, { id: layerId });
         let draggedDimensions = _.cloneDeep(nextDraggedLayer.dimensions);
         draggedDimensions.x += Math.round(a.x);
         draggedDimensions.y += Math.round(a.y);
@@ -127,17 +117,17 @@ export default function Artboards(state = {}, a) {
         } else {
           nextDraggedLayer.dimensions = draggedDimensions;
           nextDraggedLayer.tempDimensions = undefined;
+          updateHistory(clonedArtboard);
         }
       });
-      return Object.assign({}, state, { caseStudies: draggedCaseStudies });
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case ENABLE_TEXT_EDITOR:
       consoleGroup(a.type, [a]);
-      let editTextCaseStudies = _.cloneDeep(state.caseStudies);
-      let editTextArtboard = editTextCaseStudies[a.caseStudyId];
-      editTextArtboard.editableTextLayer = a.layerId;
-      return Object.assign({}, state, { caseStudies: editTextCaseStudies });
+      clonedArtboard.editableTextLayer = a.layerId;
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
+    // TODO: Figure out whether to resurrect this
     case HIGHLIGHT_LAYER:
       consoleGroup(a.type, [a]);
       return Object.assign({}, state, {
@@ -148,34 +138,31 @@ export default function Artboards(state = {}, a) {
 
     case MOVE_LAYERS:
       consoleGroup(a.type, [a]);
-      let movedCaseStudies = _.cloneDeep(state.caseStudies);
-      let movedArtboard = movedCaseStudies[a.caseStudyId];
       let movedLayers = _.orderBy(
-        _.map(movedArtboard.selections, layerId => {
-          return _.find(movedArtboard.layers, { id: layerId });
+        _.map(clonedArtboard.selections, layerId => {
+          return _.find(clonedArtboard.layers, { id: layerId });
         }),
         "order"
       );
       _.each(_.orderBy(movedLayers, "order"), layer => {
         // Remove each selected layer
-        _.remove(movedArtboard.layers, checkLayer => {
+        _.remove(clonedArtboard.layers, checkLayer => {
           return checkLayer.id === layer.id;
         });
       });
       // Add selected layer back to the front or back of the list
-      movedArtboard.layers =
+      clonedArtboard.layers =
         a.direction === "front"
-          ? [...movedArtboard.layers, ...movedLayers]
-          : [...movedLayers, ...movedArtboard.layers];
-      _.each(movedArtboard.layers, (layer, index) => {
+          ? [...clonedArtboard.layers, ...movedLayers]
+          : [...movedLayers, ...clonedArtboard.layers];
+      _.each(clonedArtboard.layers, (layer, index) => {
         layer.order = index;
       });
-      return Object.assign({}, state, { caseStudies: movedCaseStudies });
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case PASTE_LAYERS:
       consoleGroup(a.type, [a]);
-      let pastedCaseStudies = _.cloneDeep(state.caseStudies);
-      let pastedArtboard = pastedCaseStudies[a.caseStudyId];
       let pastedLayers = _.map(state.pasteBuffer, layer => {
         let pastedLayer = _.cloneDeep(layer);
         pastedLayer.id = uuid.v4();
@@ -184,29 +171,27 @@ export default function Artboards(state = {}, a) {
       let pastedLayerIds = _.map(pastedLayers, layer => {
         return layer.id;
       });
-      pastedArtboard.layers = [...pastedArtboard.layers, ...pastedLayers];
-      pastedArtboard.selections = pastedLayerIds;
-      return Object.assign({}, state, { caseStudies: pastedCaseStudies });
+      clonedArtboard.layers = [...clonedArtboard.layers, ...pastedLayers];
+      clonedArtboard.selections = pastedLayerIds;
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case ROTATE_LAYER:
       consoleGroup(a.type, [a]);
-      const { degrees, caseStudyId } = a;
-      let rotatedCaseStudies = _.cloneDeep(state.caseStudies);
-      let rotatedArtboard = rotatedCaseStudies[caseStudyId];
-      let rotatedLayerId = rotatedArtboard.selections[0];
-      let rotatedLayer = _.find(rotatedArtboard.layers, { id: rotatedLayerId });
+      const { degrees } = a;
+      let rotatedLayerId = clonedArtboard.selections[0];
+      let rotatedLayer = _.find(clonedArtboard.layers, { id: rotatedLayerId });
       rotatedLayer.dimensions.rotation = degrees;
-      return Object.assign({}, state, { caseStudies: rotatedCaseStudies });
+      updateHistory(clonedArtboard);
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case SCALE_LAYER:
       consoleGroup(a.type, [a]);
-      let scaledCaseStudies = _.cloneDeep(state.caseStudies);
-      let scaledArtboard = scaledCaseStudies[a.caseStudyId];
-      let scaledSelections = scaledArtboard.selections;
+      let scaledSelections = clonedArtboard.selections;
       // Only attempt to apply new adjustments if a single layer is selected
       if (scaledSelections.length === 1) {
         // Get the affected layer and its dimensions
-        let scaledLayer = _.find(scaledArtboard.layers, {
+        let scaledLayer = _.find(clonedArtboard.layers, {
           id: scaledSelections[0]
         });
         let newDimensions = _.cloneDeep(scaledLayer.dimensions);
@@ -259,45 +244,52 @@ export default function Artboards(state = {}, a) {
         } else {
           scaledLayer.dimensions = newDimensions;
           scaledLayer.tempDimensions = undefined;
+          updateHistory(clonedArtboard);
         }
       }
-      return Object.assign({}, state, { caseStudies: scaledCaseStudies });
+      return Object.assign({}, state, { artboards: clonedArtboards });
 
     case SELECT_LAYER:
       consoleGroup(a.type, [a]);
-      let selectedCaseStudies = _.cloneDeep(state.caseStudies);
-      let selectedArtboard = selectedCaseStudies[a.caseStudyId];
-      if (_.includes(selectedArtboard.selections, a.layerId) && !a.shiftKey) {
+      if (_.includes(clonedArtboard.selections, a.layerId) && !a.shiftKey) {
         return state;
       } else {
-        selectedCaseStudies[a.caseStudyId].selections = a.shiftKey
-          ? _.xor(selectedCaseStudies[a.caseStudyId].selections, [a.layerId])
+        clonedArtboards[a.artboardId].selections = a.shiftKey
+          ? _.xor(clonedArtboards[a.artboardId].selections, [a.layerId])
           : [a.layerId];
         return Object.assign({}, state, {
-          caseStudies: selectedCaseStudies
+          artboards: clonedArtboards
         });
       }
 
-    case TOGGLE_FLYOUT:
+    case UNDO_ACTION:
       consoleGroup(a.type, [a]);
-      let caseStudiesWithFlyout = _.cloneDeep(state.caseStudies);
-      let activeFlyout = caseStudiesWithFlyout[a.caseStudyId].activeFlyout;
-      caseStudiesWithFlyout[a.caseStudyId].activeFlyout =
-        activeFlyout === a.flyoutId ? undefined : a.flyoutId;
-      return Object.assign({}, state, {
-        caseStudies: caseStudiesWithFlyout
-      });
+      let newHistory = clonedArtboard.history;
+      // Allow undo action if there is a history
+      if (clonedArtboard.history && clonedArtboard.history.length > 1) {
+        // Overwrite the artboard with the previous history item
+        clonedArtboards[a.artboardId] = newHistory[newHistory.length - 2];
+        // Write the new artboard back into history
+        clonedArtboards[a.artboardId].history.push(
+          _.cloneDeep(clonedArtboards[a.artboardId])
+        );
+        return Object.assign({}, state, {
+          artboards: clonedArtboards
+        });
+      } else {
+        // If there's no previous history, don't do anything
+        return state;
+      }
 
     case UPDATE_TEXT:
       consoleGroup(a.type, [a]);
-      let newTextCaseStudies = _.cloneDeep(state.caseStudies);
-      let newTextArtboard = newTextCaseStudies[a.caseStudyId];
-      let newTextLayer = _.filter(newTextArtboard.layers, layer => {
-        return layer.id === newTextArtboard.editableTextLayer;
+      let newTextLayer = _.filter(clonedArtboard.layers, layer => {
+        return layer.id === clonedArtboard.editableTextLayer;
       })[0];
       newTextLayer.text = a.text;
+      updateHistory(clonedArtboard);
       return Object.assign({}, state, {
-        caseStudies: newTextCaseStudies
+        artboards: clonedArtboards
       });
 
     default:

@@ -111,6 +111,7 @@ export default {
   ],
   projectColors: ["#0BE7B7", "#2F80ED", "#BB6BD9", "#FF8DC0", "#FFB26E"],
   selections: [],
+  history: [],
   editingTextLayer: null,
   activeFlyout: null,
   editableTextLayer: null

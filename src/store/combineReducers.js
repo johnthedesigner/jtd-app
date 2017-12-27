@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "redux";
 
-import CaseStudies from '../Routes/CaseStudies/reducer'
-import History from './historyReducer'
+import Artboards from "../Routes/Artboards/reducer";
+import History from "./historyReducer";
 
 const Reducers = combineReducers({
-  CaseStudies,
-  History,
-})
+  Artboards,
+  History
+});
 
-export default Reducers
+export default Reducers;

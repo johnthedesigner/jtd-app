@@ -75,8 +75,7 @@ class ActionBars extends React.Component {
 }
 
 ActionBars.propTypes = {
-  addLayer: PropTypes.func.isRequired,
-  toggleFlyout: PropTypes.func.isRequired
+  addLayer: PropTypes.func.isRequired
 };
 
 export default ActionBars;

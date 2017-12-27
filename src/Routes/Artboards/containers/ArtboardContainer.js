@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import {
-  addArtboard,
   addLayer,
   adjustLayers,
   bumpLayers,
@@ -17,7 +16,7 @@ import {
   rotateLayer,
   scaleLayer,
   selectLayer,
-  toggleFlyout,
+  undoAction,
   updateText
 } from "../actions";
 
@@ -25,9 +24,6 @@ import ArtboardWrapper from "../components/ArtboardWrapper";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addArtboard: (width, height, x, y) => {
-      dispatch(addArtboard(width, height, x, y));
-    },
     addLayer: layerType => {
       dispatch(addLayer(ownProps.artboardId, layerType));
     },
@@ -70,8 +66,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     selectLayer: (layerId, shiftKey) => {
       dispatch(selectLayer(ownProps.artboardId, layerId, shiftKey));
     },
-    toggleFlyout: flyoutId => {
-      dispatch(toggleFlyout(ownProps.artboardId, flyoutId));
+    undoAction: () => {
+      dispatch(undoAction(ownProps.artboardId));
     },
     updateText: text => {
       dispatch(updateText(ownProps.artboardId, text));
@@ -80,7 +76,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  caseStudies: state.CaseStudies.caseStudies,
+  artboards: state.Artboards.artboards,
   artboardId: ownProps.artboardId,
   featured: ownProps.featured
 });

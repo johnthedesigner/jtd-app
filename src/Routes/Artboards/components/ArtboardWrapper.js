@@ -31,7 +31,8 @@ class ArtboardWrapper extends React.Component {
       bumpLayers,
       copyLayers,
       deleteLayers,
-      pasteLayers
+      pasteLayers,
+      undoAction
     } = this.props;
     // Set up key commands
     bindShortcut("shift+up", e => {
@@ -75,10 +76,11 @@ class ArtboardWrapper extends React.Component {
     bindShortcut(["command+v", "control+v"], () => {
       pasteLayers();
     });
+    bindShortcut(["command+z", "control+z"], () => {
+      undoAction();
+    });
     bindShortcut("command+e", () => {
-      console.log(
-        JSON.stringify(this.props.caseStudies[this.props.artboardId])
-      );
+      console.log(JSON.stringify(this.props.artboards[this.props.artboardId]));
     });
   }
 
@@ -115,9 +117,9 @@ class ArtboardWrapper extends React.Component {
     const {
       addLayer,
       adjustLayers,
+      artboards,
       artboardId,
       bumpLayers,
-      caseStudies,
       deselectLayersArtboard,
       dragLayers,
       enableTextEditor,
@@ -126,11 +128,10 @@ class ArtboardWrapper extends React.Component {
       rotateLayer,
       scaleLayer,
       selectLayer,
-      toggleFlyout,
       updateText
     } = this.props;
 
-    const mappedArtboard = mapArtboard(caseStudies[artboardId]);
+    const mappedArtboard = mapArtboard(artboards[artboardId]);
 
     const EditableTextLayer = props => {
       if (mappedArtboard.editableTextLayer) {
@@ -260,7 +261,6 @@ class ArtboardWrapper extends React.Component {
               buttonFill={"black"}
               layerIds={mappedArtboard.selection.layers}
               moveLayers={moveLayers}
-              toggleFlyout={toggleFlyout}
             />
           </div>
           <AdjustmentsPanel
@@ -279,7 +279,7 @@ class ArtboardWrapper extends React.Component {
 }
 
 ArtboardWrapper.propTypes = {
-  caseStudies: PropTypes.object.isRequired,
+  artboards: PropTypes.object.isRequired,
   bumpLayers: PropTypes.func.isRequired,
   artboardId: PropTypes.string.isRequired,
   copyLayers: PropTypes.func.isRequired,

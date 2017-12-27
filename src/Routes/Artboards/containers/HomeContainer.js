@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    Artboards: state.CaseStudies.caseStudies
+    Artboards: state.Artboards.artboards
   };
 };
 

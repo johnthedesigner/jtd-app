@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import HomeContainer from "../Routes/CaseStudies/containers/HomeContainer";
-import EditContainer from "../Routes/CaseStudies/containers/EditContainer";
+import HomeContainer from "../Routes/Artboards/containers/HomeContainer";
+import EditContainer from "../Routes/Artboards/containers/EditContainer";
 
 // import '../App.css'
 

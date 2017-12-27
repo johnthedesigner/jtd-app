@@ -4,8 +4,8 @@ import testCaseStudy from "../caseStudies/testCaseStudy";
 import fakeCaseStudy from "../caseStudies/fakeCaseStudy";
 
 const initialState = {
-  CaseStudies: {
-    caseStudies: _.keyBy([testCaseStudy, fakeCaseStudy], "id"),
+  Artboards: {
+    artboards: _.keyBy([testCaseStudy, fakeCaseStudy], "id"),
     pasteBuffer: null
   }
 };
