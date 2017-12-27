@@ -19,7 +19,7 @@ class ActionBars extends React.Component {
 
   addImage = e => {
     e.target.blur();
-    this.props.addLayer("image");
+    this.props.addLayer("image", "test1");
   };
 
   addRectangle = e => {

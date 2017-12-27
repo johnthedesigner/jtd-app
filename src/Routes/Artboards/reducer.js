@@ -41,7 +41,12 @@ export default function Artboards(state = {}, a) {
   switch (a.type) {
     case ADD_LAYER:
       consoleGroup(a.type, [a]);
-      let newLayer = newLayers[a.layerType]();
+      let newLayer;
+      if (a.layerType === "image") {
+        newLayer = newLayers[a.layerType](a.imageId);
+      } else {
+        newLayer = newLayers[a.layerType]();
+      }
       newLayer.id = uuid.v1();
       newLayer.order = clonedArtboard.layers.length + 1;
       clonedArtboard.layers.push(newLayer);

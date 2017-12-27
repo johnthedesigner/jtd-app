@@ -55,25 +55,13 @@ class Layer extends React.Component {
     const layerType = layer => {
       switch (layer.type) {
         case layerTypes.ellipse:
-          return (
-            <EllipseLayer
-              dimensions={this.state}
-              key={layer.adjustments.fill.backgroundColor}
-              layer={layer}
-            />
-          );
+          return <EllipseLayer dimensions={this.state} layer={layer} />;
 
         case layerTypes.image:
-          return <ImageLayer layer={layer} />;
+          return <ImageLayer dimensions={this.state} layer={layer} />;
 
         case layerTypes.rectangle:
-          return (
-            <RectangleLayer
-              dimensions={this.state}
-              key={layer.adjustments.fill.backgroundColor}
-              layer={layer}
-            />
-          );
+          return <RectangleLayer dimensions={this.state} layer={layer} />;
 
         case layerTypes.text:
           return (

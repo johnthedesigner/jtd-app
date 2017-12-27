@@ -23,24 +23,21 @@ export const newLayers = {
       }
     };
   },
-  image: () => {
+  image: imageId => {
+    console.log(imageId);
     return {
+      imageId,
       type: "image",
       title: "image",
-      adjustments: {
-        image: {
-          src: "http://www.placehold.it/400x400/"
-        },
-        dimensions: {
-          x: 0,
-          y: 0,
-          width: 100,
-          height: 100,
-          scaleX: 1,
-          scaleY: 1,
-          rotation: 0
-        }
-      }
+      order: 0,
+      dimensions: {
+        x: 450,
+        y: 450,
+        width: 100,
+        height: 100,
+        rotation: 0
+      },
+      adjustments: {}
     };
   },
   rectangle: () => {
