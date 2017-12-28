@@ -32,7 +32,8 @@
   flex-direction: row;
   align-items: center;
 
-  &:hover .action-bar__button {
+  &:hover .action-bar__button,
+  &:hover .action-bar__plus-icon {
     opacity: 1;
   }
 }
@@ -215,16 +216,22 @@ $resizeEdgeWidth: 0.5rem;
   bottom: 0;
   right: -3rem;
 }
-.action-bar__button {
+.action-bar__button,
+.action-bar__plus-icon {
   width: 2rem;
   height: 2rem;
   background: none;
   border: none;
   margin: 0.25rem 0.5rem;
+  padding: 0;
   opacity: 0;
   transition: opacity linear 0.2s;
   cursor: pointer;
   z-index: 100;
+}
+
+.action-bar__plus-icon {
+  cursor: default;
 }
 
 // Adjustments Panel

@@ -38,6 +38,9 @@ class ActionBars extends React.Component {
     return (
       <div>
         <div className="action-bar__top-right" onClick={this.handleClick}>
+          <button className="action-bar__plus-icon">
+            <ActionIcon iconType="plus" fill="rgba(0,0,0,.2)" />
+          </button>
           <button className="action-bar__button" onClick={this.addRectangle}>
             <ActionIcon iconType="rectangle" fill={this.props.buttonFill} />
           </button>
