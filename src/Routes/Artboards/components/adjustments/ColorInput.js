@@ -30,18 +30,25 @@ class ColorInput extends React.Component {
       position: "relative"
     };
 
+    const previewStyles = {
+      background: valueFromProps
+    };
+
     return (
       <div>
-        <div
-          className={`color-adjustment__thumbnail color-adjustment__thumbnail--${
-            propertyName
-          }`}
-          onClick={this.togglePicker}
-          ref={el => {
-            this.target = el;
-          }}
-          style={thumbnailStyles}
-        />
+        <div className="color-adjustment__color-picker">
+          <div
+            className={`color-adjustment__thumbnail color-adjustment__thumbnail--${
+              propertyName
+            }`}
+            onClick={this.togglePicker}
+            ref={el => {
+              this.target = el;
+            }}
+            style={thumbnailStyles}
+          />
+          <div className="color-adjustment__preview" style={previewStyles} />
+        </div>
         <ColorPicker
           colors={projectColors}
           updateColor={this.updateColor}
