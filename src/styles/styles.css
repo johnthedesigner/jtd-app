@@ -56,9 +56,10 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center; }
-  .artboard__wrapper:hover .action-bar__button,
-  .artboard__wrapper:hover .action-bar__plus-icon {
-    opacity: 1; }
+
+.artboard__wrapper:hover .action-bar__button,
+.artboard__wrapper:hover .action-bar__plus-icon {
+  opacity: 1; }
 
 .artboard {
   margin: 0 auto; }
@@ -90,10 +91,12 @@ body {
   box-shadow: 0 2px 8px 3px rgba(50, 50, 50, 0.3);
   transition: box-shadow linear 0.2s;
   z-index: 11; }
-  .artboard__svg-wrapper.is-selected {
-    box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
-  .artboard__svg-wrapper svg {
-    user-select: none; }
+
+.artboard__svg-wrapper.is-selected {
+  box-shadow: 0 4px 12px 3px rgba(50, 50, 50, 0.5); }
+
+.artboard__svg-wrapper svg {
+  user-select: none; }
 
 .layer__wrapper {
   position: absolute;
@@ -111,21 +114,26 @@ body {
   opacity: 0;
   transition: opacity linear 0.1s;
   pointer-events: none; }
-  .resize-control__wrapper > div {
-    box-sizing: border-box; }
-    .resize-control__wrapper > div * {
-      pointer-events: all; }
-  .resize-control__wrapper.is-active {
-    opacity: 1; }
-    .resize-control__wrapper.is-active > * {
-      pointer-events: initial; }
+
+.resize-control__wrapper > div {
+  box-sizing: border-box; }
+
+.resize-control__wrapper > div * {
+  pointer-events: all; }
+
+.resize-control__wrapper.is-active {
+  opacity: 1; }
+
+.resize-control__wrapper.is-active > * {
+  pointer-events: initial; }
 
 .drag-handle {
   box-sizing: border-box;
   border: rgba(255, 0, 188, 0) solid 0.5px;
   transition: border linear 0.1s; }
-  .drag-handle:hover, .drag-handle.is-selected {
-    border: rgba(255, 0, 188, 0.9) solid 0.5px; }
+
+.drag-handle:hover, .drag-handle.is-selected {
+  border: rgba(255, 0, 188, 0.9) solid 0.5px; }
 
 .resize-handle, .resize-handle__top-left, .resize-handle__top-right, .resize-handle__bottom-right, .resize-handle__bottom-left {
   position: absolute; }
@@ -201,7 +209,7 @@ body {
   right: -3rem; }
 
 .action-bar__bottom-right {
-  bottom: 0;
+  bottom: 0.5rem;
   right: -3rem; }
 
 .action-bar__button,
@@ -210,12 +218,16 @@ body {
   height: 2rem;
   background: none;
   border: none;
-  margin: 0.25rem 0.5rem;
+  margin: 0rem 0.5rem;
   padding: 0;
   opacity: 0;
-  transition: opacity linear 0.2s;
   cursor: pointer;
+  transition: all linear 0.2s;
   z-index: 100; }
+
+.action-bar__button svg,
+.action-bar__plus-icon svg {
+  transition: all linear 0.2s; }
 
 .action-bar__plus-icon {
   cursor: default; }
@@ -237,8 +249,9 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 0.1875rem;
   transition: margin-left ease-in-out 0.2s; }
-  .adjustments-panel__wrapper.active {
-    margin-left: -8rem; }
+
+.adjustments-panel__wrapper.active {
+  margin-left: -8rem; }
 
 .adjustments-panel__header {
   background: #111;
@@ -246,9 +259,10 @@ body {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
   margin-top: 1px; }
-  .adjustments-panel__header:first-child {
-    border-radius: 0.1875rem 0 0;
-    margin-top: none; }
+
+.adjustments-panel__header:first-child {
+  border-radius: 0.1875rem 0 0;
+  margin-top: none; }
 
 .adjustments-panel__adjustment-block {
   width: 100%;
@@ -262,25 +276,27 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding: 0.25rem 0; }
-  .adjustments-input--text > label {
-    font-family: "Source Code Pro", sans-serif;
-    font-size: 0.75rem;
-    color: white;
-    display: block;
-    flex: 1;
-    margin-right: 0.5rem;
-    flex: 1; }
-  .adjustments-input--text > input {
-    font-family: "Source Code Pro", sans-serif;
-    line-height: 1.5;
-    width: 100%;
-    padding: 0 0.25rem;
-    box-sizing: border-box;
-    background: #666;
-    border: none;
-    border-radius: 0.125rem;
-    color: white;
-    flex: 4; }
+
+.adjustments-input--text > label {
+  font-family: "Source Code Pro", sans-serif;
+  font-size: 0.75rem;
+  color: white;
+  display: block;
+  flex: 1;
+  margin-right: 0.5rem;
+  flex: 1; }
+
+.adjustments-input--text > input {
+  font-family: "Source Code Pro", sans-serif;
+  line-height: 1.5;
+  width: 100%;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+  background: #666;
+  border: none;
+  border-radius: 0.125rem;
+  color: white;
+  flex: 4; }
 
 .adjustments-input--select {
   position: relative;
@@ -288,34 +304,37 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding: 0.25rem 0; }
-  .adjustments-input--select > label {
-    font-family: "Source Code Pro", sans-serif;
-    font-size: 0.75rem;
-    color: white;
-    display: block;
-    flex: 1;
-    margin-right: 0.5rem;
-    flex: 1; }
-  .adjustments-input--select > select {
-    font-family: "Source Code Pro", sans-serif;
-    border-radius: 0.125rem;
-    appearance: none;
-    line-height: 1.5;
-    width: 100%;
-    padding: 0 0.25rem;
-    box-sizing: border-box;
-    background: #666;
-    border: none;
-    color: white;
-    flex: 4; }
-  .adjustments-input--select::after {
-    content: "⌄";
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0.25rem;
-    line-height: 1.5rem;
-    pointer-events: none; }
+
+.adjustments-input--select > label {
+  font-family: "Source Code Pro", sans-serif;
+  font-size: 0.75rem;
+  color: white;
+  display: block;
+  flex: 1;
+  margin-right: 0.5rem;
+  flex: 1; }
+
+.adjustments-input--select > select {
+  font-family: "Source Code Pro", sans-serif;
+  border-radius: 0.125rem;
+  appearance: none;
+  line-height: 1.5;
+  width: 100%;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+  background: #666;
+  border: none;
+  color: white;
+  flex: 4; }
+
+.adjustments-input--select::after {
+  content: "⌄";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0.25rem;
+  line-height: 1.5rem;
+  pointer-events: none; }
 
 .color-adjustment__thumbnail,
 .gradient-adjustment__gradient-start-thumbnail,
@@ -364,8 +383,9 @@ body {
   background: white;
   z-index: 100;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6); }
-  .image-picker:hover .image-picker__thumbnail img {
-    opacity: 0.75; }
+
+.image-picker:hover .image-picker__thumbnail img {
+  opacity: 0.75; }
 
 .image-picker__body {
   display: flex;
@@ -378,22 +398,32 @@ body {
 .image-picker__thumbnail {
   transition: opacity linear 0.2s;
   width: 33.3%; }
-  .image-picker__thumbnail > img {
-    display: block;
-    width: 100%;
-    padding: 0.25rem;
-    box-sizing: border-box;
-    height: auto;
-    background: transparent;
-    transition: all linear 0.2s; }
-  .image-picker__thumbnail:hover img:hover {
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 1; }
+
+.image-picker__thumbnail > img {
+  display: block;
+  width: 100%;
+  padding: 0.25rem;
+  box-sizing: border-box;
+  height: auto;
+  background: transparent;
+  transition: all linear 0.2s; }
+
+.image-picker__thumbnail:hover img:hover {
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1; }
+
+.home-item__category {
+  font-family: "Source Code Pro", sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin: 0; }
 
 .home-item__title {
   font-family: "Source Code Pro", sans-serif;
   font-weight: 300;
-  font-size: 1.75rem; }
+  font-size: 2rem;
+  margin: 0.5rem 0 1rem; }
 
 .home-item__blurb {
   line-height: 1.5;
@@ -405,6 +435,36 @@ body {
   background: black;
   border: none;
   padding: 0.5rem 0.75rem;
-  transition: background linear 0.2s; }
-  .home-item__cta:hover {
-    background: #333; }
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: all linear 0.2s;
+  margin: 1rem 0; }
+
+.home-item__cta:hover {
+  background: #333;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+
+.home-item__cta:after {
+  content: " \2192"; }
+
+#home-block-fake {
+  background: linear-gradient(to right, #ffd9b7, #0be7b7, #ff8dc0);
+  color: #21967d; }
+
+#home-block-fake .home-item__title {
+  color: white; }
+
+#home-block-fake .home-item__category {
+  color: #21967d; }
+
+#home-block-fake .home-item__cta {
+  background: rgba(255, 217, 183, 0.75);
+  color: #21967d; }
+
+#home-block-fake .home-item__cta:hover {
+  background: white; }
+
+#artboard-wrapper-fake .action-bar__button svg {
+  stroke: rgba(255, 217, 183, 0.75); }
+
+#artboard-wrapper-fake .action-bar__button:hover svg {
+  stroke: white; }

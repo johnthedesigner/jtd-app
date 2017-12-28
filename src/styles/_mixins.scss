@@ -13,10 +13,12 @@
   background: black;
   border: none;
   padding: 0.5rem 0.75rem;
-  transition: background linear 0.2s;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: all linear 0.2s;
 
   &:hover {
     background: #333;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
   }
 }
 

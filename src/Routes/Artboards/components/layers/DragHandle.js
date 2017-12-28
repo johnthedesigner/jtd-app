@@ -73,7 +73,8 @@ class DragHandle extends React.Component {
       width: width ? width : 0,
       height: height ? height : 0,
       transform: `rotate(${rotation}deg)`,
-      opacity: isDragging ? 0 : 1
+      opacity: isDragging ? 0 : 1,
+      borderRadius: layer.type === "ellipse" ? "50%" : 0
     };
 
     return connectDragSource(

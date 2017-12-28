@@ -7,7 +7,11 @@ class HomeBlock extends React.Component {
     let { artboardId, deselectLayers } = this.props;
 
     return (
-      <div className={"home-block"} onClick={() => deselectLayers(artboardId)}>
+      <div
+        className={"home-block"}
+        id={`home-block-${artboardId}`}
+        onClick={() => deselectLayers(artboardId)}
+      >
         <div className="home-block__text-section">
           <div className="home-block__text-container">
             {this.props.children}

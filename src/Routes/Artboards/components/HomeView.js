@@ -11,6 +11,7 @@ class HomeView extends React.Component {
         <div className="home-view__featured-case-study">
           <HomeBlock artboardId={"fake"} deselectLayers={deselectLayers}>
             <div className="home-item">
+              <h4 className="home-item__category">Prototype</h4>
               <h3 className="home-item__title">
                 Capitalize on low hanging fruit
               </h3>
@@ -22,7 +23,9 @@ class HomeView extends React.Component {
                 content in real-time will have multiple touchpoints for
                 offshoring.
               </p>
-              <button className="home-item__cta">Check this out</button>
+              <button className="home-item__cta">
+                {"But wait... There's more!"}
+              </button>
             </div>
           </HomeBlock>
         </div>

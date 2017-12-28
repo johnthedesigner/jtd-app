@@ -1,7 +1,16 @@
+.home-item__category {
+  @include font-source-code();
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+
 .home-item__title {
   @include font-source-code();
   font-weight: 300;
-  font-size: 1.75rem;
+  font-size: 2rem;
+  margin: 0.5rem 0 1rem;
 }
 
 .home-item__blurb {
@@ -11,4 +20,9 @@
 
 .home-item__cta {
   @include button();
+  margin: 1rem 0;
+
+  &:after {
+    content: " \2192";
+  }
 }
