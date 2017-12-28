@@ -6,30 +6,11 @@
   margin: 0;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 .home-item__title {
   @include font-source-code();
   font-weight: 300;
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0.5rem 0 1rem;
-
-  &:after {
-    content: "|";
-    animation-duration: 1.25s;
-    animation-name: blink;
-    animation-iteration-count: infinite;
-    margin-left: -0.25rem;
-  }
 }
 
 .home-item__blurb {

@@ -80,7 +80,7 @@ class ArtboardWrapper extends React.Component {
     bindShortcut(["command+z", "control+z"], () => {
       undoAction();
     });
-    bindShortcut("command+e", () => {
+    bindShortcut(["command+e", "control+z"], () => {
       console.log(JSON.stringify(this.props.artboards[this.props.artboardId]));
     });
   }
@@ -102,6 +102,10 @@ class ArtboardWrapper extends React.Component {
     this.props.unbindShortcut("left");
     this.props.unbindShortcut("right");
     this.props.unbindShortcut("backspace");
+    this.props.unbindShortcut(["command+c", "command+c"]);
+    this.props.unbindShortcut(["command+v", "command+v"]);
+    this.props.unbindShortcut(["command+z", "command+z"]);
+    this.props.unbindShortcut(["command+e", "command+e"]);
   }
 
   updateDimensions() {

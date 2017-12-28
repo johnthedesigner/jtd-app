@@ -1,6 +1,6 @@
 // Variables
-$mid-green: #21967d;
-$dark-green: #1bbf9c;
+$dark-green: #21967d;
+$mid-green: #1bbf9c;
 
 // Styles
 #home-block-fake {
@@ -10,7 +10,7 @@ $dark-green: #1bbf9c;
     rgb(11, 231, 183),
     rgb(255, 141, 192)
   );
-  color: $mid-green;
+  color: $dark-green;
 
   .home-item__title {
     color: white;
@@ -21,7 +21,7 @@ $dark-green: #1bbf9c;
   }
 
   .home-item__category {
-    color: $mid-green;
+    color: $dark-green;
   }
 
   .home-item__cta {
@@ -30,7 +30,7 @@ $dark-green: #1bbf9c;
 
     &:hover {
       background: rgba(255, 255, 255, 1);
-      color: $mid-green;
+      color: $dark-green;
     }
   }
 }

@@ -90,7 +90,6 @@
 
 // Resize Controls
 .resize-control__wrapper {
-  // background: #F00;
   display: block;
   position: absolute;
   top: 0;
@@ -119,7 +118,6 @@
 
 // Drag Controls
 .drag-handle {
-  // background: rgba(255,0,0,.4);
   box-sizing: border-box;
   border: rgba(255, 0, 188, 0) solid 0.5px;
   transition: border linear 0.1s;
@@ -216,8 +214,8 @@ $resizeEdgeWidth: 0.5rem;
   bottom: 0.5rem;
   right: -3rem;
 }
-.action-bar__button,
-.action-bar__plus-icon {
+
+.action-bar__button {
   width: 2rem;
   height: 2rem;
   background: none;
@@ -230,12 +228,46 @@ $resizeEdgeWidth: 0.5rem;
   z-index: 100;
 
   svg {
+    stroke: #222;
     transition: all linear 0.2s;
+  }
+
+  &:hover svg {
+    stroke: #666;
+  }
+
+  &:nth-child(1) {
+    transition-delay: 0.03s;
+  }
+  &:nth-child(2) {
+    transition-delay: 0.06s;
+  }
+  &:nth-child(3) {
+    transition-delay: 0.09s;
+  }
+  &:nth-child(4) {
+    transition-delay: 0.12s;
+  }
+  &:nth-child(5) {
+    transition-delay: 0.14s;
   }
 }
 
 .action-bar__plus-icon {
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: none;
+  margin: 0rem 0.5rem;
+  padding: 0;
+  opacity: 0;
   cursor: default;
+
+  svg {
+    stroke: #000;
+    mix-blend-mode: overlay;
+    transition: all linear 0.1s;
+  }
 }
 
 // Adjustments Panel
