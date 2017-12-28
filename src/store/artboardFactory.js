@@ -1,6 +1,7 @@
 import _ from "lodash";
 
 import fakeCaseStudy from "./artboards/fakeCaseStudy";
+import fakeCaseStudy2 from "./artboards/fakeCaseStudy2";
 
 export const layerTypes = {
   ellipse: "ellipse",
@@ -9,15 +10,7 @@ export const layerTypes = {
   text: "text"
 };
 
-const fakeCaseStudy2 = _.cloneDeep(fakeCaseStudy);
-fakeCaseStudy2.id = "fake2";
-const fakeCaseStudy3 = _.cloneDeep(fakeCaseStudy);
-fakeCaseStudy3.id = "fake3";
-
-export const artboards = _.keyBy(
-  [fakeCaseStudy, fakeCaseStudy2, fakeCaseStudy3],
-  "id"
-);
+export const artboards = _.keyBy([fakeCaseStudy, fakeCaseStudy2], "id");
 
 // Assemble empty default histories for each artboard
 export const artboardHistories = {};

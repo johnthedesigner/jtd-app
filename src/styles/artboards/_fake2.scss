@@ -1,0 +1,43 @@
+// Variables
+$dark-green: #21967d;
+$mid-green: #1bbf9c;
+
+// Styles
+#home-block-fake2 {
+  background: linear-gradient(to right, #111, #444);
+  color: #888;
+
+  .home-item__title {
+    color: white;
+
+    &:after {
+      color: white;
+    }
+  }
+
+  .home-item__category {
+    color: rgb(27, 102, 200);
+  }
+
+  .home-item__cta {
+    background: rgb(255, 141, 192);
+    color: white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+      color: rgb(27, 102, 200);
+    }
+  }
+}
+
+#artboard-wrapper-fake2 {
+  .action-bar__button {
+    svg {
+      stroke: rgb(27, 102, 200);
+    }
+
+    &:hover svg {
+      stroke: rgba(255, 255, 255, 1);
+    }
+  }
+}

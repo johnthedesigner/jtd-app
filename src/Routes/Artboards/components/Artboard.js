@@ -28,7 +28,7 @@ class Artboard extends React.Component {
 
     const wrapperStyles = {
       width: scaleDimension(width, scaleFactor),
-      maxHeight: "100%"
+      height: "auto"
     };
 
     const frameStyles = {

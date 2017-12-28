@@ -25,7 +25,6 @@ class ColorInput extends React.Component {
   render() {
     const { projectColors, propertyName, valueFromProps } = this.props;
 
-    console.log(valueFromProps);
     const thumbnailStyles = {
       background: valueFromProps ? valueFromProps : "rgb(0,0,0)"
     };

@@ -68,7 +68,8 @@ class ArtboardWrapper extends React.Component {
       e.preventDefault();
       bumpLayers("x", 1);
     });
-    bindShortcut("backspace", () => {
+    bindShortcut("backspace", e => {
+      console.log(e);
       deleteLayers();
     });
     bindShortcut(["command+c", "control+c"], () => {
