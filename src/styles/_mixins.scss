@@ -56,3 +56,17 @@
   border: none;
   color: white;
 }
+
+@mixin color-dot() {
+  display: block;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  box-shadow: 0 0 0 1px white;
+  transition: all linear 0.1s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0 2px white;
+  }
+}

@@ -28,7 +28,7 @@ export default {
           },
           color: null
         },
-        stroke: { color: "rgba(0,0,0)", width: 0 }
+        stroke: { color: "rgb(32, 32, 32)", width: "0" }
       },
       id: "e5b666a0-be57-42ea-a8fd-4d349a6f512c"
     },
@@ -48,7 +48,7 @@ export default {
           },
           color: null
         },
-        stroke: { color: "rgba(0,0,0)", width: 0 }
+        stroke: { color: "rgb(32, 32, 32)", width: "0" }
       },
       id: "3c5117d0-e53e-11e7-95a2-f1bdc7305b17"
     },
@@ -96,7 +96,7 @@ export default {
             end: "hsl(166.89999999999998, 100%, 56.9%)"
           }
         },
-        stroke: { color: "rgba(0,0,0)", width: 0 }
+        stroke: { color: "rgb(32, 32, 32)", width: "0" }
       },
       id: "a2889317-ac42-48b4-8174-1f8dc7ac95e7"
     },
@@ -116,7 +116,7 @@ export default {
             end: "rgb(11, 231, 183)"
           }
         },
-        stroke: { color: "rgba(0,0,0)", width: 0 }
+        stroke: { color: "rgb(32, 32, 32)", width: "0" }
       },
       id: "624631f0-e53e-11e7-95a2-f1bdc7305b17"
     },
@@ -136,7 +136,7 @@ export default {
           },
           color: "rgb(200, 200, 200)"
         },
-        stroke: { color: "rgb(140, 140, 140)", width: "0" }
+        stroke: { color: "rgb(32, 32, 32)", width: "0" }
       },
       id: "38aad0e6-e334-42c4-b2d5-699d523c482d"
     },

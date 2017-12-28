@@ -7,11 +7,13 @@ const ColorPicker = props => {
 
   const ColorDot = props => {
     return (
-      <div
-        className="color-picker__color-dot"
-        onClick={() => updateColor(props.color.string())}
-        style={{ background: props.color }}
-      />
+      <div className="color-picker__color-dot-wrapper">
+        <div
+          className="color-picker__color-dot"
+          onClick={() => updateColor(props.color.string())}
+          style={{ background: props.color }}
+        />
+      </div>
     );
   };
 

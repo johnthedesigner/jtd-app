@@ -32,9 +32,8 @@ class ActionIcon extends React.Component {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path class="cls-1" d="M19,21H5a2,2,0,0,1-2-2V5" />
+            <path d="M19,21H5a2,2,0,0,1-2-2V5" />
             <rect
-              class="cls-2"
               x="6"
               y="3"
               width="15"
@@ -56,20 +55,8 @@ class ActionIcon extends React.Component {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path
-              class="cls-1"
-              d="M19,21H5a2,2,0,0,1-2-2V5"
-              strokeDasharray="2, 4"
-            />
-            <rect
-              class="cls-2"
-              x="6"
-              y="3"
-              width="15"
-              height="15"
-              rx="1.67"
-              ry="1.67"
-            />
+            <path d="M19,21H5a2,2,0,0,1-2-2V5" strokeDasharray="2, 4" />
+            <rect x="6" y="3" width="15" height="15" rx="1.67" ry="1.67" />
           </svg>
         );
 

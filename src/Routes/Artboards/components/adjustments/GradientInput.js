@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ColorPicker from "./ColorPicker";
-import TextInput from "./TextInput";
 
 class GradientInput extends React.Component {
   constructor(props) {
@@ -14,7 +13,6 @@ class GradientInput extends React.Component {
     this.hidePicker = this.hidePicker.bind(this);
     this.showPicker = this.showPicker.bind(this);
     this.updateGradient = this.updateGradient.bind(this);
-    this.updateGradientAngle = this.updateGradientAngle.bind(this);
   }
 
   hidePicker(gradientSide) {
@@ -36,59 +34,44 @@ class GradientInput extends React.Component {
     this.props.handleChange(gradientParams);
   }
 
-  updateGradientAngle(angle) {
-    this.props.handleChange({
-      ...this.props.valueFromProps,
-      angle: 1 * angle // Have to make sure angle ends up being a number
-    });
-  }
-
   render() {
     const { projectColors } = this.props;
-    let { angle, start, end } = this.props.valueFromProps;
+    let { start, end } = this.props.valueFromProps;
 
     const startThumbnailStyles = {
-      background: start,
-      position: "relative"
+      background: start
     };
 
     const endThumbnailStyles = {
-      background: end,
-      position: "relative"
+      background: end
     };
 
     const gradientThumbPreviewStyles = {
-      background: `linear-gradient('${angle}, ${start}, ${end}')`
+      background: `linear-gradient(to right, ${start}, ${end})`
     };
 
     return (
-      <div className="gradient-adjustment__gradient-thumbnail">
-        <div
-          className={"gradient-adjustment__gradient-start-thumbnail"}
-          onClick={() => this.showPicker("start")}
-          style={startThumbnailStyles}
-        />
-        <div
-          className="gradient-adjustment__gradient-thumbnail-preview"
-          style={gradientThumbPreviewStyles}
-        />
-        <div
-          className={"gradient-adjustment__gradient-end-thumbnail"}
-          onClick={() => this.showPicker("end")}
-          style={endThumbnailStyles}
-        />
+      <div className="gradient-adjustment">
+        <div className="gradient-adjustment__gradient-thumbnail">
+          <div
+            className="gradient-adjustment__gradient-thumbnail-preview"
+            style={gradientThumbPreviewStyles}
+          />
+          <div
+            className={"gradient-adjustment__gradient-start-thumbnail"}
+            onClick={() => this.showPicker("start")}
+            style={startThumbnailStyles}
+          />
+          <div
+            className={"gradient-adjustment__gradient-end-thumbnail"}
+            onClick={() => this.showPicker("end")}
+            style={endThumbnailStyles}
+          />
+        </div>
         <ColorPicker
           colors={projectColors}
           updateColor={this.updateGradient}
           show={this.state.showPicker}
-        />
-        <TextInput
-          propertyName={"angle"}
-          label="Angle"
-          setValue={this.updateGradientAngle}
-          suffix="px"
-          type="text"
-          valueFromProps={angle}
         />
       </div>
     );
