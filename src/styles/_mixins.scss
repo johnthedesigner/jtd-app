@@ -1,5 +1,9 @@
 // Fonts
 @mixin font-source-code() {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+@mixin font-source-sans() {
   font-family: "Source Code Pro", sans-serif;
 }
 
