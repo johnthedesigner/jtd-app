@@ -1,7 +1,7 @@
 import _ from "lodash";
 
-import fakeCaseStudy from "./artboards/fakeCaseStudy";
-import fakeCaseStudy2 from "./artboards/fakeCaseStudy2";
+import fakeCaseStudy from "./artboards/fakeCaseStudy.json";
+import fakeCaseStudy2 from "./artboards/fakeCaseStudy2.json";
 
 export const layerTypes = {
   ellipse: "ellipse",
