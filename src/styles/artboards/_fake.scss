@@ -1,48 +1,21 @@
-// Variables
+// Local Colors
 $dark-green: #21967d;
-$mid-green: #1bbf9c;
+$deep-purple: rgba(255, 141, 192, 1);
+$pink: rgba(255, 141, 192, 1);
+$turquoise: rgba(11, 231, 183, 1);
+$yellow: rgba(255, 217, 183, 1);
 
-// Styles
-#home-block-fake {
-  background: linear-gradient(
-    to right,
-    rgb(255, 217, 183),
-    rgb(11, 231, 183),
-    rgb(255, 141, 192)
-  );
-  color: $dark-green;
+// HomeBlock Config
+$artboardId: "fake"; // should match artboardId in the store
+$background: linear-gradient(to right, $yellow, $turquoise);
+$category: $dark-green;
+$title: white;
+$blurb: $dark-green;
+$cta: $deep-purple;
+$cta-text: white;
+$cta-hover: white;
+$cta-text-hover: $deep-purple;
+$action-button: $pink;
+$action-button-hover: white;
 
-  .home-item__title {
-    color: white;
-
-    &:after {
-      color: white;
-    }
-  }
-
-  .home-item__category {
-    color: $dark-green;
-  }
-
-  .home-item__cta {
-    background: rgba(255, 141, 192, 1);
-    color: white;
-
-    &:hover {
-      background: rgba(255, 255, 255, 1);
-      color: $dark-green;
-    }
-  }
-}
-
-#artboard-wrapper-fake {
-  .action-bar__button {
-    svg {
-      stroke: rgba(255, 217, 183, 0.75);
-    }
-
-    &:hover svg {
-      stroke: rgba(255, 255, 255, 1);
-    }
-  }
-}
+@import "../_homeBlock";

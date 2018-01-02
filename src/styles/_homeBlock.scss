@@ -1,0 +1,38 @@
+// Styles
+#home-block-#{$artboardId} {
+  background: $background;
+
+  .home-item__category {
+    color: $category;
+  }
+
+  .home-item__title {
+    color: $title;
+  }
+
+  .home-item__blurb {
+    color: $blurb;
+  }
+
+  .home-item__cta {
+    background: $cta;
+    color: $cta-text;
+
+    &:hover {
+      background: $cta-hover;
+      color: $cta-text-hover;
+    }
+  }
+}
+
+#artboard-wrapper-#{$artboardId} {
+  .action-bar__button {
+    svg {
+      stroke: $action-button;
+    }
+
+    &:hover svg {
+      stroke: $action-button-hover;
+    }
+  }
+}
