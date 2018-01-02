@@ -26,65 +26,6 @@ class ArtboardWrapper extends React.Component {
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
-  componentWillMount() {
-    // const {
-    //   bindShortcut,
-    //   bumpLayers,
-    //   copyLayers,
-    //   deleteLayers,
-    //   pasteLayers,
-    //   undoAction
-    // } = this.props;
-    // // Set up key commands
-    // bindShortcut("shift+up", e => {
-    //   e.preventDefault();
-    //   bumpLayers("y", -10);
-    // });
-    // bindShortcut("shift+down", e => {
-    //   e.preventDefault();
-    //   bumpLayers("y", 10);
-    // });
-    // bindShortcut("shift+left", e => {
-    //   e.preventDefault();
-    //   bumpLayers("x", -10);
-    // });
-    // bindShortcut("shift+right", e => {
-    //   e.preventDefault();
-    //   bumpLayers("x", 10);
-    // });
-    // bindShortcut("up", e => {
-    //   e.preventDefault();
-    //   bumpLayers("y", -1);
-    // });
-    // bindShortcut("down", e => {
-    //   e.preventDefault();
-    //   bumpLayers("y", 1);
-    // });
-    // bindShortcut("left", e => {
-    //   e.preventDefault();
-    //   bumpLayers("x", -1);
-    // });
-    // bindShortcut("right", e => {
-    //   e.preventDefault();
-    //   bumpLayers("x", 1);
-    // });
-    // bindShortcut("backspace", e => {
-    //   deleteLayers();
-    // });
-    // bindShortcut(["command+c", "control+c"], () => {
-    //   copyLayers();
-    // });
-    // bindShortcut(["command+v", "control+v"], () => {
-    //   pasteLayers();
-    // });
-    // bindShortcut(["command+z", "control+z"], () => {
-    //   undoAction();
-    // });
-    // bindShortcut(["command+e", "control+e"], () => {
-    //   console.log(JSON.stringify(this.props.artboards[this.props.artboardId]));
-    // });
-  }
-
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
@@ -92,20 +33,6 @@ class ArtboardWrapper extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
-    // Unbind shortcuts when unmounting
-    // this.props.unbindShortcut("shift+up");
-    // this.props.unbindShortcut("shift+down");
-    // this.props.unbindShortcut("shift+left");
-    // this.props.unbindShortcut("shift+right");
-    // this.props.unbindShortcut("up");
-    // this.props.unbindShortcut("down");
-    // this.props.unbindShortcut("left");
-    // this.props.unbindShortcut("right");
-    // this.props.unbindShortcut("backspace");
-    // this.props.unbindShortcut(["command+c", "command+c"]);
-    // this.props.unbindShortcut(["command+v", "command+v"]);
-    // this.props.unbindShortcut(["command+z", "command+z"]);
-    // this.props.unbindShortcut(["command+e", "command+e"]);
   }
 
   updateDimensions() {
