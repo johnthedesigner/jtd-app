@@ -267,7 +267,8 @@ export default function Artboards(state = {}, a) {
           ? _.xor(clonedArtboards[a.artboardId].selections, [a.layerId])
           : [a.layerId];
         return Object.assign({}, state, {
-          artboards: clonedArtboards
+          artboards: clonedArtboards,
+          currentArtboardId: a.artboardId
         });
       }
 

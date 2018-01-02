@@ -5,6 +5,7 @@ import { artboards, artboardHistories } from "./artboardFactory";
 const initialState = {
   Content: {
     artboards: artboards,
+    currentArtboardId: null,
     history: artboardHistories,
     pasteBuffer: null
   }

@@ -1,8 +1,89 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { mouseTrap } from "react-mousetrap";
 
 import HomeBlock from "./HomeBlock";
 
 class HomeView extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    const {
+      Artboards,
+      bindShortcut,
+      bumpLayers,
+      copyLayers,
+      currentArtboardId,
+      deleteLayers,
+      pasteLayers,
+      undoAction
+    } = nextProps;
+
+    // Set up key commands
+    bindShortcut("shift+up", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "y", -10);
+    });
+    bindShortcut("shift+down", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "y", 10);
+    });
+    bindShortcut("shift+left", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "x", -10);
+    });
+    bindShortcut("shift+right", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "x", 10);
+    });
+    bindShortcut("up", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "y", -1);
+    });
+    bindShortcut("down", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "y", 1);
+    });
+    bindShortcut("left", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "x", -1);
+    });
+    bindShortcut("right", e => {
+      e.preventDefault();
+      bumpLayers(currentArtboardId, "x", 1);
+    });
+    bindShortcut("backspace", e => {
+      deleteLayers(currentArtboardId);
+    });
+    bindShortcut(["command+c", "control+c"], () => {
+      copyLayers(currentArtboardId);
+    });
+    bindShortcut(["command+v", "control+v"], () => {
+      pasteLayers(currentArtboardId);
+    });
+    bindShortcut(["command+z", "control+z"], () => {
+      undoAction(currentArtboardId);
+    });
+    bindShortcut(["command+e", "control+e"], () => {
+      console.log(JSON.stringify(Artboards[currentArtboardId]));
+    });
+  }
+
+  componentWillUnmount() {
+    // Unbind shortcuts when unmounting
+    this.props.unbindShortcut("shift+up");
+    this.props.unbindShortcut("shift+down");
+    this.props.unbindShortcut("shift+left");
+    this.props.unbindShortcut("shift+right");
+    this.props.unbindShortcut("up");
+    this.props.unbindShortcut("down");
+    this.props.unbindShortcut("left");
+    this.props.unbindShortcut("right");
+    this.props.unbindShortcut("backspace");
+    this.props.unbindShortcut(["command+c", "command+c"]);
+    this.props.unbindShortcut(["command+v", "command+v"]);
+    this.props.unbindShortcut(["command+z", "command+z"]);
+    this.props.unbindShortcut(["command+e", "command+e"]);
+  }
+
   render() {
     let { deselectLayers } = this.props;
 
@@ -54,4 +135,13 @@ class HomeView extends React.Component {
   }
 }
 
-export default HomeView;
+HomeView.propTypes = {
+  bindShortcut: PropTypes.func.isRequired,
+  bumpLayers: PropTypes.func.isRequired,
+  copyLayers: PropTypes.func.isRequired,
+  deleteLayers: PropTypes.func.isRequired,
+  pasteLayers: PropTypes.func.isRequired,
+  undoAction: PropTypes.func.isRequired
+};
+
+export default mouseTrap(HomeView);
