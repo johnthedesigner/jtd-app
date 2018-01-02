@@ -7,7 +7,7 @@ import ColorInput from "./ColorInput";
 import GradientInput from "./GradientInput";
 import SelectInput from "./SelectInput";
 import { fillTypes } from "./adjustmentOptions";
-import { colorsWithFallback } from "../../colorUtils";
+import { colorsWithFallback } from "../../../utils/colorUtils";
 
 class FillAdjustment extends React.Component {
   render() {

@@ -3,7 +3,7 @@ import _ from "lodash";
 import { artboards, artboardHistories } from "./artboardFactory";
 
 const initialState = {
-  Artboards: {
+  Content: {
     artboards: artboards,
     history: artboardHistories,
     pasteBuffer: null

@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 
-import Artboards from "../Routes/Artboards/reducer";
+import Content from "./reducer";
 import History from "./historyReducer";
 
 const Reducers = combineReducers({
-  Artboards,
+  Content,
   History
 });
 

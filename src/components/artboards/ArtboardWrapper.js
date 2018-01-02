@@ -5,16 +5,16 @@ import Color from "color";
 import _ from "lodash";
 import { mouseTrap } from "react-mousetrap";
 
-import { mapArtboard } from "../artboardUtils";
+import { mapArtboard } from "./artboardUtils";
 import AdjustmentsPanel from "./adjustments/AdjustmentsPanel";
 import Artboard from "./Artboard";
 import ActionBars from "./ActionBars";
-import Layer from "./layers/Layer";
-import TextLayerEditor from "./layers/TextLayerEditor";
-import ResizeControl from "./layers/ResizeControl";
-import { scaleDimension } from "../artboardUtils";
-import { colorsWithFallback } from "../colorUtils";
-import ImagePicker from "./layers/ImagePicker";
+import Layer from "../layers/Layer";
+import TextLayerEditor from "../layers/TextLayerEditor";
+import ResizeControl from "../layers/ResizeControl";
+import { scaleDimension } from "./artboardUtils";
+import { colorsWithFallback } from "../../utils/colorUtils";
+import ImagePicker from "../layers/ImagePicker";
 
 class ArtboardWrapper extends React.Component {
   constructor(props) {

@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-import { scaleAllDimensions, scaleDimension } from "../../artboardUtils";
-import { typeStyles } from "../adjustments/adjustmentOptions";
+import { scaleAllDimensions, scaleDimension } from "../artboards/artboardUtils";
+import { typeStyles } from "../artboards/adjustments/adjustmentOptions";
 
 class TextLayerEditor extends React.Component {
   constructor(props) {

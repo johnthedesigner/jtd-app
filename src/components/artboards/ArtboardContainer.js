@@ -19,9 +19,9 @@ import {
   toggleImagePicker,
   undoAction,
   updateText
-} from "../actions";
+} from "../../store/actions";
 
-import ArtboardWrapper from "../components/ArtboardWrapper";
+import ArtboardWrapper from "./ArtboardWrapper";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -80,7 +80,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  artboards: state.Artboards.artboards,
+  artboards: state.Content.artboards,
   artboardId: ownProps.artboardId,
   featured: ownProps.featured
 });

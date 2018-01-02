@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import idx from "idx";
 
-import { typeStyles } from "../adjustments/adjustmentOptions";
+import { typeStyles } from "../artboards/adjustments/adjustmentOptions";
 
 class TextLayer extends React.Component {
   constructor(props) {

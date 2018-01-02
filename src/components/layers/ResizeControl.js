@@ -6,7 +6,10 @@ import HTML5Backend from "react-dnd-html5-backend";
 
 import DragHandle from "./DragHandle";
 import ResizeHandle from "./ResizeHandle";
-import { scaleAllDimensions, unscaleDimension } from "../../artboardUtils";
+import {
+  scaleAllDimensions,
+  unscaleDimension
+} from "../artboards/artboardUtils";
 
 class ResizeControl extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import ArtboardContainer from "../containers/ArtboardContainer";
+import ArtboardContainer from "../../components/artboards/ArtboardContainer";
 
 class HomeBlock extends React.Component {
   render() {

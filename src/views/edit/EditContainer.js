@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import EditView from "../components/EditView";
+import EditView from "./EditView";
 
 const mapStateToProps = (state, ownProps) => {
   return {

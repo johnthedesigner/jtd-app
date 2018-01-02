@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
-import { deselectLayers } from "../actions";
-import HomeView from "../components/HomeView";
+import { deselectLayers } from "../../store/actions";
+import HomeView from "./HomeView";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    Artboards: state.Artboards.artboards
+    Artboards: state.Content.artboards
   };
 };
 

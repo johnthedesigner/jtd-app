@@ -1,8 +1,8 @@
 import _ from "lodash";
 import uuid from "uuid";
 
-import { consoleGroup } from "../../utils/utils";
-import { newLayers } from "../../store/newLayers";
+import { consoleGroup } from "../utils/utils";
+import { newLayers } from "./newLayers";
 import {
   ADD_LAYER,
   ADJUST_LAYERS,

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import AppLayout from "./Layouts/AppLayout";
+import AppLayout from "./AppLayout";
 
 class App extends Component {
   static propTypes = {
