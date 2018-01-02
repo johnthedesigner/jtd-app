@@ -81,7 +81,7 @@ class TextLayer extends React.Component {
     });
 
     // Go through rows data and apply positioning
-    let lineHeight = fontSize * 1.25; // How far to offset new rows vertically
+    let lineHeight = fontSize * 1.125; // How far to offset new rows vertically
     _.each(rows, (row, index) => {
       let firstWord = textTag.children[row.firstChild];
       let prevRow = rows[index - 1];

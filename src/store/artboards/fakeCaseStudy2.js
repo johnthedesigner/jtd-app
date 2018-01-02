@@ -16,34 +16,14 @@ export default {
       type: "rectangle",
       title: "rectangle",
       order: 0,
-      dimensions: { x: 40, y: 500, width: 920, height: 460, rotation: 0 },
+      dimensions: { x: 40, y: 40, width: 920, height: 920, rotation: 0 },
       adjustments: {
         blending: { mode: "normal", opacity: 1 },
         fill: {
           type: "gradient",
           gradient: {
-            start: "rgb(11, 231, 183)",
-            end: "rgb(255, 141, 192)",
-            angle: 0
-          },
-          color: null
-        },
-        stroke: { color: "rgb(32, 32, 32)", width: "0" }
-      },
-      id: "xx-e5b666a0-be57-42ea-a8fd-4d349a6f512c"
-    },
-    {
-      type: "rectangle",
-      title: "rectangle",
-      order: 1,
-      dimensions: { x: 40, y: 40, width: 920, height: 460, rotation: 0 },
-      adjustments: {
-        blending: { mode: "normal", opacity: 1 },
-        fill: {
-          type: "gradient",
-          gradient: {
-            start: "hsl(28.100000000000023, 100%, 85.9%)",
-            end: "rgb(11, 231, 183)",
+            start: "rgb(183, 33, 255)",
+            end: "rgb(33, 212, 253)",
             angle: 0
           },
           color: null
@@ -53,37 +33,18 @@ export default {
       id: "xx-3c5117d0-e53e-11e7-95a2-f1bdc7305b17"
     },
     {
-      type: "rectangle",
-      title: "rectangle",
-      order: 2,
-      dimensions: { x: 200, y: 180, width: 600, height: 600, rotation: 0 },
-      adjustments: {
-        blending: { mode: "normal", opacity: 1 },
-        fill: {
-          type: "gradient",
-          gradient: {
-            start: "rgb(255, 255, 255)",
-            end: "rgb(200, 200, 200)",
-            angle: 0
-          }
-        },
-        stroke: { color: "rgb(140, 140, 140)", width: "0" }
-      },
-      id: "xx-5d983ef0-eb4c-11e7-b49b-ef07192b71ef"
-    },
-    {
-      imageId: "test1",
+      imageId: "test2",
       type: "image",
       title: "image",
-      order: 3,
-      dimensions: { x: 200, y: 179, width: 600, height: 600, rotation: 0 },
-      adjustments: { blending: { mode: "normal", opacity: 1 } },
-      id: "xx-fafa0600-eb75-11e7-b49b-ef07192b71ef"
+      order: 1,
+      dimensions: { x: 40, y: 40, width: 920, height: 920, rotation: 0 },
+      adjustments: { blending: { mode: "overlay", opacity: 0.75 } },
+      id: "ecdd5ab0-efdd-11e7-b4cc-ad6a8eba07d0"
     },
     {
       type: "ellipse",
       title: "ellipse",
-      order: 4,
+      order: 2,
       dimensions: { x: 260, y: 250, width: 500, height: 500, rotation: 0 },
       adjustments: {
         blending: { mode: "color", opacity: 1 },
@@ -92,8 +53,8 @@ export default {
           color: null,
           gradient: {
             angle: 0,
-            start: "hsl(166.89999999999998, 81.8%, 38%)",
-            end: "hsl(166.89999999999998, 100%, 56.9%)"
+            start: "rgb(33, 212, 253)",
+            end: "hsl(280.5, 100%, 73.4%)"
           }
         },
         stroke: { color: "rgb(32, 32, 32)", width: "0" }
@@ -103,17 +64,17 @@ export default {
     {
       type: "ellipse",
       title: "ellipse",
-      order: 5,
+      order: 3,
       dimensions: { x: 240, y: 250, width: 500, height: 500, rotation: 0 },
       adjustments: {
-        blending: { mode: "multiply", opacity: 1 },
+        blending: { mode: "overlay", opacity: 1 },
         fill: {
           type: "gradient",
           color: null,
           gradient: {
             angle: 0,
-            start: "hsl(166.89999999999998, 100%, 61.7%)",
-            end: "rgb(11, 231, 183)"
+            start: "hsl(280.5, 100%, 73.4%)",
+            end: "rgb(33, 212, 253)"
           }
         },
         stroke: { color: "rgb(32, 32, 32)", width: "0" }
@@ -121,73 +82,17 @@ export default {
       id: "xx-624631f0-e53e-11e7-95a2-f1bdc7305b17"
     },
     {
-      type: "rectangle",
-      title: "rectangle",
-      order: 6,
-      dimensions: { x: 200, y: 178, width: 600, height: 48, rotation: 0 },
-      adjustments: {
-        blending: { mode: "normal", opacity: 1 },
-        fill: {
-          type: "color",
-          gradient: {
-            start: "rgb(255, 255, 255)",
-            end: "rgb(200, 200, 200)",
-            angle: 0
-          },
-          color: "rgb(200, 200, 200)"
-        },
-        stroke: { color: "rgb(32, 32, 32)", width: "0" }
-      },
-      id: "xx-38aad0e6-e334-42c4-b2d5-699d523c482d"
-    },
-    {
-      type: "ellipse",
-      title: "ellipse",
-      order: 7,
-      dimensions: { x: 210, y: 188, width: 30, height: 30, rotation: 0 },
-      adjustments: {
-        blending: { mode: "normal", opacity: 1 },
-        fill: { type: "color", color: "rgb(255, 141, 192)" },
-        stroke: { color: "hsl(333.20000000000005, 90%, 62.1%)", width: "1" }
-      },
-      id: "xx-76a75890-eb4c-11e7-b49b-ef07192b71ef"
-    },
-    {
-      type: "ellipse",
-      title: "ellipse",
-      order: 8,
-      dimensions: { x: 250, y: 188, width: 30, height: 30, rotation: 0 },
-      adjustments: {
-        blending: { mode: "normal", opacity: 1 },
-        fill: { type: "color", color: "rgb(255, 178, 110)" },
-        stroke: { color: "hsl(28.100000000000023, 90%, 57.3%)", width: "1" }
-      },
-      id: "xx-8a2a622c-3843-4df4-9081-95b8d56808c3"
-    },
-    {
-      type: "ellipse",
-      title: "ellipse",
-      order: 9,
-      dimensions: { x: 290, y: 188, width: 30, height: 30, rotation: 0 },
-      adjustments: {
-        blending: { mode: "normal", opacity: 1 },
-        fill: { type: "color", color: "rgba(11,231,183,1)" },
-        stroke: { color: "hsl(166.89999999999998, 81.8%, 38%)", width: "1" }
-      },
-      id: "xx-5e098bb6-f146-419a-b76f-f6dc1fb8e307"
-    },
-    {
       type: "text",
       title: "text",
-      text: "Lorem ipsum dolor.",
-      order: 10,
-      dimensions: { x: 100, y: 450, width: 800, height: 100, rotation: 0 },
+      text: "Lorem ipsum dolor sit amet.",
+      order: 4,
+      dimensions: { x: 200, y: 340, width: 600, height: 400, rotation: 0 },
       adjustments: {
         blending: { mode: "normal", opacity: 1 },
         text: {
           align: "center",
-          fontFamily: "mono",
-          fontSize: "60",
+          fontFamily: "sans",
+          fontSize: "96",
           fontWeight: 300,
           italic: false,
           textColor: "rgba(0,0,0)",
@@ -198,7 +103,7 @@ export default {
       id: "xx-8999a390-e53e-11e7-95a2-f1bdc7305b17"
     }
   ],
-  projectColors: ["#0BE7B7", "#2F80ED", "#BB6BD9", "#FF8DC0", "#FFB26E"],
+  projectColors: ["#FAACA8", "#DDD6F3", "#B721FF", "#21D4FD", "#2AF598"],
   selections: [],
   history: [],
   editingTextLayer: null,

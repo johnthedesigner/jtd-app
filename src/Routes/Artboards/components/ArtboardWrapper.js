@@ -69,7 +69,6 @@ class ArtboardWrapper extends React.Component {
       bumpLayers("x", 1);
     });
     bindShortcut("backspace", e => {
-      console.log(e);
       deleteLayers();
     });
     bindShortcut(["command+c", "control+c"], () => {
@@ -81,7 +80,7 @@ class ArtboardWrapper extends React.Component {
     bindShortcut(["command+z", "control+z"], () => {
       undoAction();
     });
-    bindShortcut(["command+e", "control+z"], () => {
+    bindShortcut(["command+e", "control+e"], () => {
       console.log(JSON.stringify(this.props.artboards[this.props.artboardId]));
     });
   }
@@ -113,11 +112,10 @@ class ArtboardWrapper extends React.Component {
     // Get the dimensions of our artboards-wrapper
     let { artboardId } = this.props;
     let wrapper = document.getElementById(`artboard-wrapper-${artboardId}`);
-    let width = wrapper.clientWidth * (7 / 9); // Limit artboard to 2/3 column
+    let width = wrapper.clientWidth * (8 / 9); // Limit artboard to 8/9 column
     let height = wrapper.clientHeight;
-    console.log(width, height);
     // Determine correct artboard scale factor and store in component state
-    this.setState({ scaleFactor: _.min([width, height]) * 0.9 / 1000 });
+    this.setState({ scaleFactor: _.min([width, height]) * 0.96 / 1000 });
   }
 
   render() {

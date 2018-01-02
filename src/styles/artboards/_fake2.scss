@@ -4,8 +4,8 @@ $mid-green: #1bbf9c;
 
 // Styles
 #home-block-fake2 {
-  background: linear-gradient(to right, #111, #444);
-  color: #888;
+  background: linear-gradient(to right, rgb(210, 119, 255), rgb(33, 212, 253));
+  color: rgb(70, 90, 150);
 
   .home-item__title {
     color: white;
@@ -16,16 +16,16 @@ $mid-green: #1bbf9c;
   }
 
   .home-item__category {
-    color: rgb(27, 102, 200);
+    color: rgb(70, 90, 150);
   }
 
   .home-item__cta {
-    background: rgb(255, 141, 192);
+    background: #b721ff;
     color: white;
 
     &:hover {
       background: rgba(255, 255, 255, 1);
-      color: rgb(27, 102, 200);
+      color: #b721ff;
     }
   }
 }
@@ -33,7 +33,7 @@ $mid-green: #1bbf9c;
 #artboard-wrapper-fake2 {
   .action-bar__button {
     svg {
-      stroke: rgb(27, 102, 200);
+      stroke: rgb(70, 90, 150);
     }
 
     &:hover svg {

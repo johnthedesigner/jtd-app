@@ -80,7 +80,7 @@ class TextLayerEditor extends React.Component {
       fontFamily: fontFamilyProps.value,
       fontSize: `${fontSize}px`,
       fontWeight: text.fontWeight,
-      lineHeight: `${fontSize * 1.25}px`,
+      lineHeight: `${fontSize * 1.125}px`,
       textAlign: text.align
     };
 
