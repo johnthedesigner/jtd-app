@@ -66,7 +66,7 @@ class TextLayerEditor extends React.Component {
     let fontSize = scaleDimension(text.fontSize, scaleFactor, true);
     dimensions = scaleAllDimensions(dimensions, scaleFactor, true);
     let editorStyles = {
-      border: "#F00 solid 1px",
+      border: "none",
       position: "absolute",
       top: dimensions.y,
       left: dimensions.x,
