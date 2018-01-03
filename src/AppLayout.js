@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import Logo from "./components/Logo";
 import HomeContainer from "./views/home/HomeContainer";
 import EditContainer from "./views/edit/EditContainer";
+import PostsRoutes from "./posts/";
 
 // import '../App.css'
 
@@ -17,6 +18,7 @@ class AppLayout extends React.Component {
         <div className="app-layout__body">
           <Route exact path="/" component={HomeContainer} />
           <Route exact path="/edit/:caseStudyId" component={EditContainer} />
+          <Route path="/posts" component={PostsRoutes} />
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { mouseTrap } from "react-mousetrap";
+import { Link } from "react-router-dom";
 
 import HomeBlock from "./HomeBlock";
 
@@ -104,9 +105,11 @@ class HomeView extends React.Component {
                 content in real-time will have multiple touchpoints for
                 offshoring.
               </p>
-              <button className="home-item__cta">
-                {"But wait... There's more!"}
-              </button>
+              <Link to="/posts/fake">
+                <button className="home-item__cta">
+                  {"But wait... There's more!"}
+                </button>
+              </Link>
             </div>
           </HomeBlock>
 
@@ -124,9 +127,11 @@ class HomeView extends React.Component {
                 content in real-time will have multiple touchpoints for
                 offshoring.
               </p>
-              <button className="home-item__cta">
-                {"But wait... There's more!"}
-              </button>
+              <Link to="/posts/fake2">
+                <button className="home-item__cta">
+                  {"But wait... There's more!"}
+                </button>
+              </Link>
             </div>
           </HomeBlock>
         </div>
