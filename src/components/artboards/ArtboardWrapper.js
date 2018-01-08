@@ -39,7 +39,7 @@ class ArtboardWrapper extends React.Component {
     // Get the dimensions of our artboards-wrapper
     let { artboardId } = this.props;
     let wrapper = document.getElementById(`artboard-wrapper-${artboardId}`);
-    let width = wrapper.clientWidth * (8 / 9); // Limit artboard to 8/9 column
+    let width = wrapper.clientWidth * (0.8 / 1); // Limit artboard to 8/9 column
     let height = wrapper.clientHeight;
     // Determine correct artboard scale factor and store in component state
     this.setState({ scaleFactor: _.min([width, height]) * 0.96 / 1000 });

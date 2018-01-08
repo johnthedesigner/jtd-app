@@ -30,7 +30,6 @@ class Logo extends React.Component {
           y="0px"
           viewBox="0 0 600 1600"
           fill="none"
-          stroke="#FFFFFF"
           strokeWidth="200"
           strokeMiterlimit="10"
         >

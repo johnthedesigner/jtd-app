@@ -1,3 +1,31 @@
+// Home Block
+.home-block {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: $nav-width;
+  // flex-direction: column-reverse;
+}
+
+.home-block__text-section {
+  flex: 1;
+}
+
+.home-block__text-container {
+  padding: 2rem 4rem 2rem 6rem;
+}
+
+.home-block__artboard-section {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  overflow: visible;
+  height: 100vh;
+  position: relative;
+}
+
 .home-item__category {
   @include font-source-code();
   font-weight: 700;
@@ -7,7 +35,7 @@
 }
 
 .home-item__title {
-  @include font-source-sans();
+  @include font-source-code();
   font-weight: 300;
   font-size: 1.5rem;
   margin: 1rem 0 1.5rem;
@@ -15,7 +43,7 @@
 
 .home-item__blurb {
   line-height: 1.5;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .home-item__cta {

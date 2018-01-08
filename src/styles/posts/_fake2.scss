@@ -8,7 +8,11 @@ $yellow: rgba(255, 217, 183, 1);
 
 // HomeBlock Config
 $artboardId: "fake2"; // should match artboardId in the store
-$background: linear-gradient(to right, $pale-purple, $azure);
+$background: linear-gradient(
+  to bottom right,
+  rgba($pale-purple, 0.95),
+  rgba($azure, 0.95)
+);
 $category: $dark-purple;
 $title: white;
 $blurb: $dark-purple;

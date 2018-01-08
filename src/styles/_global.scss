@@ -13,14 +13,48 @@ body {
   background: #f5eef5;
 }
 
+.nav-menu {
+  width: $nav-width * 2;
+  opacity: 0;
+  transition: all linear 0.1s;
+  list-style: none;
+  padding: 0;
+
+  a {
+    @include font-source-code();
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+
+    i {
+      font-size: 0.75em;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .app-layout__nav {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 4rem;
+  width: $nav-width;
   background: #444;
   mix-blend-mode: overlay;
+  transition: width ease-in-out 0.2s;
+  overflow: hidden;
+
+  &:hover {
+    width: $nav-width * 2;
+
+    .nav-menu {
+      opacity: 1;
+    }
+  }
 }
 
 .app-layout__logo {
@@ -28,7 +62,8 @@ body {
 }
 
 .logo-svg {
-  stroke: white;
+  stroke: #bbbbbb;
+  width: $nav-width;
   transition: all linear 0.2s;
 
   &:hover {

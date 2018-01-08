@@ -17,20 +17,15 @@ class HomeView extends React.Component {
               <div className="home-item">
                 <h4 className="home-item__category">Prototype</h4>
                 <h3 className="home-item__title">
-                  Capitalize on low hanging fruit
+                  Designing a System for Wolverine Worldwide Marketing Content
                 </h3>
                 <p className="home-item__blurb">
-                  Bring to the table win-win survival strategies to ensure
-                  proactive domination. At the end of the day, going forward, a
-                  new normal that has evolved from generation X is on the runway
-                  heading towards a streamlined cloud solution. User generated
-                  content in real-time will have multiple touchpoints for
-                  offshoring.
+                  One system to rule them all. How can a small team of
+                  designer/developers keep a portfolio of prominent eCommerce
+                  sites up-to-date, consistent and beautiful.
                 </p>
                 <Link to="/posts/fake">
-                  <button className="home-item__cta">
-                    {"But wait... There's more!"}
-                  </button>
+                  <button className="home-item__cta">{"Look at this!"}</button>
                 </Link>
               </div>
             </HomeBlock>

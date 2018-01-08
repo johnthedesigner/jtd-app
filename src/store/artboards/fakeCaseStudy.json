@@ -17,6 +17,31 @@
       "title": "rectangle",
       "order": 0,
       "dimensions": {
+        "x": 0,
+        "y": 0,
+        "width": 1000,
+        "height": 1000,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "normal", "opacity": 1 },
+        "fill": {
+          "type": "gradient",
+          "gradient": {
+            "start": "hsl(28.100000000000023, 100%, 93%)",
+            "end": "hsl(333.20000000000005, 100%, 93.2%)",
+            "angle": 0
+          }
+        },
+        "stroke": { "color": "rgba(0,0,0)", "width": 0 }
+      },
+      "id": "448e4cb0-f263-11e7-9ffa-f1f13ac1d2ce"
+    },
+    {
+      "type": "rectangle",
+      "title": "rectangle",
+      "order": 1,
+      "dimensions": {
         "x": 40,
         "y": 500,
         "width": 920,
@@ -41,7 +66,7 @@
     {
       "type": "rectangle",
       "title": "rectangle",
-      "order": 1,
+      "order": 2,
       "dimensions": {
         "x": 40,
         "y": 40,
@@ -67,7 +92,7 @@
     {
       "type": "rectangle",
       "title": "rectangle",
-      "order": 2,
+      "order": 3,
       "dimensions": {
         "x": 200,
         "y": 180,
@@ -80,7 +105,7 @@
         "fill": {
           "type": "gradient",
           "gradient": {
-            "start": "rgb(255, 255, 255)",
+            "start": "hsl(28.100000000000023, 100%, 93%)",
             "end": "rgb(200, 200, 200)",
             "angle": 0
           }
@@ -93,7 +118,7 @@
       "imageId": "test1",
       "type": "image",
       "title": "image",
-      "order": 3,
+      "order": 4,
       "dimensions": {
         "x": 200,
         "y": 179,
@@ -101,19 +126,19 @@
         "height": 600,
         "rotation": 0
       },
-      "adjustments": { "blending": { "mode": "normal", "opacity": 1 } },
+      "adjustments": { "blending": { "mode": "multiply", "opacity": 1 } },
       "id": "fafa0600-eb75-11e7-b49b-ef07192b71ef"
     },
     {
       "type": "ellipse",
       "title": "ellipse",
-      "order": 4,
+      "order": 5,
       "dimensions": {
         "x": 260,
         "y": 250,
         "width": 500,
         "height": 500,
-        "rotation": 0
+        "rotation": 90
       },
       "adjustments": {
         "blending": { "mode": "color", "opacity": 1 },
@@ -133,7 +158,7 @@
     {
       "type": "ellipse",
       "title": "ellipse",
-      "order": 5,
+      "order": 6,
       "dimensions": {
         "x": 240,
         "y": 250,
@@ -148,8 +173,8 @@
           "color": null,
           "gradient": {
             "angle": 0,
-            "start": "hsl(166.89999999999998, 100%, 61.7%)",
-            "end": "rgb(11, 231, 183)"
+            "start": "hsl(333.20000000000005, 100%, 93.2%)",
+            "end": "hsl(214.39999999999998, 100%, 72.4%)"
           }
         },
         "stroke": { "color": "rgb(32, 32, 32)", "width": "0" }
@@ -159,7 +184,7 @@
     {
       "type": "rectangle",
       "title": "rectangle",
-      "order": 6,
+      "order": 7,
       "dimensions": {
         "x": 200,
         "y": 178,
@@ -176,7 +201,7 @@
             "end": "rgb(200, 200, 200)",
             "angle": 0
           },
-          "color": "rgb(200, 200, 200)"
+          "color": "hsl(28.100000000000023, 100%, 93%)"
         },
         "stroke": { "color": "rgb(32, 32, 32)", "width": "0" }
       },
@@ -185,7 +210,7 @@
     {
       "type": "ellipse",
       "title": "ellipse",
-      "order": 7,
+      "order": 8,
       "dimensions": {
         "x": 210,
         "y": 188,
@@ -206,7 +231,7 @@
     {
       "type": "ellipse",
       "title": "ellipse",
-      "order": 8,
+      "order": 9,
       "dimensions": {
         "x": 250,
         "y": 188,
@@ -227,7 +252,7 @@
     {
       "type": "ellipse",
       "title": "ellipse",
-      "order": 9,
+      "order": 10,
       "dimensions": {
         "x": 290,
         "y": 188,
@@ -249,7 +274,7 @@
       "type": "text",
       "title": "text",
       "text": "Lorem ipsum dolor.",
-      "order": 10,
+      "order": 11,
       "dimensions": {
         "x": 100,
         "y": 450,
@@ -274,7 +299,7 @@
     }
   ],
   "projectColors": ["#0BE7B7", "#2F80ED", "#BB6BD9", "#FF8DC0", "#FFB26E"],
-  "selections": ["e5b666a0-be57-42ea-a8fd-4d349a6f512c"],
+  "selections": [],
   "history": [],
   "editingTextLayer": null,
   "activeFlyout": null,

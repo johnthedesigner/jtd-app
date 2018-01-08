@@ -1,10 +1,10 @@
 // Fonts
 @mixin font-source-code() {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Code Pro", sans-serif;
 }
 
 @mixin font-source-sans() {
-  font-family: "Source Code Pro", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 @mixin radius() {
@@ -18,7 +18,7 @@
   background: black;
   border: none;
   padding: 0.5rem 0.75rem;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
   transition: all linear 0.2s;
   text-transform: uppercase;
   cursor: pointer;
@@ -31,9 +31,9 @@
 
 // Adjustment Inputs
 @mixin adjustments-label() {
-  font-family: "Source Code Pro", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 0.75rem;
-  color: white;
+  color: #888;
   display: block;
   flex: 1;
   margin-right: 0.5rem;
@@ -45,10 +45,10 @@
   width: 100%;
   padding: 0 0.25rem;
   box-sizing: border-box;
-  background: #666;
-  border: none;
+  background: white;
+  border: rgba(0, 0, 0, 0.1) solid 1px;
   border-radius: 0.125rem;
-  color: white;
+  color: black;
 }
 
 @mixin adjustments-select-input() {
@@ -59,9 +59,9 @@
   width: 100%;
   padding: 0 0.25rem;
   box-sizing: border-box;
-  background: #666;
-  border: none;
-  color: white;
+  background: white;
+  border: rgba(0, 0, 0, 0.1) solid 1px;
+  color: black;
 }
 
 @mixin color-dot() {
@@ -69,11 +69,11 @@
   border-radius: 50%;
   width: 1rem;
   height: 1rem;
-  box-shadow: 0 0 0 1px white;
+  box-shadow: 0 0 0 2px $light-gray;
   transition: all linear 0.1s;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 0 0 2px white;
+    box-shadow: 0 0 0 2px $mid-gray;
   }
 }

@@ -14,10 +14,10 @@ import {
 class ArtboardShortcutsWrapper extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {
-      Artboards,
       bindShortcut,
       bumpLayers,
       copyLayers,
+      currentArtboard,
       currentArtboardId,
       deleteLayers,
       pasteLayers,
@@ -70,7 +70,7 @@ class ArtboardShortcutsWrapper extends React.Component {
       undoAction(currentArtboardId);
     });
     bindShortcut(["command+e", "control+e"], () => {
-      console.log(JSON.stringify(Artboards[currentArtboardId]));
+      console.log(JSON.stringify(currentArtboard));
     });
   }
 
@@ -126,6 +126,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  currentArtboard: state.Content.artboards[state.Content.currentArtboardId],
   currentArtboardId: state.Content.currentArtboardId
 });
 
