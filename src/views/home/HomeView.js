@@ -15,14 +15,16 @@ class HomeView extends React.Component {
           <div className="home-view__featured-case-study">
             <HomeBlock artboardId={"fake"} deselectLayers={deselectLayers}>
               <div className="home-item">
-                <h4 className="home-item__category">Prototype</h4>
+                <h4 className="home-item__category">Case Study</h4>
                 <h3 className="home-item__title">
-                  Designing a System for Wolverine Worldwide Marketing Content
+                  One design system to rule them all
                 </h3>
                 <p className="home-item__blurb">
-                  One system to rule them all. How can a small team of
-                  designer/developers keep a portfolio of prominent eCommerce
-                  sites up-to-date, consistent and beautiful.
+                  Our collection of eCommerce shoe brands had recently been
+                  bought by Wolverine Worldwide. Freshly installed in a new,
+                  senior role, I had to figure out how our small team of
+                  designer/developers could keep a portfolio of prominent
+                  eCommerce sites up-to-date, consistent and beautiful.
                 </p>
                 <Link to="/posts/fake">
                   <button className="home-item__cta">{"Look at this!"}</button>
