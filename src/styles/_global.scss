@@ -3,6 +3,7 @@ html {
 }
 
 body {
+  // @include font-sans();
   margin: 0;
   padding: 0;
   font-family: "Source Sans Pro", sans-serif;
@@ -21,7 +22,7 @@ body {
   padding: 0;
 
   a {
-    @include font-source-code();
+    @include font-mono();
     display: block;
     color: rgba(255, 255, 255, 0);
     text-decoration: none;

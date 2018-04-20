@@ -12,7 +12,7 @@
 }
 
 .home-block__text-container {
-  padding: 2rem 4rem 2rem 6rem;
+  padding: 2rem 2rem 2rem 6rem;
 }
 
 .home-block__artboard-section {
@@ -27,7 +27,7 @@
 }
 
 .home-item__category {
-  @include font-source-code();
+  @include font-mono();
   font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -35,9 +35,9 @@
 }
 
 .home-item__title {
-  @include font-source-code();
-  font-weight: 300;
-  font-size: 1.5rem;
+  @include font-mono();
+  font-weight: 200;
+  font-size: 2.5rem;
   margin: 1rem 0 1.5rem;
 }
 

@@ -1,10 +1,10 @@
 // Fonts
-@mixin font-source-code() {
-  font-family: "Source Code Pro", sans-serif;
+@mixin font-mono() {
+  font-family: "IBM Plex Mono", "Source Code Pro", sans-serif;
 }
 
-@mixin font-source-sans() {
-  font-family: "Source Sans Pro", sans-serif;
+@mixin font-sans() {
+  font-family: "IBM Plex Mono", "Source Sans Pro", sans-serif;
 }
 
 @mixin radius() {
@@ -13,7 +13,7 @@
 
 @mixin button() {
   @include radius();
-  @include font-source-code();
+  @include font-mono();
   color: white;
   background: black;
   border: none;
@@ -40,7 +40,7 @@
 }
 
 @mixin adjustments-text-input() {
-  @include font-source-code();
+  @include font-mono();
   line-height: 1.5;
   width: 100%;
   padding: 0 0.25rem;
@@ -52,7 +52,7 @@
 }
 
 @mixin adjustments-select-input() {
-  @include font-source-code();
+  @include font-mono();
   @include radius();
   appearance: none;
   line-height: 1.5;

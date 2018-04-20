@@ -249,7 +249,7 @@ $resizeEdgeWidth: 0.5rem;
 
 // Adjustments Panel
 .adjustments-panel__wrapper {
-  font-family: "Source Sans Pro", sans-serif;
+  @include font-mono();
   position: absolute;
   top: 1rem;
   left: 0;
@@ -272,7 +272,7 @@ $resizeEdgeWidth: 0.5rem;
 }
 
 .adjustments-panel__header {
-  @include font-source-code();
+  @include font-mono();
   border-top: #ddd solid 1px;
   border-bottom: #eee solid 1px;
   color: black;
