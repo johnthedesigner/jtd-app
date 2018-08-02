@@ -42,7 +42,7 @@ class ArtboardWrapper extends React.Component {
     let width = wrapper.clientWidth * (0.8 / 1); // Limit artboard to 8/9 column
     let height = wrapper.clientHeight;
     // Determine correct artboard scale factor and store in component state
-    this.setState({ scaleFactor: _.min([width, height]) * 0.96 / 1000 });
+    this.setState({ scaleFactor: _.min([width, height]) * 0.9 / 1000 });
   }
 
   render() {
