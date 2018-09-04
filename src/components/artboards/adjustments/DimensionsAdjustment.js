@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import idx from "idx";
-import Tooltip from '@material-ui/core/Tooltip';
 
 import MaskedTextInput from "./MaskedTextInput";
 

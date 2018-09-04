@@ -18,7 +18,7 @@ class HomeView extends React.Component {
                 <p className="home-item__blurb">
                   Hey, my name is John Livornese and I’m the head of product
                   design at{" "}
-                  <a href="http://luminoso.com" target="_blank">
+                  <a href="http://luminoso.com" target="_blank" rel="noopener noreferrer">
                     Luminoso{" "}
                   </a>
                   in Cambridge, Massachusetts.

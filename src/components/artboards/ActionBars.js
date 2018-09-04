@@ -42,7 +42,7 @@ class ActionBars extends React.Component {
           <button className="action-bar__plus-icon">
             <ActionIcon iconType="plus" fill="rgba(0,0,0,.2)" />
           </button>
-          <Tooltip title="Add rectangle" placement="left" style={tooltipStyles}>
+          <Tooltip title="Add rectangle" placement="left">
             <button className="action-bar__button" onClick={this.addRectangle}>
               <ActionIcon iconType="rectangle" fill={this.props.buttonFill} />
             </button>

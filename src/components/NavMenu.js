@@ -14,6 +14,7 @@ const Header = () => (
         href="https://github.com/johnthedesigner"
         title="John the designer on Github"
         target="_blank"
+        rel="noopener noreferrer"
       >
         Github <i className="fa fa-external-link" />
       </a>
@@ -23,6 +24,7 @@ const Header = () => (
         href="https://www.linkedin.com/in/johnlivornese/"
         title="John the designer on LinkedIn"
         target="_blank"
+        rel="noopener noreferrer"
       >
         LinkedIn <i className="fa fa-external-link" />
       </a>

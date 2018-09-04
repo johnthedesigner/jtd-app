@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 import { artboards, artboardHistories } from "./artboardFactory";
 
 const initialState = {

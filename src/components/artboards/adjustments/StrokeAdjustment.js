@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import idx from "idx";
-import _ from "lodash";
 
 import ColorInput from "./ColorInput";
 import MaskedTextInput from "./MaskedTextInput";
