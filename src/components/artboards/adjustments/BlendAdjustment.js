@@ -4,7 +4,7 @@ import idx from "idx";
 import _ from "lodash";
 
 import SelectInput from "./SelectInput";
-import TextInput from "./TextInput";
+import MaskedTextInput from "./MaskedTextInput";
 
 const blendModes = [
   "normal",
@@ -26,7 +26,7 @@ class BlendAdjustment extends React.Component {
     if (!adjustments) return null;
 
     let blendMode = idx(adjustments, _ => _.mode);
-    if (!blendMode) blendMode = "normal";
+    blendMode = (!blendMode) ? blendModes[0] : blendMode;
 
     let opacity = idx(adjustments, _ => _.opacity);
     if (!opacity) opacity = "1";
@@ -53,12 +53,13 @@ class BlendAdjustment extends React.Component {
               propertyName={"mode"}
               options={blendModeOptions}
               setValue={setBlendMode}
+              tooltipText="Blending mode"
               valueFromProps={blendMode}
             />
-            <TextInput
-              label="Opacity"
+            <MaskedTextInput
               propertyName={"opacity"}
               setValue={setOpacity}
+              tooltipText="Opacity"
               valueFromProps={opacity}
             />
           </div>

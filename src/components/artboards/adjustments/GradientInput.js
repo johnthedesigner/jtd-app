@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Tooltip from '@material-ui/core/Tooltip';
 
 import ColorPicker from "./ColorPicker";
 
@@ -35,7 +36,7 @@ class GradientInput extends React.Component {
   }
 
   render() {
-    const { projectColors } = this.props;
+    const { projectColors, tooltipText } = this.props;
     let { start, end } = this.props.valueFromProps;
 
     const startThumbnailStyles = {
@@ -52,22 +53,24 @@ class GradientInput extends React.Component {
 
     return (
       <div className="gradient-adjustment">
-        <div className="gradient-adjustment__gradient-thumbnail">
-          <div
-            className="gradient-adjustment__gradient-thumbnail-preview"
-            style={gradientThumbPreviewStyles}
-          />
-          <div
-            className={"gradient-adjustment__gradient-start-thumbnail"}
-            onClick={() => this.showPicker("start")}
-            style={startThumbnailStyles}
-          />
-          <div
-            className={"gradient-adjustment__gradient-end-thumbnail"}
-            onClick={() => this.showPicker("end")}
-            style={endThumbnailStyles}
-          />
-        </div>
+        <Tooltip title={tooltipText} placement="right">
+          <div className="gradient-adjustment__gradient-thumbnail">
+            <div
+              className="gradient-adjustment__gradient-thumbnail-preview"
+              style={gradientThumbPreviewStyles}
+            />
+            <div
+              className={"gradient-adjustment__gradient-start-thumbnail"}
+              onClick={() => this.showPicker("start")}
+              style={startThumbnailStyles}
+            />
+            <div
+              className={"gradient-adjustment__gradient-end-thumbnail"}
+              onClick={() => this.showPicker("end")}
+              style={endThumbnailStyles}
+            />
+          </div>
+        </Tooltip>
         <ColorPicker
           colors={projectColors}
           updateColor={this.updateGradient}

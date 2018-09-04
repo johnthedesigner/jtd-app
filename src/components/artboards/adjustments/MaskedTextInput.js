@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Tooltip from '@material-ui/core/Tooltip';
 
-class TextInput extends React.Component {
+class MaskedTextInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "" };
@@ -24,8 +25,15 @@ class TextInput extends React.Component {
   }
 
   handleChange(event) {
+    var newValue = event.target.value;
+    if (this.props.type === "number") {
+      newValue = event.target.value;
+    } else {
+      newValue = event.target.value;
+    }
+
     this.setState({
-      value: event.target.value
+      value: newValue
     });
   }
 
@@ -38,15 +46,24 @@ class TextInput extends React.Component {
   }
 
   handleKeyPress(event) {
-    if (event.key === "Enter") {
-      event.target.blur();
-    } else if (this.props.type === "number") {
-      // console.log(event.key)
+    console.log(event.target);
+    switch (event.key) {
+      case "Enter":
+        event.target.blur();
+        break;
+      case "ArrowUp":
+        this.props.setValue(this.state.value + (event.shiftKey ? 10 : 1));
+        break;
+      case "ArrowDown":
+        this.props.setValue(this.state.value - (event.shiftKey ? 10 : 1));
+        break;
+      default:
+        return true;
     }
   }
 
   render() {
-    const { propertyName, label, type } = this.props;
+    const { propertyName, label, tooltipText } = this.props;
 
     const labelStyles = {
       display: label ? "block" : "none"
@@ -60,23 +77,25 @@ class TextInput extends React.Component {
         >
           {label}
         </label>
-        <input
-          type={type}
-          value={this.state.value}
-          placeholder={"-"}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}
-          onKeyPress={this.handleKeyPress}
-          onFocus={this.handleFocus}
-        />
+        <Tooltip title={tooltipText} placement="right">
+          <input
+            type={"text"}
+            value={this.state.value}
+            placeholder={"-"}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeyPress}
+            onFocus={this.handleFocus}
+          />
+        </Tooltip>
       </div>
     );
   }
 }
 
-TextInput.propTypes = {
+MaskedTextInput.propTypes = {
   propertyName: PropTypes.string.isRequired,
   label: PropTypes.string
 };
 
-export default TextInput;
+export default MaskedTextInput;

@@ -4,7 +4,7 @@ import idx from "idx";
 import _ from "lodash";
 
 import ColorInput from "./ColorInput";
-import TextInput from "./TextInput";
+import MaskedTextInput from "./MaskedTextInput";
 
 class StrokeAdjustment extends React.Component {
   render() {
@@ -29,11 +29,12 @@ class StrokeAdjustment extends React.Component {
         <div>
           <div className="adjustments-panel__header">Stroke</div>
           <div className="adjustments-panel__adjustment-block">
-            <TextInput
+            <MaskedTextInput
               propertyName={"width"}
               label="Width"
               setValue={setStrokeWidth}
               suffix="px"
+              tooltipText="Stroke width"
               type="text"
               valueFromProps={strokeWidth}
             />
@@ -41,6 +42,7 @@ class StrokeAdjustment extends React.Component {
               projectColors={projectColors}
               propertyName={"color"}
               handleChange={setStrokeColor}
+              tooltipText="Stroke color"
               valueFromProps={strokeColor}
             />
           </div>

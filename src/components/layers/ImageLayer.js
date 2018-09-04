@@ -27,7 +27,7 @@ class ImageLayer extends React.Component {
         y={dimensions.y}
         width={dimensions.width}
         height={dimensions.height}
-        href={selectedImage.url}
+        xlinkHref={selectedImage.url}
         opacity={opacity}
         style={layerStyles}
         transform={`rotate(${dimensions.rotation} ${rotateOriginX} ${

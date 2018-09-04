@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import idx from "idx";
+import Tooltip from '@material-ui/core/Tooltip';
 
-import TextInput from "./TextInput";
+import MaskedTextInput from "./MaskedTextInput";
 
 class DimensionsAdjustment extends React.Component {
   render() {
@@ -49,49 +50,54 @@ class DimensionsAdjustment extends React.Component {
         <div>
           <div className="adjustments-panel__header">Dimensions</div>
           <div className="adjustments-panel__adjustment-block">
-            <TextInput
+            <MaskedTextInput
               key={adjustmentGroup + "x"}
               propertyName={"x"}
               label="X"
               setValue={setX}
               suffix="px"
-              type="text"
+              tooltipText="X offset"
+              type="number"
               valueFromProps={x}
             />
-            <TextInput
+            <MaskedTextInput
               key={adjustmentGroup + "y"}
               propertyName={"y"}
               label="Y"
               setValue={setY}
               suffix="px"
-              type="text"
+              tooltipText="Y offset"
+              type="number"
               valueFromProps={y}
             />
-            <TextInput
+            <MaskedTextInput
               key={adjustmentGroup + "width"}
               propertyName={"width"}
               label="W"
               setValue={setWidth}
               suffix="px"
-              type="text"
+              tooltipText="Width"
+              type="number"
               valueFromProps={width}
             />
-            <TextInput
+            <MaskedTextInput
               key={adjustmentGroup + "height"}
               propertyName={"height"}
               label="H"
               setValue={setHeight}
               suffix="px"
-              type="text"
+              tooltipText="Height"
+              type="number"
               valueFromProps={height}
             />
-            <TextInput
+            <MaskedTextInput
               key={adjustmentGroup + "rotation"}
               propertyName={"rotation"}
               label="R"
               setValue={setRotation}
               suffix="deg"
-              type="text"
+              tooltipText="Rotation"
+              type="number"
               valueFromProps={rotation}
             />
           </div>

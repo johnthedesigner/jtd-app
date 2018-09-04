@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import Tooltip from '@material-ui/core/Tooltip';
 
 class SelectInput extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class SelectInput extends React.Component {
   }
 
   render() {
-    const { propertyName, label, options } = this.props;
+    const { propertyName, label, options, tooltipText } = this.props;
 
     const labelStyles = {
       display: label ? "block" : "none"
@@ -40,15 +41,17 @@ class SelectInput extends React.Component {
         >
           {label}
         </label>
-        <select value={this.state.value} onChange={this.handleChange}>
-          {_.map(options, option => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.name}
-              </option>
-            );
-          })}
-        </select>
+        <Tooltip title={tooltipText} placement="right">
+          <select value={this.state.value} onChange={this.handleChange}>
+            {_.map(options, option => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.name}
+                </option>
+              );
+            })}
+          </select>
+        </Tooltip>
       </div>
     );
   }

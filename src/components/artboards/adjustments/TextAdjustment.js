@@ -92,6 +92,7 @@ class TypeAdjustment extends React.Component {
               propertyName={"fontFamily"}
               options={fontFamilyOptions}
               setValue={setFontFamily}
+              tooltipText="Font family"
               valueFromProps={fontFamily}
             />
             <SelectInput
@@ -100,6 +101,7 @@ class TypeAdjustment extends React.Component {
               label="Weight"
               options={fontWeightOptions}
               setValue={setFontWeight}
+              tooltipText="Font weight"
               valueFromProps={fontWeight}
             />
             <SelectInput
@@ -108,6 +110,7 @@ class TypeAdjustment extends React.Component {
               label="Size"
               options={fontSizeOptions}
               setValue={setFontSize}
+              tooltipText="Font size"
               valueFromProps={fontSize}
             />
             <SelectInput
@@ -116,6 +119,7 @@ class TypeAdjustment extends React.Component {
               label="Align"
               options={alignOptions}
               setValue={alignText}
+              tooltipText="Text alignment"
               valueFromProps={align}
             />
             <ColorInput
@@ -123,16 +127,19 @@ class TypeAdjustment extends React.Component {
               projectColors={projectColors}
               propertyName={"color"}
               handleChange={setFontColor}
+              tooltipText="Text color"
               valueFromProps={fontColor}
             />
             <ToggleInput
               propertyName={"italic"}
               handleChange={toggleItalics}
+              tooltipText="Italic"
               valueFromProps={italic}
             />
             <ToggleInput
               propertyName={"underline"}
               handleChange={toggleUnderline}
+              tooltipText="Underlined"
               valueFromProps={underline}
             />
           </div>

@@ -10,6 +10,7 @@ class RectangleLayer extends React.Component {
     let rotateOriginX = dimensions.x + dimensions.width / 2;
     let rotateOriginY = dimensions.y + dimensions.height / 2;
 
+    let opacity = idx(layer, _ => _.adjustments.blending.opacity);
     let blendMode = idx(layer, _ => _.adjustments.blending.mode);
     let layerStyles = {
       mixBlendMode: blendMode ? blendMode : "normal"
@@ -24,6 +25,7 @@ class RectangleLayer extends React.Component {
         width={dimensions.width}
         height={dimensions.height}
         fill={`url(#gradient${this.props.layer.id})`}
+        opacity={opacity}
         stroke={stroke.color}
         strokeWidth={stroke.width}
         style={layerStyles}

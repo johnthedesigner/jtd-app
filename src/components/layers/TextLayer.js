@@ -92,6 +92,7 @@ class TextLayer extends React.Component {
   }
 
   render() {
+    let { layer } = this.props
     let {
       color,
       fontFamily,
@@ -99,12 +100,12 @@ class TextLayer extends React.Component {
       fontWeight,
       italic,
       underline
-    } = this.props.layer.adjustments.text;
+    } = layer.adjustments.text;
     let fontFamilyProps = _.find(typeStyles.families, family => {
       return family.id === fontFamily;
     });
-    let { x, y, width, height, rotation } = this.props.layer.dimensions;
-    let { text, isEditable } = this.props.layer;
+    let { x, y, width, height, rotation } = layer.dimensions;
+    let { text, isEditable } = layer;
     let textArray = text.split(" ");
     let rotateOriginX = x + width / 2;
     let rotateOriginY = y + height / 2;
@@ -112,7 +113,8 @@ class TextLayer extends React.Component {
     let textAnchor = "start";
     let dx = 0;
 
-    let blendMode = idx(this.props.layer, _ => _.adjustments.blending.mode);
+    let opacity = idx(layer, _ => _.adjustments.blending.opacity);
+    let blendMode = idx(layer, _ => _.adjustments.blending.mode);
 
     let textStyles = {
       visibility: isEditable ? "hidden" : "visible",
@@ -125,7 +127,7 @@ class TextLayer extends React.Component {
         draggable={false}
         fill={color}
         fontSize={fontSize}
-        key={`rect${this.props.layer.id}`}
+        key={`rect${layer.id}`}
         x={x}
         y={y}
         dx={dx}
@@ -133,6 +135,7 @@ class TextLayer extends React.Component {
         fontFamily={fontFamilyProps.value}
         fontStyle={italic ? "italic" : "normal"}
         fontWeight={fontWeight}
+        opacity={opacity}
         style={textStyles}
         textAnchor={textAnchor}
         textDecoration={underline ? "underline" : "none"}

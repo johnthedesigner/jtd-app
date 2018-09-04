@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.0.2",
     "animejs": "^2.2.0",
     "color": "^2.0.1",
     "idx": "^1.5.0",
@@ -13,18 +14,17 @@
     "popper.js": "^1.12.9",
     "prop-types": "^15.5.8",
     "radium": "^0.18.2",
-    "react": "^15.5.4",
+    "react": "^16.4.2",
     "react-color": "^2.11.7",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
-    "react-dom": "^15.5.4",
+    "react-dom": "^16.4.2",
     "react-mousetrap": "^0.1.1",
     "react-overlays": "^0.8.3",
     "react-redux": "^5.0.4",
     "react-rnd": "^7.1.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-persist": "^4.6.0",
     "redux-thunk": "^2.2.0",
@@ -35,7 +35,7 @@
     "@storybook/addon-links": "^3.2.6",
     "@storybook/react": "^3.2.8",
     "gh-pages": "^0.12.0",
-    "react-scripts": "0.9.5"
+    "react-scripts": "1.1.5"
   },
   "scripts": {
     "build-css": "node-sass src/ -o src/",

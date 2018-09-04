@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Tooltip from '@material-ui/core/Tooltip';
 
 import ColorPicker from "./ColorPicker";
 
@@ -23,7 +24,7 @@ class ColorInput extends React.Component {
   }
 
   render() {
-    const { projectColors, propertyName, valueFromProps } = this.props;
+    const { projectColors, propertyName, valueFromProps, tooltipText } = this.props;
 
     const thumbnailStyles = {
       background: valueFromProps ? valueFromProps : "rgb(0,0,0)"
@@ -35,16 +36,18 @@ class ColorInput extends React.Component {
 
     return (
       <div className="color-adjustment">
-        <div className="color-adjustment__color-thumbnail">
-          <div className="color-adjustment__preview" style={previewStyles} />
-          <div
-            className={`color-adjustment__thumbnail color-adjustment__thumbnail--${
-              propertyName
-            }`}
-            onClick={this.togglePicker}
-            style={thumbnailStyles}
-          />
-        </div>
+        <Tooltip title={tooltipText} placement="right">
+          <div className="color-adjustment__color-thumbnail">
+            <div className="color-adjustment__preview" style={previewStyles} />
+            <div
+              className={`color-adjustment__thumbnail color-adjustment__thumbnail--${
+                propertyName
+              }`}
+              onClick={this.togglePicker}
+              style={thumbnailStyles}
+            />
+          </div>
+        </Tooltip>
         <ColorPicker
           colors={projectColors}
           updateColor={this.updateColor}

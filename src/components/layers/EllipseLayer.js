@@ -10,6 +10,7 @@ class EllipseLayer extends React.Component {
     let rotateOriginX = dimensions.x + dimensions.width / 2;
     let rotateOriginY = dimensions.y + dimensions.height / 2;
 
+    let opacity = idx(layer, _ => _.adjustments.blending.opacity);
     let blendMode = idx(layer, _ => _.adjustments.blending.mode);
     let layerStyles = {
       mixBlendMode: blendMode ? blendMode : "normal"
@@ -23,6 +24,7 @@ class EllipseLayer extends React.Component {
         rx={dimensions.width / 2}
         ry={dimensions.height / 2}
         fill={`url(#gradient${layer.id})`}
+        opacity={opacity}
         stroke={stroke.color ? stroke.color : "rgba(32,32,32)"}
         strokeWidth={stroke.width}
         style={layerStyles}

@@ -45,6 +45,7 @@ class FillAdjustment extends React.Component {
               options={fillTypeOptions}
               propertyName={"type"}
               setValue={setFillType}
+              tooltipText="Fill type"
               valueFromProps={type}
             />
             {type === "color" && (
@@ -52,6 +53,7 @@ class FillAdjustment extends React.Component {
                 handleChange={setSolidFill}
                 projectColors={projectColors}
                 propertyName={"color"}
+                tooltipText="Fill color"
                 valueFromProps={fillColors.solid}
               />
             )}
@@ -60,6 +62,7 @@ class FillAdjustment extends React.Component {
                 handleChange={setGradientFill}
                 projectColors={projectColors}
                 propertyName={"gradient"}
+                tooltipText="Fill gradient"
                 valueFromProps={fillColors.gradient}
               />
             )}
