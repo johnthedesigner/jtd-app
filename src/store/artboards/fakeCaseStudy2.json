@@ -72,7 +72,7 @@
           "fontFamily": "sans",
           "fontSize": "96",
           "fontWeight": 300,
-          "italic": false,
+          "italic": true,
           "textColor": "rgba(0,0,0)",
           "underline": false,
           "color": "rgb(255, 255, 255)"

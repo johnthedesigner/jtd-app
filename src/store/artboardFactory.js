@@ -2,6 +2,7 @@ import _ from "lodash";
 
 import fakeCaseStudy from "./artboards/fakeCaseStudy.json";
 import fakeCaseStudy2 from "./artboards/fakeCaseStudy2.json";
+import fakeCaseStudy3 from "./artboards/fake3.json";
 
 export const layerTypes = {
   ellipse: "ellipse",
@@ -10,7 +11,7 @@ export const layerTypes = {
   text: "text"
 };
 
-export const artboards = _.keyBy([fakeCaseStudy, fakeCaseStudy2], "id");
+export const artboards = _.keyBy([fakeCaseStudy, fakeCaseStudy2, fakeCaseStudy3], "id");
 
 // Assemble empty default histories for each artboard
 export const artboardHistories = {};

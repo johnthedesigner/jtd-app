@@ -12,19 +12,7 @@ class HomeView extends React.Component {
       <ArtboardShortcutsContainer>
         <div className={"home-view__wrapper"}>
           <div className="home-view__featured-case-study">
-            <HomeBlock artboardId={"fake2"} deselectLayers={deselectLayers}>
-              <div className="home-item">
-                <h3 className="home-item__title">John the designer</h3>
-                <p className="home-item__blurb">
-                  Hey, my name is John Livornese and I’m the head of product
-                  design at{" "}
-                  <a href="http://luminoso.com" target="_blank" rel="noopener noreferrer">
-                    Luminoso{" "}
-                  </a>
-                  in Cambridge, Massachusetts.
-                </p>
-              </div>
-            </HomeBlock>
+            <HomeBlock artboardId={"fake2"} deselectLayers={deselectLayers}/>
           </div>
         </div>
       </ArtboardShortcutsContainer>

@@ -12,13 +12,20 @@ class HomeBlock extends React.Component {
         id={`home-block-${artboardId}`}
         onClick={() => deselectLayers(artboardId)}
       >
-        <div className="home-block__text-section">
-          <div className="home-block__text-container">
-            {this.props.children}
-          </div>
-        </div>
         <div className="home-block__artboard-section">
-          <ArtboardContainer artboardId={artboardId} featured={true} />
+          {(() => {
+            if (true) {
+              return <ArtboardContainer artboardId={artboardId} featured={true} />
+            } else {
+              return <i>artboard</i>
+            }
+          })()}
+        </div>
+        <div className="home-block__caption-section">
+          <p>
+            <span className="home-block__caption-text">The quick brown fox jumped over the lazy dog</span>
+            <span className="home-block__caption-date">– Sep. 3, 2018</span>
+          </p>
         </div>
       </div>
     );

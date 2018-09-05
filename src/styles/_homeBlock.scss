@@ -1,32 +1,14 @@
 // Styles
 #home-block-#{$artboardId} {
-  background: $background;
-
-  .home-item__category {
-    color: $category;
-  }
-
-  .home-item__title {
-    color: $title;
-  }
-
-  .home-item__blurb {
-    color: $blurb;
-
-    & > a {
-      color: white;
-    }
-  }
-
-  .home-item__cta {
-    background: $cta;
-    color: $cta-text;
-
-    &:hover {
-      background: $cta-hover;
-      color: $cta-text-hover;
-    }
-  }
+  background-image: linear-gradient(
+    to bottom right,
+    rgba($backgroundStart, 1),
+    rgba($backgroundEnd, 1)
+  );
+  background-size: 100% 75%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
 }
 
 #artboard-wrapper-#{$artboardId} {

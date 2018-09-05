@@ -1,0 +1,185 @@
+{
+  "id": "fake3",
+  "title": "Capitalize on low hanging fruit",
+  "excerpt":
+    "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.",
+  "featuredStyles": {
+    "bgGradientStart": "#0BE7B7",
+    "bgGradientEnd": "#8FFFE7",
+    "buttonFill": "#21967D",
+    "titleColor": "white",
+    "excerptColor": "#21967D"
+  },
+  "nonfeaturedStyles": { "buttonFill": "#999999", "titleColor": "#21967D" },
+  "layers": [
+    {
+      "imageId": "Earth from space",
+      "type": "image",
+      "title": "image",
+      "order": 0,
+      "dimensions": {
+        "x": -510,
+        "y": -10,
+        "width": 2022,
+        "height": 1020,
+        "rotation": 0
+      },
+      "adjustments": { "blending": { "mode": "normal", "opacity": 1 } },
+      "id": "3dcf69a0-b0c1-11e8-8ced-eb6c12619fb7"
+    },
+    {
+      "type": "rectangle",
+      "title": "rectangle",
+      "order": 1,
+      "dimensions": {
+        "x": 0,
+        "y": 0,
+        "width": 1000,
+        "height": 1000,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "lighten", "opacity": 1 },
+        "fill": {
+          "type": "gradient",
+          "gradient": {
+            "start": "rgb(183, 33, 255)",
+            "end": "rgb(33, 212, 253)",
+            "angle": 0
+          },
+          "color": null
+        },
+        "stroke": { "color": "rgb(32, 32, 32)", "width": "0" }
+      },
+      "id": "xx-3c5117d0-e53e-11e7-95a2-f1bdc7305b17"
+    },
+    {
+      "type": "rectangle",
+      "title": "rectangle",
+      "order": 2,
+      "dimensions": {
+        "x": 40,
+        "y": 39,
+        "width": 924,
+        "height": 925,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "hue", "opacity": 1 },
+        "fill": {
+          "type": "color",
+          "gradient": {
+            "start": "rgba(11,231,183,1)",
+            "end": "rgba(11,231,183,1)",
+            "angle": 0
+          },
+          "color": "rgb(32, 32, 32)"
+        },
+        "stroke": { "color": "rgba(0,0,0)", "width": 0 }
+      },
+      "id": "06450250-b0c2-11e8-8ced-eb6c12619fb7"
+    },
+    {
+      "type": "ellipse",
+      "title": "ellipse",
+      "order": 3,
+      "dimensions": {
+        "x": 320,
+        "y": 320,
+        "width": 350,
+        "height": 350,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "multiply", "opacity": 1 },
+        "fill": {
+          "type": "color",
+          "color": "hsl(191.20000000000005, 100%, 72.9%)"
+        },
+        "stroke": { "color": "rgba(0,0,0)", "width": "0" }
+      },
+      "id": "7b93f170-b0c1-11e8-8ced-eb6c12619fb7"
+    },
+    {
+      "type": "text",
+      "title": "text",
+      "text": "Hello World",
+      "order": 4,
+      "dimensions": {
+        "x": 200,
+        "y": 450,
+        "width": 600,
+        "height": 200,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "normal", "opacity": 1 },
+        "text": {
+          "align": "center",
+          "fontFamily": "mono",
+          "fontSize": "72",
+          "fontWeight": 300,
+          "italic": true,
+          "textColor": "rgba(0,0,0)",
+          "underline": false,
+          "color": "rgb(255, 255, 255)"
+        }
+      },
+      "id": "bfe765f0-b0c1-11e8-8ced-eb6c12619fb7"
+    },
+    {
+      "type": "rectangle",
+      "title": "rectangle",
+      "order": 2,
+      "dimensions": {
+        "x": 40,
+        "y": 39,
+        "width": 924,
+        "height": 925,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "darken", "opacity": 0.5 },
+        "fill": {
+          "type": "color",
+          "gradient": {
+            "start": "rgba(11,231,183,1)",
+            "end": "rgba(11,231,183,1)",
+            "angle": 0
+          },
+          "color": "rgb(32, 32, 32)"
+        },
+        "stroke": { "color": "rgba(0,0,0)", "width": 0 }
+      },
+      "id": "8b01b741-e590-4714-8c2c-0181b22d7024"
+    },
+    {
+      "type": "ellipse",
+      "title": "ellipse",
+      "order": 3,
+      "dimensions": {
+        "x": 320,
+        "y": 320,
+        "width": 350,
+        "height": 350,
+        "rotation": 0
+      },
+      "adjustments": {
+        "blending": { "mode": "overlay", "opacity": 1 },
+        "fill": {
+          "type": "color",
+          "color": "hsl(191.20000000000005, 100%, 72.9%)"
+        },
+        "stroke": { "color": "rgba(0,0,0)", "width": "0" }
+      },
+      "id": "51a58a9e-f6cb-446e-bae7-0c9fbbd67b95"
+    }
+  ],
+  "projectColors": ["#FAACA8", "#DDD6F3", "#B721FF", "#21D4FD", "#2AF598"],
+  "selections": [],
+  "history": [],
+  "editingTextLayer": null,
+  "activeFlyout": null,
+  "editableTextLayer": null,
+  "showImagePicker": false
+}
