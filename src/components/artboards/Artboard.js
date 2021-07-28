@@ -27,14 +27,18 @@ class Artboard extends React.Component {
 
     const wrapperStyles = {
       width: scaleDimension(width, scaleFactor),
-      height: "auto"
+      height: "auto",
     };
 
     const frameStyles = {
       width: scaleDimension(width, scaleFactor),
-      height: scaleDimension(height, scaleFactor)
+      height: scaleDimension(height, scaleFactor),
     };
 
+    const DelayRenderChildren = (props) =>
+      props.isScaled ? "" : this.props.children;
+
+    // console.log(this.props.isScaled);
     return (
       <div
         className="artboard"
@@ -45,7 +49,7 @@ class Artboard extends React.Component {
           className={"artboard__frame" + toggleSelected()}
           style={frameStyles}
         >
-          {this.props.children}
+          <DelayRenderChildren showChildren={this.props.isScaled} />
         </div>
       </div>
     );
@@ -55,7 +59,7 @@ class Artboard extends React.Component {
 Artboard.propTypes = {
   id: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
-  layerSelected: PropTypes.bool
+  layerSelected: PropTypes.bool,
 };
 
 export default Artboard;

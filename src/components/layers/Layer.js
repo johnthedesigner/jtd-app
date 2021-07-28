@@ -15,7 +15,7 @@ class Layer extends React.Component {
       y: null,
       width: null,
       height: null,
-      rotation: null
+      rotation: null,
     };
     this.setLayerDimensions = this.setLayerDimensions.bind(this);
     this.toggleHighlighted = this.toggleHighlighted.bind(this);
@@ -51,7 +51,7 @@ class Layer extends React.Component {
   }
 
   render() {
-    const layerType = layer => {
+    const layerType = (layer) => {
       switch (layer.type) {
         case layerTypes.ellipse:
           return <EllipseLayer dimensions={this.state} layer={layer} />;
@@ -67,6 +67,7 @@ class Layer extends React.Component {
             <TextLayer
               dimensions={this.state}
               layer={layer}
+              isScaled={this.props.isScaled}
               scaleFactor={this.props.scaleFactor}
               scaleLayer={this.props.scaleLayer}
             />
@@ -84,7 +85,7 @@ class Layer extends React.Component {
 }
 
 Layer.propTypes = {
-  layer: PropTypes.object.isRequired
+  layer: PropTypes.object.isRequired,
 };
 
 export default Layer;

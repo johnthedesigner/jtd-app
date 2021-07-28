@@ -44,17 +44,17 @@
 }
 .artboard__svg-wrapper {
   background: white;
-  box-shadow: 0 1.5rem 2rem .1625rem rgba(0, 60, 80, 0.3);
+  box-shadow: 0 1.5rem 2rem 0.1625rem rgba(0, 60, 80, 0.3);
   transition: box-shadow linear 0.2s;
   z-index: 11;
-  border-radius: .125rem;
+  border-radius: 0.125rem;
 
   &.is-selected {
     // box-shadow: 0 1.5rem 2rem .1625rem rgba(0, 0, 0, 0.3);
   }
   svg {
     user-select: none;
-    border-radius: .125rem;
+    border-radius: 0.125rem;
   }
 }
 
@@ -114,7 +114,7 @@ $resizeEdgeWidth: 0.5rem;
   position: absolute;
 }
 .resize-handle__top {
-  top: - $resizeEdgeWidth;
+  top: -$resizeEdgeWidth;
   right: $resizeEdgeWidth;
   left: $resizeEdgeWidth;
   height: $resizeEdgeWidth;
@@ -122,21 +122,21 @@ $resizeEdgeWidth: 0.5rem;
 }
 .resize-handle__right {
   top: $resizeEdgeWidth;
-  right: - $resizeEdgeWidth;
+  right: -$resizeEdgeWidth;
   bottom: $resizeEdgeWidth;
   width: $resizeEdgeWidth;
   cursor: ew-resize;
 }
 .resize-handle__bottom {
   right: $resizeEdgeWidth;
-  bottom: - $resizeEdgeWidth;
+  bottom: -$resizeEdgeWidth;
   left: $resizeEdgeWidth;
   height: $resizeEdgeWidth;
   cursor: ns-resize;
 }
 .resize-handle__left {
   bottom: $resizeEdgeWidth;
-  left: - $resizeEdgeWidth;
+  left: -$resizeEdgeWidth;
   top: $resizeEdgeWidth;
   width: $resizeEdgeWidth;
   cursor: ew-resize;
@@ -153,23 +153,23 @@ $resizeEdgeWidth: 0.5rem;
 }
 .resize-handle__top-left {
   @extend .resize-handle;
-  top: - $resizeEdgeWidth / 1.5;
-  left: - $resizeEdgeWidth / 1.5;
+  top: -$resizeEdgeWidth / 1.5;
+  left: -$resizeEdgeWidth / 1.5;
 }
 .resize-handle__top-right {
   @extend .resize-handle;
-  top: - $resizeEdgeWidth / 1.5;
-  right: - $resizeEdgeWidth / 1.5;
+  top: -$resizeEdgeWidth / 1.5;
+  right: -$resizeEdgeWidth / 1.5;
 }
 .resize-handle__bottom-right {
   @extend .resize-handle;
-  bottom: - $resizeEdgeWidth / 1.5;
-  right: - $resizeEdgeWidth / 1.5;
+  bottom: -$resizeEdgeWidth / 1.5;
+  right: -$resizeEdgeWidth / 1.5;
 }
 .resize-handle__bottom-left {
   @extend .resize-handle;
-  bottom: - $resizeEdgeWidth / 1.5;
-  left: - $resizeEdgeWidth / 1.5;
+  bottom: -$resizeEdgeWidth / 1.5;
+  left: -$resizeEdgeWidth / 1.5;
 }
 
 // Action Bars

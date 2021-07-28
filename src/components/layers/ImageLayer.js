@@ -11,12 +11,12 @@ class ImageLayer extends React.Component {
     let rotateOriginY = dimensions.y + dimensions.height / 2;
     let selectedImage = imageLibrary[layer.imageId];
 
-    let blendMode = idx(layer, _ => _.adjustments.blending.mode);
+    let blendMode = idx(layer, (_) => _.adjustments.blending.mode);
     let layerStyles = {
-      mixBlendMode: blendMode ? blendMode : "normal"
+      mixBlendMode: blendMode ? blendMode : "normal",
     };
 
-    let opacity = idx(layer, _ => _.adjustments.blending.opacity);
+    let opacity = idx(layer, (_) => _.adjustments.blending.opacity);
 
     return (
       <image
@@ -29,16 +29,14 @@ class ImageLayer extends React.Component {
         xlinkHref={selectedImage.url}
         opacity={opacity}
         style={layerStyles}
-        transform={`rotate(${dimensions.rotation} ${rotateOriginX} ${
-          rotateOriginY
-        })`}
+        transform={`rotate(${dimensions.rotation} ${rotateOriginX} ${rotateOriginY})`}
       />
     );
   }
 }
 
 ImageLayer.propTypes = {
-  layer: PropTypes.object.isRequired
+  layer: PropTypes.object.isRequired,
 };
 
 export default ImageLayer;

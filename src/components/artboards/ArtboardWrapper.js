@@ -21,7 +21,8 @@ class ArtboardWrapper extends React.Component {
     super(props);
     this.state = {
       scaleFactor: 1,
-      shiftKey: false
+      shiftKey: false,
+      isScaled: false,
     };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
@@ -42,7 +43,10 @@ class ArtboardWrapper extends React.Component {
     let width = wrapper.clientWidth * (0.8 / 1); // Limit artboard to 8/9 column
     let height = wrapper.clientHeight;
     // Determine correct artboard scale factor and store in component state
-    this.setState({ scaleFactor: _.min([width, height]) * 0.96 / 1000 });
+    this.setState({
+      scaleFactor: (_.min([width, height]) * 0.96) / 1000,
+      isScaled: true,
+    });
   }
 
   render() {
@@ -61,14 +65,14 @@ class ArtboardWrapper extends React.Component {
       scaleLayer,
       selectLayer,
       toggleImagePicker,
-      updateText
+      updateText,
     } = this.props;
 
     const mappedArtboard = mapArtboard(artboards[artboardId]);
 
-    const EditableTextLayer = props => {
+    const EditableTextLayer = (props) => {
       if (mappedArtboard.editableTextLayer) {
-        let textLayer = _.filter(mappedArtboard.layers, layer => {
+        let textLayer = _.filter(mappedArtboard.layers, (layer) => {
           // Show editable text layer
           return layer.id === mappedArtboard.editableTextLayer;
         });
@@ -77,6 +81,7 @@ class ArtboardWrapper extends React.Component {
             enableTextEditor={enableTextEditor}
             key={textLayer.id}
             layer={textLayer[0]}
+            isScaled={this.state.isScaled}
             scaleFactor={this.state.scaleFactor}
             updateText={updateText}
           />
@@ -86,11 +91,11 @@ class ArtboardWrapper extends React.Component {
       }
     };
 
-    const adjustments = idx(mappedArtboard, _ => _.selection.adjustments);
+    const adjustments = idx(mappedArtboard, (_) => _.selection.adjustments);
 
     const selectionDimensions = idx(
       mappedArtboard,
-      _ => _.selection.dimensions
+      (_) => _.selection.dimensions
     );
 
     return (
@@ -105,6 +110,7 @@ class ArtboardWrapper extends React.Component {
           {...mappedArtboard}
           highlightLayer={highlightLayer}
           key={mappedArtboard.id}
+          isScaled={this.state.isScaled}
           scaleFactor={this.state.scaleFactor}
           deselectLayers={deselectLayers}
         >
@@ -115,7 +121,7 @@ class ArtboardWrapper extends React.Component {
               viewBox="0 0 1000 1000"
             >
               <defs>
-                {_.map(mappedArtboard.layers, layer => {
+                {_.map(mappedArtboard.layers, (layer) => {
                   let { fill } = layer.adjustments;
                   if (fill === undefined) return null;
                   let fillColors = colorsWithFallback(
@@ -129,7 +135,7 @@ class ArtboardWrapper extends React.Component {
                     fillConfig = {
                       angle: 0,
                       start: fillColors.solid,
-                      end: fillColors.solid
+                      end: fillColors.solid,
                     };
                   }
 
@@ -166,6 +172,7 @@ class ArtboardWrapper extends React.Component {
                       key={layer.id}
                       layer={layer}
                       selectLayer={selectLayer}
+                      isScaled={this.state.isScaled}
                       scaleFactor={this.state.scaleFactor}
                       scaleLayer={scaleLayer}
                     />
@@ -224,7 +231,7 @@ ArtboardWrapper.propTypes = {
   copyLayers: PropTypes.func.isRequired,
   deleteLayers: PropTypes.func.isRequired,
   deselectLayers: PropTypes.func.isRequired,
-  pasteLayers: PropTypes.func.isRequired
+  pasteLayers: PropTypes.func.isRequired,
 };
 
 // Wrap EditorView in mouseTrap to track key events

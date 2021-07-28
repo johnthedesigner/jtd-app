@@ -8,15 +8,15 @@ const handleSource = {
   beginDrag(props, monitor, component) {
     props.selectLayer(props.layer.id);
     return {
-      layerId: props.layer.id
+      layerId: props.layer.id,
     };
-  }
+  },
 };
 
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 }
 
@@ -29,8 +29,8 @@ class DragHandle extends React.Component {
         y: 0,
         height: 0,
         width: 0,
-        rotation: 0
-      }
+        rotation: 0,
+      },
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
@@ -39,14 +39,14 @@ class DragHandle extends React.Component {
   componentDidMount() {
     const { layer, scaleFactor } = this.props;
     this.setState({
-      dimensions: scaleAllDimensions(layer.dimensions, scaleFactor, true)
+      dimensions: scaleAllDimensions(layer.dimensions, scaleFactor, true),
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const { layer, scaleFactor } = nextProps;
     this.setState({
-      dimensions: scaleAllDimensions(layer.dimensions, scaleFactor, true)
+      dimensions: scaleAllDimensions(layer.dimensions, scaleFactor, true),
     });
   }
 
@@ -74,7 +74,7 @@ class DragHandle extends React.Component {
       height: height ? height : 0,
       transform: `rotate(${rotation}deg)`,
       opacity: isDragging ? 0 : 1,
-      borderRadius: layer.type === "ellipse" ? "50%" : 0
+      borderRadius: layer.type === "ellipse" ? "50%" : 0,
     };
 
     return connectDragSource(
@@ -91,7 +91,7 @@ class DragHandle extends React.Component {
 
 DragHandle.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired
+  isDragging: PropTypes.bool.isRequired,
 };
 
 export default DragSource("DRAGGABLE", handleSource, collect)(DragHandle);

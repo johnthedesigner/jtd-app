@@ -12,7 +12,7 @@ class HomeView extends React.Component {
       <ArtboardShortcutsContainer>
         <div className={"home-view__wrapper"}>
           <div className="home-view__featured-case-study">
-            <HomeBlock artboardId={"fake2"} deselectLayers={deselectLayers}/>
+            <HomeBlock artboardId={"fake2"} deselectLayers={deselectLayers} />
           </div>
         </div>
       </ArtboardShortcutsContainer>
@@ -21,7 +21,7 @@ class HomeView extends React.Component {
 }
 
 HomeView.propTypes = {
-  deselectLayers: PropTypes.func.isRequired
+  deselectLayers: PropTypes.func.isRequired,
 };
 
 export default HomeView;

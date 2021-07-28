@@ -9,7 +9,7 @@ class TextLayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      text: "",
     };
     this.layoutText = this.layoutText.bind(this);
   }
@@ -41,8 +41,8 @@ class TextLayer extends React.Component {
       {
         firstChild: 0, // index of the current row's first element
         width: 0, // We'll increment this as we go
-        offset: 0 // track offset if necessary for text alignment
-      }
+        offset: 0, // track offset if necessary for text alignment
+      },
     ];
 
     const getAlignOffset = (layerWidth, rowWidth, align) => {
@@ -75,7 +75,7 @@ class TextLayer extends React.Component {
         rows[currentRow] = {
           firstChild: index,
           width: childWidth,
-          offset: getAlignOffset(layerWidth, childWidth, align)
+          offset: getAlignOffset(layerWidth, childWidth, align),
         };
       }
     });
@@ -92,16 +92,16 @@ class TextLayer extends React.Component {
   }
 
   render() {
-    let { layer } = this.props
+    let { layer } = this.props;
     let {
       color,
       fontFamily,
       fontSize,
       fontWeight,
       italic,
-      underline
+      underline,
     } = layer.adjustments.text;
-    let fontFamilyProps = _.find(typeStyles.families, family => {
+    let fontFamilyProps = _.find(typeStyles.families, (family) => {
       return family.id === fontFamily;
     });
     let { x, y, width, height, rotation } = layer.dimensions;
@@ -113,17 +113,17 @@ class TextLayer extends React.Component {
     let textAnchor = "start";
     let dx = 0;
 
-    let opacity = idx(layer, _ => _.adjustments.blending.opacity);
-    let blendMode = idx(layer, _ => _.adjustments.blending.mode);
+    let opacity = idx(layer, (_) => _.adjustments.blending.opacity);
+    let blendMode = idx(layer, (_) => _.adjustments.blending.mode);
 
     let textStyles = {
       visibility: isEditable ? "hidden" : "visible",
-      mixBlendMode: blendMode ? blendMode : "normal"
+      mixBlendMode: blendMode ? blendMode : "normal",
     };
 
     return (
       <text
-        ref={t => (this.textTag = t)}
+        ref={(t) => (this.textTag = t)}
         draggable={false}
         fill={color}
         fontSize={fontSize}
@@ -154,7 +154,7 @@ class TextLayer extends React.Component {
 }
 
 TextLayer.propTypes = {
-  layer: PropTypes.object.isRequired
+  layer: PropTypes.object.isRequired,
 };
 
 export default TextLayer;
